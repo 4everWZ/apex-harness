@@ -28,6 +28,7 @@ It enforces:
 - prohibition on silent simplification or silent scope narrowing
 - documentation updates when existing source-of-truth docs would otherwise become wrong or misleading
 - structured documentation outputs under `docs/` when the task actually needs them
+- neutral implementation plans under `docs/plans/` when creating plans from approved specs
 - two-level tradeoff handling: local design tradeoffs in leaf docs, project-level deviations in `docs/tradeoffs.md`, and matrix entries that reference stable tradeoff IDs without duplicating them
 - status / handoff documentation only when the user explicitly asks for handoff
 
@@ -83,6 +84,7 @@ Use `references/workflow.md` for:
 Use `references/documentation_topology.md` for:
 - repository documentation topology
 - what belongs in `docs/specs/`
+- what belongs in `docs/plans/`
 - what belongs in `docs/design/`
 - what belongs in `docs/matrix_*.md`
 - required anchor docs
@@ -103,11 +105,12 @@ Unless the repository clearly defines a different structure, assume:
 - `docs/specs/` = active specifications and leaf docs
 - `docs/specs/legacy/` = superseded specifications
 - `docs/specs/status_*.md` = current-state snapshots and handoff notes when the user explicitly requests handoff
+- `docs/plans/` = neutral implementation plans created from approved specs
 - `docs/design/` = global architecture, system framework, or network structure docs
 - `docs/matrix_*.md` = spec-to-implementation matrices
 - `docs/tradeoffs.md` = repository-wide approved or unavoidable deviations
 
-If the repository already has a stronger convention, follow repository truth.
+If the repository already has a stronger convention, follow repository truth. Otherwise, use the neutral paths above; branded or tool-specific subdirectories such as `docs/superpowers/` are not the default.
 
 ## Minimal always-on behavior
 

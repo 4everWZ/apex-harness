@@ -43,11 +43,14 @@ When formal spec evolution is required, maintain a flat fixed-anchor topology:
 - `docs/specs/integration_*.md` — end-to-end assembly and validation checklist
 - `docs/specs/status_*.md` — current-state snapshots and handoff notes when the user explicitly requests handoff
 - `docs/specs/legacy/` — superseded specifications
+- `docs/plans/` — neutral implementation plans created from approved specs
 - `docs/design/` — global architecture, system framework, or overall network structure docs
 - `docs/matrix_*.md` — spec-to-implementation matrix
 - `docs/tradeoffs.md` — approved or unavoidable project-level deviations
 
 Move the original pre-implementation spec to `docs/specs/legacy/` when it is superseded by formalized active documentation.
+
+Use the neutral topology above when the repository has no stronger convention. Do not make branded or tool-specific subdirectories such as `docs/superpowers/` the default home for specs, plans, matrices, tradeoff logs, or handoff snapshots.
 
 ## 4. Required Anchor Documents
 
@@ -113,7 +116,12 @@ Purpose:
 - reference project-level deviations by tradeoff ID instead of duplicating long explanations
 - serve as the requirement-level coverage source of truth
 
-### 4.6 Integration
+### 4.6 Implementation Plans
+`docs/plans/` stores implementation plans created from approved specs.
+
+Use this location when a plan is durable enough to keep with repository docs, but should not be treated as an active spec, design doc, matrix, tradeoff log, or handoff snapshot.
+
+### 4.7 Integration
 `integration_*.md` must contain:
 
 - end-to-end assembly view
@@ -123,7 +131,7 @@ Purpose:
 - known hard boundaries
 - final acceptance status
 
-### 4.7 Status / Handoff
+### 4.8 Status / Handoff
 `status_*.md` is used when the user explicitly requests handoff.
 
 Create or refresh the handoff document only when the user asks for handoff.
