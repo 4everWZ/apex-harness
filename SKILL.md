@@ -90,6 +90,10 @@ Use `references/documentation_topology.md` for:
 - required anchor docs
 - update rules by tier
 
+Use `references/plan_template.md` for:
+- implementation plans in `docs/plans/`
+- compatibility with plan executors such as `writing-plans` and subagent-driven execution
+
 Use `references/matrix_template.md` for:
 - original-intent to current-implementation mapping
 

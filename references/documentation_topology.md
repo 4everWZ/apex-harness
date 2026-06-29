@@ -52,6 +52,8 @@ Move the original pre-implementation spec to `docs/specs/legacy/` when it is sup
 
 Use the neutral topology above when the repository has no stronger convention. Do not make branded or tool-specific subdirectories such as `docs/superpowers/` the default home for specs, plans, matrices, tradeoff logs, or handoff snapshots.
 
+Use progressive disclosure: link to related docs instead of copying them. Load matrix rows, tradeoff entries, or handoff notes only when the current task needs that layer.
+
 ## 4. Required Anchor Documents
 
 ### 4.1 Overview
@@ -106,6 +108,7 @@ If a topic appears in both places:
 - keep the leaf doc version short and local
 - keep the full deviation record in `docs/tradeoffs.md`
 - reference the corresponding tradeoff entry by stable ID from the leaf doc when useful (for example, `TRD-001`)
+- do not copy tradeoff entries into plans, matrices, or handoff docs
 
 ### 4.5 Spec-to-Implementation Matrix
 `docs/matrix_*.md` is mandatory for Tier A and recommended for substantial Tier B work.
@@ -120,6 +123,8 @@ Purpose:
 `docs/plans/` stores implementation plans created from approved specs.
 
 Use this location when a plan is durable enough to keep with repository docs, but should not be treated as an active spec, design doc, matrix, tradeoff log, or handoff snapshot.
+
+Use `references/plan_template.md` for the expected shape. Keep matrix and tradeoff references as optional links; do not create those artifacts just to fill a header.
 
 ### 4.7 Integration
 `integration_*.md` must contain:
