@@ -57,7 +57,7 @@ Workflow tools must resolve their output paths through this order:
 2. active governance or accepted spec convention
 3. the neutral topology in this document
 
-Date-prefixed designs belong under `docs/design/YYYY-MM-DD-<topic>-design.md`. They may capture an approved design, an architectural decision, or a design evolution record and should link to affected specs. Compatibility does not mean mechanically overwriting them: update an existing design when it remains the same living decision, or create a new dated record when the direction materially changes and history matters. Keep requirements and contracts in `docs/specs/`; avoid duplicating their full content in design records.
+Date-prefixed designs belong under `docs/design/YYYY-MM-DD-<topic>-design.md`. The date records when the design was established, not an immutable version. Update it while it represents the same living decision; when direction materially changes and history matters, create a new dated design and cross-link them with `Status: superseded`, `Supersedes: <path>`, or `Superseded by: <path>` as applicable. Keep requirements and contracts in `docs/specs/`; avoid duplicating their full content in design records.
 
 Use progressive disclosure: link to related docs instead of copying them. Load matrix rows, tradeoff entries, or handoff notes only when the current task needs that layer.
 
