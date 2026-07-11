@@ -121,8 +121,9 @@ SHA-256 of the type-specific payload. Allowed record types and payloads are:
   the type even when content is unchanged
 - `symlink`: raw UTF-8 symlink-target bytes
 - `missing`: empty payload for an index path absent from the working tree
-- `gitlink`: index gitlink OID, NUL, checked-out submodule `HEAD`, NUL, and raw
-  `git status --porcelain=v2 -z --untracked-files=all` bytes
+- `gitlink`: index gitlink OID, NUL, and the versioned canonical identifier
+  recursively generated for the checked-out submodule, covering its index,
+  tracked working tree, untracked files, and nested gitlinks
 - `gitlink-missing` / `gitlink-unavailable`: index gitlink OID
 
 Reject unsupported filesystem types rather than inventing a record. Order
