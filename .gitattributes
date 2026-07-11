@@ -1,0 +1,5 @@
+# Shell tests must remain executable by Bash across Windows and Unix checkouts.
+*.sh text eol=lf
+
+# Keep skill and governance documentation stable across platforms.
+*.md text eol=lf

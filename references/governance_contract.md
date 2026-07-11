@@ -13,9 +13,10 @@ between governance and workflow skills.
 | Field | Allowed values | Meaning |
 |---|---|---|
 | `risk_tier` | `A`, `B`, `C` | Risk classification from `workflow.md` |
-| `git_authority` | any subset of `edit`, `stage`, `commit`, `push`, `merge`, `worktree`, `discard` | Maximum local/remote Git authority granted by higher-priority instructions |
+| `git_authority` | any subset of `edit`, `stage`, `commit`, `push`, `force-push`, `delete-ref`, `merge`, `worktree`, `discard` | Maximum local/remote Git authority granted by higher-priority instructions |
 | `external_mutations` | explicit named operations or `none` | Non-Git external changes such as deploy, message, issue update, or cloud-resource mutation |
 | `delegated_git_authority` | subset of `git_authority`, or `none` | Git authority explicitly delegated to subagents; omission means read-only |
+| `delegated_roles` | explicit role names or `none` | Subagent roles authorized for the phase, such as implementer, investigator, task-reviewer, or final-reviewer |
 | `design_gate` | `satisfied`, `required` | Whether material intent is already approved |
 | `execution_mode` | `inline`, `delegated`, `parallel-investigation` | Selected coordination mode for the current task or phase |
 | `selected_mechanisms` | explicit subset of brainstorming, plan, TDD, debugging, worktree, delegation, parallel investigation, review, branch finishing | Workflow mechanisms whose predicates were evaluated and selected |
@@ -61,9 +62,9 @@ Use a mechanism only when all of its predicates are true.
 | TDD | Listed in `selected_mechanisms`; a failing automated test can credibly define the changed contract before implementation |
 | Systematic debugging | Listed in `selected_mechanisms`; a bug or unexplained failure requires causal investigation before a fix can be selected |
 | Worktree | Isolation is justified, supported by `platform_capabilities`, selected in `selected_mechanisms`, and any required Git/filesystem mutation is authorized |
-| Delegated execution | `execution_mode=delegated`, delegation is in `selected_mechanisms`, tasks have safe boundaries, and the runtime plus `delegated_git_authority` provide the isolation/review capabilities required by the selected workflow |
-| Parallel investigation | `execution_mode=parallel-investigation`, the mechanism is selected, and two or more investigations are independent without unauthorized shared-state mutation |
-| Code review | Listed in `selected_mechanisms`; the risk or lifecycle decision justifies independent review, a reviewer is available, and any subagent delegation is authorized/supported |
+| Delegated execution | `execution_mode=delegated`, delegation is in `selected_mechanisms`, every required phase role is in `delegated_roles`, tasks have safe boundaries, and the runtime plus `delegated_git_authority` provide the isolation/review capabilities required by the selected workflow |
+| Parallel investigation | `execution_mode=parallel-investigation`, the mechanism is selected, two or more investigations are independent without unauthorized shared-state mutation, and each delegated investigator role is in `delegated_roles` with authorized/supported delegation |
+| Code review | Listed in `selected_mechanisms`; the risk or lifecycle decision justifies independent review and an independent reviewer is available. Only a delegated subagent reviewer additionally requires its role in `delegated_roles` and authorized/supported delegation |
 | Branch finishing | Listed in `selected_mechanisms` and the user requested integration, publication, retention, or cleanup |
 
 Availability alone is not a predicate. The existence of subagents, tests,
@@ -104,16 +105,19 @@ identifiers. Changes proven unrelated to the claim do not invalidate it. A
 message boundary alone does not make evidence stale, and a recent command does
 not make irrelevant evidence sufficient.
 
-For an uncommitted state, the canonical identifier contains all four parts:
+For an uncommitted state, use the versioned `governance-working-tree-v2`
+identifier. It contains:
 
 1. base `HEAD` SHA
 2. SHA-256 of the raw NUL-delimited index manifest produced by
    `git -c core.quotePath=false ls-files --stage -z`
 3. SHA-256 of a tracked working-tree manifest covering every index path,
    including explicit missing, regular-file, symlink, and gitlink records
-4. SHA-256 of a manifest covering every in-scope untracked file
+4. SHA-256 of every non-ignored untracked path visible to Git
+5. SHA-256 of explicitly named repository-relative extra inputs, including
+   ignored files that can affect the reviewed claim
 
-Serialize working-tree and untracked records as NUL-separated fields:
+Serialize tracked, untracked, and explicit-extra records as NUL-separated fields:
 repository-relative UTF-8 forward-slash path, record type, and lowercase
 SHA-256 of the type-specific payload. Allowed record types and payloads are:
 
@@ -136,6 +140,27 @@ available; record its format version. This avoids Git diff presentation and
 configuration differences while keeping staged, tracked-working-tree, and
 untracked state separately comparable.
 
+Reject non-UTF-8 Git paths and unmerged index entries rather than decoding them
+lossily or choosing one conflict stage. Serialize the scope descriptor as
+compact UTF-8 JSON with keys in this order: `gitVisible`, `extraPaths`, using
+the exact `gitVisible` value `tracked+nonignored-untracked`. Resolve extra paths
+from the repository root; reject absolute paths, root aliases, and paths that
+lexically escape the root; reject any symbolic-link/junction ancestor while
+still allowing a leaf symlink record; normalize to repository-relative forward-slash form; dedupe
+after normalization; then sort by ordinal UTF-8 bytes. The top-level
+component JSON uses this exact key order: `format`, `scopeSha256`, `baseHead`,
+`indexSha256`, `trackedWorktreeSha256`, `untrackedSha256`,
+`extraInputsSha256`. Compute `identifierSha256` over those compact UTF-8 JSON
+bytes and append it as the final field. This binds format, scope, and every
+component into one comparable identifier.
+
+Explicit extra inputs reuse the same record types, payloads, ordering, and
+fail-closed rules. They must name leaf paths; reject an explicit ordinary
+directory rather than recursively inventing its scope. A symlink record binds
+the link identity only. If its target content affects the claim, name the
+repository-relative target separately; if that target cannot be governed,
+narrow the freshness claim.
+
 Reviewers may consume implementer evidence while independently inspecting the
 change. The controller remains responsible for ensuring that final completion
 claims are supported by fresh evidence for the final code state. Re-run only
@@ -149,8 +174,17 @@ literally:
 - `edit` permits working-tree changes only.
 - `stage` permits adding or removing explicitly authorized paths in the Git
   index; it does not authorize editing, committing, or staging unrelated paths.
-- `commit` permits coherent local commits after relevant verification.
-- `push` permits pushing commits or branches. Creating review artifacts or
+- `commit` permits a coherent local commit only when the index was empty before
+  task staging, only active-task allowlisted paths were staged explicitly, and
+  the final cached path list is a subset of that allowlist. If unrelated staged
+  content already exists, stop without altering or committing it. Do not use
+  `commit -a` or a broad staging command.
+- `push` permits a normal fast-forward update of an explicitly named branch to
+  an explicitly named remote. It does not permit force, lease override, ref
+  deletion, tag mutation, or pushing unrelated refs.
+- `force-push` and `delete-ref` are separate destructive authorities requiring
+  an explicit target ref, impact disclosure, and destructive confirmation.
+  Creating review artifacts or
   updating issues requires a separately named `external_mutations` entry.
 - `merge` permits integration into another branch.
 - `worktree` permits creating a worktree and removing a clean, agent-created
@@ -160,7 +194,8 @@ literally:
   confirmation are additionally required.
 - `discard` permits destructive cleanup only with explicit confirmation.
 
-Delegated agents are read-only unless `delegated_git_authority` explicitly
+Delegated agents are read-only unless their phase role appears in
+`delegated_roles` and `delegated_git_authority` explicitly
 grants a subset of the controller's `git_authority`. The controller owns edits
 and commits that were not explicitly delegated. Push, merge, discard, deploy,
 message, issue-update, and other external authority are never inferred from
