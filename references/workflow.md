@@ -136,6 +136,22 @@ Follow this flow at the appropriate intensity:
 9. Synchronize documentation if required by scope.
 10. If the user explicitly requests handoff, update the status / handoff document.
 
+### Mechanism Intensity
+
+Classification selects an appropriate mechanism; it does not activate an entire workflow stack.
+
+| Mechanism | Tier A | Substantial Tier B | Lightweight Tier B / Tier C |
+|---|---|---|---|
+| Brainstorming | Use when intent or approach is not approved | Use only for material ambiguity or competing designs | Usually unnecessary |
+| Durable plan | Usually appropriate | Use for multi-step, durable, or handoff-ready work | Usually unnecessary |
+| Worktree | Recommended when risk or isolation needs justify it | Use only when isolation is useful | Usually unnecessary |
+| Subagent-driven execution and per-task review | Use for a large plan with multiple substantially independent tasks | Optional when task boundaries justify the overhead | Do not use by default |
+| Inline execution | Use when work is tightly coupled | Default when sufficient | Default |
+| Implementation matrix | Required | Recommended when scope tracking is needed | Usually unnecessary |
+| Tradeoff record | Use for material approved or unavoidable deviations | Use for material approved or unavoidable deviations | Usually unnecessary |
+
+TDD is selected by whether a failing automated test can credibly define the changed contract before implementation, not by tier alone. Higher tiers require stronger evidence, which may be TDD, a dedicated harness, existing reliable tests, or another equally credible verification path depending on the claim.
+
 ## 5. Harness Rules
 
 Harnesses are a tool, not a ritual.
