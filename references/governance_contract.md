@@ -13,7 +13,7 @@ between governance and workflow skills.
 | Field | Allowed values | Meaning |
 |---|---|---|
 | `risk_tier` | `A`, `B`, `C` | Risk classification from `workflow.md` |
-| `git_authority` | any subset of `edit`, `commit`, `push`, `merge`, `worktree`, `discard` | Maximum local/remote Git authority granted by higher-priority instructions |
+| `git_authority` | any subset of `edit`, `stage`, `commit`, `push`, `merge`, `worktree`, `discard` | Maximum local/remote Git authority granted by higher-priority instructions |
 | `external_mutations` | explicit named operations or `none` | Non-Git external changes such as deploy, message, issue update, or cloud-resource mutation |
 | `delegated_git_authority` | subset of `git_authority`, or `none` | Git authority explicitly delegated to subagents; omission means read-only |
 | `design_gate` | `satisfied`, `required` | Whether material intent is already approved |
@@ -107,18 +107,20 @@ not make irrelevant evidence sufficient.
 For an uncommitted state, the canonical identifier contains all four parts:
 
 1. base `HEAD` SHA
-2. SHA-256 of the binary staged diff (`HEAD` to index)
-3. SHA-256 of the binary unstaged tracked diff (index to working tree)
-4. a path-sorted manifest of untracked files in scope, with a SHA-256 content
-   digest for each file
+2. SHA-256 of the raw NUL-delimited index manifest produced by
+   `git -c core.quotePath=false ls-files --stage -z`
+3. SHA-256 of a tracked working-tree manifest covering every index path,
+   including explicit missing, regular-file, symlink, and gitlink records
+4. SHA-256 of a manifest covering every in-scope untracked file
 
-Generate staged and unstaged components from the exact binary diff bytes with
-external diff helpers disabled. Serialize the untracked manifest as
-NUL-separated pairs of UTF-8 repository-relative forward-slash paths and
-lowercase hexadecimal content digests, ordered by ordinal UTF-8 path bytes.
-Record empty components explicitly. Platform-appropriate commands may produce
-the identifier, but these component, ordering, serialization, and SHA-256 rules
-stay the same so evidence from different agents is comparable.
+Serialize working-tree and untracked records as NUL-separated fields:
+repository-relative UTF-8 forward-slash path, record type, and lowercase
+SHA-256 of raw file bytes (or raw symlink-target bytes). Order records by
+ordinal UTF-8 path bytes and record empty manifests explicitly. Use one
+repository-provided generator for both capture and comparison when available;
+record its format version. This avoids Git diff presentation/configuration
+differences while keeping staged, tracked-working-tree, and untracked state
+separately comparable.
 
 Reviewers may consume implementer evidence while independently inspecting the
 change. The controller remains responsible for ensuring that final completion
@@ -131,6 +133,8 @@ Apply `git_authority`, `delegated_git_authority`, and `external_mutations`
 literally:
 
 - `edit` permits working-tree changes only.
+- `stage` permits adding or removing explicitly authorized paths in the Git
+  index; it does not authorize editing, committing, or staging unrelated paths.
 - `commit` permits coherent local commits after relevant verification.
 - `push` permits pushing commits or branches. Creating review artifacts or
   updating issues requires a separately named `external_mutations` entry.
