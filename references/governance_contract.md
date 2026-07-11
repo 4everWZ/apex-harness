@@ -124,9 +124,12 @@ SHA-256 of the type-specific payload. Allowed record types and payloads are:
 - `gitlink`: index gitlink OID, NUL, and the versioned canonical identifier
   recursively generated for the checked-out submodule, covering its index,
   tracked working tree, untracked files, and nested gitlinks
-- `gitlink-missing` / `gitlink-unavailable`: index gitlink OID
+- `gitlink-missing`: index gitlink OID when the checked-out submodule path is absent
 
-Reject unsupported filesystem types rather than inventing a record. Order
+Fail closed when a present gitlink cannot be recursively identified; do not
+convert permission, corruption, unsupported-content, or nested-generator errors
+into a stable fallback digest. Reject unsupported filesystem types rather than
+inventing a record. Order
 records by ordinal UTF-8 path bytes and record empty manifests explicitly. Use
 one repository-provided generator for both capture and comparison when
 available; record its format version. This avoids Git diff presentation and
