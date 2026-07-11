@@ -115,12 +115,22 @@ For an uncommitted state, the canonical identifier contains all four parts:
 
 Serialize working-tree and untracked records as NUL-separated fields:
 repository-relative UTF-8 forward-slash path, record type, and lowercase
-SHA-256 of raw file bytes (or raw symlink-target bytes). Order records by
-ordinal UTF-8 path bytes and record empty manifests explicitly. Use one
-repository-provided generator for both capture and comparison when available;
-record its format version. This avoids Git diff presentation/configuration
-differences while keeping staged, tracked-working-tree, and untracked state
-separately comparable.
+SHA-256 of the type-specific payload. Allowed record types and payloads are:
+
+- `regular-0644` / `regular-0755`: raw file bytes; executable-bit changes alter
+  the type even when content is unchanged
+- `symlink`: raw UTF-8 symlink-target bytes
+- `missing`: empty payload for an index path absent from the working tree
+- `gitlink`: index gitlink OID, NUL, checked-out submodule `HEAD`, NUL, and raw
+  `git status --porcelain=v2 -z --untracked-files=all` bytes
+- `gitlink-missing` / `gitlink-unavailable`: index gitlink OID
+
+Reject unsupported filesystem types rather than inventing a record. Order
+records by ordinal UTF-8 path bytes and record empty manifests explicitly. Use
+one repository-provided generator for both capture and comparison when
+available; record its format version. This avoids Git diff presentation and
+configuration differences while keeping staged, tracked-working-tree, and
+untracked state separately comparable.
 
 Reviewers may consume implementer evidence while independently inspecting the
 change. The controller remains responsible for ensuring that final completion
