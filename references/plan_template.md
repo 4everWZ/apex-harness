@@ -36,7 +36,10 @@ constraints, or other values every task must obey.]
 
 - [ ] **Step 1: [Specific action]**
 
-Run / edit / verify exactly what this step requires.
+Describe the exact edit, contract, or acceptance condition. Include complete
+code only when it is necessary to remove a material ambiguity; otherwise keep
+implementation details in the implementation and tests rather than duplicating
+them in the plan.
 
 - [ ] **Step 2: [Verification action]**
 
@@ -55,7 +58,13 @@ Optional reference lines, inserted after `Tech Stack` only when applicable:
 ## Rules
 
 - Put approved, durable implementation plans in `docs/plans/`.
-- Include `Spec`, `Matrix`, and `Tradeoffs` links only when those artifacts exist or are required by task tier.
+- Include `Spec`, `Matrix`, and `Tradeoffs` links only when those artifacts exist
+  or the active governance decision lists them in documentation obligations.
 - Do not duplicate matrix rows, tradeoff narratives, or handoff status in the plan.
 - Use links for progressive disclosure; load linked docs only when the current task needs them.
 - Each task should be independently reviewable and testable.
+- Plans specify responsibilities, interfaces, constraints, acceptance criteria,
+  and verification. They are not a second copy of the implementation.
+- Include commit boundaries only when the active Git policy authorizes commits;
+  never infer push, merge, worktree, discard, or named external-mutation
+  authority from a plan.

@@ -45,11 +45,12 @@ It enforces:
 ## How to use this skill
 
 1. Classify the task using `references/workflow.md`.
-2. Apply the correct verification intensity from `references/workflow.md`.
-3. If the task changes substantial behavior, architecture, evaluation semantics, or research interpretation, follow `references/documentation_topology.md`.
-4. If the task is Tier A or a substantial Tier B task, maintain a spec-to-implementation mapping using `references/matrix_template.md`.
-5. If the implementation materially deviates from the original plan, record the deviation using `references/tradeoff_template.md`.
-6. When the user explicitly requests handoff, maintain or refresh a current status / handoff document using `references/status_template.md`.
+2. Resolve authority, mechanism, capability, and evidence boundaries using `references/governance_contract.md`.
+3. Apply the correct verification intensity from `references/workflow.md`.
+4. If the task changes substantial behavior, architecture, evaluation semantics, or research interpretation, follow `references/documentation_topology.md`.
+5. If traceability risk justifies it, maintain a spec-to-implementation mapping using `references/matrix_template.md`.
+6. If the implementation materially deviates from the original plan, record the deviation using `references/tradeoff_template.md`.
+7. When the user explicitly requests handoff, maintain or refresh a current status / handoff document using `references/status_template.md`.
 
 ## Activation output
 
@@ -81,6 +82,13 @@ Use `references/workflow.md` for:
 - completion rules
 - handoff rules
 - environment policy
+
+Use `references/governance_contract.md` for:
+- authority and Git mutation boundaries
+- mechanism preconditions
+- platform capability negotiation
+- reusable verification evidence
+- governance-to-workflow composition
 
 Use `references/documentation_topology.md` for:
 - repository documentation topology
@@ -131,6 +139,8 @@ Even when this skill is active:
 APEX is the governance layer when it is active: it decides risk tier, consultation boundaries, verification intensity, and required documentation. Workflow skills such as brainstorming, planning, TDD, worktrees, delegation, review, and branch finishing are execution mechanisms selected at the intensity justified by that classification.
 
 - Use a workflow skill when its concrete trigger is present; activation does not automatically make every step heavyweight.
+- Workflow skills consume the decision record in `references/governance_contract.md`; they must not increase mutation authority, delegation, ceremony, or documentation obligations on their own.
+- Tool availability alone does not select a mechanism. Confirm required runtime capabilities and use documented fallbacks rather than guessing APIs or parameters.
 - Do not let a leaf workflow create a second spec, plan, matrix, tradeoff log, or handoff source of truth.
 - Repository conventions take precedence over the neutral documentation defaults in this skill.
 - Platform, system, developer, user, and repository instructions remain authoritative over every skill.

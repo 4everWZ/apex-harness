@@ -128,13 +128,14 @@ Follow this flow at the appropriate intensity:
 1. Read relevant repository context.
 2. Classify the task.
 3. Define success criteria appropriate to the tier.
-4. Ensure outputs are observable locally.
-5. Perform a critical review of assumptions and risk.
-6. Choose the least expensive verification path that still provides real confidence.
-7. Implement the most defensible version of the change.
-8. Run verification and iterate until criteria are met or a hard boundary is reached.
-9. Synchronize documentation if required by scope.
-10. If the user explicitly requests handoff, update the status / handoff document.
+4. Resolve the applicable fields in `governance_contract.md`, including mutation authority and platform capabilities.
+5. Ensure outputs are observable locally.
+6. Perform a critical review of assumptions and risk.
+7. Choose the least expensive verification path that still provides real confidence.
+8. Implement the most defensible version of the change.
+9. Run verification and iterate until criteria are met or a hard boundary is reached.
+10. Synchronize documentation if required by scope.
+11. If the user explicitly requests handoff, update the status / handoff document.
 
 ### Mechanism Intensity
 
@@ -147,10 +148,16 @@ Classification selects an appropriate mechanism; it does not activate an entire 
 | Worktree | Recommended when risk or isolation needs justify it | Use only when isolation is useful | Usually unnecessary |
 | Subagent-driven execution and per-task review | Use for a large plan with multiple substantially independent tasks | Optional when task boundaries justify the overhead | Do not use by default |
 | Inline execution | Use when work is tightly coupled | Default when sufficient | Default |
-| Implementation matrix | Required | Recommended when scope tracking is needed | Usually unnecessary |
+| Implementation matrix | Use when requirement traceability or research-claim coverage is material | Use when scope tracking is needed | Usually unnecessary |
 | Tradeoff record | Use for material approved or unavoidable deviations | Use for material approved or unavoidable deviations | Usually unnecessary |
 
 TDD is selected by whether a failing automated test can credibly define the changed contract before implementation, not by tier alone. Higher tiers require stronger evidence, which may be TDD, a dedicated harness, existing reliable tests, or another equally credible verification path depending on the claim.
+
+The selected mechanisms and permissions form a decision record under
+`governance_contract.md`. Leaf workflows may stop when their preconditions are
+not met, but they do not independently escalate from inline to delegated work,
+from edit to commit/push or named external-mutation authority, or from focused
+to heavyweight ceremony.
 
 ## 5. Harness Rules
 
@@ -184,6 +191,11 @@ A task is complete only when, at the required tier:
 - behavior-changing claims are supported by observed evidence
 - required documentation updates, if any, are complete
 - no known critical contradiction remains between code, tests, relevant documentation, and the implementation matrix
+
+Verification evidence may be reused when it still covers the final code state
+and the claim being made. Re-run checks when evidence is stale, incomplete, or
+too weak for the selected verification level; do not repeat commands merely
+because a message or agent boundary was crossed.
 
 If blocked by a hard boundary such as missing credentials, unavailable hardware, missing datasets, external service failure, or unrecoverable environment limits:
 - do not bluff

@@ -35,7 +35,8 @@ Documentation updates are usually unnecessary unless the change crosses a behavi
 
 ## 3. Repository Layout Assumption
 
-When formal spec evolution is required, maintain a flat fixed-anchor topology:
+When formal spec evolution is required and the repository has no stronger
+convention, use the smallest applicable subset of this neutral topology:
 
 - `docs/specs/00_*.md` — overview and top-level decomposition
 - `docs/specs/algo_*.md` — one per major algorithm or research module
@@ -48,7 +49,13 @@ When formal spec evolution is required, maintain a flat fixed-anchor topology:
 - `docs/matrix_*.md` — spec-to-implementation matrix
 - `docs/tradeoffs.md` — approved or unavoidable project-level deviations
 
-Move the original pre-implementation spec to `docs/specs/legacy/` when it is superseded by formalized active documentation.
+The `algo_*`, `dev_*`, and `integration_*` names are a research/complex-systems
+profile, not mandatory names for ordinary application repositories. A
+repository may use product, ADR, RFC, service, or other established naming
+without translating it into the profile above.
+
+Move the original pre-implementation spec to `docs/specs/legacy/` only when it
+is superseded and the repository preserves superseded specs in that location.
 
 Use the neutral topology above when the repository has no stronger convention. Do not make branded or tool-specific subdirectories such as `docs/superpowers/` the default home for specs, plans, matrices, tradeoff logs, or handoff snapshots.
 
@@ -118,7 +125,11 @@ If a topic appears in both places:
 - do not copy tradeoff entries into plans, matrices, or handoff docs
 
 ### 4.5 Spec-to-Implementation Matrix
-`docs/matrix_*.md` is mandatory for Tier A and recommended for substantial Tier B work.
+`docs/matrix_*.md` is required when Tier A work has material requirement,
+research-claim, evaluation, or cross-module traceability risk. It is optional
+when existing tests and source-of-truth documents already provide equivalent
+traceability. Use it for substantial Tier B work only when scope tracking would
+otherwise be unreliable.
 
 Purpose:
 - map original intent to current implementation status
