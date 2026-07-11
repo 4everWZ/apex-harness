@@ -84,6 +84,8 @@ Must include:
 
 Risk escalation means stricter verification and documentation, not automatic user interruption.
 
+Human judgment remains a design input, especially in exploratory or vibe-coding work. Autonomy means resolving mechanical details from repository truth; it does not mean inventing product intent. Before implementation, obtain human confirmation when an underspecified direction would materially determine what is built, even if several implementations are technically viable.
+
 Do not ask the user for confirmation for:
 - routine debugging
 - routine tier escalation
@@ -95,6 +97,9 @@ Ask the user only when:
 - multiple materially different implementations would satisfy the request but imply different product, research, maintenance, or evaluation tradeoffs, and the choice cannot be resolved mechanically
 - proceeding would require changing scope, public behavior, evaluation semantics, data semantics, or external contracts beyond what the user requested
 - a required external input, credential, approval, or product decision is missing
+- the request is exploratory, aesthetic, or vibe-driven and the proposed direction would establish material product behavior, architecture, interaction semantics, or acceptance criteria that the user has not yet endorsed
+
+The confirmation can be proportionate: a short proposed direction and one approval is enough for a small but consequential choice. Formal specs, repeated section-by-section approvals, and a second approval of the same decision are not required unless the risk, ambiguity, repository process, or user request justifies them.
 
 For Tier A research tasks, ask the user before committing to materially different design choices in:
 - objectives
@@ -108,6 +113,13 @@ For Tier A research tasks, ask the user before committing to materially differen
 Do not silently simplify, omit, downgrade, or narrow a requested feature, algorithm, evaluation setup, or spec-defined requirement merely because a cheaper implementation is easier to complete locally. If such a reduction would materially change scope, capability, scientific claim, or interpretation, surface the tradeoffs and ask the user before proceeding.
 
 If none of the above applies, choose the most defensible implementation and continue autonomously.
+
+### Brainstorming Routing
+
+- Tier A: use an explicit design or decision pass before implementation when intent or approach is not already approved.
+- Substantial Tier B: use brainstorming when requirements are ambiguous or multiple materially different designs remain; otherwise an existing approved spec or a concise implementation boundary is sufficient.
+- Tier C and routine bug fixes: do not require brainstorming unless the user is actually choosing new behavior or experience.
+- An approved design, accepted spec, or explicit user direction satisfies the design gate; do not ask the user to approve the same decision again merely because it was written to a file.
 
 ## 4. Execution Workflow
 

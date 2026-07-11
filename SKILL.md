@@ -24,6 +24,7 @@ Do **not** use this skill for trivial low-risk edits such as:
 It enforces:
 - risk-calibrated execution (`Tier A / B / C`)
 - stronger verification for higher-risk work
+- preservation of meaningful human design authority without turning routine implementation into an approval queue
 - explicit boundaries for when the user must make decisions
 - prohibition on silent simplification or silent scope narrowing
 - documentation updates when existing source-of-truth docs would otherwise become wrong or misleading
@@ -110,7 +111,7 @@ Unless the repository clearly defines a different structure, assume:
 - `docs/specs/legacy/` = superseded specifications
 - `docs/specs/status_*.md` = current-state snapshots and handoff notes when the user explicitly requests handoff
 - `docs/plans/` = neutral implementation plans created from approved specs
-- `docs/design/` = global architecture, system framework, or network structure docs
+- `docs/design/` = architecture and design records, including dated design documents
 - `docs/matrix_*.md` = spec-to-implementation matrices
 - `docs/tradeoffs.md` = repository-wide approved or unavoidable deviations
 
@@ -122,4 +123,14 @@ Even when this skill is active:
 - keep diffs proportionate to task scope
 - prefer existing reliable tests over redundant scaffolding
 - ask the user before committing to material research or architecture tradeoffs
+- confirm intent or design direction when a request is exploratory, underspecified, or explicitly vibe-driven and the choice would materially shape the result
 - do not claim completion unless claimed scope, verification, and any required documentation are mutually consistent
+
+## Composition with workflow skills
+
+APEX is the governance layer when it is active: it decides risk tier, consultation boundaries, verification intensity, and required documentation. Workflow skills such as brainstorming, planning, TDD, worktrees, delegation, review, and branch finishing are execution mechanisms selected at the intensity justified by that classification.
+
+- Use a workflow skill when its concrete trigger is present; activation does not automatically make every step heavyweight.
+- Do not let a leaf workflow create a second spec, plan, matrix, tradeoff log, or handoff source of truth.
+- Repository conventions take precedence over the neutral documentation defaults in this skill.
+- Platform, system, developer, user, and repository instructions remain authoritative over every skill.

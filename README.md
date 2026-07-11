@@ -35,7 +35,7 @@ Keep your global `~/.codex/AGENTS.md` short. Example:
 
 - Keep long procedures in the skill, not in `AGENTS.md`.
 - Keep repo-specific structural rules in the repository's own `AGENTS.md`.
-- Use `docs/design/` for overall network or system architecture.
+- Use `docs/design/` for architecture and design records, including dated `YYYY-MM-DD-<topic>-design.md` documents.
 - Use `docs/specs/` for active specs and leaf docs.
 - Use `docs/plans/` for neutral implementation plans created from approved specs.
 - Use `docs/matrix_*.md` for spec-to-implementation matrices.

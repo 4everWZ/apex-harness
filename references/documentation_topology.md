@@ -44,13 +44,20 @@ When formal spec evolution is required, maintain a flat fixed-anchor topology:
 - `docs/specs/status_*.md` — current-state snapshots and handoff notes when the user explicitly requests handoff
 - `docs/specs/legacy/` — superseded specifications
 - `docs/plans/` — neutral implementation plans created from approved specs
-- `docs/design/` — global architecture, system framework, or overall network structure docs
+- `docs/design/` — architecture and design records, including `YYYY-MM-DD-<topic>-design.md`
 - `docs/matrix_*.md` — spec-to-implementation matrix
 - `docs/tradeoffs.md` — approved or unavoidable project-level deviations
 
 Move the original pre-implementation spec to `docs/specs/legacy/` when it is superseded by formalized active documentation.
 
 Use the neutral topology above when the repository has no stronger convention. Do not make branded or tool-specific subdirectories such as `docs/superpowers/` the default home for specs, plans, matrices, tradeoff logs, or handoff snapshots.
+
+Workflow tools must resolve their output paths through this order:
+1. repository-defined documentation convention
+2. active governance or accepted spec convention
+3. the neutral topology in this document
+
+Date-prefixed designs belong under `docs/design/YYYY-MM-DD-<topic>-design.md`. They may capture an approved design, an architectural decision, or a design evolution record and should link to affected specs. Compatibility does not mean mechanically overwriting them: update an existing design when it remains the same living decision, or create a new dated record when the direction materially changes and history matters. Keep requirements and contracts in `docs/specs/`; avoid duplicating their full content in design records.
 
 Use progressive disclosure: link to related docs instead of copying them. Load matrix rows, tradeoff entries, or handoff notes only when the current task needs that layer.
 
