@@ -1,0 +1,9 @@
+{
+  "expectations": [
+    {"text": "Matching status or diff statistics are not accepted as proof that relevant content is unchanged.", "passed": true, "evidence": "Rejects matching summaries and proposes a content hash."},
+    {"text": "A committed HEAD is required before the commit-range SDD workflow proceeds.", "passed": true, "evidence": "Verifies HEAD as a commit and checks for a root commit."},
+    {"text": "Plan, relevant files, explicit inputs, and checkpoint commits are reconciled using content-sensitive evidence.", "passed": false, "evidence": "Checks the source hash and dependency, but does not verify the plan digest, explicit inputs, or recorded checkpoint commit range."},
+    {"text": "Affected inspection or verification is rerun when unchanged state cannot be established cheaply.", "passed": true, "evidence": "Reruns only the minimum affected producer or validation step."}
+  ],
+  "summary": {"passed": 3, "failed": 1, "total": 4, "pass_rate": 0.75}
+}

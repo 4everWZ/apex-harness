@@ -1,0 +1,43 @@
+{
+  "name": "apex",
+  "version": "0.1.0",
+  "description": "APEX governance with composable planning, debugging, verification, review, and delivery skills.",
+  "author": {
+    "name": "Jesse Vincent",
+    "email": "jesse@fsck.com",
+    "url": "https://github.com/obra"
+  },
+  "license": "MIT",
+  "keywords": [
+    "brainstorming",
+    "subagent-driven-development",
+    "skills",
+    "planning",
+    "tdd",
+    "debugging",
+    "code-review",
+    "workflow"
+  ],
+  "skills": "./skills/",
+  "hooks": "./hooks/hooks-codex.json",
+  "interface": {
+    "displayName": "APEX",
+    "shortDescription": "Governed software engineering workflows for coding agents",
+    "longDescription": "Use APEX governance to select and constrain composable planning, implementation, debugging, verification, review, and delivery skills.",
+    "developerName": "Jesse Vincent",
+    "category": "Coding",
+    "capabilities": [
+      "Interactive",
+      "Read",
+      "Write"
+    ],
+    "defaultPrompt": [
+      "I've got an idea for something I'd like to build.",
+      "Let's add a feature to this project."
+    ],
+    "privacyPolicyURL": "https://docs.github.com/en/site-policy/privacy-policies/github-general-privacy-statement",
+    "termsOfServiceURL": "https://docs.github.com/en/site-policy/github-terms/github-terms-of-service",
+    "brandColor": "#F59E0B",
+    "screenshots": []
+  }
+}

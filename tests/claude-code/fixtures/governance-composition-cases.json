@@ -1,0 +1,42 @@
+[
+  {
+    "id": "tier-c-local-edit",
+    "facts": {"risk": "C", "designApproved": true, "gitAuthority": ["edit"]},
+    "expected": {"executionMode": "inline", "mechanisms": [], "verification": "focused", "requiresCommit": false}
+  },
+  {
+    "id": "tier-b-approved-inline",
+    "facts": {"risk": "B", "designApproved": true, "multiFile": true, "delegationRequested": false},
+    "expected": {"executionMode": "inline", "mechanisms": [], "verification": "standard", "repeatDesignApproval": false}
+  },
+  {
+    "id": "tier-a-research-unapproved",
+    "facts": {"risk": "A", "researchSemanticsChange": true, "designApproved": false},
+    "expected": {"designGate": "required", "verification": "critical", "consultBeforeImplementation": true, "matrixConditionalOnTraceability": true}
+  },
+  {
+    "id": "delegation-forbidden",
+    "facts": {"risk": "A", "delegationAllowed": false, "subagentsAvailable": true},
+    "expected": {"executionMode": "inline", "mechanismsExcluded": ["delegation", "parallel investigation"], "delegatedGitAuthority": []}
+  },
+  {
+    "id": "model-selector-unavailable",
+    "facts": {"executionMode": "delegated", "modelSelectorAvailable": false},
+    "expected": {"includeModelParameter": false, "recordRuntimeSelectedModel": true, "guessAlternateApi": false}
+  },
+  {
+    "id": "edit-only-no-commit",
+    "facts": {"gitAuthority": ["edit"], "reviewSelected": true, "reviewJustified": true, "delegationAllowed": true, "reviewerAvailable": true},
+    "expected": {"executionMode": "inline", "selectCommitBasedSdd": false, "reviewMode": "working-tree", "requiresCommit": false}
+  },
+  {
+    "id": "fresh-evidence-reuse",
+    "facts": {"coverageMatchesFinalState": true, "claimCovered": true},
+    "expected": {"reuseEvidence": true, "rerunBecauseAgentBoundary": false, "runOnlyMissingChecks": true}
+  },
+  {
+    "id": "evidence-invalidated",
+    "facts": {"coverageMatchesFinalState": false, "claimAffectedByChange": true},
+    "expected": {"reuseEvidence": false, "rerunAffectedChecks": true, "rerunUnrelatedFullSuite": false}
+  }
+]

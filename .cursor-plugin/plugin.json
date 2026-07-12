@@ -1,0 +1,21 @@
+{
+  "name": "apex",
+  "displayName": "APEX",
+  "description": "APEX governance with composable software engineering leaf skills",
+  "version": "0.1.0",
+  "author": {
+    "name": "Jesse Vincent",
+    "email": "jesse@fsck.com"
+  },
+  "license": "MIT",
+  "keywords": [
+    "skills",
+    "tdd",
+    "debugging",
+    "collaboration",
+    "best-practices",
+    "workflows"
+  ],
+  "skills": "./skills/",
+  "hooks": "./hooks/hooks-cursor.json"
+}
