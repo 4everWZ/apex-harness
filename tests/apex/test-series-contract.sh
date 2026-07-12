@@ -33,6 +33,8 @@ has "$governance" "Missing mutation authority is not permission" "governance kee
 
 subagents="$ROOT/skills/coordinating-subagents/SKILL.md"
 has "$subagents" "Delegation alone is read-only" "delegation does not grant mutation"
+has "$subagents" "Subagent routing is off by default" "subagent routing requires user activation"
+has "$subagents" "Assign the minimum sufficient reasoning effort" "subagent effort is role-specific"
 has "$subagents" "approved task boundary or plan remain the source of truth" \
   "subagents use Git and task boundary as source of truth"
 has "$subagents" "Summaries describe observed state" "summaries do not claim content identity"

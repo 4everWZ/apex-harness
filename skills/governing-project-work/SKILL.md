@@ -25,7 +25,8 @@ Omit irrelevant fields. Missing mutation authority is not permission.
 Read [workflow.md](references/workflow.md) when classification, authority, or
 fresh evidence needs more detail. Read
 [documentation.md](references/documentation.md) only when durable project
-documents are relevant. For ML, data, numerical, or research semantics, read
+documents, templates, or legacy lifecycle decisions are relevant. For ML,
+data, numerical, or research semantics, read
 [research-contracts.md](references/research-contracts.md).
 
 ## Governing rules
@@ -43,6 +44,9 @@ documents are relevant. For ML, data, numerical, or research semantics, read
   governance record.
 - Record material cross-cutting tradeoffs once. Leaf documents link to that
   decision instead of copying it.
+- Preserve durable decision history. Supersede legacy artifacts explicitly and
+  isolate legacy code behind owned boundaries; removal or compatibility changes
+  require scope, migration, and verification authority.
 - Scale verification to failure cost and claim breadth. A passing but unrelated
   command is not evidence.
 

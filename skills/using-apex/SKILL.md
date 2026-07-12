@@ -20,11 +20,13 @@ Use only the skills whose concrete trigger matches:
 | substantial risk, authority, evidence, or documentation decisions | `governing-project-work` |
 | unresolved intent, competing designs, or a durable implementation plan | `shaping-solutions` |
 | worktree isolation or an explicit branch lifecycle action | `managing-git` |
-| independent investigations, delegated implementation, or independent review | `coordinating-subagents` |
+| user-enabled independent investigation, delegated implementation, or independent review | `coordinating-subagents` |
 | an unexplained failure whose cause is not established | `debugging-systematically` |
 | deciding and applying a test-first or verification strategy | `testing-changes` |
 
 For a routine, bounded edit, use no leaf unless one of those needs is present.
+`coordinating-subagents` is additionally gated by an explicit user request or
+enablement for the current task; parallelism alone never selects it.
 
 When a user names a pre-consolidation workflow, translate its intent:
 
@@ -33,7 +35,8 @@ When a user names a pre-consolidation workflow, translate its intent:
 - `using-git-worktrees` or `finishing-a-development-branch` → `managing-git`
 - `dispatching-parallel-agents`, `subagent-driven-development`,
   `executing-plans`, `requesting-code-review`, or `receiving-code-review` →
-  `coordinating-subagents` when delegation or independent review is justified,
+  `coordinating-subagents` only when the user's wording explicitly enables it
+  for the current task and delegation or independent review is justified;
   otherwise inline
 - `systematic-debugging` → `debugging-systematically`
 - `test-driven-development` or `verification-before-completion` →
@@ -67,7 +70,7 @@ A common substantial flow is:
 1. govern the work
 2. resolve intent or diagnose cause
 3. shape a plan only if persistence or coordination benefits from one
-4. implement inline or with selected subagents
+4. implement inline, or with selected subagents only when the user enabled them
 5. test the changed claims
 6. perform only the Git lifecycle action the user authorized
 

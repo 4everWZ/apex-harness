@@ -25,7 +25,7 @@ Treat these as separate operations:
 - create or remove a worktree
 - merge, push, or force-update a ref
 - discard work
-- delegate read-only or mutating work
+- delegate read-only or mutating work after explicit user enablement
 - perform a named external mutation
 
 Use the authority granted by higher-priority instructions literally. Stage only
@@ -59,6 +59,7 @@ external inputs.
 - Debug before fixing when cause is unknown.
 - Isolate with a worktree when repository state or parallel work makes in-place
   edits unsafe.
-- Delegate only bounded work whose inputs, authority, and review boundary are
-  clear.
+- Delegate only when the user explicitly enables subagents for the current task
+  and the bounded work has clear inputs, authority, review boundary, and
+  role-specific effort.
 - Request independent review when risk or lifecycle justifies another judgment.

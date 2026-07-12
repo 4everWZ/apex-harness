@@ -139,7 +139,11 @@ assert.deepEqual(currentGrade.per_run, [1, 2, 3].map((run) => ({ run, passed: cu
 
 const compositionQueries = readJson('evals/results/iteration-13/queries-only.json');
 assertCompleteIds(compositionQueries, compositionQueries.length, 'iteration 13 queries');
-const compositionRouteById = indexById(routes.slice(-compositionQueries.length).map((item, index) => ({ id: index + 1, ...item })));
+const compositionRouteById = indexById(compositionQueries.map((item) => {
+  const route = routes.find((candidate) => candidate.query === item.query);
+  assert.ok(route, `iteration 13 query ${item.id} has a current route`);
+  return { id: item.id, ...route };
+}));
 for (const item of compositionQueries) assert.equal(item.query, compositionRouteById.get(item.id).query, `iteration 13 query ${item.id} matches its route`);
 const compositionDescriptions = readJson('evals/results/iteration-13/descriptions-only.json');
 assertDescriptionSet(compositionDescriptions, 'iteration 13 descriptions');

@@ -161,6 +161,29 @@
         "The response composes both applicable leaves rather than forcing a single choice.",
         "Already-active APEX does not reload using-apex."
       ]
+    },
+    {
+      "id": 15,
+      "prompt": "Routing-only scenario: a routine repository inventory has three independent directories and parallel agents might be faster, but the user did not request or enable subagents. Select the APEX route; do not mutate files.",
+      "expected_output": "Works inline and does not select coordinating-subagents because user activation is absent.",
+      "files": [],
+      "expectations": [
+        "Potential parallelism alone does not select coordinating-subagents.",
+        "The response does not ask merely to unlock delegation.",
+        "No unrelated leaf or mutation is selected."
+      ]
+    },
+    {
+      "id": 16,
+      "prompt": "Routing-only scenario: the user explicitly enables subagents for this task and asks for a light-effort bounded file inventory plus a high-effort fresh architecture review of an already approved design. Select the APEX route and explain effort assignment; do not mutate files.",
+      "expected_output": "Selects coordinating-subagents and assigns different minimum-sufficient effort to the two roles without reopening the approved design.",
+      "files": [],
+      "expectations": [
+        "Explicit user activation satisfies the subagent gate.",
+        "The bounded inventory receives light effort and the architecture review receives high effort.",
+        "The response does not assign one uniform effort to every subagent.",
+        "The approved design is not reopened through shaping-solutions."
+      ]
     }
   ]
 }

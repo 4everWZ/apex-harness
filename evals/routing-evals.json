@@ -23,5 +23,7 @@
   {"query":"APEX is already active. Implement this ordinary bounded refactor using the accepted plan.","expected_skills":[]},
   {"query":"APEX is already active. This integration test flakes only on CI and the cause is unknown. Select the workflow without reloading the bootstrap.","expected_skills":["debugging-systematically"]},
   {"query":"APEX is already active. We are changing a public event schema across three services, rollback semantics are unresolved, and the migration verification strategy must be defined before coding. Select every applicable workflow.","expected_skills":["governing-project-work","shaping-solutions","testing-changes"]},
-  {"query":"APEX is already active. Have two read-only agents investigate independent constraints, use their evidence to resolve an architecture choice, and produce a durable implementation plan. Select every applicable workflow.","expected_skills":["coordinating-subagents","governing-project-work","shaping-solutions"]}
+  {"query":"APEX is already active. Have two read-only agents investigate independent constraints, use their evidence to resolve an architecture choice, and produce a durable implementation plan. Select every applicable workflow.","expected_skills":["coordinating-subagents","governing-project-work","shaping-solutions"]},
+  {"query":"A routine repository inventory has three independent directories and parallel agents might be faster, but I did not request or enable subagents. Select the APEX workflow.","expected_skills":[]},
+  {"query":"I explicitly enable subagents for this task. Use light effort for a bounded file inventory and high effort for a fresh architecture review of the already approved design.","expected_skills":["coordinating-subagents"]}
 ]

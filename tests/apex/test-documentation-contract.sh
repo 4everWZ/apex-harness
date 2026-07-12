@@ -20,6 +20,9 @@ check "$DOC" '`docs/design/`' "design location is defined"
 check "$DOC" '`docs/plans/`' "plan location is defined"
 check "$DOC" "One artifact owns each fact" "documentation has one source of truth"
 check "$DOC" "user asks for a durable handoff" "status docs are demand-driven"
+check "$DOC" '`docs/specs/legacy/`' "legacy specifications have an explicit lifecycle"
+check "$DOC" "Classify it as retained, compatibility-bound, migrating" \
+  "legacy code requires an owned disposition"
 check "$FLOW" '`git status --short --branch`' "freshness records Git status"
 check "$FLOW" "staged and unstaged diff summaries" "freshness separates diff summaries"
 check "$FLOW" "explicit ignored, generated, external" "freshness names extra inputs"
@@ -30,6 +33,22 @@ check "$ROOT/skills/governing-project-work/SKILL.md" \
 check "$ROOT/skills/shaping-solutions/SKILL.md" \
   "owns the content and quality of the selected artifact" \
   "shaping owns selected artifact content"
+
+for template in \
+  dev-spec.md \
+  algorithm-spec.md \
+  design-record.md \
+  implementation-plan.md \
+  traceability-matrix.md \
+  tradeoff-entry.md \
+  status-handoff.md; do
+  if [ -s "$ROOT/skills/governing-project-work/assets/templates/$template" ]; then
+    echo "  [PASS] template exists: $template"
+  else
+    echo "  [FAIL] template exists: $template"
+    failures=$((failures + 1))
+  fi
+done
 
 if [ "$failures" -gt 0 ]; then
   echo "STATUS: FAILED ($failures failures)"

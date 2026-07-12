@@ -1,12 +1,20 @@
 ---
 name: coordinating-subagents
-description: Coordinates bounded work across subagents for independent investigation, delegated implementation, or independent review. Use when delegation is authorized and task separation adds real parallelism, context isolation, or reviewer independence; otherwise work inline.
+description: Coordinates bounded work across subagents for independent investigation, delegated implementation, or independent review. Use only when the user explicitly enables or requests subagents for the current task and separation adds real parallelism, context isolation, or reviewer independence; otherwise work inline.
 ---
 
 # Coordinating Subagents
 
 Delegate for a concrete benefit, not merely because agents are available. The
 controller retains scope, authority, integration, and final-claim ownership.
+
+## Activation gate
+
+Subagent routing is off by default. Select this skill only when the user has
+explicitly enabled or requested subagents for the current task or phase. Do not
+infer activation from task size, available concurrency, an existing plan, or a
+possible speedup. If activation is absent, work inline without asking merely to
+unlock delegation.
 
 ## Select a mode
 
@@ -64,6 +72,22 @@ agreeable; accept or reject feedback based on evidence.
   authority through an implementation assignment.
 - An agent report is an input. The controller checks the diff and closes stale
   or missing evidence before claiming completion.
+
+## Set effort per role
+
+Assign the minimum sufficient reasoning effort to each subagent independently;
+do not give every role the same effort by default:
+
+| Effort | Use for |
+|---|---|
+| light | bounded lookup, inventory, or deterministic check with a clear return contract |
+| standard | focused investigation, implementation, or review with local ambiguity |
+| high | architecture, critical-risk review, unclear root cause, or cross-boundary synthesis |
+
+Use a deeper runtime-specific level only when the runtime exposes one and the
+task justifies its cost. Never guess a platform parameter. Record the intended
+effort in the assignment; if the runtime cannot set it, narrow the role and
+state that the requested effort was advisory rather than enforced.
 
 ## Return contract
 

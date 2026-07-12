@@ -9,6 +9,11 @@
   CLI unless the user explicitly expands support.
 - Leaves define only their trigger, focused decisions, process, exit conditions,
   and necessary resources. Do not repeat general model or repository rules.
+- Keep governance templates centralized under
+  `skills/governing-project-work/assets/templates/`; repository-native formats
+  still take precedence.
+- Treat subagent coordination as user-enabled per task or phase, never as a
+  default route; choose effort independently for each enabled role.
 - Keep code, tests, manifests, and documentation aligned with skill behavior.
 - Material behavior changes require realistic previous-version or no-skill
   baselines. Static string tests prove structure only.

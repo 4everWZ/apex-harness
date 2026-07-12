@@ -33,7 +33,10 @@ design gate.
 For substantial work, consume the artifact obligation and ownership selected by
 `governing-project-work`; do not independently create a competing spec, design,
 or plan. This skill owns the content and quality of the selected artifact, not
-the repository-wide documentation policy.
+the repository-wide documentation policy. Use the repository's canonical
+template; when none exists, use the selected template under
+`governing-project-work/assets/templates/` and delete sections that do not
+carry information.
 
 Routine details consistent with the approved direction do not need repeated
 approval.
@@ -60,4 +63,5 @@ full future implementation merely to make the plan look detailed.
 
 Return the approved direction, durable artifact path if one was needed, open
 decisions, and the appropriate execution mode: inline by default, or
-`coordinating-subagents` when bounded tasks genuinely benefit from delegation.
+`coordinating-subagents` only when the user explicitly enabled subagents for the
+current task and bounded tasks genuinely benefit from delegation.

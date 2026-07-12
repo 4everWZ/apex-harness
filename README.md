@@ -22,6 +22,17 @@ the leaves so the router can select them directly after bootstrap.
 `governing-project-work` owns substantial-work risk, authority, evidence, and
 documentation decisions. Leaves consume that boundary and do not duplicate it.
 
+Governance fallback templates live under
+`skills/governing-project-work/assets/templates/`. They cover development and
+algorithm specs, design records, implementation plans, traceability matrices,
+tradeoff entries, and user-requested status handoffs. Repository-native formats
+take precedence; the fallbacks preserve a consistent docs and legacy lifecycle
+without making every task create every artifact.
+
+Subagent coordination is opt-in per task or phase. APEX does not select it from
+available concurrency or potential speedup alone, and each enabled role gets
+its own minimum-sufficient effort instead of a uniform setting.
+
 ## Supported runtime adapters
 
 - Claude Code
