@@ -13,6 +13,9 @@ const assertCompleteIds = (results, count, label) => {
 };
 const indexById = (items) => new Map(items.map((item) => [item.id, item]));
 const readAtCommit = (commit, relative) => execFileSync('git', ['show', `${commit}:${relative}`], { cwd: root, encoding: 'utf8' });
+const normalizeDescriptionSnapshot = (snapshot) => Array.isArray(snapshot)
+  ? snapshot
+  : Object.entries(snapshot).map(([name, description]) => ({ name, description }));
 
 const evals = readJson('evals/evals.json');
 assert.equal(evals.skill_name, 'using-apex');
@@ -70,9 +73,10 @@ for (const run of [1, 2, 3]) {
   assert.equal(selections.results.length, blindQueries.length, `iteration 10 blind run ${run} covers its query snapshot`);
   assertCompleteIds(selections.results, blindQueries.length, `iteration 10 run ${run}`);
   assert.ok(selections.results.every((item) => !('expected' in item) && !('passed' in item)), `blind run ${run} contains no labels or self-grades`);
-  assert.equal(selections.description_snapshot.length, 7, `iteration 10 run ${run} snapshots seven descriptions`);
-  assert.equal(new Set(selections.description_snapshot.map((item) => item.name)).size, 7, `iteration 10 run ${run} description names are unique`);
-  for (const item of selections.description_snapshot) {
+  const descriptionSnapshot = normalizeDescriptionSnapshot(selections.description_snapshot);
+  assert.equal(descriptionSnapshot.length, 7, `iteration 10 run ${run} snapshots seven descriptions`);
+  assert.equal(new Set(descriptionSnapshot.map((item) => item.name)).size, 7, `iteration 10 run ${run} description names are unique`);
+  for (const item of descriptionSnapshot) {
     const skill = readAtCommit(selections.source_commit, `skills/${item.name}/SKILL.md`);
     const match = skill.match(/^description:\s*(.+)$/m);
     assert.equal(item.description, match?.[1], `iteration 10 run ${run} preserves historical ${item.name} description`);
