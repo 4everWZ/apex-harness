@@ -4,22 +4,22 @@
 - Baseline: `f5769bde68d879c8854fc8fb80b523c3d78958c0`
 - Result: current `using-apex` 3/3; baseline 0/3
 
-This single paired response-only run verifies the migration table currently
-embedded in the injected `using-apex` body: old brainstorming intent routes to
-`shaping-solutions`, delegated-development intent is conditional on current
-`coordinating-subagents` preconditions, and deleted direct lookup is a breaking
-migration rather than an alias. It is name-migration evidence, not task
-execution or general engineering superiority. Timing, token, and variance data
-were not exposed.
+The retained paired responses satisfy the three migration checks: old
+brainstorming intent routes to `shaping-solutions`, delegated-development intent
+is conditional on current `coordinating-subagents` preconditions, and deleted
+direct lookup is a breaking migration rather than an alias. No executor
+transcript or injected skill snapshot was retained, so the recorded commit/body
+association is not independently provable. This is response-level
+name-migration evidence, not task execution or general engineering superiority.
+Timing, token, and variance data were not exposed.
 
 The retained directory uses skill-creator's standard
 `eval-*/<configuration>/run-1/outputs/` layout. A static viewer was successfully
 generated during this refactor, but that historical invocation has no retained
 transcript or HTML artifact. The reproducible command below is the auditable
 claim.
-The machine-readable benchmark records one run. Generate the viewer without
-`--benchmark`: its summary formatter renders absent single-run standard
-deviation as `±0`, which would overstate the evidence.
+`single-run-summary.json` is a repository-specific comparison summary, not an
+official benchmark artifact. Generate the viewer without `--benchmark`.
 
 Reproduction command:
 

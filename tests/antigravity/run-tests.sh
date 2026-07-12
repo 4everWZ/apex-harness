@@ -13,4 +13,4 @@ for t in "$SCRIPT_DIR"/test-*.sh; do
 done
 
 echo
-echo "=== All Antigravity tests passed ==="
+echo "=== Antigravity payload checks passed; host discovery remains unverified ==="

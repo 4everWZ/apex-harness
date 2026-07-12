@@ -11,6 +11,7 @@
     "runs_per_configuration": 1,
     "timing_available": false,
     "token_metrics_available": false,
+    "skill_loading_verified": false,
     "baseline_commit": "f5769bde68d879c8854fc8fb80b523c3d78958c0",
     "candidate_commit": "2780af36b4d9a084424e4537cd4af3f2a16edb6c",
     "baseline_kind": "prior-version skill; encoded as without_skill for the official benchmark schema"

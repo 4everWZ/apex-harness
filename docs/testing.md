@@ -52,4 +52,4 @@ The source file records candidate checks as official-schema `expectations`.
 Historical fixture-backed `eval_metadata.json` files may preserve the same text
 under a local `assertions` snapshot; grader output records it as `expectations`
 with pass/fail evidence. Retained results include metadata, raw outputs,
-grading, and benchmark fields needed to audit that identity.
+grading, and repository-specific summary fields needed to audit that identity.

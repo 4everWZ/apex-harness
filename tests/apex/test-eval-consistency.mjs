@@ -51,12 +51,14 @@ assert.ok(routes.some((item) => item.expected_skills.length === 0), 'routing set
 assert.ok(routes.some((item) => item.expected_skills.length > 1), 'routing set includes multi-skill composition');
 
 for (const iteration of [9, 11]) {
-  const benchmark = readJson(`evals/results/iteration-${iteration}/benchmark.json`);
-  assert.equal(benchmark.metadata.runs_per_configuration, 1, `iteration ${iteration} is single-run`);
-  assert.equal(benchmark.metadata.timing_available, false, `iteration ${iteration} does not claim timing`);
-  assert.equal(benchmark.metadata.token_metrics_available, false, `iteration ${iteration} does not claim tokens`);
-  assert.equal(benchmark.run_summary.delta.definition, 'with_skill - without_skill');
-  assert.ok(benchmark.runs.every((run) => ['with_skill', 'without_skill'].includes(run.configuration)), `iteration ${iteration} uses official benchmark configuration names`);
+  const summary = readJson(`evals/results/iteration-${iteration}/single-run-summary.json`);
+  assert.equal(summary.metadata.runs_per_configuration, 1, `iteration ${iteration} is single-run`);
+  assert.equal(summary.metadata.timing_available, false, `iteration ${iteration} does not claim timing`);
+  assert.equal(summary.metadata.token_metrics_available, false, `iteration ${iteration} does not claim tokens`);
+  assert.equal(summary.metadata.skill_loading_verified, false, `iteration ${iteration} does not claim audited skill loading`);
+  assert.equal(summary.run_summary.delta.definition, 'with_skill - without_skill');
+  assert.ok(summary.runs.every((run) => ['with_skill', 'without_skill'].includes(run.configuration)), `iteration ${iteration} uses consistent comparison names`);
+  assert.ok(!fs.existsSync(path.join(root, `evals/results/iteration-${iteration}/benchmark.json`)), `iteration ${iteration} does not claim an official benchmark artifact`);
 }
 
 for (const scenario of ['debugging', 'tdd', 'docs', 'git', 'review']) {
@@ -176,4 +178,4 @@ for (const scenario of ['debugging', 'tdd', 'docs', 'git', 'review']) {
   }
 }
 
-console.log('STATUS: PASSED (source eval fields, routing evidence, and retained benchmark claims)');
+console.log('STATUS: PASSED (source eval fields, routing evidence, and retained single-run claims)');

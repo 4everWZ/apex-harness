@@ -6,16 +6,19 @@
   independent investigation/review
 - Result: both configurations passed every assertion once
 
-This establishes that the compact series retained the tested operational
-contracts; it does not show candidate superiority. Each scenario retains its
-metadata, report, grading, machine-readable evidence, and relevant output
-snapshot in skill-creator's standard
+The retained fixture outputs associated with both recorded configurations
+satisfy the tested operational contracts once; they do not establish candidate
+superiority or prove which skill commit an executor actually loaded. No
+executor transcript or skill snapshot was retained, so commit attribution is a
+process record rather than independently auditable evidence. Each scenario
+retains metadata, report, grading, machine-readable evidence, and relevant
+output snapshot in skill-creator's standard
 `eval-*/<configuration>/run-1/outputs/` layout. The subagent scenario retains controller reports but not full platform
 transcripts, so fresh-agent process claims remain weaker than file/Git/test
 evidence. Timing and token metrics were not exposed; no variance claim is made.
-The machine-readable benchmark records one run. Generate the official viewer
-without `--benchmark`: its summary formatter renders absent single-run standard
-deviation as `±0`, which would overstate the evidence.
+`single-run-summary.json` is a repository-specific comparison summary, not an
+official benchmark artifact. Generate the official viewer without
+`--benchmark`.
 
 Reproduction command:
 
