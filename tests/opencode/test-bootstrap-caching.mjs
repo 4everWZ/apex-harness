@@ -40,10 +40,14 @@ const secondOutput = makeOutput(`${scenario} bootstrap second step`);
 await transform({}, secondOutput);
 const afterSecond = { existsCount, readCount };
 
+const collisionOutput = makeOutput('unrelated plugin says EXTREMELY_IMPORTANT but is not APEX');
+await transform({}, collisionOutput);
+
 const result = {
   scenario,
   firstBootstrapParts: countBootstrapParts(firstOutput),
   secondBootstrapParts: countBootstrapParts(secondOutput),
+  collisionBootstrapParts: countBootstrapParts(collisionOutput),
   staleMentionMapping: bootstrapText(firstOutput).includes('@mention'),
   staleTaskMapping: bootstrapText(firstOutput).includes('`Task` tool with subagents'),
   mapsSubagentToTask: bootstrapText(firstOutput).includes('`task` with `subagent_type: "general"`'),
@@ -83,13 +87,13 @@ function makeOutput(text) {
 
 function countBootstrapParts(output) {
   return output.messages[0].parts.filter(
-    (part) => part.type === 'text' && part.text.includes('EXTREMELY_IMPORTANT')
+    (part) => part.type === 'text' && part.text.includes('APEX_BOOTSTRAP_V1')
   ).length;
 }
 
 function bootstrapText(output) {
   return output.messages[0].parts.find(
-    (part) => part.type === 'text' && part.text.includes('EXTREMELY_IMPORTANT')
+    (part) => part.type === 'text' && part.text.includes('APEX_BOOTSTRAP_V1')
   )?.text || '';
 }
 
@@ -100,6 +104,9 @@ function assertPresentBootstrap(result) {
   }
   if (result.secondBootstrapParts !== 1) {
     failures.push(`expected second transform to inject one bootstrap part, got ${result.secondBootstrapParts}`);
+  }
+  if (result.collisionBootstrapParts !== 1) {
+    failures.push(`expected unrelated EXTREMELY_IMPORTANT text not to suppress APEX, got ${result.collisionBootstrapParts}`);
   }
   if (result.firstReadCount !== 1) {
     failures.push(`expected first transform to read SKILL.md once, got ${result.firstReadCount}`);

@@ -1,7 +1,7 @@
 {
   "expectations": [
     {
-      "text": "A focused test is added before implementation and observed failing because tokenizeUpper is missing.",
+      "text": "The executor report records a focused test added before implementation and an observed failure because tokenizeUpper was missing.",
       "passed": true,
       "evidence": "report.md documents the focused command with the test-name pattern exiting 1 before implementation, with the exact failure `TypeError: tokenizer.tokenizeUpper is not a function`. The final test file contains that focused public-boundary test."
     },

@@ -1,12 +1,12 @@
 {
   "expectations": [
     {
-      "text": "Two fresh read-only investigators receive independent bounded questions and their evidence is reconciled.",
+      "text": "The controller report documents two bounded read-only investigation roles and reconciliation of their evidence.",
       "passed": true,
       "evidence": "The report separately defines Investigator 1 for intended behavior/tests and Investigator 2 for exact Git diff/risk, records distinct read-only restrictions and return contracts, and reconciles their agreement while explicitly demoting the unsupported coercion concern to an unverified secondary risk."
     },
     {
-      "text": "A separate fresh reviewer inspects the exact diff against intended behavior and test evidence.",
+      "text": "The controller report documents a separate review role inspecting the exact diff against intended behavior and test evidence.",
       "passed": true,
       "evidence": "The report documents a reviewer dispatched after reconciliation with base HEAD, exact one-line a+b to a-b scope, both intended assertions, the test command, and actual failure evidence; its finding independently identifies the same src/sum.js:2 regression."
     },

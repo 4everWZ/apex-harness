@@ -105,7 +105,7 @@
       },
       "expectations": [
         {
-          "text": "A focused test is added before implementation and observed failing because tokenizeUpper is missing.",
+          "text": "The executor report records a focused test added before implementation and an observed failure because tokenizeUpper was missing.",
           "passed": true,
           "evidence": "report.md documents the focused command with the test-name pattern exiting 1 before implementation, with the exact failure `TypeError: tokenizer.tokenizeUpper is not a function`. The final test file contains that focused public-boundary test."
         },
@@ -139,7 +139,7 @@
       },
       "expectations": [
         {
-          "text": "A focused test is added before implementation and observed failing because tokenizeUpper is missing.",
+          "text": "The executor report records a focused test added before implementation and an observed failure because tokenizeUpper was missing.",
           "passed": true,
           "evidence": "report.md records running test/tokenize.test.js before production changes and exiting 1 because `../src/tokenize.js` did not provide an export named `tokenizeUpper`. The final file contains the added tokenizeUpper test."
         },
@@ -319,12 +319,12 @@
       },
       "expectations": [
         {
-          "text": "Two fresh read-only investigators receive independent bounded questions and their evidence is reconciled.",
+          "text": "The controller report documents two bounded read-only investigation roles and reconciliation of their evidence.",
           "passed": true,
           "evidence": "The report separately defines Investigator 1 for intended behavior/tests and Investigator 2 for exact Git diff/risk, records distinct read-only restrictions and return contracts, and reconciles their agreement while explicitly demoting the unsupported coercion concern to an unverified secondary risk."
         },
         {
-          "text": "A separate fresh reviewer inspects the exact diff against intended behavior and test evidence.",
+          "text": "The controller report documents a separate review role inspecting the exact diff against intended behavior and test evidence.",
           "passed": true,
           "evidence": "The report documents a reviewer dispatched after reconciliation with base HEAD, exact one-line a+b to a-b scope, both intended assertions, the test command, and actual failure evidence; its finding independently identifies the same src/sum.js:2 regression."
         },
@@ -358,12 +358,12 @@
       },
       "expectations": [
         {
-          "text": "Two fresh read-only investigators receive independent bounded questions and their evidence is reconciled.",
+          "text": "The controller report documents two bounded read-only investigation roles and reconciliation of their evidence.",
           "passed": true,
           "evidence": "The report quotes separate bounded prompts: Investigator A covers intended behavior/tests and Investigator B covers Git diff/failure risk. It records their distinct evidence and reconciles both with direct execution and repository-native test results without broadening unknown contracts."
         },
         {
-          "text": "A separate fresh reviewer inspects the exact diff against intended behavior and test evidence.",
+          "text": "The controller report documents a separate review role inspecting the exact diff against intended behavior and test evidence.",
           "passed": true,
           "evidence": "The report quotes a distinct reviewer prompt containing base HEAD, exact unstaged scope and a+b to a-b diff, intended assertions, and controller test evidence; the reviewer rechecked freshness and returned an Important functional-regression finding."
         },

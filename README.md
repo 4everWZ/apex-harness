@@ -35,9 +35,9 @@ version or a no-skill baseline. Static checks protect structure, not behavior.
 
 ## Migration from the consolidated skills
 
-The seven-skill series intentionally changes direct skill names. The bundled
-[`using-apex` migration reference](skills/using-apex/references/migration.md)
-contains the canonical old-to-new routing table.
+The seven-skill series intentionally changes direct skill names. The canonical
+old-to-new routing table is embedded in [`using-apex`](skills/using-apex/SKILL.md)
+so every injected bootstrap can resolve it without an external path.
 
 Prompts should use the current names. `using-apex` can translate a user's old
 workflow wording, but direct runtime lookup of a deleted name is a breaking

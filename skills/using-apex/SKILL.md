@@ -26,12 +26,21 @@ Use only the skills whose concrete trigger matches:
 
 For a routine, bounded edit, use no leaf unless one of those needs is present.
 
-When a user names a pre-consolidation workflow, read the compact
-[migration reference](references/migration.md) and translate its intent. The old
-directory name is not a separate skill and does not bypass the current trigger
-or authority boundary. Direct runtime lookup of a deleted name is a documented
-breaking migration; do not recreate alias skills or silently claim that lookup
-succeeded.
+When a user names a pre-consolidation workflow, translate its intent:
+
+- `apex-governance` → `governing-project-work`
+- `brainstorming` or `writing-plans` → `shaping-solutions`
+- worktree or branch-finishing skills → `managing-git`
+- parallel-agent, delegated-development, plan-execution, or review skills →
+  `coordinating-subagents` when delegation/review is justified, otherwise inline
+- `systematic-debugging` → `debugging-systematically`
+- TDD or completion-verification skills → `testing-changes` only when its current
+  trigger matches, otherwise ordinary verification
+
+The old directory name is not a separate skill and does not bypass the current
+trigger or authority boundary. Direct runtime lookup of a deleted name is a
+documented breaking migration; do not recreate alias skills or silently claim
+that lookup succeeded.
 
 ## Shared boundary
 

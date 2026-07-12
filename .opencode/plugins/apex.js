@@ -87,6 +87,7 @@ When skills request actions, substitute OpenCode equivalents:
 Use OpenCode's native \`skill\` tool to list and load skills.`;
 
     _bootstrapCache = `<EXTREMELY_IMPORTANT>
+APEX_BOOTSTRAP_V1
 APEX governs this skill collection.
 
 **IMPORTANT: The using-apex entry skill is included below and is already loaded. Do not load "using-apex" again. Use the skill tool for applicable leaf skills.**
@@ -130,7 +131,7 @@ ${toolMapping}
       // Guard: skip if first user message already contains bootstrap.
       // This prevents double injection when OpenCode passes an already
       // transformed in-memory message array through the hook again.
-      if (firstUser.parts.some(p => p.type === 'text' && p.text.includes('EXTREMELY_IMPORTANT'))) return;
+      if (firstUser.parts.some(p => p.type === 'text' && p.text.includes('APEX_BOOTSTRAP_V1'))) return;
 
       const ref = firstUser.parts[0];
       firstUser.parts.unshift({ ...ref, type: 'text', text: bootstrap });

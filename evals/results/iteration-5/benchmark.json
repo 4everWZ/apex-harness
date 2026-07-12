@@ -17,7 +17,10 @@
     "timing_available": false,
     "token_metrics_available": false,
     "baseline_commit": "f5769bde68d879c8854fc8fb80b523c3d78958c0",
-    "candidate_commit": "068e3f618d02b8b8f1da836fd9e8ba3bcd12c8d6"
+    "candidate_commit": "068e3f618d02b8b8f1da836fd9e8ba3bcd12c8d6",
+    "validity": "invalidated",
+    "superseded_by": "iteration-8",
+    "invalidation_reason": "Eval 2 rewarded a substituted unrelated failure; aggregate is historical only."
   },
   "runs": [
     {

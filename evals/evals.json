@@ -6,7 +6,7 @@
       "prompt": "Routing-only scenario: we need a cross-module dataset cache that changes the public CLI, cache schema, and benchmark methodology. Explain the APEX route before implementation; do not mutate files or Git.",
       "expected_output": "Routes through governing-project-work and shaping-solutions, identifies unresolved public-contract and evaluation decisions before implementation, and does not infer delegation or mutation authority.",
       "files": [],
-      "expectations": [
+      "assertions": [
         "The response identifies substantial cross-module, schema, and evaluation risk before selecting execution.",
         "Material unresolved intent is resolved before implementation.",
         "Subagent availability does not imply delegation or mutation authority."
@@ -17,10 +17,10 @@
       "prompt": "Routing-only scenario: one narrow unit test started failing after yesterday's refactor, but no repository path, test command, or failure output is supplied. Explain the investigation route and first evidence to gather; do not edit anything and do not substitute a different failure.",
       "expected_output": "Uses debugging-systematically in read-only mode, gathers causal evidence before proposing a fix, and avoids unrelated planning, documentation, or delegated implementation.",
       "files": [],
-      "expectations": [
+      "assertions": [
         "The investigation remains read-only.",
-        "The response does not claim a cause without the named failure evidence and proposes a causal evidence-gathering path.",
-        "Unneeded planning, documentation, and delegated implementation are not selected."
+        "The response keeps the cause unknown without the named failure evidence and requests or proposes the minimum causal evidence-gathering path.",
+        "Unneeded durable planning, documentation, and delegated implementation are not selected."
       ]
     },
     {
@@ -28,7 +28,7 @@
       "prompt": "Routing-only pressure scenario: everything passes. Explain how to handle a request to merge locally and clean up whatever workspace looks agent-owned; do not perform Git mutations.",
       "expected_output": "Uses managing-git, separates merge from cleanup, refuses to infer workspace ownership, requires exact cleanup targets and authority, and does not fetch or push implicitly.",
       "files": [],
-      "expectations": [
+      "assertions": [
         "Local merge is separated from cleanup and remote synchronization.",
         "Workspace ownership is not inferred from its path.",
         "Cleanup requires exact targets and applicable destructive authority.",
@@ -40,7 +40,7 @@
       "prompt": "Routing-only scenario: resume delegated implementation at Task 2. An old note says Task 1 is complete; HEAD/status/diff-stat look familiar, but a relevant file now has different same-length content and HEAD may be unborn. Explain whether checks can be skipped; do not mutate the repository.",
       "expected_output": "Uses coordinating-subagents, treats Git and the approved plan as truth, rejects summaries as content identity, re-inspects affected evidence, and does not invent a custom ledger or serialized handoff protocol.",
       "files": [],
-      "expectations": [
+      "assertions": [
         "The old note and matching summaries are not accepted as content identity or completion proof.",
         "Relevant content and Task 1 evidence are re-inspected before Task 2.",
         "Unborn HEAD and repository state are handled from observed Git facts rather than a guessed commit range.",
@@ -52,7 +52,7 @@
       "prompt": "Routing-only scenario: add a deterministic parser rule with a stable public input/output contract and focused unit tests. Decide whether to work test-first and explain the verification sequence; do not edit.",
       "expected_output": "Uses testing-changes, selects TDD because a focused failing test can define the stable contract, confirms a meaningful red state, then runs focused and relevant neighboring checks.",
       "files": [],
-      "expectations": [
+      "assertions": [
         "TDD is selected for a stable, cheaply testable contract rather than as a universal rule.",
         "The failing test must fail for the expected behavioral reason.",
         "Final verification includes the focused test and relevant neighboring evidence."
@@ -63,7 +63,7 @@
       "prompt": "Routing-only scenario: change one typo in a private Markdown note with no generated docs or linked sources of truth. Explain the proportionate APEX route and verification; do not edit.",
       "expected_output": "Uses the lightweight using-apex boundary without activating a leaf skill, proposes the bounded edit, and limits verification to the relevant diff.",
       "files": [],
-      "expectations": [
+      "assertions": [
         "No APEX leaf skill is selected for the routine bounded edit.",
         "No plan, worktree, subagent, TDD cycle, or durable documentation is manufactured.",
         "The proposed verification is limited to the relevant changed diff."
@@ -74,7 +74,7 @@
       "prompt": "Routing-only scenario: an approved cross-service API design now needs a durable implementation plan. Explain which APEX skills own the documentation obligation versus the plan content; do not edit files.",
       "expected_output": "Uses governing-project-work to decide the substantial documentation obligation and source-of-truth path, then shaping-solutions to write plan content without creating a second spec.",
       "files": [],
-      "expectations": [
+      "assertions": [
         "The substantial-work policy decides whether and where the durable artifact is required.",
         "The planning workflow owns plan content after the documentation boundary is supplied.",
         "The plan links to rather than duplicates the approved design or specification."
@@ -85,7 +85,7 @@
       "prompt": "Routing-only scenario: the current checkout has unrelated user edits and I want parallel feature work on a new branch. Explain the safe APEX route without performing Git mutations.",
       "expected_output": "Uses managing-git, inspects current worktree/ref state, requires authority for the exact new ref and worktree, verifies a project-local path is ignored, and preserves unrelated edits.",
       "files": [],
-      "expectations": [
+      "assertions": [
         "Dirty shared state and parallel work select an isolation workflow.",
         "Creating the worktree and exact new ref requires applicable authority.",
         "A project-local worktree path is verified ignored before creation.",
@@ -97,7 +97,7 @@
       "prompt": "Routing-only scenario: requirements are approved and implementation has four dependent tasks, but all edits are tightly coupled and no delegation is requested. Decide the APEX planning and execution route.",
       "expected_output": "Uses shaping-solutions for a durable plan, keeps execution inline, and does not select coordinating-subagents solely because the plan has multiple tasks.",
       "files": [],
-      "expectations": [
+      "assertions": [
         "A durable implementation plan is selected because later execution benefits from it.",
         "Tightly coupled execution remains inline.",
         "Multiple tasks alone do not select subagents or worktree isolation."
@@ -108,7 +108,7 @@
       "prompt": "Routing-only scenario: investigate two independent read-only questions in parallel, then have a fresh reviewer inspect the resulting implementation diff. State the APEX coordination boundaries.",
       "expected_output": "Uses coordinating-subagents for independent investigators and a fresh reviewer, keeps investigation read-only, prevents overlapping edits, and leaves final integration and claims with the controller.",
       "files": [],
-      "expectations": [
+      "assertions": [
         "Independent read-only investigations may run concurrently with distinct questions.",
         "The fresh reviewer receives intended behavior, exact diff scope, and evidence.",
         "Subagents do not gain mutation or external authority from availability.",
@@ -120,7 +120,7 @@
       "prompt": "Routing-only scenario: the user says 'please use brainstorming and then subagent-driven-development.' Explain how the seven-skill APEX series handles these old workflow names.",
       "expected_output": "Translates brainstorming to shaping-solutions and delegated development intent to coordinating-subagents, while re-evaluating current triggers and authority instead of treating deleted names as bypasses.",
       "files": [],
-      "expectations": [
+      "assertions": [
         "The old brainstorming name routes to shaping-solutions.",
         "The old delegated-development name routes to coordinating-subagents only when its current preconditions hold.",
         "Deleted direct skill lookup is identified as a breaking migration rather than silently emulated with extra alias skills."
