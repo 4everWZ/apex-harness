@@ -66,9 +66,17 @@ const routeById = indexById(routes.map((item, index) => ({ id: index + 1, ...ite
 for (const item of blindQueries) assert.equal(item.query, routeById.get(item.id).query, `iteration 10 query ${item.id} matches its route`);
 for (const run of [1, 2, 3]) {
   const selections = readJson(`evals/results/iteration-10/run-${run}-selections.json`);
+  assert.equal(selections.source_commit, '95e3f936c5b507e98765af286e1fce75145b4e5b');
   assert.equal(selections.results.length, blindQueries.length, `iteration 10 blind run ${run} covers its query snapshot`);
   assertCompleteIds(selections.results, blindQueries.length, `iteration 10 run ${run}`);
   assert.ok(selections.results.every((item) => !('expected' in item) && !('passed' in item)), `blind run ${run} contains no labels or self-grades`);
+  assert.equal(selections.description_snapshot.length, 7, `iteration 10 run ${run} snapshots seven descriptions`);
+  assert.equal(new Set(selections.description_snapshot.map((item) => item.name)).size, 7, `iteration 10 run ${run} description names are unique`);
+  for (const item of selections.description_snapshot) {
+    const skill = readAtCommit(selections.source_commit, `skills/${item.name}/SKILL.md`);
+    const match = skill.match(/^description:\s*(.+)$/m);
+    assert.equal(item.description, match?.[1], `iteration 10 run ${run} preserves historical ${item.name} description`);
+  }
 }
 const blindGrade = readJson('evals/results/iteration-10/trigger-grading-revised.json');
 assert.equal(blindGrade.aggregate.passed, 66);
@@ -140,4 +148,4 @@ for (const scenario of ['debugging', 'tdd', 'docs', 'git', 'review']) {
   }
 }
 
-console.log('STATUS: PASSED (official eval schema, current routing coverage, and retained benchmark claims)');
+console.log('STATUS: PASSED (source eval fields, routing evidence, and retained benchmark claims)');
