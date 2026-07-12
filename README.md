@@ -35,16 +35,9 @@ version or a no-skill baseline. Static checks protect structure, not behavior.
 
 ## Migration from the consolidated skills
 
-The seven-skill series intentionally changes direct skill names:
-
-| Previous name | Current route |
-|---|---|
-| `apex-governance` | `governing-project-work` |
-| `brainstorming`, `writing-plans` | `shaping-solutions` |
-| `using-git-worktrees`, `finishing-a-development-branch` | `managing-git` |
-| `dispatching-parallel-agents`, `subagent-driven-development`, `requesting-code-review`, `receiving-code-review`, `executing-plans` | `coordinating-subagents` or inline execution |
-| `systematic-debugging` | `debugging-systematically` |
-| `test-driven-development`, `verification-before-completion` | `testing-changes` or ordinary proportionate verification |
+The seven-skill series intentionally changes direct skill names. The bundled
+[`using-apex` migration reference](skills/using-apex/references/migration.md)
+contains the canonical old-to-new routing table.
 
 Prompts should use the current names. `using-apex` can translate a user's old
 workflow wording, but direct runtime lookup of a deleted name is a breaking

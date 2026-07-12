@@ -135,6 +135,21 @@ for test in "${tests[@]}"; do
     echo ""
 done
 
+if command -v node >/dev/null 2>&1; then
+    echo "----------------------------------------"
+    echo "Running: ../apex/test-eval-consistency.mjs"
+    echo "----------------------------------------"
+    if node "$SCRIPT_DIR/../apex/test-eval-consistency.mjs"; then
+        passed=$((passed + 1))
+    else
+        failed=$((failed + 1))
+    fi
+    echo ""
+else
+    echo "  [SKIP] Node unavailable; run tests/apex/test-eval-consistency.mjs on a Node-capable host"
+    skipped=$((skipped + 1))
+fi
+
 # Print summary
 echo "========================================"
 echo " Test Results Summary"

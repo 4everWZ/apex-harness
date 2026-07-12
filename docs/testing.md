@@ -35,3 +35,9 @@ Keep realistic prompts in `evals/evals.json`. Cover routing, adjacent-skill
 boundaries, authorization pressure, dirty or unborn Git states, documentation
 proportionality, and cases where no leaf should trigger. Compare material
 revisions with the prior committed series or a no-skill baseline.
+
+The source file follows skill-creator's `evals.json` schema and uses
+`expectations`. Per-run `eval_metadata.json` maps those strings to its
+`assertions` field; grader output records them as `expectations` with pass/fail
+evidence. Retained results must include metadata, raw outputs, grading, and the
+benchmark fields needed to audit that conversion.

@@ -18,5 +18,7 @@
   {"query":"Keep this branch exactly as-is after we finish.","expected_skills":["managing-git"]},
   {"query":"Compare two architecture options, but the accepted spec already chooses one of them.","expected_skills":[]},
   {"query":"Use subagents if useful for this two-line config edit.","expected_skills":[]},
-  {"query":"The benchmark improved, but seeds, dataset revision, and confidence intervals are missing. Audit the claim.","expected_skills":["governing-project-work"]}
+  {"query":"The benchmark improved, but seeds, dataset revision, and confidence intervals are missing. Audit the claim.","expected_skills":["governing-project-work"]},
+  {"query":"Use APEX to coordinate the engineering skills for this task; the bootstrap may not be loaded.","expected_skills":["using-apex"]},
+  {"query":"APEX is already active. Implement this ordinary bounded refactor using the accepted plan.","expected_skills":[]}
 ]

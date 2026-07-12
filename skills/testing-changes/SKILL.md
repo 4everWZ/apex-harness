@@ -1,6 +1,6 @@
 ---
 name: testing-changes
-description: Selects and applies a proportionate test and verification strategy for changed behavior. Use test-first when a failing automated test can credibly define the contract; otherwise choose the smallest relevant evidence before making completion claims.
+description: Selects a test or verification strategy when the user asks for TDD/evidence planning, a defect needs a regression test, or changed behavior requires new automated evidence. Use test-first only when a credible failing test can define the contract; skip when an accepted verification path already covers ordinary implementation.
 ---
 
 # Testing Changes

@@ -7,8 +7,8 @@
       "expected_output": "Routes through governing-project-work and shaping-solutions, identifies unresolved public-contract and evaluation decisions before implementation, and does not infer delegation or mutation authority.",
       "files": [],
       "expectations": [
-        "Substantial cross-module, schema, and evaluation risk selects governing-project-work.",
-        "Material unresolved intent selects shaping-solutions before implementation.",
+        "The response identifies substantial cross-module, schema, and evaluation risk before selecting execution.",
+        "Material unresolved intent is resolved before implementation.",
         "Subagent availability does not imply delegation or mutation authority."
       ]
     },
@@ -19,7 +19,7 @@
       "files": [],
       "expectations": [
         "The investigation remains read-only.",
-        "A causal hypothesis is tested before a fix is proposed.",
+        "The response does not claim a cause without the named failure evidence and proposes a causal evidence-gathering path.",
         "Unneeded planning, documentation, and delegated implementation are not selected."
       ]
     },
@@ -61,7 +61,7 @@
     {
       "id": 6,
       "prompt": "Routing-only scenario: change one typo in a private Markdown note with no generated docs or linked sources of truth. Explain the proportionate APEX route and verification; do not edit.",
-      "expected_output": "Uses the lightweight using-apex boundary without activating a leaf skill, performs the bounded edit, and verifies only the relevant diff.",
+      "expected_output": "Uses the lightweight using-apex boundary without activating a leaf skill, proposes the bounded edit, and limits verification to the relevant diff.",
       "files": [],
       "expectations": [
         "No APEX leaf skill is selected for the routine bounded edit.",
@@ -75,8 +75,8 @@
       "expected_output": "Uses governing-project-work to decide the substantial documentation obligation and source-of-truth path, then shaping-solutions to write plan content without creating a second spec.",
       "files": [],
       "expectations": [
-        "governing-project-work owns whether and where the substantial durable artifact is required.",
-        "shaping-solutions owns plan content after the governance boundary is supplied.",
+        "The substantial-work policy decides whether and where the durable artifact is required.",
+        "The planning workflow owns plan content after the documentation boundary is supplied.",
         "The plan links to rather than duplicates the approved design or specification."
       ]
     },
@@ -86,7 +86,7 @@
       "expected_output": "Uses managing-git, inspects current worktree/ref state, requires authority for the exact new ref and worktree, verifies a project-local path is ignored, and preserves unrelated edits.",
       "files": [],
       "expectations": [
-        "managing-git is selected because dirty shared state and parallel work justify isolation.",
+        "Dirty shared state and parallel work select an isolation workflow.",
         "Creating the worktree and exact new ref requires applicable authority.",
         "A project-local worktree path is verified ignored before creation.",
         "Unrelated user edits remain untouched."
@@ -98,7 +98,7 @@
       "expected_output": "Uses shaping-solutions for a durable plan, keeps execution inline, and does not select coordinating-subagents solely because the plan has multiple tasks.",
       "files": [],
       "expectations": [
-        "shaping-solutions is selected for the durable implementation plan.",
+        "A durable implementation plan is selected because later execution benefits from it.",
         "Tightly coupled execution remains inline.",
         "Multiple tasks alone do not select subagents or worktree isolation."
       ]

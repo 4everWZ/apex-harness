@@ -13,6 +13,9 @@ often move the symptom and destroy useful evidence.
 1. Reproduce the smallest reliable symptom and record the exact environment,
    input, and output. If reproduction is unsafe or unavailable, state that
    boundary.
+   Do not substitute an unrelated failure or infer that it shares the requested
+   cause. When the named symptom or evidence is missing, request it and keep the
+   cause explicitly unknown.
 2. Read the complete failure, surrounding code, configuration, and recent
    relevant changes.
 3. Trace the bad value or state backward across component boundaries. At each
