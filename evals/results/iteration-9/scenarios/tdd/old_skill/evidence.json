@@ -1,0 +1,7 @@
+{
+  "command": "node --test test/tokenize.test.js",
+  "exit_code": 0,
+  "source_sha256": "4A7677533C518C323F79195E3C25FB4F238015ADFBA0CFC42E66296DA8945A2D",
+  "test_sha256": "F5A957ACA1A86590B8EA794FDD3AA901F88A3CA96679833018F93B38C4FDD595",
+  "output": "✔ splits and trims comma-separated tokens (1.9192ms)\n✔ returns tokenized values in uppercase (0.2203ms)\nℹ tests 2\nℹ suites 0\nℹ pass 2\nℹ fail 0\nℹ cancelled 0\nℹ skipped 0\nℹ todo 0\nℹ duration_ms 183.578"
+}

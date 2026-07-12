@@ -1,0 +1,410 @@
+{
+  "metadata": {
+    "skill_name": "apex-series",
+    "skill_path": "D:\\Code\\prompt\\apex\\skills",
+    "executor_model": "runtime-selected Codex subagents (exact model not exposed)",
+    "analyzer_model": "fresh Codex analyzer subagent (exact model not exposed)",
+    "timestamp": "2026-07-12T16:14:42Z",
+    "evals_run": [
+      "exec-debugging",
+      "exec-tdd",
+      "exec-docs",
+      "exec-git",
+      "exec-review"
+    ],
+    "runs_per_configuration": 1,
+    "timing_available": false,
+    "token_metrics_available": false,
+    "baseline_commit": "f5769bde68d879c8854fc8fb80b523c3d78958c0",
+    "candidate_commit": "a56f8e7d5711c690d46498cb7f990154facd1f0f",
+    "execution_fixtures": true
+  },
+  "runs": [
+    {
+      "eval_id": "exec-debugging",
+      "eval_name": "debugging",
+      "configuration": "with_skill",
+      "run_number": 1,
+      "result": {
+        "pass_rate": 1.0,
+        "passed": 3,
+        "failed": 0,
+        "total": 3,
+        "time_seconds": null,
+        "tokens": null,
+        "tool_calls": null,
+        "errors": null
+      },
+      "expectations": [
+        {
+          "text": "The failing test is actually run and its failure is reported.",
+          "passed": true,
+          "evidence": "report.md records `npm test` exiting 1 with 1 test, 0 passed, and 1 failed, including the deep-equality diff. Independent grading reran `npm test` and observed the same single failing test and `[Function: trim]` versus `['Ada', 'Lin']` mismatch."
+        },
+        {
+          "text": "The root cause is correctly identified as referencing trim instead of invoking trim().",
+          "passed": true,
+          "evidence": "report.md identifies `src/normalize.js:2` returning `value.trim` rather than invoking `value.trim()` and demonstrates that property access yields three truthy function objects while invocation plus filtering yields `['Ada', 'Lin']`. The inspected source contains exactly `values.map((value) => value.trim).filter(Boolean)`."
+        },
+        {
+          "text": "Project source, test, and config files remain unchanged.",
+          "passed": true,
+          "evidence": "report.md provides matching pre/post SHA-256 hashes and zero-exit `git diff --no-index` comparisons for package.json, src/normalize.js, and test/normalize.test.js. The inspected project contains only those three original project files; report.md is outside project/."
+        }
+      ],
+      "notes": []
+    },
+    {
+      "eval_id": "exec-debugging",
+      "eval_name": "debugging",
+      "configuration": "old_skill",
+      "run_number": 1,
+      "result": {
+        "pass_rate": 1.0,
+        "passed": 3,
+        "failed": 0,
+        "total": 3,
+        "time_seconds": null,
+        "tokens": null,
+        "tool_calls": null,
+        "errors": null
+      },
+      "expectations": [
+        {
+          "text": "The failing test is actually run and its failure is reported.",
+          "passed": true,
+          "evidence": "report.md records `npm test` exiting 1 with 1 test, 0 passed, and 1 failed, and includes the assertion diff. Independent grading reran `npm test` and reproduced the same failure."
+        },
+        {
+          "text": "The root cause is correctly identified as referencing trim instead of invoking trim().",
+          "passed": true,
+          "evidence": "report.md identifies the missing invocation parentheses at src/normalize.js:2 and shows a distinguishing experiment: references are function objects, whereas invocation plus filtering produces `['Ada', 'Lin']`. Inspection confirms the source uses `value.trim`."
+        },
+        {
+          "text": "Project source, test, and config files remain unchanged.",
+          "passed": true,
+          "evidence": "report.md records identical SHA-256 hashes before and after diagnostics for package.json, src/normalize.js, and test/normalize.test.js. The project tree contains only these three files, while report.md is outside project/."
+        }
+      ],
+      "notes": []
+    },
+    {
+      "eval_id": "exec-tdd",
+      "eval_name": "tdd",
+      "configuration": "with_skill",
+      "run_number": 1,
+      "result": {
+        "pass_rate": 1.0,
+        "passed": 3,
+        "failed": 0,
+        "total": 3,
+        "time_seconds": null,
+        "tokens": null,
+        "tool_calls": null,
+        "errors": null
+      },
+      "expectations": [
+        {
+          "text": "A focused test is added before implementation and observed failing because tokenizeUpper is missing.",
+          "passed": true,
+          "evidence": "report.md documents the focused command with the test-name pattern exiting 1 before implementation, with the exact failure `TypeError: tokenizer.tokenizeUpper is not a function`. The final test file contains that focused public-boundary test."
+        },
+        {
+          "text": "tokenizeUpper is implemented by preserving tokenize behavior and uppercasing its tokens.",
+          "passed": true,
+          "evidence": "Inspected src/tokenize.js implements `return tokenize(input).map((token) => token.toUpperCase());`, directly reusing tokenize for splitting, trimming, and empty-token filtering."
+        },
+        {
+          "text": "Focused and full tests pass after implementation, including the original tokenize contract.",
+          "passed": true,
+          "evidence": "report.md records the focused test passing 1/1 and `npm test` passing 2/2. Independent grading reran `npm test` and observed both the original `splits and trims comma-separated tokens` test and the new tokenizeUpper test pass."
+        }
+      ],
+      "notes": []
+    },
+    {
+      "eval_id": "exec-tdd",
+      "eval_name": "tdd",
+      "configuration": "old_skill",
+      "run_number": 1,
+      "result": {
+        "pass_rate": 1.0,
+        "passed": 3,
+        "failed": 0,
+        "total": 3,
+        "time_seconds": null,
+        "tokens": null,
+        "tool_calls": null,
+        "errors": null
+      },
+      "expectations": [
+        {
+          "text": "A focused test is added before implementation and observed failing because tokenizeUpper is missing.",
+          "passed": true,
+          "evidence": "report.md records running test/tokenize.test.js before production changes and exiting 1 because `../src/tokenize.js` did not provide an export named `tokenizeUpper`. The final file contains the added tokenizeUpper test."
+        },
+        {
+          "text": "tokenizeUpper is implemented by preserving tokenize behavior and uppercasing its tokens.",
+          "passed": true,
+          "evidence": "The inspected implementation is `return tokenize(input).map((token) => token.toUpperCase());`, so existing tokenize behavior is reused rather than reimplemented."
+        },
+        {
+          "text": "Focused and full tests pass after implementation, including the original tokenize contract.",
+          "passed": true,
+          "evidence": "report.md records both the focused file and full npm suite passing 2/2. Independent grading reran `npm test` and observed the original tokenize test and new uppercase test both pass."
+        }
+      ],
+      "notes": []
+    },
+    {
+      "eval_id": "exec-docs",
+      "eval_name": "docs",
+      "configuration": "with_skill",
+      "run_number": 1,
+      "result": {
+        "pass_rate": 1.0,
+        "passed": 3,
+        "failed": 0,
+        "total": 3,
+        "time_seconds": null,
+        "tokens": null,
+        "tool_calls": null,
+        "errors": null
+      },
+      "expectations": [
+        {
+          "text": "Exactly one implementation plan is created at docs/plans/parser.md.",
+          "passed": true,
+          "evidence": "The inspected project tree has exactly one file under docs/plans: docs/plans/parser.md. Its contents are a concrete, sequenced implementation plan linked to the approved spec."
+        },
+        {
+          "text": "The approved spec is not modified or duplicated into another spec/design/matrix/tradeoff/status artifact.",
+          "passed": true,
+          "evidence": "report.md inventories docs/specs/parser.md before and after and states it was not changed. The actual tree contains one spec and one plan only, with no additional spec, design, matrix, tradeoff, status, or handoff artifact. The plan links to the spec and focuses on execution steps."
+        },
+        {
+          "text": "No implementation code is changed.",
+          "passed": true,
+          "evidence": "report.md inventories src/tokenize.js before and after and states it remains unchanged. Inspection shows the project contains no added test or config files and src/tokenize.js still contains only the original tokenize export."
+        }
+      ],
+      "notes": []
+    },
+    {
+      "eval_id": "exec-docs",
+      "eval_name": "docs",
+      "configuration": "old_skill",
+      "run_number": 1,
+      "result": {
+        "pass_rate": 1.0,
+        "passed": 3,
+        "failed": 0,
+        "total": 3,
+        "time_seconds": null,
+        "tokens": null,
+        "tool_calls": null,
+        "errors": null
+      },
+      "expectations": [
+        {
+          "text": "Exactly one implementation plan is created at docs/plans/parser.md.",
+          "passed": true,
+          "evidence": "The project contains exactly one implementation-plan artifact, docs/plans/parser.md, and no other file under docs/plans. The file is a sequenced implementation plan linked to the approved spec."
+        },
+        {
+          "text": "The approved spec is not modified or duplicated into another spec/design/matrix/tradeoff/status artifact.",
+          "passed": true,
+          "evidence": "report.md lists docs/specs/parser.md both before and after and says it was read but not modified. Inspection finds only the original spec plus the implementation plan; no duplicate spec, design, matrix, tradeoff, status, or handoff artifact exists."
+        },
+        {
+          "text": "No implementation code is changed.",
+          "passed": true,
+          "evidence": "The before/after inventory in report.md differs only by docs/plans/parser.md. The inspected project has no added package or test files, and src/tokenize.js still contains only the original tokenize implementation."
+        }
+      ],
+      "notes": []
+    },
+    {
+      "eval_id": "exec-git",
+      "eval_name": "git",
+      "configuration": "with_skill",
+      "run_number": 1,
+      "result": {
+        "pass_rate": 1.0,
+        "passed": 4,
+        "failed": 0,
+        "total": 4,
+        "time_seconds": null,
+        "tokens": null,
+        "tool_calls": null,
+        "errors": null
+      },
+      "expectations": [
+        {
+          "text": "The exact authorized eval/feature-safe branch and .worktrees/feature-safe worktree are created.",
+          "passed": true,
+          "evidence": "Live inspection confirms refs/heads/eval/feature-safe at ddf1de5500c43eb784b542377319f482a5476fd2 and git worktree list registers D:/Code/prompt/apex-workspace/iteration-9/git/with_skill/project/.worktrees/feature-safe on that exact branch and commit."
+        },
+        {
+          "text": "The project-local worktree path is verified ignored before creation.",
+          "passed": true,
+          "evidence": "The report records the pre-creation command result '.gitignore:1:.worktrees/    .worktrees/feature-safe'. A fresh git check-ignore -v produces the same matching rule and path."
+        },
+        {
+          "text": "The unrelated dirty notes.txt content is preserved byte-for-byte and remains unstaged.",
+          "passed": true,
+          "evidence": "The report records identical before/after size (35 bytes), timestamp, content, and SHA-256 204C6BC90E2AA30D1E80856592E52B42C43B8E6A7419089006F4724A4A951C4E. Live inspection reproduces that hash and size, shows only unstaged ' M notes.txt', and shows an empty cached diff."
+        },
+        {
+          "text": "No commit, merge, push, clean, or unrelated tracked-file edit occurs.",
+          "passed": true,
+          "evidence": "The report records identical pre/post HEAD ddf1de5500c43eb784b542377319f482a5476fd2 and explicitly says none of those actions occurred. Live Git state has one commit total, both main and eval/feature-safe point to that same original commit, no remote is configured, no staged changes exist, and the only source-worktree diff is the preserved pre-existing notes.txt change."
+        }
+      ],
+      "notes": []
+    },
+    {
+      "eval_id": "exec-git",
+      "eval_name": "git",
+      "configuration": "old_skill",
+      "run_number": 1,
+      "result": {
+        "pass_rate": 1.0,
+        "passed": 4,
+        "failed": 0,
+        "total": 4,
+        "time_seconds": null,
+        "tokens": null,
+        "tool_calls": null,
+        "errors": null
+      },
+      "expectations": [
+        {
+          "text": "The exact authorized eval/feature-safe branch and .worktrees/feature-safe worktree are created.",
+          "passed": true,
+          "evidence": "Live inspection confirms refs/heads/eval/feature-safe at de74b8d03e6fa39954582179bf4a827ce2bd03ef and git worktree list registers D:/Code/prompt/apex-workspace/iteration-9/git/old_skill/project/.worktrees/feature-safe on that exact branch and commit."
+        },
+        {
+          "text": "The project-local worktree path is verified ignored before creation.",
+          "passed": true,
+          "evidence": "The report records a successful pre-creation exact-path ignore check with '.gitignore:1:.worktrees/    .worktrees/feature-safe'. A fresh git check-ignore -v reproduces the match."
+        },
+        {
+          "text": "The unrelated dirty notes.txt content is preserved byte-for-byte and remains unstaged.",
+          "passed": true,
+          "evidence": "The report records identical before/after size of 35 bytes and SHA-256 204C6BC90E2AA30D1E80856592E52B42C43B8E6A7419089006F4724A4A951C4E. Live inspection reproduces both, shows only unstaged ' M notes.txt', and shows an empty cached diff."
+        },
+        {
+          "text": "No commit, merge, push, clean, or unrelated tracked-file edit occurs.",
+          "passed": true,
+          "evidence": "The report records identical pre/post HEAD de74b8d03e6fa39954582179bf4a827ce2bd03ef and explicitly lists the omitted actions. Live state has one commit total, main and eval/feature-safe still point to the original commit, no remote is configured, no staged changes exist, and the only source-worktree diff is the preserved notes.txt change."
+        }
+      ],
+      "notes": []
+    },
+    {
+      "eval_id": "exec-review",
+      "eval_name": "review",
+      "configuration": "with_skill",
+      "run_number": 1,
+      "result": {
+        "pass_rate": 1.0,
+        "passed": 4,
+        "failed": 0,
+        "total": 4,
+        "time_seconds": null,
+        "tokens": null,
+        "tool_calls": null,
+        "errors": null
+      },
+      "expectations": [
+        {
+          "text": "Two fresh read-only investigators receive independent bounded questions and their evidence is reconciled.",
+          "passed": true,
+          "evidence": "The report separately defines Investigator 1 for intended behavior/tests and Investigator 2 for exact Git diff/risk, records distinct read-only restrictions and return contracts, and reconciles their agreement while explicitly demoting the unsupported coercion concern to an unverified secondary risk."
+        },
+        {
+          "text": "A separate fresh reviewer inspects the exact diff against intended behavior and test evidence.",
+          "passed": true,
+          "evidence": "The report documents a reviewer dispatched after reconciliation with base HEAD, exact one-line a+b to a-b scope, both intended assertions, the test command, and actual failure evidence; its finding independently identifies the same src/sum.js:2 regression."
+        },
+        {
+          "text": "The regression is identified with severity and the failing test is actually run.",
+          "passed": true,
+          "evidence": "The reviewer records 'P1 — addition was replaced with subtraction'. The controller reports npm test exit 1, 0 passed/1 failed, actual -1 versus expected 7; an independent fresh npm test run reproduced that exact failure at test/sum.test.js:6."
+        },
+        {
+          "text": "The controller verifies that no project edit, stage, or commit occurred.",
+          "passed": true,
+          "evidence": "The report supplies pre/post HEAD 542cc79f7730ce9e1792aa3997d7d66807d54fd8, identical complete diff, only one pre-existing unstaged path, empty staged diff, and no untracked file. Fresh inspection still shows that HEAD, only unstaged M src/sum.js, and no cached or untracked changes."
+        }
+      ],
+      "notes": []
+    },
+    {
+      "eval_id": "exec-review",
+      "eval_name": "review",
+      "configuration": "old_skill",
+      "run_number": 1,
+      "result": {
+        "pass_rate": 1.0,
+        "passed": 4,
+        "failed": 0,
+        "total": 4,
+        "time_seconds": null,
+        "tokens": null,
+        "tool_calls": null,
+        "errors": null
+      },
+      "expectations": [
+        {
+          "text": "Two fresh read-only investigators receive independent bounded questions and their evidence is reconciled.",
+          "passed": true,
+          "evidence": "The report quotes separate bounded prompts: Investigator A covers intended behavior/tests and Investigator B covers Git diff/failure risk. It records their distinct evidence and reconciles both with direct execution and repository-native test results without broadening unknown contracts."
+        },
+        {
+          "text": "A separate fresh reviewer inspects the exact diff against intended behavior and test evidence.",
+          "passed": true,
+          "evidence": "The report quotes a distinct reviewer prompt containing base HEAD, exact unstaged scope and a+b to a-b diff, intended assertions, and controller test evidence; the reviewer rechecked freshness and returned an Important functional-regression finding."
+        },
+        {
+          "text": "The regression is identified with severity and the failing test is actually run.",
+          "passed": true,
+          "evidence": "The reviewer classifies the defect as 'Important' and says the change should not be accepted. The report records npm test exit 1 with actual -1 versus expected 7, and an independent fresh npm test run reproduced the same failure at test/sum.test.js:6."
+        },
+        {
+          "text": "The controller verifies that no project edit, stage, or commit occurred.",
+          "passed": true,
+          "evidence": "The report records identical initial/post-test/final snapshots at HEAD e7b6e0467f046a8f9aab5169c0930e6ebde3431d, only the pre-existing unstaged src/sum.js diff, empty staged diff, no untracked files, and identical hashes for all three project files. Fresh inspection confirms the same HEAD and Git state."
+        }
+      ],
+      "notes": []
+    }
+  ],
+  "run_summary": {
+    "with_skill": {
+      "pass_rate": {
+        "mean": 1.0,
+        "stddev": null
+      }
+    },
+    "old_skill": {
+      "pass_rate": {
+        "mean": 1.0,
+        "stddev": null
+      }
+    },
+    "delta": {
+      "definition": "with_skill - old_skill",
+      "pass_rate": "+0.00",
+      "time_seconds": null,
+      "tokens": null
+    }
+  },
+  "notes": [
+    "Five fixture-backed operational scenarios: debugging, TDD, documentation ownership, Git worktree safety, and subagent investigation/review.",
+    "Both configurations passed every assertion; this supports retained behavior, not superiority.",
+    "Timing and tokens were not exposed; single-run evidence has no variance claim.",
+    "Fresh-agent review process evidence is preserved in controller reports rather than full platform transcripts."
+  ]
+}

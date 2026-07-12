@@ -1,0 +1,1 @@
+I’ll correct the typo in the private Markdown note, then inspect the Git diff for that file to confirm the only change is the intended text correction. Since there are no generated documents or linked sources of truth, no additional synchronization or testing is needed.

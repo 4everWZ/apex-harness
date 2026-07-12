@@ -14,7 +14,7 @@
     },
     {
       "id": 2,
-      "prompt": "Routing-only scenario: one narrow unit test started failing after yesterday's refactor. Explain the investigation route and first evidence to gather; do not edit anything.",
+      "prompt": "Routing-only scenario: one narrow unit test started failing after yesterday's refactor, but no repository path, test command, or failure output is supplied. Explain the investigation route and first evidence to gather; do not edit anything and do not substitute a different failure.",
       "expected_output": "Uses debugging-systematically in read-only mode, gathers causal evidence before proposing a fix, and avoids unrelated planning, documentation, or delegated implementation.",
       "files": [],
       "expectations": [

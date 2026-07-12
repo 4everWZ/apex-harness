@@ -1,0 +1,3 @@
+Use `shaping-solutions` in **Plan** mode only. The requirements are already approved, so the design gate is satisfied and no clarify/design cycle is needed. Create a durable implementation plan that orders the four tasks, records their dependencies and interfaces, identifies coherent verification points, and includes exact acceptance checks where known.
+
+Execute the plan **inline** in dependency order. Do not route to `coordinating-subagents`: the edits are tightly coupled, the tasks are not independently delegable, and no delegation was requested. Load `testing-changes` when choosing and applying the verification strategy; use other APEX leaves only if their own concrete triggers arise during execution.

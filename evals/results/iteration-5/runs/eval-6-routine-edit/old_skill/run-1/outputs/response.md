@@ -1,0 +1,1 @@
+I’ll make the single typo correction in the private Markdown note, then inspect the file’s Git diff to confirm that only the intended text changed. No broader workflow, documentation update, branch, or unrelated verification is needed for this routine edit.

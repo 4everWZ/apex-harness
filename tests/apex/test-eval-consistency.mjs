@@ -32,12 +32,16 @@ for (const name of [
 }
 assert.ok(routes.some((item) => item.expected_skills.length === 0), 'routing set includes no-skill near misses');
 
-for (const iteration of [5, 6, 7]) {
+for (const iteration of [5, 6, 7, 8, 9]) {
   const benchmark = readJson(`evals/results/iteration-${iteration}/benchmark.json`);
   assert.equal(benchmark.metadata.runs_per_configuration, 1, `iteration ${iteration} is single-run`);
   assert.equal(benchmark.metadata.timing_available, false, `iteration ${iteration} does not claim timing`);
   assert.equal(benchmark.metadata.token_metrics_available, false, `iteration ${iteration} does not claim tokens`);
   assert.equal(benchmark.run_summary.delta.definition, 'with_skill - old_skill');
 }
+
+assert.ok(fs.existsSync(path.join(root, 'evals/results/iteration-8/runs/eval-2-read-only-debugging/with_skill/run-1/outputs/response.md')), 'routing raw response is retained');
+assert.ok(fs.existsSync(path.join(root, 'evals/results/iteration-9/scenarios/git/with_skill/evidence.json')), 'execution machine evidence is retained');
+assert.ok(fs.existsSync(path.join(root, 'evals/results/iteration-9/scenarios/review/with_skill/report.md')), 'subagent controller report is retained');
 
 console.log('STATUS: PASSED (eval schema, routing coverage, and retained benchmark claims)');

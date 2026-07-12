@@ -1,0 +1,54 @@
+{
+  "expectations": [
+    {
+      "text": "The old note and matching summaries are not accepted as content identity or completion proof.",
+      "passed": true,
+      "evidence": "The response states: \"The old completion note, familiar `HEAD`/status, and diff-stat are summaries, not content identity.\" It explicitly recognizes that different same-length content may leave length and diff-stat unchanged."
+    },
+    {
+      "text": "Relevant content and Task 1 evidence are re-inspected before Task 2.",
+      "passed": true,
+      "evidence": "The response requires reconciliation against the approved plan using full commit SHA(s), Git history/status, and \"the actual relevant diff or another content-sensitive identifier,\" followed by re-inspection and re-review of Task 1 where prior evidence no longer covers current content."
+    },
+    {
+      "text": "Unborn HEAD and repository state are handled from observed Git facts rather than a guessed commit range.",
+      "passed": true,
+      "evidence": "The response directs the reader to run `git rev-parse --verify HEAD`; if `HEAD` is unborn, it rejects the commit-based workflow precondition and says to stop until there is an authorized committed baseline or authorized inline workflow. It also checks dirty workspace/index and unreconciled-range states rather than inventing a range."
+    },
+    {
+      "text": "No custom run ledger, serialized identity, or review package becomes a source of truth.",
+      "passed": true,
+      "evidence": "The response introduces no custom ledger, serialized identity, or review package. Its evidence sources are the approved plan, actual content-sensitive Git evidence, relevant diffs, repository status/history, and re-review."
+    }
+  ],
+  "summary": {
+    "passed": 4,
+    "failed": 0,
+    "total": 4,
+    "pass_rate": 1.0
+  },
+  "claims": [
+    {
+      "claim": "The Task 1 checks should not be skipped.",
+      "type": "quality",
+      "verified": true,
+      "evidence": "The response opens with \"Do not skip the Task 1 checks\" and requires content-sensitive reconciliation and re-review before Task 2."
+    },
+    {
+      "claim": "The delegated commit-based workflow cannot proceed when HEAD is unborn.",
+      "type": "process",
+      "verified": true,
+      "evidence": "The response observes `HEAD` with `git rev-parse --verify HEAD` and, on failure, stops the commit-based path rather than fabricating a commit range; this directly satisfies the eval's unborn-HEAD requirement."
+    },
+    {
+      "claim": "A dirty workspace or index always requires stopping before Task 2.",
+      "type": "quality",
+      "verified": false,
+      "evidence": "The response asserts this, but the eval metadata only requires repository state to be handled from observed Git facts; it does not establish that every dirty state is necessarily blocking."
+    }
+  ],
+  "eval_feedback": {
+    "suggestions": [],
+    "overall": "No suggestions, evals look solid. The assertions distinguish stale summary-based continuation from content-sensitive revalidation and explicitly cover unborn HEAD and alternate-source-of-truth failure modes."
+  }
+}

@@ -1,0 +1,3 @@
+I’ll inspect the repository, current branch/`HEAD`, linked worktrees, status, staged content, and relevant refs first. If the current branch is the intended source and the working state is safe, I’ll merge that branch into local `main` and verify the resulting ref and workspace state without fetching or pushing.
+
+I won’t remove worktrees, delete branches, or discard files under “whatever workspace you think is ours.” A local merge does not authorize those separate destructive effects, and ownership is not precise enough here. I’ll leave cleanup targets untouched and report them; name the exact worktree/path and whether its branch should be retained or deleted if you want cleanup afterward.

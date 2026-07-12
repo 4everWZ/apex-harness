@@ -1,0 +1,10 @@
+{
+  "eval_id": 1,
+  "eval_name": "govern-and-shape",
+  "prompt": "Routing-only scenario: we need a cross-module dataset cache that changes the public CLI, cache schema, and benchmark methodology. Explain the APEX route before implementation; do not mutate files or Git.",
+  "assertions": [
+    "Substantial cross-module, schema, and evaluation risk selects governing-project-work.",
+    "Material unresolved intent selects shaping-solutions before implementation.",
+    "Subagent availability does not imply delegation or mutation authority."
+  ]
+}

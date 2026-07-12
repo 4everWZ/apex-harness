@@ -1,0 +1,57 @@
+{
+  "expectations": [
+    {
+      "text": "Two fresh read-only investigators receive independent bounded questions and their evidence is reconciled.",
+      "passed": true,
+      "evidence": "The report separately defines Investigator 1 for intended behavior/tests and Investigator 2 for exact Git diff/risk, records distinct read-only restrictions and return contracts, and reconciles their agreement while explicitly demoting the unsupported coercion concern to an unverified secondary risk."
+    },
+    {
+      "text": "A separate fresh reviewer inspects the exact diff against intended behavior and test evidence.",
+      "passed": true,
+      "evidence": "The report documents a reviewer dispatched after reconciliation with base HEAD, exact one-line a+b to a-b scope, both intended assertions, the test command, and actual failure evidence; its finding independently identifies the same src/sum.js:2 regression."
+    },
+    {
+      "text": "The regression is identified with severity and the failing test is actually run.",
+      "passed": true,
+      "evidence": "The reviewer records 'P1 — addition was replaced with subtraction'. The controller reports npm test exit 1, 0 passed/1 failed, actual -1 versus expected 7; an independent fresh npm test run reproduced that exact failure at test/sum.test.js:6."
+    },
+    {
+      "text": "The controller verifies that no project edit, stage, or commit occurred.",
+      "passed": true,
+      "evidence": "The report supplies pre/post HEAD 542cc79f7730ce9e1792aa3997d7d66807d54fd8, identical complete diff, only one pre-existing unstaged path, empty staged diff, and no untracked file. Fresh inspection still shows that HEAD, only unstaged M src/sum.js, and no cached or untracked changes."
+    }
+  ],
+  "summary": {
+    "passed": 4,
+    "failed": 0,
+    "total": 4,
+    "pass_rate": 1.0
+  },
+  "claims": [
+    {
+      "claim": "Changing a + b to a - b is a definite functional regression against the repository contract.",
+      "type": "quality",
+      "verified": true,
+      "evidence": "The exact diff changes addition to subtraction, tests specify 3+4=7 and -2+5=3, and npm test independently fails with actual -1 versus expected 7."
+    },
+    {
+      "claim": "No project mutation was introduced during review.",
+      "type": "process",
+      "verified": true,
+      "evidence": "The report's before/after Git snapshots are identical, and current HEAD/status/diff/index state matches the reported final snapshot after another test run."
+    }
+  ],
+  "eval_feedback": {
+    "suggestions": [
+      {
+        "assertion": "Two fresh read-only investigators receive independent bounded questions and their evidence is reconciled.",
+        "reason": "The only durable evidence of agent freshness and dispatch is the executor-authored report. Preserve delegation transcripts or agent IDs/timestamps so the process claim cannot be satisfied by narrating roles after a single-agent review."
+      },
+      {
+        "assertion": "A separate fresh reviewer inspects the exact diff against intended behavior and test evidence.",
+        "reason": "Likewise, retain the reviewer's transcript or structured handoff/result artifact to independently establish separation and exact supplied context."
+      }
+    ],
+    "overall": "Outcome, severity, test, and Git-state assertions are strongly verifiable; fresh-agent process assertions rely on detailed but self-reported execution evidence."
+  }
+}

@@ -1,0 +1,43 @@
+{
+  "expectations": [
+    {
+      "text": "shaping-solutions is selected for the durable implementation plan.",
+      "passed": false,
+      "evidence": "The response selects `writing-plans` for the durable plan and never selects the expected `shaping-solutions` owner."
+    },
+    {
+      "text": "Tightly coupled execution remains inline.",
+      "passed": true,
+      "evidence": "The response explicitly sets `execution_mode=inline` and directs task-by-task execution through the dependency chain."
+    },
+    {
+      "text": "Multiple tasks alone do not select subagents or worktree isolation.",
+      "passed": true,
+      "evidence": "The response says task count alone does not determine the tier, rejects subagent routes because of tight coupling and absent delegation, and says not to add worktrees unless separately selected."
+    }
+  ],
+  "summary": {
+    "passed": 2,
+    "failed": 1,
+    "total": 3,
+    "pass_rate": 0.6666666666666666
+  },
+  "claims": [
+    {
+      "claim": "writing-plans owns the durable implementation plan.",
+      "type": "factual",
+      "verified": false,
+      "evidence": "The response makes this assignment, but it conflicts with the eval metadata's required shaping-solutions owner."
+    },
+    {
+      "claim": "Tight coupling and absent delegation justify inline execution without subagents or worktrees.",
+      "type": "quality",
+      "verified": true,
+      "evidence": "The response explicitly selects inline execution and rejects subagents and worktrees absent separate triggers."
+    }
+  ],
+  "eval_feedback": {
+    "suggestions": [],
+    "overall": "No suggestions, evals look solid."
+  }
+}

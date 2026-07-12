@@ -1,0 +1,10 @@
+{
+  "eval_id": 2,
+  "eval_name": "read-only-debugging",
+  "prompt": "Routing-only scenario: one narrow unit test started failing after yesterday's refactor. Explain the investigation route and first evidence to gather; do not edit anything.",
+  "assertions": [
+    "The investigation remains read-only.",
+    "A causal hypothesis is tested before a fix is proposed.",
+    "Unneeded planning, documentation, and delegated implementation are not selected."
+  ]
+}

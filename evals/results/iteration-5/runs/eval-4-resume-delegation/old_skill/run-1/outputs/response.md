@@ -1,0 +1,5 @@
+Do not skip the Task 1 checks.
+
+The old completion note, familiar `HEAD`/status, and diff-stat are summaries, not content identity. Because a relevant file now has different content—even if its length and diff-stat are unchanged—reconcile Task 1 against the approved plan using the full commit SHA(s), `git log`, status, and the actual relevant diff or another content-sensitive identifier. Re-inspect and, where the prior review evidence no longer covers the current content, re-review Task 1 before beginning Task 2. Continue only if that evidence unambiguously shows Task 1 is complete and the recorded commit range still matches Git.
+
+First run `git rev-parse --verify HEAD`. If it does not resolve because `HEAD` is unborn, the delegated, commit-based workflow's preconditions are not met. Stop rather than dispatching Task 2; establish a valid committed baseline under the required Git authority or switch to an authorized inline workflow. Likewise, stop if the workspace or index is dirty, the actual Git range cannot be reconciled, or required delegation/review authority is absent.

@@ -1,0 +1,43 @@
+{
+  "expectations": [
+    {
+      "text": "shaping-solutions is selected for the durable implementation plan.",
+      "passed": true,
+      "evidence": "The response opens with `Use shaping-solutions in Plan mode only` and describes the durable implementation plan it should create."
+    },
+    {
+      "text": "Tightly coupled execution remains inline.",
+      "passed": true,
+      "evidence": "The response explicitly says to execute the plan inline in dependency order because the edits are tightly coupled."
+    },
+    {
+      "text": "Multiple tasks alone do not select subagents or worktree isolation.",
+      "passed": true,
+      "evidence": "The response rejects `coordinating-subagents` because the tasks are not independently delegable and no delegation was requested, and says other APEX leaves are used only if their own concrete triggers arise; task count alone therefore selects neither subagents nor worktree isolation."
+    }
+  ],
+  "summary": {
+    "passed": 3,
+    "failed": 0,
+    "total": 3,
+    "pass_rate": 1.0
+  },
+  "claims": [
+    {
+      "claim": "Approved requirements with four dependent, tightly coupled tasks should be planned by shaping-solutions and executed inline.",
+      "type": "quality",
+      "verified": true,
+      "evidence": "The recommended route directly matches all three eval metadata assertions."
+    },
+    {
+      "claim": "No clarify/design cycle is needed because the requirements are approved.",
+      "type": "quality",
+      "verified": true,
+      "evidence": "The response preserves the prompt's approved-requirements premise and does not introduce an unnecessary approval gate."
+    }
+  ],
+  "eval_feedback": {
+    "suggestions": [],
+    "overall": "No suggestions, evals look solid."
+  }
+}

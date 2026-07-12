@@ -1,0 +1,48 @@
+{
+  "expectations": [
+    {
+      "text": "managing-git is selected because dirty shared state and parallel work justify isolation.",
+      "passed": true,
+      "evidence": "The response selects only `managing-git` and states that unrelated edits plus parallel feature work justify worktree isolation."
+    },
+    {
+      "text": "Creating the worktree and exact new ref requires applicable authority.",
+      "passed": true,
+      "evidence": "The response says branch creation mutates a ref, requires authority for the exact branch name, and postpones worktree/ref mutation until separately authorized."
+    },
+    {
+      "text": "A project-local worktree path is verified ignored before creation.",
+      "passed": true,
+      "evidence": "Step 4 explicitly requires verifying that a project-local worktree location is ignored before creating it."
+    },
+    {
+      "text": "Unrelated user edits remain untouched.",
+      "passed": true,
+      "evidence": "The response directs leaving the current checkout and unrelated edits untouched and prohibits stash, reset, branch switching, cleaning, or reuse of the dirty checkout."
+    }
+  ],
+  "summary": {
+    "passed": 4,
+    "failed": 0,
+    "total": 4,
+    "pass_rate": 1.0
+  },
+  "claims": [
+    {
+      "claim": "Dirty shared state plus parallel work justifies worktree isolation through managing-git.",
+      "type": "quality",
+      "verified": true,
+      "evidence": "The route and rationale directly match the eval metadata assertions."
+    },
+    {
+      "claim": "The routing-only request should perform no Git mutation.",
+      "type": "process",
+      "verified": false,
+      "evidence": "The output recommends no mutation, but no execution transcript is available to verify what commands were or were not run."
+    }
+  ],
+  "eval_feedback": {
+    "suggestions": [],
+    "overall": "No suggestions, evals look solid."
+  }
+}

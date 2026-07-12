@@ -1,0 +1,43 @@
+{
+  "expectations": [
+    {
+      "text": "The investigation remains read-only.",
+      "passed": true,
+      "evidence": "The response calls this a 'diagnosis-only, read-only investigation' and explicitly says not to 'edit code, change dependencies or runtime state, mutate Git, or propose a fix before establishing the cause.' It later limits testing to read-only inspection or an already-authorized non-mutating reproduction and stops before implementation."
+    },
+    {
+      "text": "The response keeps the cause unknown without the named failure evidence and requests or proposes the minimum causal evidence-gathering path.",
+      "passed": true,
+      "evidence": "It requests the repository path, failing-test identifier, exact command and environment, complete unedited failure output, and relevant refactor diff, then proposes reproducing that exact test, inspecting the failing path and refactor, tracing the bad value backward, and testing one evidence-tied hypothesis. It concludes that without the missing artifacts, root cause cannot be established and naming one would be guessing."
+    },
+    {
+      "text": "Unneeded durable planning, documentation, and delegated implementation are not selected.",
+      "passed": true,
+      "evidence": "The response chooses a lightweight systematic-debugging route only. It does not select durable planning, documentation, delegation, or implementation and explicitly says to 'stop before implementation because no edit authority was granted.'"
+    }
+  ],
+  "summary": {
+    "passed": 3,
+    "failed": 0,
+    "total": 3,
+    "pass_rate": 1.0
+  },
+  "claims": [
+    {
+      "claim": "The investigation cannot yet establish reproducibility or root cause.",
+      "type": "quality",
+      "verified": true,
+      "evidence": "The eval prompt omits the repository path, exact test command, and failure output, so the response correctly withholds a causal conclusion."
+    },
+    {
+      "claim": "No edit authority was granted.",
+      "type": "factual",
+      "verified": true,
+      "evidence": "The eval prompt explicitly instructs 'do not edit anything,' supporting the response's implementation boundary."
+    }
+  ],
+  "eval_feedback": {
+    "suggestions": [],
+    "overall": "No suggestions; the assertions directly test the key routing, epistemic, and scope-control outcomes for this scenario."
+  }
+}

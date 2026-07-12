@@ -1,0 +1,7 @@
+# APEX route
+
+Load `apex-governance` because this is substantial multi-step implementation where execution and verification need an explicit boundary. Classify the risk from the actual affected contracts rather than inferring a tier from the task count alone. Record `design_gate=satisfied`, so do not run brainstorming or ask for another approval of the requirements.
+
+Select a durable plan and use `writing-plans`, with the APEX `plan_template.md` as the canonical format. Persist one plan under the repository's established plan location (falling back to `docs/plans/`) and express the four tasks in dependency order, including their exact interfaces, acceptance criteria, and verification commands. Do not create a parallel spec or duplicate other source-of-truth documents.
+
+Select `execution_mode=inline` and execute the approved plan with `executing-plans` (or the repository's inline plan executor), task by task, carrying outputs forward through the dependency chain and verifying each task as specified. Tight coupling means the tasks lack safe independent implementation boundaries, and no delegation was requested or authorized. Therefore do not use `subagent-driven-development` or `dispatching-parallel-agents`; subagent availability alone would not justify either route. Do not add worktrees, commits, independent review, or branch-finishing unless the governance decision and higher-priority authority separately select them.

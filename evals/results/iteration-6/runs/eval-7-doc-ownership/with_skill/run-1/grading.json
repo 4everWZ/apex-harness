@@ -1,0 +1,43 @@
+{
+  "expectations": [
+    {
+      "text": "governing-project-work owns whether and where the substantial durable artifact is required.",
+      "passed": true,
+      "evidence": "The response states that `governing-project-work` owns the documentation obligation and source-of-truth decision, including determining that a durable artifact is needed and selecting its canonical location."
+    },
+    {
+      "text": "shaping-solutions owns plan content after the governance boundary is supplied.",
+      "passed": true,
+      "evidence": "The response says `shaping-solutions` consumes the governance boundary and owns the implementation plan's content and quality, then enumerates substantive plan elements."
+    },
+    {
+      "text": "The plan links to rather than duplicates the approved design or specification.",
+      "passed": true,
+      "evidence": "The response explicitly says the approved spec/design remains authoritative and that the plan should link to it rather than duplicate it."
+    }
+  ],
+  "summary": {
+    "passed": 3,
+    "failed": 0,
+    "total": 3,
+    "pass_rate": 1.0
+  },
+  "claims": [
+    {
+      "claim": "The response routes the documentation obligation to governing-project-work and plan content to shaping-solutions.",
+      "type": "factual",
+      "verified": true,
+      "evidence": "Both ownership assignments are stated directly and match the eval metadata assertions."
+    },
+    {
+      "claim": "The approved design is not reopened absent a genuinely material unresolved choice.",
+      "type": "quality",
+      "verified": true,
+      "evidence": "The response preserves the prompt's approved-design premise while explicitly allowing reconsideration only for a material unresolved choice."
+    }
+  ],
+  "eval_feedback": {
+    "suggestions": [],
+    "overall": "No suggestions, evals look solid."
+  }
+}

@@ -1,0 +1,1 @@
+{"eval_id":"exec-tdd","eval_name":"fixture-tdd","assertions":["A focused test is added before implementation and observed failing because tokenizeUpper is missing.","tokenizeUpper is implemented by preserving tokenize behavior and uppercasing its tokens.","Focused and full tests pass after implementation, including the original tokenize contract."]}

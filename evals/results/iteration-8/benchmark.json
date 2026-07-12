@@ -1,0 +1,111 @@
+{
+  "metadata": {
+    "skill_name": "apex-series",
+    "skill_path": "D:\\Code\\prompt\\apex\\skills",
+    "executor_model": "runtime-selected Codex subagents (exact model not exposed)",
+    "analyzer_model": "fresh Codex analyzer subagent (exact model not exposed)",
+    "timestamp": "2026-07-12T16:14:42Z",
+    "evals_run": [
+      2
+    ],
+    "runs_per_configuration": 1,
+    "timing_available": false,
+    "token_metrics_available": false,
+    "baseline_commit": "f5769bde68d879c8854fc8fb80b523c3d78958c0",
+    "candidate_commit": "a56f8e7d5711c690d46498cb7f990154facd1f0f"
+  },
+  "runs": [
+    {
+      "eval_id": 2,
+      "eval_name": "read-only-debugging",
+      "configuration": "with_skill",
+      "run_number": 1,
+      "result": {
+        "pass_rate": 1.0,
+        "passed": 3,
+        "failed": 0,
+        "total": 3,
+        "time_seconds": null,
+        "tokens": null,
+        "tool_calls": null,
+        "errors": null
+      },
+      "expectations": [
+        {
+          "text": "The investigation remains read-only.",
+          "passed": true,
+          "evidence": "The response explicitly states, 'No edit or fix is authorized in this scenario' and limits hypothesis testing to 'the smallest read-only or explicitly authorized experiment.'"
+        },
+        {
+          "text": "The response keeps the cause unknown without the named failure evidence and requests or proposes the minimum causal evidence-gathering path.",
+          "passed": true,
+          "evidence": "It says the repository path, exact test command, and failure output 'are required' and concludes, 'Until the missing evidence is supplied, the cause remains unknown; a different locally available failure must not be used as a proxy.' It then gives a focused route: identify the failing test and command, obtain complete failure output, reproduce that same failure, inspect the relevant refactor diff and surrounding code, trace the bad state backward, and test a falsifiable hypothesis."
+        },
+        {
+          "text": "Unneeded durable planning, documentation, and delegated implementation are not selected.",
+          "passed": true,
+          "evidence": "The response selects only a systematic debugging route and immediate evidence gathering. It does not propose durable planning artifacts, documentation work, delegation, or implementation; it expressly stops before edits or fixes."
+        }
+      ],
+      "notes": []
+    },
+    {
+      "eval_id": 2,
+      "eval_name": "read-only-debugging",
+      "configuration": "old_skill",
+      "run_number": 1,
+      "result": {
+        "pass_rate": 1.0,
+        "passed": 3,
+        "failed": 0,
+        "total": 3,
+        "time_seconds": null,
+        "tokens": null,
+        "tool_calls": null,
+        "errors": null
+      },
+      "expectations": [
+        {
+          "text": "The investigation remains read-only.",
+          "passed": true,
+          "evidence": "The response calls this a 'diagnosis-only, read-only investigation' and explicitly says not to 'edit code, change dependencies or runtime state, mutate Git, or propose a fix before establishing the cause.' It later limits testing to read-only inspection or an already-authorized non-mutating reproduction and stops before implementation."
+        },
+        {
+          "text": "The response keeps the cause unknown without the named failure evidence and requests or proposes the minimum causal evidence-gathering path.",
+          "passed": true,
+          "evidence": "It requests the repository path, failing-test identifier, exact command and environment, complete unedited failure output, and relevant refactor diff, then proposes reproducing that exact test, inspecting the failing path and refactor, tracing the bad value backward, and testing one evidence-tied hypothesis. It concludes that without the missing artifacts, root cause cannot be established and naming one would be guessing."
+        },
+        {
+          "text": "Unneeded durable planning, documentation, and delegated implementation are not selected.",
+          "passed": true,
+          "evidence": "The response chooses a lightweight systematic-debugging route only. It does not select durable planning, documentation, delegation, or implementation and explicitly says to 'stop before implementation because no edit authority was granted.'"
+        }
+      ],
+      "notes": []
+    }
+  ],
+  "run_summary": {
+    "with_skill": {
+      "pass_rate": {
+        "mean": 1.0,
+        "stddev": null
+      }
+    },
+    "old_skill": {
+      "pass_rate": {
+        "mean": 1.0,
+        "stddev": null
+      }
+    },
+    "delta": {
+      "definition": "with_skill - old_skill",
+      "pass_rate": "+0.00",
+      "time_seconds": null,
+      "tokens": null
+    }
+  },
+  "notes": [
+    "Single response-only routing rerun after correcting the debugging assertion; no execution, timing, token, or variance claim.",
+    "Both versions correctly keep the cause unknown when the named failure evidence is absent."
+  ]
+}

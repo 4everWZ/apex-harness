@@ -1,0 +1,43 @@
+{
+  "expectations": [
+    {
+      "text": "governing-project-work owns whether and where the substantial durable artifact is required.",
+      "passed": false,
+      "evidence": "The response assigns this responsibility to `apex-governance`, not `governing-project-work`; the expected owner is never selected."
+    },
+    {
+      "text": "shaping-solutions owns plan content after the governance boundary is supplied.",
+      "passed": false,
+      "evidence": "The response assigns plan content to `writing-plans`, not `shaping-solutions`; the expected owner is never selected."
+    },
+    {
+      "text": "The plan links to rather than duplicates the approved design or specification.",
+      "passed": true,
+      "evidence": "The response explicitly says the plan links to the approved spec/design and required records rather than duplicating them."
+    }
+  ],
+  "summary": {
+    "passed": 1,
+    "failed": 2,
+    "total": 3,
+    "pass_rate": 0.3333333333333333
+  },
+  "claims": [
+    {
+      "claim": "apex-governance owns the documentation obligation and writing-plans owns plan content.",
+      "type": "factual",
+      "verified": false,
+      "evidence": "That assignment is present in the response but contradicts the expected ownership names in the eval metadata."
+    },
+    {
+      "claim": "The plan remains distinct from the approved specification and related source-of-truth documents.",
+      "type": "quality",
+      "verified": true,
+      "evidence": "The response clearly requires linking rather than duplication and describes the plan as not replacing the specification or other records."
+    }
+  ],
+  "eval_feedback": {
+    "suggestions": [],
+    "overall": "No suggestions, evals look solid."
+  }
+}

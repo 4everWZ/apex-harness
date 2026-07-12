@@ -1,0 +1,56 @@
+{
+  "expectations": [
+    {
+      "text": "Exactly one implementation plan is created at docs/plans/parser.md.",
+      "passed": true,
+      "evidence": "The project contains exactly one implementation-plan artifact, docs/plans/parser.md, and no other file under docs/plans. The file is a sequenced implementation plan linked to the approved spec."
+    },
+    {
+      "text": "The approved spec is not modified or duplicated into another spec/design/matrix/tradeoff/status artifact.",
+      "passed": true,
+      "evidence": "report.md lists docs/specs/parser.md both before and after and says it was read but not modified. Inspection finds only the original spec plus the implementation plan; no duplicate spec, design, matrix, tradeoff, status, or handoff artifact exists."
+    },
+    {
+      "text": "No implementation code is changed.",
+      "passed": true,
+      "evidence": "The before/after inventory in report.md differs only by docs/plans/parser.md. The inspected project has no added package or test files, and src/tokenize.js still contains only the original tokenize implementation."
+    }
+  ],
+  "summary": {
+    "passed": 3,
+    "failed": 0,
+    "total": 3,
+    "pass_rate": 1.0
+  },
+  "claims": [
+    {
+      "claim": "docs/plans/parser.md is the sole durable implementation plan.",
+      "type": "factual",
+      "verified": true,
+      "evidence": "Recursive inspection finds exactly one plan file and no other planning/status/design artifact in project/."
+    },
+    {
+      "claim": "No code was implemented.",
+      "type": "process",
+      "verified": true,
+      "evidence": "The project tree adds only the plan; src/tokenize.js remains the original one-function source file."
+    }
+  ],
+  "user_notes_summary": {
+    "uncertainties": [],
+    "needs_review": [],
+    "workarounds": []
+  },
+  "eval_feedback": {
+    "suggestions": [
+      {
+        "assertion": "The approved spec is not modified or duplicated into another spec/design/matrix/tradeoff/status artifact.",
+        "reason": "Absence of duplicate artifacts is directly inspectable, but non-modification of the approved spec depends on the executor's report. Include a pristine spec checksum or baseline copy in the eval harness."
+      },
+      {
+        "reason": "No assertion evaluates whether the plan invents repository structure beyond the approved spec. This plan directs creation of package.json and tests/tokenize.test.js despite neither being present in the fixture, so a repository-grounding assertion would catch potentially unjustified planning assumptions."
+      }
+    ],
+    "overall": "The ownership assertions pass, but the eval does not assess whether plan commands and file paths are grounded in the repository."
+  }
+}

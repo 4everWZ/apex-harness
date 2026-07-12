@@ -1,0 +1,54 @@
+{
+  "expectations": [
+    {
+      "text": "The old brainstorming name routes to shaping-solutions.",
+      "passed": true,
+      "evidence": "The response explicitly states: \"`brainstorming` routes to `shaping-solutions`.\""
+    },
+    {
+      "text": "The old delegated-development name routes to coordinating-subagents only when its current preconditions hold.",
+      "passed": true,
+      "evidence": "The response says `subagent-driven-development` \"routes to `coordinating-subagents` when delegation is authorized and an approved plan has bounded tasks that genuinely benefit from parallelism, context isolation, or independent review. Otherwise execution stays inline.\" This both gives the required route and conditions it on current delegation preconditions."
+    },
+    {
+      "text": "Deleted direct skill lookup is identified as a breaking migration rather than silently emulated with extra alias skills.",
+      "passed": true,
+      "evidence": "The response explicitly says the old directories were intentionally deleted, direct runtime lookup is \"a documented breaking migration,\" and APEX \"must not recreate alias skills or claim that such a lookup succeeded.\""
+    }
+  ],
+  "summary": {
+    "passed": 3,
+    "failed": 0,
+    "total": 3,
+    "pass_rate": 1.0
+  },
+  "claims": [
+    {
+      "claim": "The old brainstorming workflow name maps to shaping-solutions.",
+      "type": "factual",
+      "verified": true,
+      "evidence": "This is stated directly in the response and is exactly required by the first eval assertion."
+    },
+    {
+      "claim": "The old subagent-driven-development name maps conditionally to coordinating-subagents.",
+      "type": "factual",
+      "verified": true,
+      "evidence": "The response expressly conditions the route on delegation authorization, an approved bounded plan, and a genuine benefit from delegated work, matching the second assertion."
+    },
+    {
+      "claim": "Direct lookup of the deleted old skills is a breaking migration and must not be emulated with alias skills.",
+      "type": "factual",
+      "verified": true,
+      "evidence": "The response states both parts explicitly, matching the third assertion."
+    }
+  ],
+  "user_notes_summary": {
+    "uncertainties": [],
+    "needs_review": [],
+    "workarounds": []
+  },
+  "eval_feedback": {
+    "suggestions": [],
+    "overall": "No suggestions, evals look solid. The assertions discriminate between correct migration routing and treating deleted workflow names as extant skills."
+  }
+}
