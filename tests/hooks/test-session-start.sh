@@ -27,7 +27,17 @@ if (!hook.additionalContext.includes("brainstorming") || !hook.additionalContext
 check_hook "Claude Code/Antigravity hook emits nested APEX context" "$ROOT/hooks/session-start"
 check_hook "Codex hook emits nested APEX context" "$ROOT/hooks/session-start-codex"
 
-wrapper_output="$(PLUGIN_ROOT="$ROOT" CLAUDE_PLUGIN_ROOT="$ROOT" bash "$ROOT/hooks/run-hook.cmd" session-start-codex)"
+wrapper_output="$(PLUGIN_ROOT="$ROOT" CLAUDE_PLUGIN_ROOT="$ROOT" "$ROOT/hooks/run-hook.cmd" session-start-codex)"
 printf '%s' "$wrapper_output" | "$NODE_BIN" -e 'JSON.parse(require("fs").readFileSync(0,"utf8"))' \
   || { echo "FAIL: Codex wrapper"; exit 1; }
-echo "PASS: Codex wrapper dispatch"
+echo "PASS: Unix manifest-style Codex wrapper dispatch"
+
+if command -v cmd.exe >/dev/null 2>&1 && command -v wslpath >/dev/null 2>&1; then
+  windows_wrapper="$(wslpath -w "$ROOT/hooks/run-hook.cmd")"
+  windows_output="$(cmd.exe /d /c "$windows_wrapper session-start-codex" 2>/dev/null | tr -d '\r')"
+  printf '%s' "$windows_output" | "$NODE_BIN" -e '
+const payload = JSON.parse(require("fs").readFileSync(0,"utf8"));
+if (!payload.hookSpecificOutput?.additionalContext?.includes("# Using APEX")) process.exit(1);
+' || { echo "FAIL: Windows native wrapper"; exit 1; }
+  echo "PASS: Windows native PowerShell wrapper dispatch"
+fi

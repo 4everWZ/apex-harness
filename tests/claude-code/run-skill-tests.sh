@@ -84,11 +84,6 @@ for test in "${tests[@]}"; do
         continue
     fi
 
-    if [ ! -x "$test_path" ]; then
-        echo "  Making $test executable..."
-        chmod +x "$test_path"
-    fi
-
     start_time=$(date +%s)
 
     if [ "$VERBOSE" = true ]; then

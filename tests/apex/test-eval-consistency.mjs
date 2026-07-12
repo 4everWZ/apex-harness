@@ -7,7 +7,7 @@ const root = path.resolve(path.dirname(fileURLToPath(import.meta.url)), '../..')
 const readJson = (relative) => JSON.parse(fs.readFileSync(path.join(root, relative), 'utf8'));
 
 const evals = readJson('evals/evals.json');
-assert.equal(evals.skill_name, 'apex-series');
+assert.equal(evals.skill_name, 'using-apex');
 assert.ok(evals.evals.length >= 11);
 for (const item of evals.evals) {
   assert.ok(Number.isInteger(item.id), `eval id is integer: ${item.id}`);
