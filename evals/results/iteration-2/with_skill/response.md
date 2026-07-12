@@ -1,7 +1,0 @@
-I would not dispatch Task 2 yet. The ledger is a recovery hint, and matching `HEAD`, `git status`, and `git diff --stat` do not prove content identity.
-
-First, I would run only `git rev-parse --verify HEAD`. If it fails, the repository has no initial commit, so this commit-range SDD workflow must stop before creating briefs, reports, ledger entries, commits, or review packages; an authorized initial commit or a different inline workflow is required.
-
-If `HEAD` resolves, I would compare the current branch, plan digest, recorded Task 1 commit range, and a content-sensitive digest of the relevant source file against `run-context.md` and the last accepted checkpoint. Because the file's content changed despite its identical byte count and matching summaries, freshness is not established. I would inspect the actual changed content and the Task 1 diff to determine whether Task 1's acceptance evidence still applies. I would not rerun Task 1 implementation or the full test suite; I would rerun only the verification directly affected by that content change, and only if inspection cannot establish validity from existing evidence.
-
-Task 2 can resume with a fresh implementer only after Task 1's expected commits are confirmed, the changed relevant state is reconciled or restored through an authorized path, the required affected verification is valid, the checkpoint is refreshed with a content-sensitive identifier, and the Git-visible workspace satisfies the workflow's clean-state precondition.

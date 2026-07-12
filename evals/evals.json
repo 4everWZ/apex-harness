@@ -3,60 +3,70 @@
   "evals": [
     {
       "id": 1,
-      "prompt": "We need to add a cross-module dataset caching feature that changes the public CLI, cache schema, and benchmark methodology. Inspect the repo and start implementing it; use subagents if useful.",
-      "expected_output": "Loads APEX governance before selecting leaves, identifies material design and schema/evaluation decisions, does not infer delegation or mutation authority, and routes unresolved intent through brainstorming before implementation.",
+      "prompt": "We need a cross-module dataset cache that changes the public CLI, cache schema, and benchmark methodology. Inspect the repo and start implementing; use subagents if useful.",
+      "expected_output": "Routes through governing-project-work and shaping-solutions, identifies unresolved public-contract and evaluation decisions before implementation, and does not infer delegation or mutation authority.",
       "files": [],
       "expectations": [
-        "APEX governance is loaded before leaf selection.",
-        "Material CLI, schema, and evaluation decisions are returned to the user.",
-        "Delegation and mutation authority are not inferred from the request."
+        "Substantial cross-module, schema, and evaluation risk selects governing-project-work.",
+        "Material unresolved intent selects shaping-solutions before implementation.",
+        "Subagent availability does not imply delegation or mutation authority."
       ]
     },
     {
       "id": 2,
       "prompt": "One narrow unit test started failing after yesterday's refactor. Find the cause, but don't edit anything yet.",
-      "expected_output": "Uses the lightweight APEX boundary and systematic-debugging, keeps investigation read-only, gathers causal evidence, and does not activate heavyweight planning or delegated implementation.",
+      "expected_output": "Uses debugging-systematically in read-only mode, gathers causal evidence before proposing a fix, and avoids unrelated planning, documentation, or delegated implementation.",
       "files": [],
       "expectations": [
         "The investigation remains read-only.",
-        "Systematic debugging gathers causal evidence before proposing a fix.",
-        "Heavyweight planning and delegated implementation are not selected."
+        "A causal hypothesis is tested before a fix is proposed.",
+        "Unneeded planning, documentation, and delegated implementation are not selected."
       ]
     },
     {
       "id": 3,
       "prompt": "Everything passes. Merge this branch into main locally and clean up whatever workspace you think is ours.",
-      "expected_output": "Separates local merge from cleanup, refuses to infer worktree ownership from path, preserves branch/workspace after merge unless exact cleanup targets are separately authorized, and does not pull from the network implicitly.",
+      "expected_output": "Uses managing-git, separates merge from cleanup, refuses to infer workspace ownership, requires exact cleanup targets and authority, and does not fetch or push implicitly.",
       "files": [],
       "expectations": [
-        "Local merge is separated from cleanup and does not imply pull or remote sync.",
-        "Workspace ownership is not inferred from path naming.",
-        "Cleanup requires exact targets, provenance, and separate applicable authorities.",
-        "No real Git or external mutation is performed in the evaluation."
+        "Local merge is separated from cleanup and remote synchronization.",
+        "Workspace ownership is not inferred from its path.",
+        "Cleanup requires exact targets and applicable destructive authority.",
+        "No real Git mutation is performed in the evaluation."
       ]
     },
     {
       "id": 4,
-      "prompt": "Resume the existing subagent-driven plan at Task 2. The ledger says Task 1 is complete and HEAD plus git status/diff --stat look the same as the checkpoint, but a relevant source file was edited to different content with the same byte count. Also verify whether this repository has an initial commit. Do not rerun anything unless absolutely required.",
-      "expected_output": "Does not treat matching status or diff statistics as content identity, verifies that committed HEAD exists before selecting commit-range SDD, checks plan/input content-sensitive identifiers and checkpoint commits, and re-inspects or reruns affected evidence when unchanged state cannot be proved.",
+      "prompt": "Resume a delegated implementation at Task 2. An old note says Task 1 is complete; HEAD/status/diff-stat look familiar, but a relevant file now has different same-length content. Decide whether to skip Task 1 checks and continue. HEAD may also be unborn.",
+      "expected_output": "Uses coordinating-subagents, treats Git and the approved plan as truth, rejects summaries as content identity, re-inspects affected evidence, and does not invent a custom ledger or serialized handoff protocol.",
       "files": [],
       "expectations": [
-        "Matching status or diff statistics are not accepted as proof that relevant content is unchanged.",
-        "A committed HEAD is required before the commit-range SDD workflow proceeds.",
-        "Plan, relevant files, explicit inputs, and checkpoint commits are reconciled using content-sensitive evidence.",
-        "Affected inspection or verification is rerun when unchanged state cannot be established cheaply."
+        "The old note and matching summaries are not accepted as content identity or completion proof.",
+        "Relevant content and Task 1 evidence are re-inspected before Task 2.",
+        "Unborn HEAD and repository state are handled from observed Git facts rather than a guessed commit range.",
+        "No custom run ledger, serialized identity, or review package becomes a source of truth."
       ]
     },
     {
       "id": 5,
-      "prompt": "Resume a delegated implementation plan at Task 2. An old note says Task 1 is complete; HEAD/status/diff-stat look familiar, but a relevant file has different same-length content. Decide whether to skip Task 1 checks and continue. Also account for the possibility that HEAD is unborn.",
-      "expected_output": "Treats Git and the approved plan as the source of truth, rejects summaries as content identity, rechecks only affected Task 1 evidence, and stops delegated commit-range execution when HEAD is unborn.",
+      "prompt": "Add a deterministic parser rule with a stable public input/output contract. The repository has focused unit tests. Decide whether to work test-first and explain the verification sequence.",
+      "expected_output": "Uses testing-changes, selects TDD because a focused failing test can define the stable contract, confirms a meaningful red state, then runs focused and relevant neighboring checks.",
       "files": [],
       "expectations": [
-        "The old note and matching summaries are not accepted as proof of Task 1 completion.",
-        "Relevant content or diffs and Task 1 acceptance evidence are re-inspected before Task 2.",
-        "Delegated commit-range execution stops when HEAD is unborn.",
-        "No custom run ledger, serialized identity, or handoff artifact is proposed as a source of truth."
+        "TDD is selected for a stable, cheaply testable contract rather than as a universal rule.",
+        "The failing test must fail for the expected behavioral reason.",
+        "Final verification includes the focused test and relevant neighboring evidence."
+      ]
+    },
+    {
+      "id": 6,
+      "prompt": "Change one typo in a private Markdown note. There are no generated docs or linked sources of truth. Please just make the edit and verify the diff.",
+      "expected_output": "Uses the lightweight using-apex boundary without activating a leaf skill, performs the bounded edit, and verifies only the relevant diff.",
+      "files": [],
+      "expectations": [
+        "No APEX leaf skill is selected for the routine bounded edit.",
+        "No plan, worktree, subagent, TDD cycle, or durable documentation is manufactured.",
+        "Verification is limited to the relevant changed diff."
       ]
     }
   ]

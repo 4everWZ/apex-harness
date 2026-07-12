@@ -55,8 +55,8 @@ done
 
 # List of skill tests to run (fast unit tests)
 tests=(
-    "test-governance-composition.sh"
-    "test-worktree-path-policy.sh"
+    "../apex/test-series-contract.sh"
+    "../apex/test-documentation-contract.sh"
 )
 
 # Filter to specific test if requested

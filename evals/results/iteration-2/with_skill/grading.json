@@ -1,9 +1,0 @@
-{
-  "expectations": [
-    {"text": "Matching status or diff statistics are not accepted as proof that relevant content is unchanged.", "passed": true, "evidence": "Calls the ledger a hint and rejects HEAD/status/diff-stat as content identity."},
-    {"text": "A committed HEAD is required before the commit-range SDD workflow proceeds.", "passed": true, "evidence": "Stops the commit-range workflow if HEAD verification fails."},
-    {"text": "Plan, relevant files, explicit inputs, and checkpoint commits are reconciled using content-sensitive evidence.", "passed": false, "evidence": "Checks plan digest, task commit range, file digest, and run-context, but does not explicitly revalidate every recorded extra input."},
-    {"text": "Affected inspection or verification is rerun when unchanged state cannot be established cheaply.", "passed": true, "evidence": "Uses targeted inspection and affected verification."}
-  ],
-  "summary": {"passed": 3, "failed": 1, "total": 4, "pass_rate": 0.75}
-}

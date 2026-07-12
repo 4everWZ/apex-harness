@@ -1,9 +1,0 @@
-{
-  "expectations": [
-    {"id": "E5-1", "text": "The old note and matching summaries are not accepted as proof of Task 1 completion.", "passed": true, "evidence": "Explicitly rejects them as content identity."},
-    {"id": "E5-2", "text": "Relevant content or diffs and Task 1 acceptance evidence are re-inspected before Task 2.", "passed": true, "evidence": "Requires actual content/diff and acceptance/review evidence."},
-    {"id": "E5-3", "text": "Delegated commit-range execution stops when HEAD is unborn.", "passed": true, "evidence": "Stops before dispatch when HEAD does not resolve."},
-    {"id": "E5-4", "text": "No custom run ledger, serialized identity, or handoff artifact is proposed as a source of truth.", "passed": true, "evidence": "Uses Git and plan evidence only."}
-  ],
-  "summary": {"passed": 4, "failed": 0, "total": 4, "pass_rate": 1.0}
-}
