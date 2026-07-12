@@ -29,6 +29,12 @@ bash tests/antigravity/run-tests.sh
 bash tests/gemini/test-extension.sh
 ```
 
+On Windows also run:
+
+```powershell
+.\tests\hooks\test-windows-wrapper.ps1
+```
+
 Only Claude Code, Codex, Antigravity, and Gemini CLI are supported. Do not add
 generic compatibility checks for other runtimes without an explicit scope
 decision.

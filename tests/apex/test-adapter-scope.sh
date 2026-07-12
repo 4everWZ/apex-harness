@@ -8,6 +8,8 @@ for required in \
   .codex-plugin/plugin.json \
   hooks/hooks.json \
   hooks/hooks-codex.json \
+  hooks/session-start-windows.ps1 \
+  tests/hooks/test-windows-wrapper.ps1 \
   tests/antigravity/test-antigravity-bootstrap.sh \
   gemini-extension.json \
   GEMINI.md; do

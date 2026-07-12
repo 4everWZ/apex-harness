@@ -67,14 +67,12 @@ afterward.
 
 1. The batch section validates the script name and resolves the hook directory
    from the dispatcher's own location.
-2. It tries bash in three places:
-   - `C:\Program Files\Git\bin\bash.exe`
-   - `C:\Program Files (x86)\Git\bin\bash.exe`
-   - `bash` on `PATH` (MSYS2, Cygwin, or a non-default Git install)
-3. If bash is found, it runs the named extensionless hook script from the hooks
-   directory.
-4. If no bash is found, the dispatcher exits `0` silently — the plugin
-   continues working, it just skips the hook.
+2. It invokes Windows PowerShell with `session-start-windows.ps1` and passes the
+   requested hook name (`session-start` or `session-start-codex`).
+3. The PowerShell hook reads `using-apex`, constructs the platform-specific
+   loader sentence, and emits the nested SessionStart JSON payload.
+4. The wrapper returns PowerShell's real exit status. A hook failure is visible;
+   it is not silently converted to success.
 5. `exit /b` stops CMD before it reaches the Unix section.
 
 ### How it works on Unix (bash/sh)
@@ -89,13 +87,17 @@ afterward.
 | Decision | Why |
 |----------|-----|
 | Extensionless scripts | Prevents Claude Code's Windows `.sh`-auto-prepend from interfering with the dispatcher command |
-| No `-l` (login shell) | Not needed; hook scripts should be self-contained and not depend on login-shell PATH setup |
-| No `cygpath` | Bash receives the Windows path directly and handles it correctly; `cygpath` was needed by the old `-c "..."` invocation pattern, not by direct exec |
-| Silent exit on no-bash | Avoids breaking the plugin for users who don't have Git for Windows; hook context injection is skipped gracefully |
+| Native PowerShell on Windows | Avoids Git Bash/WSL path ambiguity and removes a non-system dependency |
+| Bash only on Unix | Keeps the shipped shell hooks simple and uses native path semantics |
+| Propagate failures | A broken entry or hook must not look like a successful bootstrap |
 
 ## Writing Cross-Platform Hook Scripts
 
-Your hook logic goes in the extensionless script file. A few portable patterns:
+Unix hook logic goes in the extensionless script file. Windows logic lives in
+`session-start-windows.ps1`; keep their output contract aligned and exercise
+both through the hook tests.
+
+A few portable shell patterns:
 
 ### Do
 - Use pure bash builtins when possible
@@ -130,9 +132,12 @@ escape_for_json() {
 
 ## Troubleshooting
 
-### "bash is not recognized"
+### PowerShell execution fails on Windows
 
-CMD couldn't find bash in any of the three locations the dispatcher tries. The dispatcher exits silently (0) rather than erroring, so the hook is skipped. Install Git for Windows at the standard path or ensure `bash` is on `PATH`.
+Run `tests/hooks/test-windows-wrapper.ps1`. Confirm `powershell.exe` is available
+and that local policy permits the wrapper's explicit `-ExecutionPolicy Bypass`
+invocation. The wrapper propagates a non-zero status instead of skipping the
+hook.
 
 ### Hook runs on Unix but does nothing on Windows
 
