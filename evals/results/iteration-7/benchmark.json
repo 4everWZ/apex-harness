@@ -1,0 +1,111 @@
+{
+  "metadata": {
+    "skill_name": "apex-series",
+    "skill_path": "D:\\Code\\prompt\\apex\\skills",
+    "executor_model": "runtime-selected Codex subagents (exact model not exposed)",
+    "analyzer_model": "not run",
+    "timestamp": "2026-07-12T15:36:14Z",
+    "evals_run": [
+      11
+    ],
+    "runs_per_configuration": 1,
+    "timing_available": false,
+    "token_metrics_available": false,
+    "baseline_commit": "f5769bde68d879c8854fc8fb80b523c3d78958c0",
+    "candidate_commit": "7bc01e7727778c4de659cf62a03dff9a7601196c"
+  },
+  "runs": [
+    {
+      "eval_id": 11,
+      "eval_name": "name-migration",
+      "configuration": "with_skill",
+      "run_number": 1,
+      "result": {
+        "pass_rate": 1.0,
+        "passed": 3,
+        "failed": 0,
+        "total": 3,
+        "time_seconds": null,
+        "tokens": null,
+        "tool_calls": null,
+        "errors": null
+      },
+      "expectations": [
+        {
+          "text": "The old brainstorming name routes to shaping-solutions.",
+          "passed": true,
+          "evidence": "The response explicitly states: \"`brainstorming` routes to `shaping-solutions`.\""
+        },
+        {
+          "text": "The old delegated-development name routes to coordinating-subagents only when its current preconditions hold.",
+          "passed": true,
+          "evidence": "The response says `subagent-driven-development` \"routes to `coordinating-subagents` when delegation is authorized and an approved plan has bounded tasks that genuinely benefit from parallelism, context isolation, or independent review. Otherwise execution stays inline.\" This both gives the required route and conditions it on current delegation preconditions."
+        },
+        {
+          "text": "Deleted direct skill lookup is identified as a breaking migration rather than silently emulated with extra alias skills.",
+          "passed": true,
+          "evidence": "The response explicitly says the old directories were intentionally deleted, direct runtime lookup is \"a documented breaking migration,\" and APEX \"must not recreate alias skills or claim that such a lookup succeeded.\""
+        }
+      ],
+      "notes": []
+    },
+    {
+      "eval_id": 11,
+      "eval_name": "name-migration",
+      "configuration": "old_skill",
+      "run_number": 1,
+      "result": {
+        "pass_rate": 0.0,
+        "passed": 0,
+        "failed": 3,
+        "total": 3,
+        "time_seconds": null,
+        "tokens": null,
+        "tool_calls": null,
+        "errors": null
+      },
+      "expectations": [
+        {
+          "text": "The old brainstorming name routes to shaping-solutions.",
+          "passed": false,
+          "evidence": "The response instead says the names are \"still first-class leaf-skill names\" and routes literally to `brainstorming`; it expressly says there is no evidence for translating the old names to new names."
+        },
+        {
+          "text": "The old delegated-development name routes to coordinating-subagents only when its current preconditions hold.",
+          "passed": false,
+          "evidence": "Although the response discusses preconditions, it routes to the old `subagent-driven-development` leaf and then suggests `executing-plans` as fallback. It never routes the old name to `coordinating-subagents` and explicitly rejects migration mapping."
+        },
+        {
+          "text": "Deleted direct skill lookup is identified as a breaking migration rather than silently emulated with extra alias skills.",
+          "passed": false,
+          "evidence": "The response does not identify deleted direct lookup as a breaking migration. It contradicts the assertion by claiming the old names remain \"first-class leaf-skill names.\""
+        }
+      ],
+      "notes": []
+    }
+  ],
+  "run_summary": {
+    "with_skill": {
+      "pass_rate": {
+        "mean": 1.0,
+        "stddev": null
+      }
+    },
+    "old_skill": {
+      "pass_rate": {
+        "mean": 0.0,
+        "stddev": null
+      }
+    },
+    "delta": {
+      "definition": "with_skill - old_skill",
+      "pass_rate": "+1.00",
+      "time_seconds": null,
+      "tokens": null
+    }
+  },
+  "notes": [
+    "Single response-only routing run per configuration; no timing, token, transcript, variance, or execution claim.",
+    "A separate metadata-only trigger set scored 20/20 once; no cross-model or repeated-run claim."
+  ]
+}

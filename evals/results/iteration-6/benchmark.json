@@ -1,0 +1,407 @@
+{
+  "metadata": {
+    "skill_name": "apex-series",
+    "skill_path": "D:\\Code\\prompt\\apex\\skills",
+    "executor_model": "runtime-selected Codex subagents (exact model not exposed)",
+    "analyzer_model": "not run",
+    "timestamp": "2026-07-12T15:36:14Z",
+    "evals_run": [
+      7,
+      8,
+      9,
+      10,
+      11
+    ],
+    "runs_per_configuration": 1,
+    "timing_available": false,
+    "token_metrics_available": false,
+    "baseline_commit": "f5769bde68d879c8854fc8fb80b523c3d78958c0",
+    "candidate_commit": "b9f2a16c"
+  },
+  "runs": [
+    {
+      "eval_id": 10,
+      "eval_name": "investigate-review",
+      "configuration": "with_skill",
+      "run_number": 1,
+      "result": {
+        "pass_rate": 1.0,
+        "passed": 4,
+        "failed": 0,
+        "total": 4,
+        "time_seconds": null,
+        "tokens": null,
+        "tool_calls": null,
+        "errors": null
+      },
+      "expectations": [
+        {
+          "text": "Independent read-only investigations may run concurrently with distinct questions.",
+          "passed": true,
+          "evidence": "The response directs the controller to assign \"each of two investigators one distinct, independent question\" and to \"Run them concurrently because they share no mutable state and have no sequential dependency.\""
+        },
+        {
+          "text": "The fresh reviewer receives intended behavior, exact diff scope, and evidence.",
+          "passed": true,
+          "evidence": "Step 3 specifies a fresh reviewer and supplies \"intended behavior, relevant source documents, the exact commit/diff range or working-tree scope, available verification evidence, and the risk focus.\""
+        },
+        {
+          "text": "Subagents do not gain mutation or external authority from availability.",
+          "passed": true,
+          "evidence": "The response states that investigator assignments are read-only and that \"delegation alone grants no mutation authority.\" It further says coordination does not implicitly authorize edits, Git mutations, deployment, messaging, or other external mutation."
+        },
+        {
+          "text": "The controller owns reconciliation and final claims.",
+          "passed": true,
+          "evidence": "The opening says the controller retains ownership of integration and final claims. Steps 2 and 4 assign the controller reconciliation, diff/evidence inspection, review-premise verification, finding resolution, and closure of stale evidence before completion claims."
+        }
+      ],
+      "notes": []
+    },
+    {
+      "eval_id": 10,
+      "eval_name": "investigate-review",
+      "configuration": "old_skill",
+      "run_number": 1,
+      "result": {
+        "pass_rate": 1.0,
+        "passed": 4,
+        "failed": 0,
+        "total": 4,
+        "time_seconds": null,
+        "tokens": null,
+        "tool_calls": null,
+        "errors": null
+      },
+      "expectations": [
+        {
+          "text": "Independent read-only investigations may run concurrently with distinct questions.",
+          "passed": true,
+          "evidence": "Phase 1 requires \"each fresh-context investigator one exact, genuinely independent question\" and permits concurrent dispatch when runtime support and independence conditions hold."
+        },
+        {
+          "text": "The fresh reviewer receives intended behavior, exact diff scope, and evidence.",
+          "passed": true,
+          "evidence": "Phase 3 requires a new independent reviewer to receive \"the requirements, a concise description of what was implemented, relevant verification evidence, and an exact diff scope,\" then defines exact committed and uncommitted diff scopes."
+        },
+        {
+          "text": "Subagents do not gain mutation or external authority from availability.",
+          "passed": true,
+          "evidence": "The response says \"agent availability alone is not authorization,\" gives investigators delegated Git authority `none`, prohibits edits and external actions, and states that APEX mechanisms do not supply authority."
+        },
+        {
+          "text": "The controller owns reconciliation and final claims.",
+          "passed": true,
+          "evidence": "The controller must inspect cited evidence, synthesize reports, address review findings only under established authority, and support the final completion claim with fresh evidence for the final code state."
+        }
+      ],
+      "notes": []
+    },
+    {
+      "eval_id": 11,
+      "eval_name": "name-migration",
+      "configuration": "with_skill",
+      "run_number": 1,
+      "result": {
+        "pass_rate": 0.67,
+        "passed": 2,
+        "failed": 1,
+        "total": 3,
+        "time_seconds": null,
+        "tokens": null,
+        "tool_calls": null,
+        "errors": null
+      },
+      "expectations": [
+        {
+          "text": "The old brainstorming name routes to shaping-solutions.",
+          "passed": true,
+          "evidence": "The response explicitly maps `brainstorming` to `shaping-solutions` and explains when its clarify/design and plan modes apply."
+        },
+        {
+          "text": "The old delegated-development name routes to coordinating-subagents only when its current preconditions hold.",
+          "passed": true,
+          "evidence": "The response maps `subagent-driven-development` to `coordinating-subagents` or inline execution and limits delegation to authorized, bounded, non-overlapping work where fresh context or independent review justifies the coordination cost."
+        },
+        {
+          "text": "Deleted direct skill lookup is identified as a breaking migration rather than silently emulated with extra alias skills.",
+          "passed": false,
+          "evidence": "The response clearly says the old names are not aliases or separate skills and that direct lookup is intentionally unsupported, but it never identifies this deletion as a breaking migration. Under the burden-of-proof rule, the assertion's explicit breaking-migration requirement is not established."
+        }
+      ],
+      "notes": []
+    },
+    {
+      "eval_id": 11,
+      "eval_name": "name-migration",
+      "configuration": "old_skill",
+      "run_number": 1,
+      "result": {
+        "pass_rate": 0.0,
+        "passed": 0,
+        "failed": 3,
+        "total": 3,
+        "time_seconds": null,
+        "tokens": null,
+        "tool_calls": null,
+        "errors": null
+      },
+      "expectations": [
+        {
+          "text": "The old brainstorming name routes to shaping-solutions.",
+          "passed": false,
+          "evidence": "The response contradicts the assertion by routing the name literally to `brainstorming` and stating that the baseline keeps old leaf names stable rather than translating them."
+        },
+        {
+          "text": "The old delegated-development name routes to coordinating-subagents only when its current preconditions hold.",
+          "passed": false,
+          "evidence": "Although the response lists preconditions for delegation, it routes literally to `subagent-driven-development`, not to `coordinating-subagents`, and offers inline `executing-plans` as the alternative."
+        },
+        {
+          "text": "Deleted direct skill lookup is identified as a breaking migration rather than silently emulated with extra alias skills.",
+          "passed": false,
+          "evidence": "The response directly denies the migration: it says the old workflow names remain public routing names and that \"There is no seven-skill name-migration or alias mapping to explain.\" It therefore does not identify deleted direct lookup as a breaking migration."
+        }
+      ],
+      "notes": []
+    },
+    {
+      "eval_id": 7,
+      "eval_name": "doc-ownership",
+      "configuration": "with_skill",
+      "run_number": 1,
+      "result": {
+        "pass_rate": 1.0,
+        "passed": 3,
+        "failed": 0,
+        "total": 3,
+        "time_seconds": null,
+        "tokens": null,
+        "tool_calls": null,
+        "errors": null
+      },
+      "expectations": [
+        {
+          "text": "governing-project-work owns whether and where the substantial durable artifact is required.",
+          "passed": true,
+          "evidence": "The response states that `governing-project-work` owns the documentation obligation and source-of-truth decision, including determining that a durable artifact is needed and selecting its canonical location."
+        },
+        {
+          "text": "shaping-solutions owns plan content after the governance boundary is supplied.",
+          "passed": true,
+          "evidence": "The response says `shaping-solutions` consumes the governance boundary and owns the implementation plan's content and quality, then enumerates substantive plan elements."
+        },
+        {
+          "text": "The plan links to rather than duplicates the approved design or specification.",
+          "passed": true,
+          "evidence": "The response explicitly says the approved spec/design remains authoritative and that the plan should link to it rather than duplicate it."
+        }
+      ],
+      "notes": []
+    },
+    {
+      "eval_id": 7,
+      "eval_name": "doc-ownership",
+      "configuration": "old_skill",
+      "run_number": 1,
+      "result": {
+        "pass_rate": 0.3333333333333333,
+        "passed": 1,
+        "failed": 2,
+        "total": 3,
+        "time_seconds": null,
+        "tokens": null,
+        "tool_calls": null,
+        "errors": null
+      },
+      "expectations": [
+        {
+          "text": "governing-project-work owns whether and where the substantial durable artifact is required.",
+          "passed": false,
+          "evidence": "The response assigns this responsibility to `apex-governance`, not `governing-project-work`; the expected owner is never selected."
+        },
+        {
+          "text": "shaping-solutions owns plan content after the governance boundary is supplied.",
+          "passed": false,
+          "evidence": "The response assigns plan content to `writing-plans`, not `shaping-solutions`; the expected owner is never selected."
+        },
+        {
+          "text": "The plan links to rather than duplicates the approved design or specification.",
+          "passed": true,
+          "evidence": "The response explicitly says the plan links to the approved spec/design and required records rather than duplicating them."
+        }
+      ],
+      "notes": []
+    },
+    {
+      "eval_id": 8,
+      "eval_name": "worktree-isolation",
+      "configuration": "with_skill",
+      "run_number": 1,
+      "result": {
+        "pass_rate": 1.0,
+        "passed": 4,
+        "failed": 0,
+        "total": 4,
+        "time_seconds": null,
+        "tokens": null,
+        "tool_calls": null,
+        "errors": null
+      },
+      "expectations": [
+        {
+          "text": "managing-git is selected because dirty shared state and parallel work justify isolation.",
+          "passed": true,
+          "evidence": "The response selects only `managing-git` and states that unrelated edits plus parallel feature work justify worktree isolation."
+        },
+        {
+          "text": "Creating the worktree and exact new ref requires applicable authority.",
+          "passed": true,
+          "evidence": "The response says branch creation mutates a ref, requires authority for the exact branch name, and postpones worktree/ref mutation until separately authorized."
+        },
+        {
+          "text": "A project-local worktree path is verified ignored before creation.",
+          "passed": true,
+          "evidence": "Step 4 explicitly requires verifying that a project-local worktree location is ignored before creating it."
+        },
+        {
+          "text": "Unrelated user edits remain untouched.",
+          "passed": true,
+          "evidence": "The response directs leaving the current checkout and unrelated edits untouched and prohibits stash, reset, branch switching, cleaning, or reuse of the dirty checkout."
+        }
+      ],
+      "notes": []
+    },
+    {
+      "eval_id": 8,
+      "eval_name": "worktree-isolation",
+      "configuration": "old_skill",
+      "run_number": 1,
+      "result": {
+        "pass_rate": 0.75,
+        "passed": 3,
+        "failed": 1,
+        "total": 4,
+        "time_seconds": null,
+        "tokens": null,
+        "tool_calls": null,
+        "errors": null
+      },
+      "expectations": [
+        {
+          "text": "managing-git is selected because dirty shared state and parallel work justify isolation.",
+          "passed": false,
+          "evidence": "The response selects `apex-governance` and `using-git-worktrees`; it never selects the expected `managing-git` owner."
+        },
+        {
+          "text": "Creating the worktree and exact new ref requires applicable authority.",
+          "passed": true,
+          "evidence": "The response requires disclosure of the exact worktree path, branch name, and base ref and states that both worktree and create-ref authority are required for those exact effects."
+        },
+        {
+          "text": "A project-local worktree path is verified ignored before creation.",
+          "passed": true,
+          "evidence": "The response explicitly requires verifying a manual project-local worktree directory is ignored before creation."
+        },
+        {
+          "text": "Unrelated user edits remain untouched.",
+          "passed": true,
+          "evidence": "The response keeps the current checkout read-only and prohibits stashing, resetting, switching branches, cleaning, or otherwise manipulating the unrelated edits."
+        }
+      ],
+      "notes": []
+    },
+    {
+      "eval_id": 9,
+      "eval_name": "planning-inline",
+      "configuration": "with_skill",
+      "run_number": 1,
+      "result": {
+        "pass_rate": 1.0,
+        "passed": 3,
+        "failed": 0,
+        "total": 3,
+        "time_seconds": null,
+        "tokens": null,
+        "tool_calls": null,
+        "errors": null
+      },
+      "expectations": [
+        {
+          "text": "shaping-solutions is selected for the durable implementation plan.",
+          "passed": true,
+          "evidence": "The response opens with `Use shaping-solutions in Plan mode only` and describes the durable implementation plan it should create."
+        },
+        {
+          "text": "Tightly coupled execution remains inline.",
+          "passed": true,
+          "evidence": "The response explicitly says to execute the plan inline in dependency order because the edits are tightly coupled."
+        },
+        {
+          "text": "Multiple tasks alone do not select subagents or worktree isolation.",
+          "passed": true,
+          "evidence": "The response rejects `coordinating-subagents` because the tasks are not independently delegable and no delegation was requested, and says other APEX leaves are used only if their own concrete triggers arise; task count alone therefore selects neither subagents nor worktree isolation."
+        }
+      ],
+      "notes": []
+    },
+    {
+      "eval_id": 9,
+      "eval_name": "planning-inline",
+      "configuration": "old_skill",
+      "run_number": 1,
+      "result": {
+        "pass_rate": 0.6666666666666666,
+        "passed": 2,
+        "failed": 1,
+        "total": 3,
+        "time_seconds": null,
+        "tokens": null,
+        "tool_calls": null,
+        "errors": null
+      },
+      "expectations": [
+        {
+          "text": "shaping-solutions is selected for the durable implementation plan.",
+          "passed": false,
+          "evidence": "The response selects `writing-plans` for the durable plan and never selects the expected `shaping-solutions` owner."
+        },
+        {
+          "text": "Tightly coupled execution remains inline.",
+          "passed": true,
+          "evidence": "The response explicitly sets `execution_mode=inline` and directs task-by-task execution through the dependency chain."
+        },
+        {
+          "text": "Multiple tasks alone do not select subagents or worktree isolation.",
+          "passed": true,
+          "evidence": "The response says task count alone does not determine the tier, rejects subagent routes because of tight coupling and absent delegation, and says not to add worktrees unless separately selected."
+        }
+      ],
+      "notes": []
+    }
+  ],
+  "run_summary": {
+    "with_skill": {
+      "pass_rate": {
+        "mean": 0.9339999999999999,
+        "stddev": null
+      }
+    },
+    "old_skill": {
+      "pass_rate": {
+        "mean": 0.5499999999999999,
+        "stddev": null
+      }
+    },
+    "delta": {
+      "definition": "with_skill - old_skill",
+      "pass_rate": "+0.38",
+      "time_seconds": null,
+      "tokens": null
+    }
+  },
+  "notes": [
+    "Single response-only routing run per configuration; no timing, token, transcript, variance, or execution claim.",
+    "Eval 11 candidate scored 2/3 and motivated the iteration-7 wording fix."
+  ]
+}

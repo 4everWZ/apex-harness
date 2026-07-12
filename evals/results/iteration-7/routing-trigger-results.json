@@ -1,0 +1,150 @@
+{
+  "results": [
+    {
+      "query": "We are changing our public event schema across three services and the migration can lose customer data. Work out the execution boundary before coding.",
+      "expected_skills": ["governing-project-work"],
+      "selected_skills": ["governing-project-work"],
+      "passed": true,
+      "rationale": "This is substantial cross-service work with customer-data risk and an explicit need to decide the execution boundary before mutation."
+    },
+    {
+      "query": "There are two viable cache invalidation designs and product has not decided whether stale reads are acceptable.",
+      "expected_skills": ["shaping-solutions"],
+      "selected_skills": ["shaping-solutions"],
+      "passed": true,
+      "rationale": "A material product and architecture choice remains unresolved, matching solution shaping before coding."
+    },
+    {
+      "query": "The API design is approved; write a durable four-stage implementation plan for another engineer.",
+      "expected_skills": ["shaping-solutions"],
+      "selected_skills": ["shaping-solutions"],
+      "passed": true,
+      "rationale": "Even with design settled, the request explicitly needs a durable multi-step implementation plan."
+    },
+    {
+      "query": "My checkout has unrelated edits and I need a parallel branch in an isolated workspace.",
+      "expected_skills": ["managing-git"],
+      "selected_skills": ["managing-git"],
+      "passed": true,
+      "rationale": "Dirty state plus a requested isolated parallel workspace directly matches Git isolation management."
+    },
+    {
+      "query": "Push this exact branch and open a PR, but leave the worktree and local branch alone.",
+      "expected_skills": ["managing-git"],
+      "selected_skills": ["managing-git"],
+      "passed": true,
+      "rationale": "The user requests explicit push and PR lifecycle actions while constraining worktree and branch cleanup."
+    },
+    {
+      "query": "Have two agents independently inspect the parser and cache layers, read-only, then reconcile their findings.",
+      "expected_skills": ["coordinating-subagents"],
+      "selected_skills": ["coordinating-subagents"],
+      "passed": true,
+      "rationale": "Delegation is explicit and independent layer investigations provide both parallelism and context isolation."
+    },
+    {
+      "query": "Use a fresh reviewer to inspect this diff against the approved requirements.",
+      "expected_skills": ["coordinating-subagents"],
+      "selected_skills": ["coordinating-subagents"],
+      "passed": true,
+      "rationale": "The request explicitly calls for reviewer independence, a named trigger for subagent coordination."
+    },
+    {
+      "query": "This integration test flakes only on CI and nobody knows why. Find the cause before changing code.",
+      "expected_skills": ["debugging-systematically"],
+      "selected_skills": ["debugging-systematically"],
+      "passed": true,
+      "rationale": "The failure is unexplained and environment-specific, and the task is to establish the cause before fixing it."
+    },
+    {
+      "query": "The parser contract is stable and has focused tests; implement the new token rule test-first.",
+      "expected_skills": ["testing-changes"],
+      "selected_skills": ["testing-changes"],
+      "passed": true,
+      "rationale": "A focused automated test can credibly define the stable contract, and test-first is explicitly requested."
+    },
+    {
+      "query": "Our training split policy and metric aggregation are changing; define the research acceptance boundary.",
+      "expected_skills": ["governing-project-work"],
+      "selected_skills": ["governing-project-work"],
+      "passed": true,
+      "rationale": "Material ML and research-semantics changes require an explicit acceptance and evidence boundary."
+    },
+    {
+      "query": "Fix this one spelling mistake and show me the diff.",
+      "expected_skills": [],
+      "selected_skills": [],
+      "passed": true,
+      "rationale": "This is a trivial local edit with an obvious contract and no specialized routing need."
+    },
+    {
+      "query": "Read git status and tell me which files are modified. Do not change anything.",
+      "expected_skills": [],
+      "selected_skills": [],
+      "passed": true,
+      "rationale": "A read-only status report is not Git isolation or an explicit branch lifecycle action."
+    },
+    {
+      "query": "The failing assertion already points to an off-by-one on line 42; apply the obvious bounded fix.",
+      "expected_skills": ["testing-changes"],
+      "selected_skills": ["testing-changes"],
+      "passed": true,
+      "rationale": "Diagnosis is unnecessary because direct evidence identifies the defect, but the behavior change still needs proportionate verification."
+    },
+    {
+      "query": "Sketch three possible names for this private helper function.",
+      "expected_skills": [],
+      "selected_skills": [],
+      "passed": true,
+      "rationale": "Lightweight naming ideation does not require a durable plan or resolution of a material product, interface, or architecture choice."
+    },
+    {
+      "query": "There are four tasks in the plan but they all edit the same state machine; implement them in order.",
+      "expected_skills": [],
+      "selected_skills": [],
+      "passed": true,
+      "rationale": "The plan already exists and shared mutable scope eliminates useful independent parallelism, so neither planning nor delegation should trigger."
+    },
+    {
+      "query": "Tests passed yesterday. Explain whether that evidence still covers today's dependency-lock change.",
+      "expected_skills": ["testing-changes"],
+      "selected_skills": ["testing-changes"],
+      "passed": true,
+      "rationale": "The task is to assess whether existing verification evidence remains proportionate and relevant after a change."
+    },
+    {
+      "query": "Keep this branch exactly as-is after we finish.",
+      "expected_skills": ["managing-git"],
+      "selected_skills": ["managing-git"],
+      "passed": true,
+      "rationale": "Explicit branch retention is a branch lifecycle instruction covered by Git management."
+    },
+    {
+      "query": "Compare two architecture options, but the accepted spec already chooses one of them.",
+      "expected_skills": [],
+      "selected_skills": [],
+      "passed": true,
+      "rationale": "The accepted specification removes the material design choice, so solution shaping should not trigger merely because alternatives are mentioned."
+    },
+    {
+      "query": "Use subagents if useful for this two-line config edit.",
+      "expected_skills": [],
+      "selected_skills": [],
+      "passed": true,
+      "rationale": "Delegation is permitted but a two-line edit offers no real parallelism, context isolation, or reviewer-independence benefit."
+    },
+    {
+      "query": "The benchmark improved, but seeds, dataset revision, and confidence intervals are missing. Audit the claim.",
+      "expected_skills": ["governing-project-work"],
+      "selected_skills": ["governing-project-work"],
+      "passed": true,
+      "rationale": "This is a research evidence-strength and interpretation audit with missing reproducibility and uncertainty controls."
+    }
+  ],
+  "summary": {
+    "total": 20,
+    "passed": 20,
+    "failed": 0,
+    "pass_rate": 1.0
+  }
+}
