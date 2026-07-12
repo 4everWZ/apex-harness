@@ -17,9 +17,10 @@ skills/
 └── testing-changes/
 ```
 
-`using-apex` is the sole entry. `governing-project-work` owns substantial-work
-risk, authority, evidence, and documentation decisions. Leaves consume that
-boundary and do not duplicate it.
+`using-apex` is the sole bootstrap and routing entry. Runtimes may still expose
+the leaves so the router can select them directly after bootstrap.
+`governing-project-work` owns substantial-work risk, authority, evidence, and
+documentation decisions. Leaves consume that boundary and do not duplicate it.
 
 ## Supported runtimes
 

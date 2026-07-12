@@ -1,6 +1,6 @@
 ---
 name: using-apex
-description: Entry point for the APEX software-engineering skill series. Use once when APEX coordination is requested or bootstrapped, then route work to the smallest applicable APEX skill without reloading this entry for every task.
+description: Bootstrap and routing entry for the APEX software-engineering skill series. Use when APEX is requested and has not already been injected. Once bootstrapped, select the smallest applicable leaf directly instead of loading this entry again.
 ---
 
 # Using APEX
@@ -30,12 +30,15 @@ When a user names a pre-consolidation workflow, translate its intent:
 
 - `apex-governance` → `governing-project-work`
 - `brainstorming` or `writing-plans` → `shaping-solutions`
-- worktree or branch-finishing skills → `managing-git`
-- parallel-agent, delegated-development, plan-execution, or review skills →
-  `coordinating-subagents` when delegation/review is justified, otherwise inline
+- `using-git-worktrees` or `finishing-a-development-branch` → `managing-git`
+- `dispatching-parallel-agents`, `subagent-driven-development`,
+  `executing-plans`, `requesting-code-review`, or `receiving-code-review` →
+  `coordinating-subagents` when delegation or independent review is justified,
+  otherwise inline
 - `systematic-debugging` → `debugging-systematically`
-- TDD or completion-verification skills → `testing-changes` only when its current
-  trigger matches, otherwise ordinary verification
+- `test-driven-development` or `verification-before-completion` →
+  `testing-changes` only when its current trigger matches, otherwise ordinary
+  verification
 
 The old directory name is not a separate skill and does not bypass the current
 trigger or authority boundary. Direct runtime lookup of a deleted name is a

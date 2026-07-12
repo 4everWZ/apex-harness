@@ -2,7 +2,8 @@
 
 ## Architecture
 
-- `using-apex` is the sole entry and router.
+- `using-apex` is the sole bootstrap and routing entry; leaves remain directly
+  selectable after bootstrap.
 - `governing-project-work` owns substantial-work policy.
 - every other skill is a cohesive leaf selected by a concrete task need
 - keep the whole series at eight skills or fewer

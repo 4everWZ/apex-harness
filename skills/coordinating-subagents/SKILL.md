@@ -19,10 +19,12 @@ the repository rather than voting on conclusions.
 
 ### Delegated implementation
 
-Use for an approved plan with bounded tasks when fresh context and per-task
-review justify the coordination cost. Prefer inline work for tightly coupled
-edits, unresolved design, dirty repositories that cannot be isolated safely, or
-tasks too small to review independently.
+Use for an approved task boundary or plan with bounded tasks when fresh context
+and per-task review justify the coordination cost. User-provided acceptance
+criteria and path boundaries may be sufficient; require a durable plan only
+when the work's risk or coordination needs one. Prefer inline work for tightly
+coupled edits, unresolved design, dirty repositories that cannot be isolated
+safely, or tasks too small to review independently.
 
 For each task:
 
@@ -36,8 +38,9 @@ For each task:
 5. Use a fresh reviewer when the selected risk calls for independent judgment.
 6. Resolve findings before advancing dependent tasks.
 
-Git and the approved plan remain the source of truth. Do not create a parallel
-run ledger, serialized workspace state, review package, or report protocol.
+Git and the approved task boundary or plan remain the source of truth. Do not
+create a parallel run ledger, serialized workspace state, review package, or
+report protocol.
 Summaries describe observed state; they are not content identities. Reconcile
 resume state from full Git history/status/diffs, the plan, and explicit inputs.
 
@@ -50,7 +53,8 @@ paths and rationale. Absence of findings is not evidence that tests ran.
 
 When receiving review feedback, verify the premise before editing. Clarify
 ambiguous feedback, reject technically unsound advice with evidence, and apply
-accepted findings one coherent change at a time. Do not perform agreement.
+accepted findings one coherent change at a time. Do not agree merely to be
+agreeable; accept or reject feedback based on evidence.
 
 ## Context and safety
 

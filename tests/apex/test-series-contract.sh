@@ -33,7 +33,8 @@ has "$governance" "Missing mutation authority is not permission" "governance kee
 
 subagents="$ROOT/skills/coordinating-subagents/SKILL.md"
 has "$subagents" "Delegation alone is read-only" "delegation does not grant mutation"
-has "$subagents" "Do not create a parallel" "subagents use Git and plan as source of truth"
+has "$subagents" "approved task boundary or plan remain the source of truth" \
+  "subagents use Git and task boundary as source of truth"
 has "$subagents" "Summaries describe observed state" "summaries do not claim content identity"
 
 git_skill="$ROOT/skills/managing-git/SKILL.md"
@@ -48,6 +49,23 @@ has "$ROOT/skills/governing-project-work/SKILL.md" 'research-contracts.md' \
 has "$ROOT/skills/using-apex/SKILL.md" \
   '`brainstorming` or `writing-plans` → `shaping-solutions`' \
   "injected entry documents old-name migration"
+
+for old_name in \
+  apex-governance \
+  brainstorming \
+  writing-plans \
+  using-git-worktrees \
+  finishing-a-development-branch \
+  dispatching-parallel-agents \
+  subagent-driven-development \
+  executing-plans \
+  requesting-code-review \
+  receiving-code-review \
+  systematic-debugging \
+  test-driven-development \
+  verification-before-completion; do
+  has "$entry" "\`$old_name\`" "migration names $old_name explicitly"
+done
 
 while IFS= read -r import; do
   target="${import#@./}"
