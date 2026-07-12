@@ -50,16 +50,36 @@ assert.ok(fs.existsSync(path.join(root, 'evals/results/iteration-9/eval-review/w
 assert.ok(fs.existsSync(path.join(root, 'evals/results/iteration-11/eval-11-current-migration/with_skill/run-1/outputs/response.md')), 'current migration response is retained in viewer-compatible layout');
 
 const blindQueries = readJson('evals/results/iteration-10/queries-only.json');
-assert.deepEqual(blindQueries.map((item) => item.query), routes.map((item) => item.query), 'blind queries match current routing set');
+assert.deepEqual(blindQueries.map((item) => item.query), routes.slice(0, blindQueries.length).map((item) => item.query), 'iteration 10 blind queries remain a labeled prefix of the routing set');
 for (const run of [1, 2, 3]) {
   const selections = readJson(`evals/results/iteration-10/run-${run}-selections.json`);
-  assert.equal(selections.results.length, routes.length, `blind run ${run} covers every query`);
+  assert.equal(selections.results.length, blindQueries.length, `iteration 10 blind run ${run} covers its query snapshot`);
   assert.ok(selections.results.every((item) => !('expected' in item) && !('passed' in item)), `blind run ${run} contains no labels or self-grades`);
 }
 const blindGrade = readJson('evals/results/iteration-10/trigger-grading-revised.json');
 assert.equal(blindGrade.aggregate.passed, 66);
 assert.equal(blindGrade.aggregate.total, 66);
 assert.ok(blindGrade.ground_truth_revision, 'blind grading records the query-13 ground-truth revision');
+
+const currentQueries = readJson('evals/results/iteration-12/queries-only.json');
+assert.deepEqual(currentQueries.map((item) => item.query), routes.map((item) => item.query), 'current blind queries match the routing set');
+const currentDescriptions = readJson('evals/results/iteration-12/descriptions-only.json');
+for (const item of currentDescriptions) {
+  const skill = fs.readFileSync(path.join(root, `skills/${item.name}/SKILL.md`), 'utf8');
+  const match = skill.match(/^description:\s*(.+)$/m);
+  assert.equal(item.description, match?.[1], `iteration 12 snapshots current ${item.name} description`);
+}
+for (const run of [1, 2, 3]) {
+  const selections = readJson(`evals/results/iteration-12/run-${run}-selections.json`);
+  assert.equal(selections.source_commit, 'a473d6f8817995117ebecda7745ee77dc6cb380b');
+  assert.equal(selections.results.length, routes.length, `current blind run ${run} covers every query`);
+  assert.ok(selections.results.every((item) => !('expected' in item) && !('passed' in item)), `current blind run ${run} contains no labels or self-grades`);
+  for (const item of selections.results) {
+    assert.deepEqual([...item.selected_skills].sort(), [...routes[item.id - 1].expected_skills].sort(), `current blind run ${run} routes query ${item.id}`);
+  }
+}
+const currentGrade = readJson('evals/results/iteration-12/trigger-grading.json');
+assert.deepEqual(currentGrade.aggregate, { passed: 69, total: 69 });
 
 for (const scenario of ['debugging', 'tdd', 'docs', 'git', 'review']) {
   const metadata = readJson(`evals/results/iteration-9/eval-${scenario}/eval_metadata.json`);
@@ -69,4 +89,4 @@ for (const scenario of ['debugging', 'tdd', 'docs', 'git', 'review']) {
   }
 }
 
-console.log('STATUS: PASSED (eval schema, routing coverage, and retained benchmark claims)');
+console.log('STATUS: PASSED (official eval schema, current routing coverage, and retained benchmark claims)');
