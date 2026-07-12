@@ -29,6 +29,8 @@ For a routine, bounded edit, use no leaf unless one of those needs is present.
 When a user names a pre-consolidation workflow, translate the intent through
 the migration table in the repository README. The old directory name is not a
 separate skill and does not bypass the current trigger or authority boundary.
+Direct runtime lookup of a deleted skill name is a documented breaking
+migration; do not recreate alias skills or silently claim that lookup succeeded.
 
 ## Shared boundary
 
