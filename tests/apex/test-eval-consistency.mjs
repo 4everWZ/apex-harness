@@ -12,8 +12,8 @@ assert.ok(evals.evals.length >= 11);
 for (const item of evals.evals) {
   assert.ok(Number.isInteger(item.id), `eval id is integer: ${item.id}`);
   assert.ok(item.prompt.startsWith('Routing-only'), `eval ${item.id} declares routing-only scope`);
-  assert.ok(Array.isArray(item.assertions) && item.assertions.length > 0, `eval ${item.id} has assertions`);
-  assert.ok(!('expectations' in item), `eval ${item.id} keeps grader expectations out of source definitions`);
+  assert.ok(Array.isArray(item.expectations) && item.expectations.length > 0, `eval ${item.id} has official-schema expectations`);
+  assert.ok(!('assertions' in item), `eval ${item.id} does not use a custom assertions dialect`);
   assert.ok(!/performs the bounded edit/i.test(item.expected_output), `eval ${item.id} does not claim unexecuted edits`);
 }
 

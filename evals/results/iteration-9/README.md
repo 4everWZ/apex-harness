@@ -13,3 +13,6 @@ snapshot in skill-creator's standard
 `eval-*/<configuration>/run-1/outputs/` layout. The subagent scenario retains controller reports but not full platform
 transcripts, so fresh-agent process claims remain weaker than file/Git/test
 evidence. Timing and token metrics were not exposed; no variance claim is made.
+The machine-readable benchmark records one run. Generate the official viewer
+without `--benchmark`: its summary formatter renders absent single-run standard
+deviation as `±0`, which would overstate the evidence.

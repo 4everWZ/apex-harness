@@ -22,7 +22,7 @@ the leaves so the router can select them directly after bootstrap.
 `governing-project-work` owns substantial-work risk, authority, evidence, and
 documentation decisions. Leaves consume that boundary and do not duplicate it.
 
-## Supported runtimes
+## Supported runtime adapters
 
 - Claude Code
 - Codex
@@ -31,6 +31,11 @@ documentation decisions. Leaves consume that boundary and do not duplicate it.
 
 Other agent runtimes are intentionally unsupported; their manifests, adapters,
 and tests are not bundled.
+
+Claude Code and Gemini CLI provide local manifest validators. Codex and
+Antigravity currently have no repository-local host-install smoke test, so their
+checks validate referenced files and execute the hook payload but do not claim
+that a host discovered or installed the adapter.
 
 ## Verification
 
@@ -42,10 +47,14 @@ bash tests/claude-code/run-skill-tests.sh
 bash tests/hooks/test-session-start.sh
 bash tests/antigravity/run-tests.sh
 bash tests/gemini/test-extension.sh
+claude plugin validate --strict .
+gemini extensions validate .
 ```
 
 Material skill changes also require realistic evaluations against the prior
 version or a no-skill baseline. Static checks protect structure, not behavior.
+Contributor architecture guidance lives in
+[`docs/contributing.md`](docs/contributing.md).
 
 ## Migration from the consolidated skills
 

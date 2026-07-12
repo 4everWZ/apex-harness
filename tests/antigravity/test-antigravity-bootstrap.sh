@@ -27,4 +27,5 @@ const context = payload.hookSpecificOutput?.additionalContext;
 if (typeof context !== "string" || !context.includes("# Using APEX")) process.exit(1);
 ' || { echo "FAIL: shared hook did not emit consumable APEX context"; exit 1; }
 
-echo "PASS: Antigravity executes the shared bootstrap without a stale tool catalog"
+echo "PASS: shared Antigravity hook payload is structurally consumable"
+echo "UNVERIFIED: Antigravity host discovery/install requires a host smoke test"
