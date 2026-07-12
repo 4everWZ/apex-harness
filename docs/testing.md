@@ -46,7 +46,8 @@ boundaries, authorization pressure, dirty or unborn Git states, documentation
 proportionality, and cases where no leaf should trigger. Compare material
 revisions with the prior committed series or a no-skill baseline.
 
-The source file records candidate checks as `assertions`. Per-run
-`eval_metadata.json` preserves that field; grader output records the same text
-as `expectations` with pass/fail evidence. Retained results include metadata,
-raw outputs, grading, and benchmark fields needed to audit that conversion.
+The source file records candidate checks as official-schema `expectations`.
+Historical fixture-backed `eval_metadata.json` files may preserve the same text
+under a local `assertions` snapshot; grader output records it as `expectations`
+with pass/fail evidence. Retained results include metadata, raw outputs,
+grading, and benchmark fields needed to audit that identity.

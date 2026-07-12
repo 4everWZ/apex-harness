@@ -16,3 +16,10 @@ evidence. Timing and token metrics were not exposed; no variance claim is made.
 The machine-readable benchmark records one run. Generate the official viewer
 without `--benchmark`: its summary formatter renders absent single-run standard
 deviation as `±0`, which would overstate the evidence.
+
+Reproduction command:
+
+```bash
+python "$SKILL_CREATOR_PATH/eval-viewer/generate_review.py" \
+  evals/results/iteration-9 --skill-name using-apex --static review.html
+```

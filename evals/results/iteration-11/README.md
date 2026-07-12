@@ -18,3 +18,10 @@ generated from it with the official `generate_review.py`.
 The machine-readable benchmark records one run. Generate the viewer without
 `--benchmark`: its summary formatter renders absent single-run standard
 deviation as `±0`, which would overstate the evidence.
+
+Reproduction command:
+
+```bash
+python "$SKILL_CREATOR_PATH/eval-viewer/generate_review.py" \
+  evals/results/iteration-11 --skill-name using-apex --static review.html
+```
