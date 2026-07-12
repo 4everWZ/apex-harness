@@ -125,6 +125,17 @@
         "The old delegated-development name routes to coordinating-subagents only when its current preconditions hold.",
         "Deleted direct skill lookup is identified as a breaking migration rather than silently emulated with extra alias skills."
       ]
+    },
+    {
+      "id": 12,
+      "prompt": "Routing-only scenario: APEX is already injected. An integration test flakes only on CI and the cause is unknown. Select the current workflow and explain whether using-apex should be loaded again; do not edit files.",
+      "expected_output": "Selects debugging-systematically directly and does not reload using-apex because the bootstrap is already active.",
+      "files": [],
+      "expectations": [
+        "The response selects debugging-systematically for the unexplained failure.",
+        "The response does not reload using-apex after bootstrap.",
+        "The response does not select unrelated leaves or mutate files."
+      ]
     }
   ]
 }
