@@ -1,0 +1,43 @@
+{
+  "expectations": [
+    {
+      "text": "The old brainstorming name routes to shaping-solutions.",
+      "passed": false,
+      "evidence": "The response routes `brainstorming` only to generic \"intent-and-design work\" and never identifies the required current skill name `shaping-solutions`."
+    },
+    {
+      "text": "The old delegated-development name routes to coordinating-subagents only when its current preconditions hold.",
+      "passed": false,
+      "evidence": "Although the response describes conditional delegation preconditions, it calls the destination \"delegated execution\" and never identifies the required current skill name `coordinating-subagents`."
+    },
+    {
+      "text": "Deleted direct skill lookup is identified as a breaking migration rather than silently emulated with extra alias skills.",
+      "passed": false,
+      "evidence": "The response does not state that direct lookup of the deleted names is a breaking migration and does not reject extra alias skills; it instead describes the names as \"compatibility-level workflow intents.\""
+    }
+  ],
+  "summary": {
+    "passed": 0,
+    "failed": 3,
+    "total": 3,
+    "pass_rate": 0.0
+  },
+  "claims": [
+    {
+      "claim": "The old names are handled as compatibility-level workflow intents.",
+      "type": "quality",
+      "verified": false,
+      "evidence": "The response gives no evidence for this compatibility characterization and omits the eval's required breaking-migration treatment for deleted direct skill lookup."
+    },
+    {
+      "claim": "Naming the old workflow does not by itself make delegation safe or authorized.",
+      "type": "quality",
+      "verified": true,
+      "evidence": "The response substantively conditions delegation on an approved bounded plan, resolved decisions, selected review roles, repository state, and mutation authority."
+    }
+  ],
+  "eval_feedback": {
+    "suggestions": [],
+    "overall": "No suggestions, evals look solid. The exact current names and breaking-migration requirement distinguish a broadly similar legacy explanation from a correct current-series migration answer."
+  }
+}

@@ -1,0 +1,111 @@
+{
+  "metadata": {
+    "skill_name": "using-apex",
+    "skill_path": "D:\\Code\\prompt\\apex\\skills\\using-apex",
+    "executor_model": "runtime-selected Codex subagents (exact model not exposed)",
+    "analyzer_model": "not run",
+    "timestamp": "2026-07-12T17:18:38Z",
+    "evals_run": [
+      11
+    ],
+    "runs_per_configuration": 1,
+    "timing_available": false,
+    "token_metrics_available": false,
+    "baseline_commit": "f5769bde68d879c8854fc8fb80b523c3d78958c0",
+    "candidate_commit": "2780af36b4d9a084424e4537cd4af3f2a16edb6c"
+  },
+  "runs": [
+    {
+      "eval_id": 11,
+      "eval_name": "current-migration",
+      "configuration": "with_skill",
+      "run_number": 1,
+      "result": {
+        "pass_rate": 1.0,
+        "passed": 3,
+        "failed": 0,
+        "total": 3,
+        "time_seconds": null,
+        "tokens": null,
+        "tool_calls": null,
+        "errors": null
+      },
+      "expectations": [
+        {
+          "text": "The old brainstorming name routes to shaping-solutions.",
+          "passed": true,
+          "evidence": "The response explicitly states: \"`brainstorming` translates to `shaping-solutions`.\""
+        },
+        {
+          "text": "The old delegated-development name routes to coordinating-subagents only when its current preconditions hold.",
+          "passed": true,
+          "evidence": "The response says the old delegated-development/plan-execution family \"translates to `coordinating-subagents` only when delegation is authorized and bounded tasks gain real value from parallelism, context isolation, or independent review. Otherwise, execute inline.\""
+        },
+        {
+          "text": "Deleted direct skill lookup is identified as a breaking migration rather than silently emulated with extra alias skills.",
+          "passed": true,
+          "evidence": "The response explicitly says: \"Direct runtime lookup of either deleted workflow name is a documented breaking migration. APEX does not recreate alias skills or claim that the old lookup succeeded.\""
+        }
+      ],
+      "notes": []
+    },
+    {
+      "eval_id": 11,
+      "eval_name": "current-migration",
+      "configuration": "old_skill",
+      "run_number": 1,
+      "result": {
+        "pass_rate": 0.0,
+        "passed": 0,
+        "failed": 3,
+        "total": 3,
+        "time_seconds": null,
+        "tokens": null,
+        "tool_calls": null,
+        "errors": null
+      },
+      "expectations": [
+        {
+          "text": "The old brainstorming name routes to shaping-solutions.",
+          "passed": false,
+          "evidence": "The response routes `brainstorming` only to generic \"intent-and-design work\" and never identifies the required current skill name `shaping-solutions`."
+        },
+        {
+          "text": "The old delegated-development name routes to coordinating-subagents only when its current preconditions hold.",
+          "passed": false,
+          "evidence": "Although the response describes conditional delegation preconditions, it calls the destination \"delegated execution\" and never identifies the required current skill name `coordinating-subagents`."
+        },
+        {
+          "text": "Deleted direct skill lookup is identified as a breaking migration rather than silently emulated with extra alias skills.",
+          "passed": false,
+          "evidence": "The response does not state that direct lookup of the deleted names is a breaking migration and does not reject extra alias skills; it instead describes the names as \"compatibility-level workflow intents.\""
+        }
+      ],
+      "notes": []
+    }
+  ],
+  "run_summary": {
+    "with_skill": {
+      "pass_rate": {
+        "mean": 1.0,
+        "stddev": null
+      }
+    },
+    "old_skill": {
+      "pass_rate": {
+        "mean": 0.0,
+        "stddev": null
+      }
+    },
+    "delta": {
+      "definition": "with_skill - old_skill",
+      "pass_rate": "+1.00",
+      "time_seconds": null,
+      "tokens": null
+    }
+  },
+  "notes": [
+    "Single response-only paired run for the current inline migration table; no execution, timing, token, variance, or broad quality claim.",
+    "This eval measures explicit migration compatibility, so its delta is name-migration evidence rather than general engineering superiority."
+  ]
+}

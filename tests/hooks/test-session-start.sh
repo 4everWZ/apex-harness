@@ -27,6 +27,18 @@ if (!hook.additionalContext.includes("brainstorming") || !hook.additionalContext
 check_hook "Claude Code/Antigravity hook emits nested APEX context" "$ROOT/hooks/session-start"
 check_hook "Codex hook emits nested APEX context" "$ROOT/hooks/session-start-codex"
 
+missing_root="$(mktemp -d)"
+trap 'rm -rf "$missing_root"' EXIT
+mkdir -p "$missing_root/hooks"
+cp "$ROOT/hooks/session-start" "$ROOT/hooks/session-start-codex" "$missing_root/hooks/"
+for script in session-start session-start-codex; do
+  if bash "$missing_root/hooks/$script" >/dev/null 2>&1; then
+    echo "FAIL: $script hid a missing using-apex entry"
+    exit 1
+  fi
+  echo "PASS: $script exposes a missing using-apex entry"
+done
+
 wrapper_output="$(PLUGIN_ROOT="$ROOT" CLAUDE_PLUGIN_ROOT="$ROOT" "$ROOT/hooks/run-hook.cmd" session-start-codex)"
 printf '%s' "$wrapper_output" | "$NODE_BIN" -e 'JSON.parse(require("fs").readFileSync(0,"utf8"))' \
   || { echo "FAIL: Codex wrapper"; exit 1; }

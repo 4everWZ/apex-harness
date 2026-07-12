@@ -1,0 +1,43 @@
+{
+  "expectations": [
+    {
+      "text": "The old brainstorming name routes to shaping-solutions.",
+      "passed": true,
+      "evidence": "The response explicitly states: \"`brainstorming` translates to `shaping-solutions`.\""
+    },
+    {
+      "text": "The old delegated-development name routes to coordinating-subagents only when its current preconditions hold.",
+      "passed": true,
+      "evidence": "The response says the old delegated-development/plan-execution family \"translates to `coordinating-subagents` only when delegation is authorized and bounded tasks gain real value from parallelism, context isolation, or independent review. Otherwise, execute inline.\""
+    },
+    {
+      "text": "Deleted direct skill lookup is identified as a breaking migration rather than silently emulated with extra alias skills.",
+      "passed": true,
+      "evidence": "The response explicitly says: \"Direct runtime lookup of either deleted workflow name is a documented breaking migration. APEX does not recreate alias skills or claim that the old lookup succeeded.\""
+    }
+  ],
+  "summary": {
+    "passed": 3,
+    "failed": 0,
+    "total": 3,
+    "pass_rate": 1.0
+  },
+  "claims": [
+    {
+      "claim": "In this routing-only scenario, there is no implementation to delegate.",
+      "type": "factual",
+      "verified": true,
+      "evidence": "The eval prompt explicitly labels the scenario \"Routing-only\" and asks only for an explanation of name handling."
+    },
+    {
+      "claim": "The old names are translated through current routing rather than retained as callable alias skills.",
+      "type": "quality",
+      "verified": true,
+      "evidence": "The response consistently presents `shaping-solutions` and `coordinating-subagents` as the current destinations and explicitly rejects recreating alias skills."
+    }
+  ],
+  "eval_feedback": {
+    "suggestions": [],
+    "overall": "No suggestions, evals look solid. The assertions jointly check exact replacement names, conditional delegation semantics, and the intentionally breaking lookup behavior."
+  }
+}

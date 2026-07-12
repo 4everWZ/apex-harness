@@ -9,6 +9,7 @@
 This establishes that the compact series retained the tested operational
 contracts; it does not show candidate superiority. Each scenario retains its
 metadata, report, grading, machine-readable evidence, and relevant output
-snapshot. The subagent scenario retains controller reports but not full platform
+snapshot in skill-creator's standard
+`eval-*/<configuration>/run-1/outputs/` layout. The subagent scenario retains controller reports but not full platform
 transcripts, so fresh-agent process claims remain weaker than file/Git/test
 evidence. Timing and token metrics were not exposed; no variance claim is made.

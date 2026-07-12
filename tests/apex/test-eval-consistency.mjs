@@ -32,7 +32,7 @@ for (const name of [
 }
 assert.ok(routes.some((item) => item.expected_skills.length === 0), 'routing set includes no-skill near misses');
 
-for (const iteration of [9]) {
+for (const iteration of [9, 11]) {
   const benchmark = readJson(`evals/results/iteration-${iteration}/benchmark.json`);
   assert.equal(benchmark.metadata.runs_per_configuration, 1, `iteration ${iteration} is single-run`);
   assert.equal(benchmark.metadata.timing_available, false, `iteration ${iteration} does not claim timing`);
@@ -41,12 +41,13 @@ for (const iteration of [9]) {
 }
 
 for (const scenario of ['debugging', 'tdd', 'docs', 'git', 'review']) {
-  const metadata = readJson(`evals/results/iteration-9/scenarios/${scenario}/eval_metadata.json`);
+  const metadata = readJson(`evals/results/iteration-9/eval-${scenario}/eval_metadata.json`);
   assert.ok(typeof metadata.prompt === 'string' && metadata.prompt.length > 0, `${scenario} metadata retains prompt`);
 }
 
-assert.ok(fs.existsSync(path.join(root, 'evals/results/iteration-9/scenarios/git/with_skill/evidence.json')), 'execution machine evidence is retained');
-assert.ok(fs.existsSync(path.join(root, 'evals/results/iteration-9/scenarios/review/with_skill/report.md')), 'subagent controller report is retained');
+assert.ok(fs.existsSync(path.join(root, 'evals/results/iteration-9/eval-git/with_skill/run-1/outputs/evidence.json')), 'execution machine evidence is retained');
+assert.ok(fs.existsSync(path.join(root, 'evals/results/iteration-9/eval-review/with_skill/run-1/outputs/report.md')), 'subagent controller report is retained');
+assert.ok(fs.existsSync(path.join(root, 'evals/results/iteration-11/eval-11-current-migration/with_skill/run-1/outputs/response.md')), 'current migration response is retained in viewer-compatible layout');
 
 const blindQueries = readJson('evals/results/iteration-10/queries-only.json');
 assert.deepEqual(blindQueries.map((item) => item.query), routes.map((item) => item.query), 'blind queries match current routing set');
@@ -61,9 +62,9 @@ assert.equal(blindGrade.aggregate.total, 66);
 assert.ok(blindGrade.ground_truth_revision, 'blind grading records the query-13 ground-truth revision');
 
 for (const scenario of ['debugging', 'tdd', 'docs', 'git', 'review']) {
-  const metadata = readJson(`evals/results/iteration-9/scenarios/${scenario}/eval_metadata.json`);
+  const metadata = readJson(`evals/results/iteration-9/eval-${scenario}/eval_metadata.json`);
   for (const config of ['with_skill', 'old_skill']) {
-    const grading = readJson(`evals/results/iteration-9/scenarios/${scenario}/${config}/grading.json`);
+    const grading = readJson(`evals/results/iteration-9/eval-${scenario}/${config}/run-1/grading.json`);
     assert.deepEqual(grading.expectations.map((item) => item.text), metadata.assertions, `${scenario}/${config} grading preserves assertion identities`);
   }
 }
