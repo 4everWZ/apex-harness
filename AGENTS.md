@@ -5,6 +5,8 @@
   freshness, and documentation policy.
 - The series contains at most eight skills; a new skill needs a cohesive,
   non-overlapping responsibility that cannot fit an existing leaf.
+- Runtime adapters are limited to Claude Code, Codex, Antigravity, and Gemini
+  CLI unless the user explicitly expands support.
 - Leaves define only their trigger, focused decisions, process, exit conditions,
   and necessary resources. Do not repeat general model or repository rules.
 - Keep code, tests, manifests, and documentation aligned with skill behavior.

@@ -3,7 +3,7 @@
 The runner executes the compact series and documentation ownership checks. It
 verifies the seven-skill inventory, frontmatter/directory consistency, bootstrap
 imports, migration documentation, Git/subagent boundaries, documentation
-topology, and evidence-freshness wording.
+topology, evidence-freshness wording, and the four-runtime adapter scope.
 
 Run all tests:
 

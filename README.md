@@ -21,13 +21,26 @@ skills/
 risk, authority, evidence, and documentation decisions. Leaves consume that
 boundary and do not duplicate it.
 
+## Supported runtimes
+
+- Claude Code
+- Codex
+- Antigravity
+- Gemini CLI
+
+Other agent runtimes are intentionally unsupported; their manifests, adapters,
+and tests are not bundled.
+
 ## Verification
 
 ```bash
 bash tests/apex/test-series-contract.sh
 bash tests/apex/test-documentation-contract.sh
+bash tests/apex/test-adapter-scope.sh
 bash tests/claude-code/run-skill-tests.sh
-node --test tests/pi/test-pi-extension.mjs
+bash tests/hooks/test-session-start.sh
+bash tests/antigravity/run-tests.sh
+bash tests/gemini/test-extension.sh
 ```
 
 Material skill changes also require realistic evaluations against the prior

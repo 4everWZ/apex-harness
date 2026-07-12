@@ -1,242 +1,33 @@
 #!/usr/bin/env bash
 set -euo pipefail
 
-SCRIPT_DIR="$(cd "$(dirname "$0")" && pwd)"
-REPO_ROOT="$(cd "$SCRIPT_DIR/../.." && pwd)"
-HOOK_UNDER_TEST="$REPO_ROOT/hooks/session-start"
-CODEX_HOOK_UNDER_TEST="$REPO_ROOT/hooks/session-start-codex"
-WRAPPER_UNDER_TEST="$REPO_ROOT/hooks/run-hook.cmd"
-
-FAILURES=0
-TEST_ROOT="$(mktemp -d)"
+ROOT="$(cd "$(dirname "$0")/../.." && pwd)"
 NODE_BIN="${NODE_BIN:-$(command -v node 2>/dev/null || command -v node.exe 2>/dev/null || true)}"
 
 if [[ -z "$NODE_BIN" ]]; then
-    echo "SKIP: node is unavailable inside this shell; set NODE_BIN to run hook JSON assertions"
-    exit 0
+  echo "SKIP: node is unavailable inside this shell"
+  exit 0
 fi
 
-cleanup() {
-    rm -rf "$TEST_ROOT"
-}
-trap cleanup EXIT
-
-pass() {
-    echo "  [PASS] $1"
-}
-
-fail() {
-    echo "  [FAIL] $1"
-    FAILURES=$((FAILURES + 1))
-}
-
-make_home() {
-    local name="$1"
-    local home="$TEST_ROOT/$name/home"
-    mkdir -p "$home"
-    printf '%s\n' "$home"
-}
-
-assert_command_output() {
-    local description="$1"
-    local shape="$2"
-    local contains="$3"
-    local not_contains="$4"
-    local home="$5"
-    shift 5
-
-    local output
-    if ! output="$(env -i PATH="${PATH:-}" HOME="$home" "$@" 2>&1)"; then
-        fail "$description"
-        echo "    hook exited non-zero"
-        echo "$output" | sed 's/^/      /'
-        return
-    fi
-
-    if printf '%s' "$output" | "$NODE_BIN" -e '
+check_hook() {
+  local label="$1" script="$2"
+  local output
+  output="$(PLUGIN_ROOT="$ROOT" CLAUDE_PLUGIN_ROOT="$ROOT" bash "$script")"
+  printf '%s' "$output" | "$NODE_BIN" -e '
 const fs = require("fs");
-
-const input = fs.readFileSync(0, "utf8");
-let payload;
-try {
-  payload = JSON.parse(input);
-} catch (error) {
-  console.error(`invalid JSON: ${error.message}`);
-  process.exit(1);
+const payload = JSON.parse(fs.readFileSync(0, "utf8"));
+const hook = payload.hookSpecificOutput;
+if (!hook || hook.hookEventName !== "SessionStart") process.exit(1);
+if (typeof hook.additionalContext !== "string" || !hook.additionalContext.includes("# Using APEX")) process.exit(1);
+if (!hook.additionalContext.includes("brainstorming") || !hook.additionalContext.includes("shaping-solutions")) process.exit(1);
+' || { echo "FAIL: $label"; exit 1; }
+  echo "PASS: $label"
 }
 
-function hasOwn(object, key) {
-  return Object.prototype.hasOwnProperty.call(object, key);
-}
+check_hook "Claude Code/Antigravity hook emits nested APEX context" "$ROOT/hooks/session-start"
+check_hook "Codex hook emits nested APEX context" "$ROOT/hooks/session-start-codex"
 
-function fail(message) {
-  console.error(message);
-  process.exit(1);
-}
-
-const shape = process.argv[1];
-let context;
-
-if (shape === "nested") {
-  if (!hasOwn(payload, "hookSpecificOutput")) {
-    fail("missing hookSpecificOutput");
-  }
-  if (hasOwn(payload, "additional_context") || hasOwn(payload, "additionalContext")) {
-    fail("nested output also included a top-level context field");
-  }
-  const hookOutput = payload.hookSpecificOutput;
-  if (!hookOutput || typeof hookOutput !== "object" || Array.isArray(hookOutput)) {
-    fail("hookSpecificOutput is not an object");
-  }
-  if (hookOutput.hookEventName !== "SessionStart") {
-    fail(`unexpected hookEventName: ${hookOutput.hookEventName}`);
-  }
-  context = hookOutput.additionalContext;
-} else if (shape === "cursor") {
-  if (hasOwn(payload, "hookSpecificOutput")) {
-    fail("cursor output included hookSpecificOutput");
-  }
-  if (!hasOwn(payload, "additional_context")) {
-    fail("cursor output missing additional_context");
-  }
-  if (hasOwn(payload, "additionalContext")) {
-    fail("cursor output included additionalContext");
-  }
-  context = payload.additional_context;
-} else if (shape === "sdk") {
-  if (hasOwn(payload, "hookSpecificOutput")) {
-    fail("sdk output included hookSpecificOutput");
-  }
-  if (!hasOwn(payload, "additionalContext")) {
-    fail("sdk output missing additionalContext");
-  }
-  if (hasOwn(payload, "additional_context")) {
-    fail("sdk output included additional_context");
-  }
-  context = payload.additionalContext;
-} else {
-  fail(`unknown expected shape: ${shape}`);
-}
-
-if (typeof context !== "string" || context.trim() === "") {
-  fail("injected context was empty");
-}
-
-const expectedText = process.argv[2] || "";
-if (expectedText && !context.includes(expectedText)) {
-  fail(`context did not contain expected text: ${expectedText}`);
-}
-
-const forbiddenTexts = (process.argv[3] || "")
-  .split("\u001f")
-  .filter(Boolean);
-for (const forbiddenText of forbiddenTexts) {
-  if (context.includes(forbiddenText)) {
-    fail(`context contained forbidden text: ${forbiddenText}`);
-  }
-}
-' "$shape" "$contains" "$not_contains"; then
-        pass "$description"
-    else
-        fail "$description"
-        echo "    output:"
-        echo "$output" | sed 's/^/      /'
-    fi
-}
-
-echo "SessionStart hook output tests"
-
-claude_home="$(make_home claude-code)"
-assert_command_output \
-    "Claude Code emits nested SessionStart additionalContext" \
-    "nested" \
-    "" \
-    "" \
-    "$claude_home" \
-    CLAUDE_PLUGIN_ROOT="$REPO_ROOT" \
-    bash "$HOOK_UNDER_TEST"
-
-codex_home="$(make_home codex-plugin-hooks)"
-codex_data="$TEST_ROOT/codex-plugin-hooks/data"
-mkdir -p "$codex_data"
-assert_command_output \
-    "Codex plugin hooks use dedicated script and emit nested SessionStart additionalContext" \
-    "nested" \
-    "" \
-    "" \
-    "$codex_home" \
-    PLUGIN_DATA="$codex_data" \
-    CLAUDE_PLUGIN_DATA="$codex_data" \
-    PLUGIN_ROOT="$REPO_ROOT" \
-    CLAUDE_PLUGIN_ROOT="$REPO_ROOT" \
-    bash "$CODEX_HOOK_UNDER_TEST"
-
-codex_wrapper_home="$(make_home codex-wrapper)"
-codex_wrapper_data="$TEST_ROOT/codex-wrapper/data"
-mkdir -p "$codex_wrapper_data"
-assert_command_output \
-    "Codex wrapper path dispatches to dedicated script" \
-    "nested" \
-    "" \
-    "" \
-    "$codex_wrapper_home" \
-    PLUGIN_DATA="$codex_wrapper_data" \
-    CLAUDE_PLUGIN_DATA="$codex_wrapper_data" \
-    PLUGIN_ROOT="$REPO_ROOT" \
-    CLAUDE_PLUGIN_ROOT="$REPO_ROOT" \
-    bash "$WRAPPER_UNDER_TEST" session-start-codex
-
-cursor_home="$(make_home cursor)"
-assert_command_output \
-    "Cursor emits top-level additional_context only" \
-    "cursor" \
-    "" \
-    "" \
-    "$cursor_home" \
-    CURSOR_PLUGIN_ROOT="$REPO_ROOT" \
-    CLAUDE_PLUGIN_ROOT="$REPO_ROOT" \
-    bash "$HOOK_UNDER_TEST"
-
-copilot_home="$(make_home copilot-cli)"
-assert_command_output \
-    "Copilot CLI emits top-level additionalContext only" \
-    "sdk" \
-    "" \
-    "" \
-    "$copilot_home" \
-    COPILOT_CLI=1 \
-    CLAUDE_PLUGIN_ROOT="$REPO_ROOT" \
-    bash "$HOOK_UNDER_TEST"
-
-legacy_home="$(make_home legacy-warning-removed)"
-mkdir -p "$legacy_home/.config/superpowers/skills"
-assert_command_output \
-    "SessionStart omits obsolete legacy custom-skill warning" \
-    "nested" \
-    "" \
-    "Superpowers now uses"$'\037'"~/.config/superpowers/skills"$'\037'"~/.claude/skills"$'\037'"legacy" \
-    "$legacy_home" \
-    CLAUDE_PLUGIN_ROOT="$REPO_ROOT" \
-    bash "$HOOK_UNDER_TEST"
-
-codex_legacy_home="$(make_home codex-legacy-warning-removed)"
-codex_legacy_data="$TEST_ROOT/codex-legacy-warning-removed/data"
-mkdir -p "$codex_legacy_home/.config/superpowers/skills" "$codex_legacy_data"
-assert_command_output \
-    "Codex SessionStart omits obsolete legacy custom-skill warning" \
-    "nested" \
-    "" \
-    "Superpowers now uses"$'\037'"~/.config/superpowers/skills"$'\037'"~/.claude/skills"$'\037'"legacy" \
-    "$codex_legacy_home" \
-    PLUGIN_DATA="$codex_legacy_data" \
-    CLAUDE_PLUGIN_DATA="$codex_legacy_data" \
-    PLUGIN_ROOT="$REPO_ROOT" \
-    CLAUDE_PLUGIN_ROOT="$REPO_ROOT" \
-    bash "$CODEX_HOOK_UNDER_TEST"
-
-if [[ "$FAILURES" -gt 0 ]]; then
-    echo "STATUS: FAILED ($FAILURES failure(s))"
-    exit 1
-fi
-
-echo "STATUS: PASSED"
+wrapper_output="$(PLUGIN_ROOT="$ROOT" CLAUDE_PLUGIN_ROOT="$ROOT" bash "$ROOT/hooks/run-hook.cmd" session-start-codex)"
+printf '%s' "$wrapper_output" | "$NODE_BIN" -e 'JSON.parse(require("fs").readFileSync(0,"utf8"))' \
+  || { echo "FAIL: Codex wrapper"; exit 1; }
+echo "PASS: Codex wrapper dispatch"

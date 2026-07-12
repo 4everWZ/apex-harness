@@ -57,6 +57,7 @@ done
 tests=(
     "../apex/test-series-contract.sh"
     "../apex/test-documentation-contract.sh"
+    "../apex/test-adapter-scope.sh"
 )
 
 # Filter to specific test if requested

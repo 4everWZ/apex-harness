@@ -6,6 +6,8 @@
 - `governing-project-work` owns substantial-work policy.
 - every other skill is a cohesive leaf selected by a concrete task need
 - keep the whole series at eight skills or fewer
+- keep runtime adapters limited to Claude Code, Codex, Antigravity, and Gemini
+  CLI unless support scope is explicitly changed
 
 Do not duplicate risk tables, authority models, evidence formats, documentation
 topology, or ordinary engineering advice across leaves. Add a reference only

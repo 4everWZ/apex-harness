@@ -7,6 +7,7 @@ Use the narrowest suite that covers the changed contract.
 ```bash
 bash tests/apex/test-series-contract.sh
 bash tests/apex/test-documentation-contract.sh
+bash tests/apex/test-adapter-scope.sh
 bash tests/claude-code/run-skill-tests.sh
 ```
 
@@ -23,11 +24,14 @@ $env:SKILL_CREATOR_PATH = '<installed skill-creator directory>'
 ## Adapter checks
 
 ```bash
-node --check .opencode/plugins/apex.js
-node --test tests/pi/test-pi-extension.mjs
-bash tests/kimi/run-tests.sh
+bash tests/hooks/test-session-start.sh
 bash tests/antigravity/run-tests.sh
+bash tests/gemini/test-extension.sh
 ```
+
+Only Claude Code, Codex, Antigravity, and Gemini CLI are supported. Do not add
+generic compatibility checks for other runtimes without an explicit scope
+decision.
 
 ## Behavior evaluation
 
