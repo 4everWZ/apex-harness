@@ -1,0 +1,22 @@
+{
+  "method": "Exact unordered selected_skills comparison after all label-hidden runs completed.",
+  "source_commit": "4534a92085468ce390707815ad48eb548b88cb96",
+  "original": {
+    "passed": 3,
+    "total": 6,
+    "note": "All three evaluators also selected governing-project-work for query 2."
+  },
+  "ground_truth_revision": {
+    "query_id": 2,
+    "added_skill": "governing-project-work",
+    "reason": "The query requires evidence to resolve an architecture choice and produce a durable plan, matching the governance description's substantial architecture, evidence-strength, and durable-documentation triggers."
+  },
+  "revised": {
+    "per_run": [
+      {"run":1,"passed":2,"total":2,"mismatches":[]},
+      {"run":2,"passed":2,"total":2,"mismatches":[]},
+      {"run":3,"passed":2,"total":2,"mismatches":[]}
+    ],
+    "aggregate":{"passed":6,"total":6}
+  }
+}

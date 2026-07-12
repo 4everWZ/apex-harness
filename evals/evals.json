@@ -152,10 +152,11 @@
     {
       "id": 14,
       "prompt": "Routing-only composition scenario: APEX is already active. Have two read-only agents investigate independent constraints, use their evidence to resolve an architecture choice, and produce a durable implementation plan. Select every applicable workflow; do not mutate files.",
-      "expected_output": "Selects coordinating-subagents and shaping-solutions without reloading using-apex.",
+      "expected_output": "Selects coordinating-subagents, governing-project-work, and shaping-solutions without reloading using-apex.",
       "files": [],
       "expectations": [
         "Independent read-only investigations select coordinating-subagents.",
+        "Using evidence to resolve a substantial architecture decision and create a durable record selects governing-project-work.",
         "Resolving the architecture choice and producing a durable plan selects shaping-solutions.",
         "The response composes both applicable leaves rather than forcing a single choice.",
         "Already-active APEX does not reload using-apex."
