@@ -21,5 +21,7 @@
   {"query":"The benchmark improved, but seeds, dataset revision, and confidence intervals are missing. Audit the claim.","expected_skills":["governing-project-work"]},
   {"query":"Use APEX to coordinate the engineering skills for this task; the bootstrap may not be loaded.","expected_skills":["using-apex"]},
   {"query":"APEX is already active. Implement this ordinary bounded refactor using the accepted plan.","expected_skills":[]},
-  {"query":"APEX is already active. This integration test flakes only on CI and the cause is unknown. Select the workflow without reloading the bootstrap.","expected_skills":["debugging-systematically"]}
+  {"query":"APEX is already active. This integration test flakes only on CI and the cause is unknown. Select the workflow without reloading the bootstrap.","expected_skills":["debugging-systematically"]},
+  {"query":"APEX is already active. We are changing a public event schema across three services, rollback semantics are unresolved, and the migration verification strategy must be defined before coding. Select every applicable workflow.","expected_skills":["governing-project-work","shaping-solutions","testing-changes"]},
+  {"query":"APEX is already active. Have two read-only agents investigate independent constraints, use their evidence to resolve an architecture choice, and produce a durable implementation plan. Select every applicable workflow.","expected_skills":["coordinating-subagents","shaping-solutions"]}
 ]

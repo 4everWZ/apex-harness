@@ -136,6 +136,30 @@
         "The response does not reload using-apex after bootstrap.",
         "The response does not select unrelated leaves or mutate files."
       ]
+    },
+    {
+      "id": 13,
+      "prompt": "Routing-only composition scenario: APEX is already active. A public event schema migration crosses three services, rollback semantics remain unresolved, and the migration verification strategy must be defined before coding. Select every applicable workflow; do not mutate files.",
+      "expected_output": "Selects governing-project-work, shaping-solutions, and testing-changes without reloading using-apex.",
+      "files": [],
+      "expectations": [
+        "Substantial public-contract and migration risk selects governing-project-work.",
+        "Unresolved rollback behavior selects shaping-solutions.",
+        "The requested migration verification strategy selects testing-changes.",
+        "Already-active APEX does not reload using-apex."
+      ]
+    },
+    {
+      "id": 14,
+      "prompt": "Routing-only composition scenario: APEX is already active. Have two read-only agents investigate independent constraints, use their evidence to resolve an architecture choice, and produce a durable implementation plan. Select every applicable workflow; do not mutate files.",
+      "expected_output": "Selects coordinating-subagents and shaping-solutions without reloading using-apex.",
+      "files": [],
+      "expectations": [
+        "Independent read-only investigations select coordinating-subagents.",
+        "Resolving the architecture choice and producing a durable plan selects shaping-solutions.",
+        "The response composes both applicable leaves rather than forcing a single choice.",
+        "Already-active APEX does not reload using-apex."
+      ]
     }
   ]
 }
