@@ -1,0 +1,9 @@
+{
+  "expectations": [
+    {"id": "E5-1", "text": "Old note and summaries are insufficient", "passed": true, "evidence": "Rejects stat-based completion evidence."},
+    {"id": "E5-2", "text": "Affected Task 1 evidence is inspected", "passed": true, "evidence": "Requires full content/diff and targeted checks."},
+    {"id": "E5-3", "text": "Unborn delegated workflow stops", "passed": false, "evidence": "Continues the delegated resume path by directly validating the unborn tree."},
+    {"id": "E5-4", "text": "Git and plan remain the source of truth", "passed": true, "evidence": "Uses Git state, plan/spec, and targeted verification."}
+  ],
+  "summary": {"passed": 3, "failed": 1, "total": 4, "pass_rate": 0.75}
+}

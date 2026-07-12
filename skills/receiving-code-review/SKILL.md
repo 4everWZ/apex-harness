@@ -200,7 +200,7 @@ Reviewer: "Implement proper metrics tracking with database, date filters, CSV ex
 ```
 your human partner: "Fix items 1-6"
 You understand 1,2,3,6. Unclear on 4,5.
-✅ "Items 1,2,3,6 are independent and can proceed; I need clarification on the held 4,5 group." 
+✅ "Items 1,2,3,6 are independent and can proceed; I need clarification on the held 4,5 group."
 ```
 
 ## The Bottom Line

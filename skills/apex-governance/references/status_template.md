@@ -19,12 +19,12 @@ Update it by replacing stale content. Do not append chronological entries.
 - Evidence / commands:
 
 ## Blockers / Risks
-- 
+-
 
 ## Next Steps
-1. 
-2. 
-3. 
+1.
+2.
+3.
 
 ## References
 - Matrix:

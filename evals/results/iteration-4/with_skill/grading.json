@@ -1,0 +1,9 @@
+{
+  "expectations": [
+    {"id": "E5-1", "text": "Old note and summaries are insufficient", "passed": true, "evidence": "Explicitly rejects them as content identity."},
+    {"id": "E5-2", "text": "Affected Task 1 evidence is inspected", "passed": true, "evidence": "Requires actual content/diff and acceptance/review evidence."},
+    {"id": "E5-3", "text": "Unborn delegated workflow stops", "passed": true, "evidence": "Stops before Task 2 dispatch when HEAD does not resolve."},
+    {"id": "E5-4", "text": "Git and plan remain the source of truth", "passed": true, "evidence": "Uses Git commit range, log, status, diffs, and acceptance criteria."}
+  ],
+  "summary": {"passed": 4, "failed": 0, "total": 4, "pass_rate": 1.0}
+}
