@@ -39,10 +39,14 @@ Keep your global `~/.codex/AGENTS.md` short. Example:
 - Use `docs/specs/` for active specs and leaf docs.
 - Use `docs/plans/` for neutral implementation plans created from approved specs.
 - Use `docs/matrix_*.md` for spec-to-implementation matrices.
-- Use `docs/tradeoffs.md` for approved or unavoidable deviations.
+- Use `docs/tradeoffs.md` for material cross-spec decisions, approved
+  compromises, and unavoidable deviations.
 - Use `docs/specs/status_*.md` for short handoff summaries when the user explicitly requests handoff.
 - Do not default to branded or tool-specific doc folders such as `docs/superpowers/` unless the repository has a stronger convention.
 
-- Give each entry in `docs/tradeoffs.md` a stable short ID such as `TRD-001` so leaf docs and matrices can reference it.
-- Keep local design tradeoffs inside the relevant `algo_*.md` / `dev_*.md` leaf doc. Reserve `docs/tradeoffs.md` for project-level deviations, approved compromises, and major rejected alternatives.
+- Use `references/algo_spec_template.md` and `references/dev_spec_template.md`
+  for neutral algorithm and development leaf specs when the repository has no
+  stronger convention.
+- Follow `references/tradeoff_template.md`; other docs link stable `TRD-*` IDs
+  instead of copying global entries.
 - Treat `status_*.md` as a current-state handoff surface, not as an append-only diary or requirement coverage matrix. Create or refresh it only when the user asks for handoff. Link to `docs/matrix_*.md` instead of duplicating requirement rows.

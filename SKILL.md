@@ -30,7 +30,9 @@ It enforces:
 - documentation updates when existing source-of-truth docs would otherwise become wrong or misleading
 - structured documentation outputs under `docs/` when the task actually needs them
 - neutral implementation plans under `docs/plans/` when creating plans from approved specs
-- two-level tradeoff handling: local design tradeoffs in leaf docs, project-level deviations in `docs/tradeoffs.md`, and matrix entries that reference stable tradeoff IDs without duplicating them
+- two-level tradeoff handling: local design tradeoffs in leaf docs, material
+  cross-spec decisions and deviations in `docs/tradeoffs.md`, and matrix entries
+  that reference stable tradeoff IDs without duplicating them
 - status / handoff documentation only when the user explicitly asks for handoff
 
 ## Core operating rules
@@ -40,16 +42,17 @@ It enforces:
 - Do not guess APIs, tensor shapes, schemas, config semantics, contracts, or implicit invariants.
 - Prefer typed, asserted, or mechanically checked boundaries.
 - Do not silently simplify, omit, downgrade, or narrow requested scope.
-- Tradeoff logs record approved or unavoidable deviations; they do not authorize silent ones.
+- Tradeoff logs record material cross-spec decisions and approved or unavoidable
+  deviations; proposed entries do not authorize silent changes.
 
 ## How to use this skill
 
 1. Classify the task using `references/workflow.md`.
 2. Resolve authority, mechanism, capability, and evidence boundaries using `references/governance_contract.md`.
 3. Apply the correct verification intensity from `references/workflow.md`.
-4. If the task changes substantial behavior, architecture, evaluation semantics, or research interpretation, follow `references/documentation_topology.md`.
+4. If the task changes substantial behavior, architecture, evaluation semantics, or research interpretation, follow `references/documentation_topology.md`. For a neutral leaf spec, load `references/spec_governance.md` and choose the primary template using Quick routing below. Load both templates only when both profiles materially affect one bounded contract.
 5. If traceability risk justifies it, maintain a spec-to-implementation mapping using `references/matrix_template.md`.
-6. If the implementation materially deviates from the original plan, record the deviation using `references/tradeoff_template.md`.
+6. When a material tradeoff or deviation appears, use `references/tradeoff_template.md` to resolve ownership and any global record.
 7. When the user explicitly requests handoff, maintain or refresh a current status / handoff document using `references/status_template.md`.
 
 ## Activation output
@@ -99,6 +102,21 @@ Use `references/documentation_topology.md` for:
 - required anchor docs
 - update rules by tier
 
+Use `references/spec_governance.md` for:
+- neutral spec metadata, lifecycle, approval, profile selection, evidence
+  routing, legacy compatibility, and proportionality review
+
+Use `references/dev_spec_template.md` for:
+- development and system-component specs under `docs/specs/dev_*.md`
+- responsibility, interface, state ownership, failure, operational, and
+  compatibility contracts
+
+Use `references/algo_spec_template.md` for:
+- algorithm, ML, evaluation, and research-module specs under
+  `docs/specs/algo_*.md`
+- mathematical/data semantics, numerical behavior, reproducibility, empirical
+  claims, and algorithm acceptance
+
 Use `references/plan_template.md` for:
 - implementation plans in `docs/plans/`
 - compatibility with plan executors such as `writing-plans` and subagent-driven execution
@@ -107,7 +125,7 @@ Use `references/matrix_template.md` for:
 - original-intent to current-implementation mapping
 
 Use `references/tradeoff_template.md` for:
-- `docs/tradeoffs.md` entry format with stable IDs
+- local/global promotion and `docs/tradeoffs.md` entry format with stable IDs
 
 Use `references/status_template.md` for:
 - short user-requested handoff summaries: objective, high-level state, verification summary, blockers / risks, next steps, and references
@@ -121,7 +139,8 @@ Unless the repository clearly defines a different structure, assume:
 - `docs/plans/` = neutral implementation plans created from approved specs
 - `docs/design/` = architecture and design records, including dated design documents
 - `docs/matrix_*.md` = spec-to-implementation matrices
-- `docs/tradeoffs.md` = repository-wide approved or unavoidable deviations
+- `docs/tradeoffs.md` = material repository-wide or cross-spec decisions,
+  approved compromises, and unavoidable deviations
 
 If the repository already has a stronger convention, follow repository truth. Otherwise, use the neutral paths above; branded or tool-specific subdirectories such as `docs/superpowers/` are not the default.
 

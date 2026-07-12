@@ -16,10 +16,10 @@ between governance and workflow skills.
 | `git_authority` | any subset of `edit`, `stage`, `commit`, `push`, `force-push`, `delete-ref`, `merge`, `worktree`, `discard` | Maximum local/remote Git authority granted by higher-priority instructions |
 | `external_mutations` | explicit named operations or `none` | Non-Git external changes such as deploy, message, issue update, or cloud-resource mutation |
 | `delegated_git_authority` | subset of `git_authority`, or `none` | Git authority explicitly delegated to subagents; omission means read-only |
-| `delegated_roles` | explicit role names or `none` | Subagent roles authorized for the phase, such as implementer, investigator, task-reviewer, or final-reviewer |
+| `delegated_roles` | explicit role names or `none` | Subagent roles authorized for the phase, such as implementer, investigator, spec-document-reviewer, task-reviewer, or final-reviewer |
 | `design_gate` | `satisfied`, `required` | Whether material intent is already approved |
 | `execution_mode` | `inline`, `delegated`, `parallel-investigation` | Selected coordination mode for the current task or phase |
-| `selected_mechanisms` | explicit subset of brainstorming, plan, TDD, debugging, worktree, delegation, parallel investigation, review, branch finishing | Workflow mechanisms whose predicates were evaluated and selected |
+| `selected_mechanisms` | explicit subset of brainstorming, plan, TDD, debugging, worktree, delegation, parallel investigation, spec review, review, branch finishing | Workflow mechanisms whose predicates were evaluated and selected |
 | `phases` | optional ordered phase records | Scope-specific decision records when investigation, implementation, and review legitimately use different modes |
 | `verification_level` | `focused`, `standard`, `critical` | Evidence strength required for the changed claims |
 | `documentation_obligations` | paths or `none` | Existing or required sources of truth that must remain aligned |
@@ -64,7 +64,8 @@ Use a mechanism only when all of its predicates are true.
 | Worktree | Isolation is justified, supported by `platform_capabilities`, selected in `selected_mechanisms`, and any required Git/filesystem mutation is authorized |
 | Delegated execution | `execution_mode=delegated`, delegation is in `selected_mechanisms`, every required phase role is in `delegated_roles`, tasks have safe boundaries, and the runtime plus `delegated_git_authority` provide the isolation/review capabilities required by the selected workflow |
 | Parallel investigation | `execution_mode=parallel-investigation`, the mechanism is selected, two or more investigations are independent without unauthorized shared-state mutation, and each delegated investigator role is in `delegated_roles` with authorized/supported delegation |
-| Code review | Listed in `selected_mechanisms`; the risk or lifecycle decision justifies independent review and an independent reviewer is available. Only a delegated subagent reviewer additionally requires its role in `delegated_roles` and authorized/supported delegation |
+| Spec document review | `spec review` is listed in `selected_mechanisms`; the artifact path and governing repository/governance contract are supplied; the lifecycle decision justifies independent readiness review; the review checks progressive disclosure and proportional document size; and a reviewer is available. A delegated reviewer additionally requires `spec-document-reviewer` in `delegated_roles` plus authorized, supported read-only delegation |
+| Code review | `review` is listed in `selected_mechanisms`; the risk or lifecycle decision justifies independent review and an independent reviewer is available. Only a delegated subagent reviewer additionally requires its role in `delegated_roles` and authorized/supported delegation |
 | Branch finishing | Listed in `selected_mechanisms` and the user requested integration, publication, retention, or cleanup |
 
 Availability alone is not a predicate. The existence of subagents, tests,

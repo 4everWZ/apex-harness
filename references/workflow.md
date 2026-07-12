@@ -149,7 +149,8 @@ Classification selects an appropriate mechanism; it does not activate an entire 
 | Subagent-driven execution and per-task review | Use for a large plan with multiple substantially independent tasks | Optional when task boundaries justify the overhead | Do not use by default |
 | Inline execution | Use when work is tightly coupled | Default when sufficient | Default |
 | Implementation matrix | Use when requirement traceability or research-claim coverage is material | Use when scope tracking is needed | Usually unnecessary |
-| Tradeoff record | Use for material approved or unavoidable deviations | Use for material approved or unavoidable deviations | Usually unnecessary |
+| Spec document review | Use when a durable spec's contract density or risk makes planning errors materially costly | Use only when independent readiness judgment materially reduces planning risk | Usually unnecessary |
+| Tradeoff record | Use for material cross-spec decisions or approved/unavoidable deviations | Use when the same boundary is material | Usually unnecessary |
 
 TDD is selected by whether a failing automated test can credibly define the changed contract before implementation, not by tier alone. Higher tiers require stronger evidence, which may be TDD, a dedicated harness, existing reliable tests, or another equally credible verification path depending on the claim.
 

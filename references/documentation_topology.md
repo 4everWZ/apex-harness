@@ -47,7 +47,8 @@ convention, use the smallest applicable subset of this neutral topology:
 - `docs/plans/` — neutral implementation plans created from approved specs
 - `docs/design/` — architecture and design records, including `YYYY-MM-DD-<topic>-design.md`
 - `docs/matrix_*.md` — spec-to-implementation matrix
-- `docs/tradeoffs.md` — approved or unavoidable project-level deviations
+- `docs/tradeoffs.md` — material cross-spec decisions, approved compromises,
+  and unavoidable project-level deviations
 
 The `algo_*`, `dev_*`, and `integration_*` names are a research/complex-systems
 profile, not mandatory names for ordinary application repositories. A
@@ -68,6 +69,12 @@ Date-prefixed designs belong under `docs/design/YYYY-MM-DD-<topic>-design.md`. T
 
 Use progressive disclosure: link to related docs instead of copying them. Load matrix rows, tradeoff entries, or handoff notes only when the current task needs that layer.
 
+### 3.1 Neutral Spec Governance
+
+Neutral spec lifecycle, approval, evidence routing, and legacy rules live in
+`references/spec_governance.md`; content shapes live in the dev/algo templates.
+`SKILL.md` owns when to load them.
+
 ## 4. Required Anchor Documents
 
 ### 4.1 Overview
@@ -80,49 +87,18 @@ Use progressive disclosure: link to related docs instead of copying them. Load m
 - links to relevant docs
 
 ### 4.2 Algorithm Leaf Docs
-Each `algo_*.md` must contain:
-1. Goals & Boundaries
-2. Math / Logic / Interfaces
-3. Code Mapping
-4. Tradeoffs
-5. Verification
-
-Use these for major model blocks, losses, data semantics, evaluation protocols, or research modules.
+Store algorithm, ML, evaluation, and research-module contracts in `algo_*.md`;
+use `references/algo_spec_template.md` for their shape.
 
 ### 4.3 Development Leaf Docs
-Each `dev_*.md` must contain:
-1. Goals & Boundaries
-2. Interfaces / Responsibilities
-3. Code Mapping
-4. Tradeoffs
-5. Verification
-
-Use these for service components, integration boundaries, state ownership, or operational subsystems.
+Store component, integration, state-ownership, and operational contracts in
+`dev_*.md`; use `references/dev_spec_template.md` for their shape.
 
 ### 4.4 Tradeoff Layering Rule
 
-Tradeoffs are intentionally split across two layers.
-
-**Leaf-doc tradeoffs (`algo_*.md` / `dev_*.md`)** record local design tradeoffs only:
-
-- module-level or subsystem-level choices
-- local limitations
-- implementation-level alternatives and their consequences
-
-**Global tradeoffs (`docs/tradeoffs.md`)** record project-level deviations only:
-
-- original spec vs actual implementation
-- approved compromises
-- unavoidable deviations
-- major rejected alternatives with project-wide implications
-
-Do not copy the same full tradeoff narrative into both places.
-
-If a topic appears in both places:
-- keep the leaf doc version short and local
-- keep the full deviation record in `docs/tradeoffs.md`
-- reference the corresponding tradeoff entry by stable ID from the leaf doc when useful (for example, `TRD-001`)
-- do not copy tradeoff entries into plans, matrices, or handoff docs
+Use `docs/tradeoffs.md` for global records and
+`references/tradeoff_template.md` for ownership, promotion, and lifecycle.
+Other docs reference stable `TRD-*` IDs instead of copying entries.
 
 ### 4.5 Spec-to-Implementation Matrix
 `docs/matrix_*.md` is required when Tier A work has material requirement,
@@ -176,9 +152,9 @@ Treat `status_*.md` as a **current-state snapshot**, not as an append-only diary
 
 ## 5. Omission Rule
 
-If a module is omitted, state exactly:
-
-**Not implemented in the current version.**
+Use `references/spec_governance.md` for spec omission semantics. Do not confuse
+an untriggered optional documentation section with approved scope that remains
+unimplemented.
 
 ## 6. Alignment Check
 
