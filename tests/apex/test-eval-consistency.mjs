@@ -31,7 +31,7 @@ assertCompleteIds(evals.evals, evals.evals.length, 'source evals');
 
 const routes = readJson('evals/routing-evals.json');
 const expectedNames = new Set(routes.flatMap((item) => item.expected_skills));
-for (const name of [
+const skillNames = [
   'using-apex',
   'governing-project-work',
   'shaping-solutions',
@@ -39,7 +39,12 @@ for (const name of [
   'coordinating-subagents',
   'debugging-systematically',
   'testing-changes',
-]) {
+];
+const assertDescriptionSet = (items, label) => {
+  assert.equal(items.length, skillNames.length, `${label} snapshots seven descriptions`);
+  assert.deepEqual([...new Set(items.map((item) => item.name))].sort(), [...skillNames].sort(), `${label} covers each skill exactly once`);
+};
+for (const name of skillNames) {
   assert.ok(expectedNames.has(name), `routing set covers ${name}`);
 }
 assert.ok(routes.some((item) => item.expected_skills.length === 0), 'routing set includes no-skill near misses');
@@ -67,6 +72,12 @@ const blindQueries = readJson('evals/results/iteration-10/queries-only.json');
 assertCompleteIds(blindQueries, blindQueries.length, 'iteration 10 queries');
 const routeById = indexById(routes.map((item, index) => ({ id: index + 1, ...item })));
 for (const item of blindQueries) assert.equal(item.query, routeById.get(item.id).query, `iteration 10 query ${item.id} matches its route`);
+const originalBlindGrade = readJson('evals/results/iteration-10/trigger-grading.json');
+const revisedBlindGrade = readJson('evals/results/iteration-10/trigger-grading-revised.json');
+const originalBlindTruth = indexById(originalBlindGrade.per_query);
+const revisedBlindTruth = indexById(revisedBlindGrade.per_query);
+let originalBlindPasses = 0;
+let revisedBlindPasses = 0;
 for (const run of [1, 2, 3]) {
   const selections = readJson(`evals/results/iteration-10/run-${run}-selections.json`);
   assert.equal(selections.source_commit, '95e3f936c5b507e98765af286e1fce75145b4e5b');
@@ -74,23 +85,35 @@ for (const run of [1, 2, 3]) {
   assertCompleteIds(selections.results, blindQueries.length, `iteration 10 run ${run}`);
   assert.ok(selections.results.every((item) => !('expected' in item) && !('passed' in item)), `blind run ${run} contains no labels or self-grades`);
   const descriptionSnapshot = normalizeDescriptionSnapshot(selections.description_snapshot);
-  assert.equal(descriptionSnapshot.length, 7, `iteration 10 run ${run} snapshots seven descriptions`);
-  assert.equal(new Set(descriptionSnapshot.map((item) => item.name)).size, 7, `iteration 10 run ${run} description names are unique`);
+  assertDescriptionSet(descriptionSnapshot, `iteration 10 run ${run}`);
   for (const item of descriptionSnapshot) {
     const skill = readAtCommit(selections.source_commit, `skills/${item.name}/SKILL.md`);
     const match = skill.match(/^description:\s*(.+)$/m);
     assert.equal(item.description, match?.[1], `iteration 10 run ${run} preserves historical ${item.name} description`);
   }
+  let originalRunPasses = 0;
+  let revisedRunPasses = 0;
+  for (const item of selections.results) {
+    const runKey = `run_${run}`;
+    exactSet(item.selected_skills, originalBlindTruth.get(item.id).selections[runKey]);
+    exactSet(item.selected_skills, revisedBlindTruth.get(item.id).selections[runKey]);
+    if (sameSet(item.selected_skills, originalBlindTruth.get(item.id).expected_skills)) originalRunPasses += 1;
+    if (sameSet(item.selected_skills, revisedBlindTruth.get(item.id).expected_skills)) revisedRunPasses += 1;
+  }
+  originalBlindPasses += originalRunPasses;
+  revisedBlindPasses += revisedRunPasses;
+  assert.deepEqual(originalBlindGrade.per_run[run - 1], { run, total: blindQueries.length, passed: originalRunPasses, failed: blindQueries.length - originalRunPasses, pass_rate: originalRunPasses / blindQueries.length });
+  assert.deepEqual(revisedBlindGrade.per_run[run - 1], { run, total: blindQueries.length, passed: revisedRunPasses, failed: blindQueries.length - revisedRunPasses, pass_rate: revisedRunPasses / blindQueries.length });
 }
-const blindGrade = readJson('evals/results/iteration-10/trigger-grading-revised.json');
-assert.equal(blindGrade.aggregate.passed, 66);
-assert.equal(blindGrade.aggregate.total, 66);
-assert.ok(blindGrade.ground_truth_revision, 'blind grading records the query-13 ground-truth revision');
+assert.deepEqual(originalBlindGrade.aggregate, { total: 66, passed: originalBlindPasses, failed: 66 - originalBlindPasses, pass_rate: originalBlindPasses / 66 });
+assert.deepEqual(revisedBlindGrade.aggregate, { total: 66, passed: revisedBlindPasses, failed: 66 - revisedBlindPasses, pass_rate: revisedBlindPasses / 66 });
+assert.ok(revisedBlindGrade.ground_truth_revision, 'blind grading records the query-13 ground-truth revision');
 
 const currentQueries = readJson('evals/results/iteration-12/queries-only.json');
 assertCompleteIds(currentQueries, currentQueries.length, 'iteration 12 queries');
 for (const item of currentQueries) assert.equal(item.query, routeById.get(item.id).query, `iteration 12 query ${item.id} matches its route`);
 const currentDescriptions = readJson('evals/results/iteration-12/descriptions-only.json');
+assertDescriptionSet(currentDescriptions, 'iteration 12 descriptions');
 for (const item of currentDescriptions) {
   const skill = readAtCommit('a473d6f8817995117ebecda7745ee77dc6cb380b', `skills/${item.name}/SKILL.md`);
   const match = skill.match(/^description:\s*(.+)$/m);
@@ -117,6 +140,7 @@ assertCompleteIds(compositionQueries, compositionQueries.length, 'iteration 13 q
 const compositionRouteById = indexById(routes.slice(-compositionQueries.length).map((item, index) => ({ id: index + 1, ...item })));
 for (const item of compositionQueries) assert.equal(item.query, compositionRouteById.get(item.id).query, `iteration 13 query ${item.id} matches its route`);
 const compositionDescriptions = readJson('evals/results/iteration-13/descriptions-only.json');
+assertDescriptionSet(compositionDescriptions, 'iteration 13 descriptions');
 for (const item of compositionDescriptions) {
   const skill = readAtCommit('4534a92085468ce390707815ad48eb548b88cb96', `skills/${item.name}/SKILL.md`);
   const match = skill.match(/^description:\s*(.+)$/m);
