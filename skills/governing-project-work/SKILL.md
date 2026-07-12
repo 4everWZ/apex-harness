@@ -25,7 +25,8 @@ Omit irrelevant fields. Missing mutation authority is not permission.
 Read [workflow.md](references/workflow.md) when classification, authority, or
 fresh evidence needs more detail. Read
 [documentation.md](references/documentation.md) only when durable project
-documents are relevant.
+documents are relevant. For ML, data, numerical, or research semantics, read
+[research-contracts.md](references/research-contracts.md).
 
 ## Governing rules
 
@@ -35,6 +36,11 @@ documents are relevant.
   the task needs them, not because APEX provides them.
 - Keep the touched source of truth aligned with behavior. Create a new artifact
   only when it will outlive the conversation or coordinate later work.
+- Governance decides whether substantial work requires a durable artifact and
+  which artifact owns the decision. `shaping-solutions` owns the artifact's
+  design or plan content after that boundary is supplied. For non-substantial
+  work, shaping may persist a user-requested plan without manufacturing a full
+  governance record.
 - Record material cross-cutting tradeoffs once. Leaf documents link to that
   decision instead of copying it.
 - Scale verification to failure cost and claim breadth. A passing but unrelated

@@ -33,6 +33,28 @@ node --test tests/pi/test-pi-extension.mjs
 Material skill changes also require realistic evaluations against the prior
 version or a no-skill baseline. Static checks protect structure, not behavior.
 
+## Migration from the consolidated skills
+
+The seven-skill series intentionally changes direct skill names:
+
+| Previous name | Current route |
+|---|---|
+| `apex-governance` | `governing-project-work` |
+| `brainstorming`, `writing-plans` | `shaping-solutions` |
+| `using-git-worktrees`, `finishing-a-development-branch` | `managing-git` |
+| `dispatching-parallel-agents`, `subagent-driven-development`, `requesting-code-review`, `receiving-code-review`, `executing-plans` | `coordinating-subagents` or inline execution |
+| `systematic-debugging` | `debugging-systematically` |
+| `test-driven-development`, `verification-before-completion` | `testing-changes` or ordinary proportionate verification |
+
+Prompts should use the current names. `using-apex` can translate a user's old
+workflow wording, but direct runtime lookup of a deleted name is a breaking
+change required to keep the series below eight skills.
+
+The brainstorming browser server and visual companion were deliberately
+removed. Visual comparisons should use the current runtime's image, browser, or
+rendering tools when the task actually needs them; APEX no longer bundles a
+long-lived local visual server.
+
 ## Provenance
 
 APEX consolidates the useful governance ideas from `apex-harness` and focused

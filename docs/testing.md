@@ -10,6 +10,16 @@ bash tests/apex/test-documentation-contract.sh
 bash tests/claude-code/run-skill-tests.sh
 ```
 
+Validate frontmatter and skill structure with the official `skill-creator`
+validator in a repository-local environment:
+
+```powershell
+python -m venv .venv
+.\.venv\Scripts\python.exe -m pip install -r requirements-skill-validation.txt
+$env:SKILL_CREATOR_PATH = '<installed skill-creator directory>'
+.\scripts\validate-skills.ps1
+```
+
 ## Adapter checks
 
 ```bash

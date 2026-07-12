@@ -1,0 +1,477 @@
+{
+  "metadata": {
+    "skill_name": "apex-series",
+    "skill_path": "D:\\Code\\prompt\\apex\\skills",
+    "executor_model": "runtime-selected Codex subagents (exact model not exposed)",
+    "analyzer_model": "not run",
+    "timestamp": "2026-07-12T15:19:01Z",
+    "evals_run": [
+      1,
+      2,
+      3,
+      4,
+      5,
+      6
+    ],
+    "runs_per_configuration": 1,
+    "timing_available": false,
+    "token_metrics_available": false,
+    "baseline_commit": "f5769bde68d879c8854fc8fb80b523c3d78958c0",
+    "candidate_commit": "068e3f618d02b8b8f1da836fd9e8ba3bcd12c8d6"
+  },
+  "runs": [
+    {
+      "eval_id": 1,
+      "eval_name": "govern-and-shape",
+      "configuration": "with_skill",
+      "run_number": 1,
+      "result": {
+        "pass_rate": 1.0,
+        "passed": 3,
+        "failed": 0,
+        "total": 3,
+        "time_seconds": null,
+        "tokens": null,
+        "tool_calls": null,
+        "errors": null
+      },
+      "expectations": [
+        {
+          "text": "Substantial cross-module, schema, and evaluation risk selects governing-project-work.",
+          "passed": true,
+          "evidence": "The response explicitly says, \"I’m using APEX’s `governing-project-work` first\" and classifies the work as \"critical-risk\" because it changes \"a public interface, persisted data semantics, and evaluation methodology.\""
+        },
+        {
+          "text": "Material unresolved intent selects shaping-solutions before implementation.",
+          "passed": true,
+          "evidence": "The response explicitly selects \"`shaping-solutions`\" after governance and says it will present alternatives and request decisions on CLI compatibility, old-entry migration/rebuild policy, and benchmark continuity before implementation: \"I won’t implement an unresolved choice or guess its semantics.\""
+        },
+        {
+          "text": "Subagent availability does not imply delegation or mutation authority.",
+          "passed": true,
+          "evidence": "The response treats subagents as optional (\"if used\"), limits them to \"read-only and narrowly scoped\" investigations, retains reconciliation responsibility, and states that subagents do not gain mutation authority merely by being available."
+        }
+      ],
+      "notes": []
+    },
+    {
+      "eval_id": 1,
+      "eval_name": "govern-and-shape",
+      "configuration": "old_skill",
+      "run_number": 1,
+      "result": {
+        "pass_rate": 0.6666666667,
+        "passed": 2,
+        "failed": 1,
+        "total": 3,
+        "time_seconds": null,
+        "tokens": null,
+        "tool_calls": null,
+        "errors": null
+      },
+      "expectations": [
+        {
+          "text": "Substantial cross-module, schema, and evaluation risk selects governing-project-work.",
+          "passed": true,
+          "evidence": "The response explicitly says, \"I’m using APEX governance for this Tier A change,\" and ties that classification to crossing module boundaries and changing a public CLI, persistent schema, and benchmark/evaluation semantics."
+        },
+        {
+          "text": "Material unresolved intent selects shaping-solutions before implementation.",
+          "passed": false,
+          "evidence": "The response does not select the named `shaping-solutions` workflow. It instead says \"with brainstorming only if repository truth does not already contain an approved design.\" Although it promises not to edit until material choices are resolved, that is insufficient evidence that `shaping-solutions` itself was selected as required by the assertion."
+        },
+        {
+          "text": "Subagent availability does not imply delegation or mutation authority.",
+          "passed": true,
+          "evidence": "The response makes subagent use conditional (\"if the repository is large\"), limits it to two read-only investigations, states \"I retain synthesis and design ownership,\" and explicitly denies delegated Git or file mutation during investigation."
+        }
+      ],
+      "notes": []
+    },
+    {
+      "eval_id": 2,
+      "eval_name": "read-only-debugging",
+      "configuration": "with_skill",
+      "run_number": 1,
+      "result": {
+        "pass_rate": 1.0,
+        "passed": 3,
+        "failed": 0,
+        "total": 3,
+        "time_seconds": null,
+        "tokens": null,
+        "tool_calls": null,
+        "errors": null
+      },
+      "expectations": [
+        {
+          "text": "The investigation remains read-only.",
+          "passed": true,
+          "evidence": "The response explicitly says, 'I investigated this without editing production or test files' and concludes, 'No fix has been made.' The described actions are test and syntax-check invocations rather than edits."
+        },
+        {
+          "text": "A causal hypothesis is tested before a fix is proposed.",
+          "passed": true,
+          "evidence": "The response tests the shell/PATH hypothesis by contrasting failures under WSL Bash, where `node` is unavailable, with the same syntax and cache checks under the available Windows Node executable, where they pass. It then identifies shell/PATH mismatch as the causal mechanism and proposes no fix."
+        },
+        {
+          "text": "Unneeded planning, documentation, and delegated implementation are not selected.",
+          "passed": true,
+          "evidence": "The response directly reports the investigation and its result. It does not introduce a planning artifact, documentation task, delegation, or implementation work."
+        }
+      ],
+      "notes": []
+    },
+    {
+      "eval_id": 2,
+      "eval_name": "read-only-debugging",
+      "configuration": "old_skill",
+      "run_number": 1,
+      "result": {
+        "pass_rate": 0.33,
+        "passed": 1,
+        "failed": 2,
+        "total": 3,
+        "time_seconds": null,
+        "tokens": null,
+        "tool_calls": null,
+        "errors": null
+      },
+      "expectations": [
+        {
+          "text": "The investigation remains read-only.",
+          "passed": true,
+          "evidence": "The response explicitly commits to read-only diagnosis and says, 'I won’t edit code, dependencies, configuration, Git state, or runtime state during the diagnosis.' It reports no edit or fix."
+        },
+        {
+          "text": "A causal hypothesis is tested before a fix is proposed.",
+          "passed": false,
+          "evidence": "The response describes a future debugging procedure but says, 'I can’t identify the cause from the information supplied yet.' It states no specific causal hypothesis and performs no hypothesis test."
+        },
+        {
+          "text": "Unneeded planning, documentation, and delegated implementation are not selected.",
+          "passed": false,
+          "evidence": "Instead of performing an investigation, the response opens with a procedural plan: 'reproduce only the failing test, read its complete failure and stack trace, then inspect yesterday’s relevant Git diff...' No documentation or delegation is selected, but the conjunctive assertion fails because planning is selected without producing diagnostic evidence."
+        }
+      ],
+      "notes": []
+    },
+    {
+      "eval_id": 3,
+      "eval_name": "git-lifecycle",
+      "configuration": "with_skill",
+      "run_number": 1,
+      "result": {
+        "pass_rate": 1.0,
+        "passed": 4,
+        "failed": 0,
+        "total": 4,
+        "time_seconds": null,
+        "tokens": null,
+        "tool_calls": null,
+        "errors": null
+      },
+      "expectations": [
+        {
+          "text": "Local merge is separated from cleanup and remote synchronization.",
+          "passed": true,
+          "evidence": "The response scopes the merge to local main and says it will verify the result \"without fetching or pushing.\" It separately states, \"A local merge does not authorize those separate destructive effects,\" referring to worktree/branch/file cleanup."
+        },
+        {
+          "text": "Workspace ownership is not inferred from its path.",
+          "passed": true,
+          "evidence": "The response rejects the vague ownership premise: \"I won’t remove worktrees, delete branches, or discard files under ‘whatever workspace you think is ours.’\" It adds that \"ownership is not precise enough here.\""
+        },
+        {
+          "text": "Cleanup requires exact targets and applicable destructive authority.",
+          "passed": true,
+          "evidence": "The response leaves cleanup untouched because it is not authorized and requests \"the exact worktree/path and whether its branch should be retained or deleted\" before cleanup."
+        },
+        {
+          "text": "No real Git mutation is performed in the evaluation.",
+          "passed": true,
+          "evidence": "The response only describes future conditional actions (\"I’ll inspect\" and \"If ... safe, I’ll merge\") and reports no executed Git command, changed ref, removed worktree, deleted branch, or discarded file."
+        }
+      ],
+      "notes": []
+    },
+    {
+      "eval_id": 3,
+      "eval_name": "git-lifecycle",
+      "configuration": "old_skill",
+      "run_number": 1,
+      "result": {
+        "pass_rate": 1.0,
+        "passed": 4,
+        "failed": 0,
+        "total": 4,
+        "time_seconds": null,
+        "tokens": null,
+        "tool_calls": null,
+        "errors": null
+      },
+      "expectations": [
+        {
+          "text": "Local merge is separated from cleanup and remote synchronization.",
+          "passed": true,
+          "evidence": "The response explicitly distinguishes the scopes: \"Your request authorizes a local merge into main, but not remote synchronization\" and \"Cleanup is a separate, potentially destructive action.\""
+        },
+        {
+          "text": "Workspace ownership is not inferred from its path.",
+          "passed": true,
+          "evidence": "The response states, \"I won’t infer workspace ownership from a directory name.\""
+        },
+        {
+          "text": "Cleanup requires exact targets and applicable destructive authority.",
+          "passed": true,
+          "evidence": "The response asks the user to \"name the exact workspace path and branch\" and says deletion proceeds only after loss details are listed and the user confirms by typing \"discard.\""
+        },
+        {
+          "text": "No real Git mutation is performed in the evaluation.",
+          "passed": true,
+          "evidence": "The response says, \"I can’t truthfully report this as merged or cleaned up yet,\" and describes all Git operations hypothetically (\"I would first inspect ...\"). It reports no executed mutation or resulting repository change."
+        }
+      ],
+      "notes": []
+    },
+    {
+      "eval_id": 4,
+      "eval_name": "resume-delegation",
+      "configuration": "with_skill",
+      "run_number": 1,
+      "result": {
+        "pass_rate": 1.0,
+        "passed": 4,
+        "failed": 0,
+        "total": 4,
+        "time_seconds": null,
+        "tokens": null,
+        "tool_calls": null,
+        "errors": null
+      },
+      "expectations": [
+        {
+          "text": "The old note and matching summaries are not accepted as content identity or completion proof.",
+          "passed": true,
+          "evidence": "The response explicitly says: \"The old completion note and familiar `HEAD`/status/diff-stat summaries are not proof that the current content is the reviewed content.\" It further explains that same-length replacement is invisible to a size-oriented summary."
+        },
+        {
+          "text": "Relevant content and Task 1 evidence are re-inspected before Task 2.",
+          "passed": true,
+          "evidence": "Before Task 2, the response requires reading Task 1 acceptance criteria, inspecting \"the relevant file's actual current content\" and complete staged/unstaged diffs, and re-running Task 1 checks and inspecting their results."
+        },
+        {
+          "text": "Unborn HEAD and repository state are handled from observed Git facts rather than a guessed commit range.",
+          "passed": true,
+          "evidence": "The response says to first test whether `HEAD` resolves. For unborn `HEAD`, it says not to use `HEAD` as a base or claim history-backed continuity, and instead to inspect the index and working tree directly; if a required base is unavailable, it says to pause and request an authoritative base."
+        },
+        {
+          "text": "No custom run ledger, serialized identity, or review package becomes a source of truth.",
+          "passed": true,
+          "evidence": "The response introduces none of those artifacts. It anchors reconciliation in repository truth, actual file content, complete Git diffs, the approved plan, Task 1 acceptance criteria, and freshly rerun checks."
+        }
+      ],
+      "notes": []
+    },
+    {
+      "eval_id": 4,
+      "eval_name": "resume-delegation",
+      "configuration": "old_skill",
+      "run_number": 1,
+      "result": {
+        "pass_rate": 1.0,
+        "passed": 4,
+        "failed": 0,
+        "total": 4,
+        "time_seconds": null,
+        "tokens": null,
+        "tool_calls": null,
+        "errors": null
+      },
+      "expectations": [
+        {
+          "text": "The old note and matching summaries are not accepted as content identity or completion proof.",
+          "passed": true,
+          "evidence": "The response states: \"The old completion note, familiar `HEAD`/status, and diff-stat are summaries, not content identity.\" It explicitly recognizes that different same-length content may leave length and diff-stat unchanged."
+        },
+        {
+          "text": "Relevant content and Task 1 evidence are re-inspected before Task 2.",
+          "passed": true,
+          "evidence": "The response requires reconciliation against the approved plan using full commit SHA(s), Git history/status, and \"the actual relevant diff or another content-sensitive identifier,\" followed by re-inspection and re-review of Task 1 where prior evidence no longer covers current content."
+        },
+        {
+          "text": "Unborn HEAD and repository state are handled from observed Git facts rather than a guessed commit range.",
+          "passed": true,
+          "evidence": "The response directs the reader to run `git rev-parse --verify HEAD`; if `HEAD` is unborn, it rejects the commit-based workflow precondition and says to stop until there is an authorized committed baseline or authorized inline workflow. It also checks dirty workspace/index and unreconciled-range states rather than inventing a range."
+        },
+        {
+          "text": "No custom run ledger, serialized identity, or review package becomes a source of truth.",
+          "passed": true,
+          "evidence": "The response introduces no custom ledger, serialized identity, or review package. Its evidence sources are the approved plan, actual content-sensitive Git evidence, relevant diffs, repository status/history, and re-review."
+        }
+      ],
+      "notes": []
+    },
+    {
+      "eval_id": 5,
+      "eval_name": "conditional-tdd",
+      "configuration": "with_skill",
+      "run_number": 1,
+      "result": {
+        "pass_rate": 1.0,
+        "passed": 3,
+        "failed": 0,
+        "total": 3,
+        "time_seconds": null,
+        "tokens": null,
+        "tool_calls": null,
+        "errors": null
+      },
+      "expectations": [
+        {
+          "text": "TDD is selected for a stable, cheaply testable contract rather than as a universal rule.",
+          "passed": true,
+          "evidence": "The response selects test-first specifically because this is \"a deterministic parser rule exposed through a stable public input/output boundary\" and because \"a focused unit test can state the observable contract precisely.\" This is a case-specific rationale, not a universal TDD mandate."
+        },
+        {
+          "text": "The failing test must fail for the expected behavioral reason.",
+          "passed": true,
+          "evidence": "Step 2 requires confirming that the new tests \"fail because the rule is missing or incorrect—not because of a syntax error, fixture problem, or test-harness failure\" and also checks that an overly broad existing rule does not make them pass already."
+        },
+        {
+          "text": "Final verification includes the focused test and relevant neighboring evidence.",
+          "passed": true,
+          "evidence": "Steps 4-6 require rerunning the focused tests, running \"neighboring parser tests\" for overlapping inputs, and running the complete relevant unit-test suite plus applicable static/build checks."
+        }
+      ],
+      "notes": []
+    },
+    {
+      "eval_id": 5,
+      "eval_name": "conditional-tdd",
+      "configuration": "old_skill",
+      "run_number": 1,
+      "result": {
+        "pass_rate": 1.0,
+        "passed": 3,
+        "failed": 0,
+        "total": 3,
+        "time_seconds": null,
+        "tokens": null,
+        "tool_calls": null,
+        "errors": null
+      },
+      "expectations": [
+        {
+          "text": "TDD is selected for a stable, cheaply testable contract rather than as a universal rule.",
+          "passed": true,
+          "evidence": "The response says, \"I would work test-first\" because this is \"a deterministic behavior change with a stable public contract, so a failing automated test can credibly define the rule before implementation.\" It also conditions the approach on resolving any unspecified contract semantics first."
+        },
+        {
+          "text": "The failing test must fail for the expected behavioral reason.",
+          "passed": true,
+          "evidence": "Step 3 requires observing RED and confirming the test \"fails as an assertion for the missing rule, with the expected mismatch—not because of a typo, fixture problem, import error, or unrelated failure.\""
+        },
+        {
+          "text": "Final verification includes the focused test and relevant neighboring evidence.",
+          "passed": true,
+          "evidence": "Steps 6-7 require rerunning focused tests after refactoring, then running the complete parser unit-test suite and relevant type, lint, build, and public-entry-point integration checks; step 5 additionally covers rule-precedence interactions and edge cases."
+        }
+      ],
+      "notes": []
+    },
+    {
+      "eval_id": 6,
+      "eval_name": "routine-edit",
+      "configuration": "with_skill",
+      "run_number": 1,
+      "result": {
+        "pass_rate": 1.0,
+        "passed": 3,
+        "failed": 0,
+        "total": 3,
+        "time_seconds": null,
+        "tokens": null,
+        "tool_calls": null,
+        "errors": null
+      },
+      "expectations": [
+        {
+          "text": "No APEX leaf skill is selected for the routine bounded edit.",
+          "passed": true,
+          "evidence": "The response does not select or invoke any APEX leaf skill; it proceeds directly with the bounded edit: 'I’ll correct the typo in the private Markdown note'."
+        },
+        {
+          "text": "No plan, worktree, subagent, TDD cycle, or durable documentation is manufactured.",
+          "passed": true,
+          "evidence": "The response proposes only the edit and file-specific diff inspection, and explicitly rejects extra workflow: 'no additional synchronization or testing is needed.' It introduces no plan, worktree, subagent, TDD cycle, or durable documentation."
+        },
+        {
+          "text": "Verification is limited to the relevant changed diff.",
+          "passed": true,
+          "evidence": "Verification is explicitly scoped to 'inspect the Git diff for that file to confirm the only change is the intended text correction.'"
+        }
+      ],
+      "notes": []
+    },
+    {
+      "eval_id": 6,
+      "eval_name": "routine-edit",
+      "configuration": "old_skill",
+      "run_number": 1,
+      "result": {
+        "pass_rate": 1.0,
+        "passed": 3,
+        "failed": 0,
+        "total": 3,
+        "time_seconds": null,
+        "tokens": null,
+        "tool_calls": null,
+        "errors": null
+      },
+      "expectations": [
+        {
+          "text": "No APEX leaf skill is selected for the routine bounded edit.",
+          "passed": true,
+          "evidence": "The response does not select or invoke any APEX leaf skill; it proceeds directly with 'the single typo correction in the private Markdown note'."
+        },
+        {
+          "text": "No plan, worktree, subagent, TDD cycle, or durable documentation is manufactured.",
+          "passed": true,
+          "evidence": "The response proposes only the edit and file-specific diff inspection and explicitly says: 'No broader workflow, documentation update, branch, or unrelated verification is needed.' It introduces no plan, worktree, subagent, TDD cycle, or durable documentation."
+        },
+        {
+          "text": "Verification is limited to the relevant changed diff.",
+          "passed": true,
+          "evidence": "Verification is explicitly scoped to 'inspect the file’s Git diff to confirm that only the intended text changed.'"
+        }
+      ],
+      "notes": []
+    }
+  ],
+  "run_summary": {
+    "with_skill": {
+      "pass_rate": {
+        "mean": 1.0,
+        "stddev": null
+      }
+    },
+    "old_skill": {
+      "pass_rate": {
+        "mean": 0.8327777777833333,
+        "stddev": null
+      }
+    },
+    "delta": {
+      "definition": "with_skill - old_skill",
+      "pass_rate": "+0.17",
+      "time_seconds": null,
+      "tokens": null
+    }
+  },
+  "notes": [
+    "Single response-only routing run per configuration; no execution, mutation, timing, token, transcript, or variance claim.",
+    "Assertions measure routing and boundary expression, not task execution.",
+    "Eval 3 no-mutation and eval 6 diff-verification behavior cannot be proven from response text; prompts now state routing-only scope."
+  ]
+}

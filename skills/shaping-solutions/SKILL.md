@@ -30,6 +30,11 @@ design gate.
 6. Persist it only when repository governance, coordination, or future reuse
    requires a durable record.
 
+For substantial work, consume the artifact obligation and ownership selected by
+`governing-project-work`; do not independently create a competing spec, design,
+or plan. This skill owns the content and quality of the selected artifact, not
+the repository-wide documentation policy.
+
 Routine details consistent with the approved direction do not need repeated
 approval.
 

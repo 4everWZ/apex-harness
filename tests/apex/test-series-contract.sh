@@ -43,6 +43,22 @@ has "$git_skill" "Never bundle them into merge or push" "Git lifecycle actions r
 testing="$ROOT/skills/testing-changes/SKILL.md"
 has "$testing" "Do not force TDD" "TDD is conditional"
 
+has "$ROOT/skills/governing-project-work/SKILL.md" 'research-contracts.md' \
+  "governance routes specialized research contracts"
+has "$ROOT/README.md" '| `brainstorming`, `writing-plans` | `shaping-solutions` |' \
+  "README documents old-name migration"
+
+while IFS= read -r import; do
+  target="${import#@./}"
+  [ -f "$ROOT/$target" ] && pass "GEMINI import exists: $target" || fail "GEMINI import exists: $target"
+done < <(grep '^@\./' "$ROOT/GEMINI.md")
+
+if find "$ROOT/skills/using-apex" -type f -name '*-tools.md' | grep -q .; then
+  fail "entry contains no platform tool catalogs"
+else
+  pass "entry contains no platform tool catalogs"
+fi
+
 if [ "$failures" -gt 0 ]; then
   echo "STATUS: FAILED ($failures failures)"
   exit 1

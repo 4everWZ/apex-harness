@@ -26,6 +26,10 @@ Use only the skills whose concrete trigger matches:
 
 For a routine, bounded edit, use no leaf unless one of those needs is present.
 
+When a user names a pre-consolidation workflow, translate the intent through
+the migration table in the repository README. The old directory name is not a
+separate skill and does not bypass the current trigger or authority boundary.
+
 ## Shared boundary
 
 Leaves consume decisions; they do not grant permissions or create extra

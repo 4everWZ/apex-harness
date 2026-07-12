@@ -24,6 +24,12 @@ check "$FLOW" '`git status --short --branch`' "freshness records Git status"
 check "$FLOW" "staged and unstaged diff summaries" "freshness separates diff summaries"
 check "$FLOW" "explicit ignored, generated, external" "freshness names extra inputs"
 check "$FLOW" "not content identities" "summaries do not overclaim identity"
+check "$ROOT/skills/governing-project-work/SKILL.md" \
+  "Governance decides whether substantial work requires a durable artifact" \
+  "governance owns substantial artifact obligation"
+check "$ROOT/skills/shaping-solutions/SKILL.md" \
+  "owns the content and quality of the selected artifact" \
+  "shaping owns selected artifact content"
 
 if [ "$failures" -gt 0 ]; then
   echo "STATUS: FAILED ($failures failures)"

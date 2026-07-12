@@ -35,17 +35,11 @@ if not isinstance(instructions, str) or not instructions.strip():
 
 for token in [
     "AskUserQuestion",
-    "TodoList",
     "Agent",
     "Skill",
-    "Read",
-    "Write",
-    "Edit",
-    "Bash",
-    "Grep",
-    "Glob",
-    "FetchURL",
-    "WebSearch",
+    "coder",
+    "explore",
+    "plan",
 ]:
     assert_present(instructions, token, "skillInstructions")
 
