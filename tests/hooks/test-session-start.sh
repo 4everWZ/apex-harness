@@ -5,8 +5,8 @@ ROOT="$(cd "$(dirname "$0")/../.." && pwd)"
 NODE_BIN="${NODE_BIN:-$(command -v node 2>/dev/null || command -v node.exe 2>/dev/null || true)}"
 
 if [[ -z "$NODE_BIN" ]]; then
-  echo "SKIP: node is unavailable inside this shell"
-  exit 0
+  echo "FAIL: node is required to validate hook JSON"
+  exit 1
 fi
 
 check_hook() {

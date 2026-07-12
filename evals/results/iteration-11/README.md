@@ -14,7 +14,9 @@ were not exposed.
 
 The retained directory uses skill-creator's standard
 `eval-*/<configuration>/run-1/outputs/` layout. A static viewer was successfully
-generated from it with the official `generate_review.py`.
+generated during this refactor, but that historical invocation has no retained
+transcript or HTML artifact. The reproducible command below is the auditable
+claim.
 The machine-readable benchmark records one run. Generate the viewer without
 `--benchmark`: its summary formatter renders absent single-run standard
 deviation as `±0`, which would overstate the evidence.

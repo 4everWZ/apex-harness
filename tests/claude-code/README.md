@@ -11,7 +11,7 @@ Run all tests:
 ./run-skill-tests.sh
 ```
 
-Run one test:
+Run one structural test plus the required eval-consistency check:
 
 ```bash
 ./run-skill-tests.sh --test ../apex/test-series-contract.sh

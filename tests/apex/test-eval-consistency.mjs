@@ -1,6 +1,7 @@
 import assert from 'node:assert/strict';
 import fs from 'node:fs';
 import path from 'node:path';
+import { execFileSync } from 'node:child_process';
 import { fileURLToPath } from 'node:url';
 
 const root = path.resolve(path.dirname(fileURLToPath(import.meta.url)), '../..');
@@ -11,6 +12,7 @@ const assertCompleteIds = (results, count, label) => {
   assert.deepEqual(results.map((item) => item.id).sort((a, b) => a - b), Array.from({ length: count }, (_, index) => index + 1), `${label} has each id exactly once`);
 };
 const indexById = (items) => new Map(items.map((item) => [item.id, item]));
+const readAtCommit = (commit, relative) => execFileSync('git', ['show', `${commit}:${relative}`], { cwd: root, encoding: 'utf8' });
 
 const evals = readJson('evals/evals.json');
 assert.equal(evals.skill_name, 'using-apex');
@@ -45,7 +47,8 @@ for (const iteration of [9, 11]) {
   assert.equal(benchmark.metadata.runs_per_configuration, 1, `iteration ${iteration} is single-run`);
   assert.equal(benchmark.metadata.timing_available, false, `iteration ${iteration} does not claim timing`);
   assert.equal(benchmark.metadata.token_metrics_available, false, `iteration ${iteration} does not claim tokens`);
-  assert.equal(benchmark.run_summary.delta.definition, 'with_skill - old_skill');
+  assert.equal(benchmark.run_summary.delta.definition, 'with_skill - without_skill');
+  assert.ok(benchmark.runs.every((run) => ['with_skill', 'without_skill'].includes(run.configuration)), `iteration ${iteration} uses official benchmark configuration names`);
 }
 
 for (const scenario of ['debugging', 'tdd', 'docs', 'git', 'review']) {
@@ -77,7 +80,7 @@ assertCompleteIds(currentQueries, currentQueries.length, 'iteration 12 queries')
 for (const item of currentQueries) assert.equal(item.query, routeById.get(item.id).query, `iteration 12 query ${item.id} matches its route`);
 const currentDescriptions = readJson('evals/results/iteration-12/descriptions-only.json');
 for (const item of currentDescriptions) {
-  const skill = fs.readFileSync(path.join(root, `skills/${item.name}/SKILL.md`), 'utf8');
+  const skill = readAtCommit('a473d6f8817995117ebecda7745ee77dc6cb380b', `skills/${item.name}/SKILL.md`);
   const match = skill.match(/^description:\s*(.+)$/m);
   assert.equal(item.description, match?.[1], `iteration 12 snapshots current ${item.name} description`);
 }
@@ -103,7 +106,7 @@ const compositionRouteById = indexById(routes.slice(-compositionQueries.length).
 for (const item of compositionQueries) assert.equal(item.query, compositionRouteById.get(item.id).query, `iteration 13 query ${item.id} matches its route`);
 const compositionDescriptions = readJson('evals/results/iteration-13/descriptions-only.json');
 for (const item of compositionDescriptions) {
-  const skill = fs.readFileSync(path.join(root, `skills/${item.name}/SKILL.md`), 'utf8');
+  const skill = readAtCommit('4534a92085468ce390707815ad48eb548b88cb96', `skills/${item.name}/SKILL.md`);
   const match = skill.match(/^description:\s*(.+)$/m);
   assert.equal(item.description, match?.[1], `iteration 13 snapshots current ${item.name} description`);
 }

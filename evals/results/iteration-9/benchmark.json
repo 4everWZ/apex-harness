@@ -17,6 +17,7 @@
     "token_metrics_available": false,
     "baseline_commit": "f5769bde68d879c8854fc8fb80b523c3d78958c0",
     "candidate_commit": "a56f8e7d5711c690d46498cb7f990154facd1f0f",
+    "baseline_kind": "prior-version skill; encoded as without_skill for the official benchmark schema",
     "execution_fixtures": true
   },
   "runs": [
@@ -57,7 +58,7 @@
     {
       "eval_id": "exec-debugging",
       "eval_name": "debugging",
-      "configuration": "old_skill",
+      "configuration": "without_skill",
       "run_number": 1,
       "result": {
         "pass_rate": 1.0,
@@ -125,7 +126,7 @@
     {
       "eval_id": "exec-tdd",
       "eval_name": "tdd",
-      "configuration": "old_skill",
+      "configuration": "without_skill",
       "run_number": 1,
       "result": {
         "pass_rate": 1.0,
@@ -193,7 +194,7 @@
     {
       "eval_id": "exec-docs",
       "eval_name": "docs",
-      "configuration": "old_skill",
+      "configuration": "without_skill",
       "run_number": 1,
       "result": {
         "pass_rate": 1.0,
@@ -266,7 +267,7 @@
     {
       "eval_id": "exec-git",
       "eval_name": "git",
-      "configuration": "old_skill",
+      "configuration": "without_skill",
       "run_number": 1,
       "result": {
         "pass_rate": 1.0,
@@ -344,7 +345,7 @@
     {
       "eval_id": "exec-review",
       "eval_name": "review",
-      "configuration": "old_skill",
+      "configuration": "without_skill",
       "run_number": 1,
       "result": {
         "pass_rate": 1.0,
@@ -388,14 +389,14 @@
         "stddev": null
       }
     },
-    "old_skill": {
+    "without_skill": {
       "pass_rate": {
         "mean": 1.0,
         "stddev": null
       }
     },
     "delta": {
-      "definition": "with_skill - old_skill",
+      "definition": "with_skill - without_skill",
       "pass_rate": "+0.00",
       "time_seconds": null,
       "tokens": null

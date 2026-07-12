@@ -27,6 +27,8 @@ $env:SKILL_CREATOR_PATH = '<installed skill-creator directory>'
 bash tests/hooks/test-session-start.sh
 bash tests/antigravity/run-tests.sh
 bash tests/gemini/test-extension.sh
+claude plugin validate --strict .
+gemini extensions validate .
 ```
 
 On Windows also run:

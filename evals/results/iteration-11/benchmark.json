@@ -12,7 +12,8 @@
     "timing_available": false,
     "token_metrics_available": false,
     "baseline_commit": "f5769bde68d879c8854fc8fb80b523c3d78958c0",
-    "candidate_commit": "2780af36b4d9a084424e4537cd4af3f2a16edb6c"
+    "candidate_commit": "2780af36b4d9a084424e4537cd4af3f2a16edb6c",
+    "baseline_kind": "prior-version skill; encoded as without_skill for the official benchmark schema"
   },
   "runs": [
     {
@@ -52,7 +53,7 @@
     {
       "eval_id": 11,
       "eval_name": "current-migration",
-      "configuration": "old_skill",
+      "configuration": "without_skill",
       "run_number": 1,
       "result": {
         "pass_rate": 0.0,
@@ -91,14 +92,14 @@
         "stddev": null
       }
     },
-    "old_skill": {
+    "without_skill": {
       "pass_rate": {
         "mean": 0.0,
         "stddev": null
       }
     },
     "delta": {
-      "definition": "with_skill - old_skill",
+      "definition": "with_skill - without_skill",
       "pass_rate": "+1.00",
       "time_seconds": null,
       "tokens": null
