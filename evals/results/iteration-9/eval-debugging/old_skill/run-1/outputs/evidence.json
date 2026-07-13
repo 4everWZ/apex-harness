@@ -1,8 +1,0 @@
-{
-  "command": "node --test test/normalize.test.js",
-  "exit_code": 1,
-  "expected_failure": true,
-  "source_sha256": "8CCB319CB5178CA4A9923EE68D33E2E1E9D6E56E503CD379CD773AE2F210C8A1",
-  "test_sha256": "230DE8B3D23F19C6B4191890C263E15F7D56C374D97013B505E97BA137948DA2",
-  "output": "✖ trims names and removes empty entries (2.7189ms)\nℹ tests 1\nℹ suites 0\nℹ pass 0\nℹ fail 1\nℹ cancelled 0\nℹ skipped 0\nℹ todo 0\nℹ duration_ms 172.2977\n\n✖ failing tests:\n\ntest at ..\\apex-workspace\\iteration-9\\debugging\\old_skill\\project\\test\\normalize.test.js:5:1\n✖ trims names and removes empty entries (2.7189ms)\n  AssertionError [ERR_ASSERTION]: Expected values to be strictly deep-equal:\n  + actual - expected\n  \n    [\n  +   [Function: trim],\n  +   [Function: trim],\n  +   [Function: trim]\n  -   'Ada',\n  -   'Lin'\n    ]\n  \n      at TestContext.<anonymous> (file:///D:/Code/prompt/apex-workspace/iteration-9/debugging/old_skill/project/test/normalize.test.js:6:10)\n      at Test.runInAsyncScope (node:async_hooks:227:14)\n      at Test.run (node:internal/test_runner/test:1201:25)\n      at Test.start (node:internal/test_runner/test:1096:17)\n      at startSubtestAfterBootstrap (node:internal/test_runner/harness:385:17) {\n    generatedMessage: true,\n    code: 'ERR_ASSERTION',\n    actual: [Array],\n    expected: [Array],\n    operator: 'deepStrictEqual',\n    diff: 'simple'\n  }"
-}

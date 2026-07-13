@@ -2,17 +2,15 @@
 
 - **Status:** proposed | approved | rejected | superseded
 - **Decision authority:** [owner]
-- **Decision reference:** [required after disposition]
+- **Canonical spec or design:** [link]
 - **Scope:** [affected specs/components/contracts]
-- **Context / original constraint:**
-- **Options considered:**
-- **Decision / actual direction:**
-- **Reasoning:**
+- **Deviation or cross-artifact constraint:**
+- **Disposition:**
+- **Reason for recording across artifacts:**
 - **Consequences:** [including compatibility, migration, and risk]
 - **Verification / revisit trigger:**
 - **Relations:** [updates, updated-by, supersedes, superseded-by]
 
-Keep contained choices in their owning spec or design. Promote an entry to the
-global log only when authority or a lasting constraint crosses artifact or
-component boundaries. Proposed entries do not authorize implementation or
-scope reduction; retain rejected and superseded entries as history.
+The canonical spec or design owns the architectural choice and option analysis.
+Use this entry only for a deviation or lasting constraint that crosses artifact
+boundaries; do not restate the underlying decision.

@@ -23,5 +23,5 @@
 [Only unresolved items that prevent a task. Do not duplicate the source spec.]
 
 Repeat the task section for independently reviewable and testable results.
-Include commit boundaries only when commits are authorized; a plan never grants
-push, merge, cleanup, delegation, or external-mutation authority.
+When an established project boundary defines commit or external-mutation
+constraints, link to it instead of restating it here.

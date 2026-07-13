@@ -1,52 +1,33 @@
 ---
 name: governing-project-work
-description: Governs substantial software, architecture, data, ML, research, or cross-module work when risk, mutation authority, evidence strength, or the completion boundary needs an explicit decision. Skip for trivial local edits with an obvious contract and low blast radius.
+description: Establishes an explicit boundary for project risk, mutation authority, evidence strength, and completion claims. Use when the user asks for governance or when consequential, irreversible, external, public-contract, data, or research work needs those boundaries stated. Do not use for routine coding, planning, testing, Git, or documentation work unless the boundary itself is the task.
 ---
 
 # Governing Project Work
 
-Create the smallest decision boundary that makes substantial work safe and
-reviewable. Do not turn the boundary into a second project-management system.
+Externalize the few decisions that are easy to lose during substantial work.
+This is a boundary mechanism, not a general software-engineering policy.
 
-## Start boundary
+## Establish the boundary
 
-Before implementation, state only the decisions that matter:
+State only the applicable fields:
 
-- risk: focused, standard, or critical, with the reason
-- success criteria and material non-goals
-- allowed mutations: edits, specific Git actions, delegation, and named external
-  effects are separate
-- design status: resolved or requiring a user decision
-- verification path and evidence strength
-- evidence required to support the final claim
+- **Risk** — what can go wrong, who or what is affected, and which consequence
+  changes how the work should proceed.
+- **Authority** — the already-authorized file, Git, or external mutations
+  relevant to the task, plus any explicit exclusions. This record documents
+  authority; it does not grant or withdraw it.
+- **Evidence** — which claim must be supported, the evidence strong enough and
+  fresh enough for that claim, and any relevant input that Git cannot identify.
+- **Completion** — the exact claim that may be made when done, plus exclusions
+  or residual risks that must remain visible.
 
-Omit irrelevant fields. Missing mutation authority is not permission.
+Use a short prose boundary for the current task. Read
+[boundary.md](references/boundary.md) when the boundary must survive a handoff,
+resume, or long-running change.
 
-Read [workflow.md](references/workflow.md) when classification, authority, or
-fresh evidence needs more detail. For ML, data, numerical, or research semantics, read
-[research-contracts.md](references/research-contracts.md).
+## Keep it separate
 
-Select `managing-project-docs` directly when document topology, templates,
-artifact lifecycle, handoffs, or legacy management is the actual need. This
-governance skill is not a prerequisite for document management.
-
-## Governing rules
-
-- Resolve facts from code, tests, accepted docs, and observed tools before
-  asking the user. Ask when a remaining choice would materially change intent.
-- Select planning, TDD, worktrees, delegation, review, or documentation because
-  the task needs them, not because APEX provides them.
-- Scale verification to failure cost and claim breadth. A passing but unrelated
-  command is not evidence.
-
-## Completion boundary
-
-Before a completion claim, reconcile:
-
-1. requested scope and approved decisions
-2. final Git-visible state and explicit Git-invisible inputs
-3. relevant verification outcomes
-4. documentation that would otherwise be false or misleading
-5. remaining risks or unverified boundaries
-
-Report a narrower result when evidence cannot support the full claim.
+Do not turn ordinary implementation choices into governance. If the work also
+needs project documentation, `managing-project-docs` may store this boundary in
+the owning artifact, but neither skill requires the other.

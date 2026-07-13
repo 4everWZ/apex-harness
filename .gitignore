@@ -1,8 +1,4 @@
+.venv/
 .worktrees/
 .private-journal/
-.claude/
-.agent-work/
 .DS_Store
-node_modules/
-inspo
-triage/

@@ -1,7 +1,0 @@
-[
-  {"id": 1, "expected_skills": ["managing-project-docs"]},
-  {"id": 2, "expected_skills": ["governing-project-work", "managing-project-docs", "shaping-solutions"]},
-  {"id": 3, "expected_skills": ["coordinating-subagents"]},
-  {"id": 4, "expected_skills": []},
-  {"id": 5, "expected_skills": ["coordinating-subagents", "managing-project-docs", "shaping-solutions"]}
-]

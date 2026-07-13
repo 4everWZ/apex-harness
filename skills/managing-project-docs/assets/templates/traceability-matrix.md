@@ -5,6 +5,6 @@
 | R1 |  | in-scope | not-started |  |  |  |
 
 Use stable IDs. This matrix owns coverage status, not requirement wording or
-tradeoff narratives. `Implemented` requires both implementation and fresh
-verification pointers. `Out of scope` or `Deferred` requires an approved
-decision reference. Link status/handoff documents here instead of copying rows.
+tradeoff narratives, evidence freshness, or approval rules. Link to canonical
+requirements, decisions, verification, and a persistent project boundary when
+one exists. Link status/handoff documents here instead of copying rows.

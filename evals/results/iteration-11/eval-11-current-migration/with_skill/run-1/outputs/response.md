@@ -1,8 +1,0 @@
-The current seven-skill APEX series treats those as legacy workflow names, not as callable skills or a mandatory two-step pipeline.
-
-- `brainstorming` translates to `shaping-solutions`. Use its clarify/design mode only when material intent or design choices remain unresolved; use its planning mode only when a durable, multi-step implementation plan would help. If the contract is already settled and the work is mechanical, skip it.
-- `subagent-driven-development` falls under the old delegated-development/plan-execution family and translates to `coordinating-subagents` only when delegation is authorized and bounded tasks gain real value from parallelism, context isolation, or independent review. Otherwise, execute inline. Delegation does not grant mutation or external authority, and the controlling agent remains responsible for scope, integration, inspecting the actual diff, verification evidence, and final claims.
-
-So for a genuine design-then-delegation task, APEX would first use `shaping-solutions` to settle intent and, if useful, produce an approved plan; it would then use `coordinating-subagents` for independently reviewable implementation tasks. In this routing-only scenario, there is no implementation to delegate, so the correct action is simply to explain the mapping rather than spawn subagents.
-
-Direct runtime lookup of either deleted workflow name is a documented breaking migration. APEX does not recreate alias skills or claim that the old lookup succeeded; it translates the user's intent through `using-apex` and applies the current leaf triggers and authority boundaries.

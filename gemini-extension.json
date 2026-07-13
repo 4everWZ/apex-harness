@@ -1,6 +1,0 @@
-{
-  "name": "apex",
-  "description": "Gemini CLI compatibility adapter for Codex-first APEX skills",
-  "version": "0.1.0",
-  "contextFileName": "GEMINI.md"
-}

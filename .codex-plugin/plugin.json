@@ -1,41 +1,33 @@
 {
   "name": "apex",
-  "version": "0.1.0",
-  "description": "Eight cohesive, Codex-first APEX skills for governance, project docs, solution shaping, Git, subagents, debugging, and testing.",
+  "version": "0.2.0",
+  "description": "Two Codex project-work skills for governance boundaries and documentation lifecycle.",
   "author": {
-    "name": "Jesse Vincent",
-    "email": "jesse@fsck.com",
-    "url": "https://github.com/obra"
+    "name": "4everWZ",
+    "url": "https://github.com/4everWZ"
   },
   "license": "MIT",
   "keywords": [
-    "skills",
+    "codex",
     "governance",
-    "subagents",
-    "git",
-    "debugging",
-    "testing",
+    "documentation",
     "workflow"
   ],
   "skills": "./skills/",
-  "hooks": "./hooks/hooks-codex.json",
   "interface": {
     "displayName": "APEX",
-    "shortDescription": "Governed software engineering workflows for coding agents",
-    "longDescription": "Use eight cohesive Codex-first APEX skills for substantial-work governance, durable project docs, shaping, Git, opt-in subagents, debugging, and testing.",
-    "developerName": "Jesse Vincent",
+    "shortDescription": "Project boundaries and documentation lifecycle",
+    "longDescription": "Use two independent Codex skills for explicit project boundaries and a consistent documentation topology, template, and legacy lifecycle.",
+    "developerName": "4everWZ",
     "category": "Coding",
     "capabilities": [
-      "Interactive",
       "Read",
       "Write"
     ],
     "defaultPrompt": [
-      "I've got an idea for something I'd like to build.",
-      "Let's add a feature to this project."
+      "Define the risk, authority, evidence, and completion boundary for this work.",
+      "Organize this project's specifications, plans, decisions, and legacy documents."
     ],
-    "privacyPolicyURL": "https://docs.github.com/en/site-policy/privacy-policies/github-general-privacy-statement",
-    "termsOfServiceURL": "https://docs.github.com/en/site-policy/github-terms/github-terms-of-service",
     "brandColor": "#F59E0B",
     "screenshots": []
   }

@@ -1,69 +1,45 @@
-# Documentation Ownership
+# Project Documentation Topology
 
-Prefer repository conventions. When none exist, use this neutral topology:
+Use repository conventions first. When none exist, use this fallback:
 
-| Artifact | Default location | Fallback template | Create or update when |
+| Artifact | Default location | Fallback template | Owns |
 |---|---|---|---|
-| development specification | `docs/specs/dev_*.md` | `assets/templates/dev-spec.md` | behavior, ownership, or interfaces must remain authoritative |
-| algorithm specification | `docs/specs/algo_*.md` | `assets/templates/algorithm-spec.md` | numerical, data, ML, evaluation, or research semantics must persist |
-| design record | `docs/design/` | `assets/templates/design-record.md` | an architectural decision and rationale must persist |
-| implementation plan | `docs/plans/` | `assets/templates/implementation-plan.md` | later execution needs ordered, testable tasks |
-| traceability matrix | `docs/matrix_*.md` | `assets/templates/traceability-matrix.md` | requirements can otherwise be lost across many components |
-| tradeoff log | `docs/tradeoffs.md` | `assets/templates/tradeoff-entry.md` | a material cross-cutting compromise or deviation needs one owner |
-| status or handoff | repository convention | `assets/templates/status-handoff.md` | the user asks for a durable handoff |
+| development specification | `docs/specs/dev_*.md` | `assets/templates/dev-spec.md` | behavior, interfaces, ownership, acceptance |
+| algorithm specification | `docs/specs/algo_*.md` | `assets/templates/algorithm-spec.md` | data, numerical, ML, evaluation, or research semantics |
+| design record | `docs/design/` | `assets/templates/design-record.md` | an architectural decision, including cross-component choices, and its rationale |
+| implementation plan | `docs/plans/` | `assets/templates/implementation-plan.md` | ordered implementation tasks and verification |
+| traceability matrix | `docs/matrix_*.md` | `assets/templates/traceability-matrix.md` | requirement-to-implementation-to-evidence mapping |
+| tradeoff log | `docs/tradeoffs.md` | `assets/templates/tradeoff-entry.md` | cross-artifact deviations or constraints and their disposition |
+| status or handoff | repository convention | `assets/templates/status-handoff.md` | current state for an explicit handoff |
 
-Template paths are relative to `managing-project-docs/`. Prefer a repository's
-existing template. Otherwise copy the smallest applicable fallback and remove
-unused optional sections; templates are starting shapes, not mandatory forms.
+Template paths are relative to `managing-project-docs/`.
 
-## Ownership rules
+## Ownership
 
-- One artifact owns each fact. Others link to it.
-- A spec defines behavior and acceptance; a plan orders implementation; neither
-  duplicates the other.
-- Keep local design rationale near the owning spec or design. Promote only
-  cross-cutting decisions to the tradeoff log.
-- Matrices map stable requirement IDs to implementation and evidence; they do
-  not restate requirements.
-- Status documents summarize current state and link to durable sources. Do not
-  create or refresh one without a handoff need.
-- Update an existing canonical document instead of introducing the neutral
-  fallback paths above.
+- One artifact owns each durable fact; other artifacts link to it.
+- A specification defines the contract. A plan orders work against that
+  contract. A matrix maps stable IDs without restating either.
+- A design record owns the full architectural decision and option analysis,
+  including cross-component choices. A tradeoff entry owns only a deviation or
+  constraint that crosses artifacts; it links to the underlying spec or design.
+- Create a status document only for a real handoff.
+- Update an existing canonical artifact instead of adding a parallel fallback.
 
-## Minimal shapes
+## Lifecycle
 
-A durable specification needs scope, decisions, observable acceptance, and open
-questions. Add interface, state, failure, data, numerical, reproducibility, or
-operational sections only when the subject requires them.
+Track decision status separately from implementation status. Use explicit states
+such as `draft`, `approved`, `rejected`, and `superseded`.
 
-A durable plan needs its source requirements, ordered independently testable
-tasks, affected paths or responsibilities, verification, documentation impact,
-and explicit unresolved blockers. Do not embed future implementation or invent
-placeholder details.
-
-A tradeoff record needs a stable ID, context, options considered, decision,
-consequences, and approval or evidence. A matrix needs requirement ID, owner,
-implementation location, verification, and status.
-
-## Lifecycle and legacy
-
-Keep decision status separate from implementation status. Use explicit states
-such as `draft`, `approved`, `rejected`, and `superseded`; record who may change
-the decision. Do not rewrite an approved decision as though its old outcome
-never existed.
-
-When no stronger repository convention exists:
+When no stronger convention exists:
 
 - keep active specifications in `docs/specs/`
-- move superseded specifications to `docs/specs/legacy/` only after an active
-  successor names `Supersedes` and the legacy document names `Superseded By`
-- keep rejected and superseded tradeoffs as decision history
-- treat legacy documents as context, not current authority; correct factual
-  errors in place, but make new decisions in an active successor
+- move a specification to `docs/specs/legacy/` only after the active successor
+  names `Supersedes` and the legacy document names `Superseded By`
+- retain rejected and superseded decisions as history
+- treat legacy documents as context, not current authority
 
-For legacy code, first identify its current contract, callers, evidence, and
-retirement authority. Classify it as retained, compatibility-bound, migrating,
-or removal-approved. Prefer an owned adapter or migration boundary over flags
-and scattered special cases. A removal or compatibility break needs an explicit
-target state, consumer migration, rollback or recovery where relevant, and
-verification that the governed contract—not merely the old files—has gone.
+For legacy code, record its current contract and classify it as retained,
+compatibility-bound, migrating, or removal-approved. Keep one owning artifact
+for its successor or retirement record. Name the target state, affected
+consumers, recovery information when relevant, and evidence that the
+contract—not merely the old files—has been retired.

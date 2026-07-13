@@ -1,93 +1,38 @@
 # APEX
 
-APEX is a compact, Codex-first software-engineering skill series. It adds
-explicit governance only where ordinary model judgment is insufficient and
-keeps execution workflows focused. Claude Code, Gemini CLI, and Antigravity are
-compatibility readers of the same skill semantics; they do not define separate
-APEX workflows.
-
-## Skills
+APEX is a Codex-only collection of two personal project-work mechanisms. It
+does not teach Codex general software engineering or wrap its built-in coding,
+Git, testing, debugging, planning, or subagent behavior.
 
 ```text
 skills/
-├── using-apex/
 ├── governing-project-work/
-├── managing-project-docs/
-├── shaping-solutions/
-├── managing-git/
-├── coordinating-subagents/
-├── debugging-systematically/
-└── testing-changes/
+└── managing-project-docs/
 ```
 
-`using-apex` is the bootstrap and complete capability map. Leaves remain
-directly selectable: notably, documentation work can select
-`managing-project-docs` without loading the bootstrap or full governance.
-`governing-project-work` owns substantial-work risk, authority, evidence, and
-completion boundaries. `managing-project-docs` owns document topology,
-templates, artifact lifecycle, handoffs, and legacy management.
+- [`governing-project-work`](skills/governing-project-work/SKILL.md) records the
+  risk, authority, evidence strength and freshness, and completion boundary
+  when that boundary matters.
+- [`managing-project-docs`](skills/managing-project-docs/SKILL.md) applies the
+  preferred document topology, templates, ownership, supersession, and legacy
+  lifecycle.
 
-Documentation fallback templates live under
-`skills/managing-project-docs/assets/templates/`. They cover development and
-algorithm specs, design records, implementation plans, traceability matrices,
-tradeoff entries, and user-requested status handoffs. Repository-native formats
-take precedence; the fallbacks preserve a consistent docs and legacy lifecycle
-without making every task create every artifact.
+Each skill has its own frontmatter trigger and can be selected without a router
+or the other skill. Static validation does not claim behavioral trigger rates.
 
-Subagent coordination is a Codex-first, opt-in workflow per task or phase. APEX
-does not select it from available concurrency or potential speedup alone and
-does not override Codex model, scheduling, or reasoning defaults.
+## Validation
 
-## Runtime support
+From the repository root, create the validation environment, install its pinned
+dependency, point `SKILL_CREATOR_PATH` at the official `skill-creator` package,
+and run:
 
-- Codex is the native, first-priority runtime.
-- Claude Code, Gemini CLI, and Antigravity are compatibility adapters.
-
-Other runtimes are intentionally unsupported. The compatibility adapters
-only make the canonical Codex-first skills discoverable and readable.
-
-Claude Code and Gemini CLI provide local manifest validators. Codex and
-Antigravity currently have no repository-local host-install smoke test, so their
-checks validate referenced files and execute the hook payload but do not claim
-that a host discovered or installed the adapter.
-
-## Verification
-
-```bash
-bash tests/apex/test-series-contract.sh
-bash tests/apex/test-documentation-contract.sh
-bash tests/apex/test-adapter-scope.sh
-bash tests/claude-code/run-skill-tests.sh
-bash tests/hooks/test-session-start.sh
-bash tests/antigravity/run-tests.sh
-bash tests/gemini/test-extension.sh
-claude plugin validate --strict .
-gemini extensions validate .
+```powershell
+python -m venv .venv
+.\.venv\Scripts\python.exe -m pip install -r requirements-skill-validation.txt
+$env:SKILL_CREATOR_PATH = 'C:\path\to\official\skill-creator'
+.\scripts\validate-skills.ps1
 ```
 
-Material skill changes also require realistic evaluations against the prior
-version or a no-skill baseline. Static checks protect structure, not behavior.
-Contributor architecture guidance lives in
-[`docs/contributing.md`](docs/contributing.md).
-
-## Migration from the consolidated skills
-
-The eight-skill series intentionally changes direct skill names. The canonical
-old-to-new routing table is embedded in [`using-apex`](skills/using-apex/SKILL.md)
-so every injected bootstrap can resolve it without an external path.
-
-Prompts should use the current names. `using-apex` can translate a user's old
-workflow wording, but direct runtime lookup of a deleted name is a breaking
-change required to keep the series at eight skills.
-
-The brainstorming browser server and visual companion were deliberately
-removed. Visual comparisons should use the current runtime's image, browser, or
-rendering tools when the task actually needs them; APEX no longer bundles a
-long-lived local visual server.
-
-## Provenance
-
-APEX consolidates the useful governance ideas from `apex-harness` and focused
-workflow ideas from Superpowers. The series is deliberately smaller: platform
-tool tutorials, duplicate engineering common sense, and overlapping workflow
-skills are not retained.
+Pass `-Python C:\path\to\python.exe` to use another isolated environment.
+Validation follows the installed official `skill-creator`; it checks static
+structure and frontmatter rather than serving as a behavior benchmark.

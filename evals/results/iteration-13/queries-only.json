@@ -1,4 +1,0 @@
-[
-  {"id":1,"query":"APEX is already active. We are changing a public event schema across three services, rollback semantics are unresolved, and the migration verification strategy must be defined before coding. Select every applicable workflow."},
-  {"id":2,"query":"APEX is already active. Have two read-only agents investigate independent constraints, use their evidence to resolve an architecture choice, and produce a durable implementation plan. Select every applicable workflow."}
-]

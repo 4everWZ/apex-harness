@@ -17,8 +17,7 @@ do not append a diary.
 
 - Verified:
 - Not verified:
-- Evidence and relevant `HEAD` / status / diff summary:
-- Explicit extra inputs:
+- Evidence or persistent project boundary: [link when one exists]
 
 ## Blockers and risks
 
