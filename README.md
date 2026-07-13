@@ -17,6 +17,11 @@ skills/
   preferred document topology, templates, ownership, supersession, and legacy
   lifecycle.
 
+Documentation falls back to four shapes: a durable specification, a durable
+decision record, a working plan, and a transient handoff. Durable artifacts
+hold current contracts or decisions. Git owns document change chronology, and
+operational logging owns runtime events.
+
 Each skill has its own frontmatter trigger and can be selected without a router
 or the other skill. Static validation does not claim behavioral trigger rates.
 

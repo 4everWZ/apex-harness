@@ -2,44 +2,63 @@
 
 Use repository conventions first. When none exist, use this fallback:
 
-| Artifact | Default location | Fallback template | Owns |
+| Artifact | Lifecycle | Fallback template | Owns |
 |---|---|---|---|
-| development specification | `docs/specs/dev_*.md` | `assets/templates/dev-spec.md` | behavior, interfaces, ownership, acceptance |
-| algorithm specification | `docs/specs/algo_*.md` | `assets/templates/algorithm-spec.md` | data, numerical, ML, evaluation, or research semantics |
-| design record | `docs/design/` | `assets/templates/design-record.md` | an architectural decision, including cross-component choices, and its rationale |
-| implementation plan | `docs/plans/` | `assets/templates/implementation-plan.md` | ordered implementation tasks and verification |
-| traceability matrix | `docs/matrix_*.md` | `assets/templates/traceability-matrix.md` | requirement-to-implementation-to-evidence mapping |
-| tradeoff log | `docs/tradeoffs.md` | `assets/templates/tradeoff-entry.md` | cross-artifact deviations or constraints and their disposition |
-| status or handoff | repository convention | `assets/templates/status-handoff.md` | current state for an explicit handoff |
+| specification | durable | `assets/templates/specification.md` | current behavior, interfaces, acceptance, and optional algorithm, data, ML, evaluation, or research semantics |
+| decision record | durable | `assets/templates/decision-record.md` | a material design choice, cross-artifact tradeoff, or legacy successor or retirement decision |
+| work plan | working | `assets/templates/work-plan.md` | ordered execution, blockers, and optional requirement mapping |
+| handoff | transient | `assets/templates/handoff.md` | current state for one explicit transfer of work |
 
 Template paths are relative to `managing-project-docs/`.
 
-## Ownership
+## Artifact budget
 
-- One artifact owns each durable fact; other artifacts link to it.
-- A specification defines the contract. A plan orders work against that
-  contract. A matrix maps stable IDs without restating either.
-- A design record owns the full architectural decision and option analysis,
-  including cross-component choices. A tradeoff entry owns only a deviation or
-  constraint that crosses artifacts; it links to the underlying spec or design.
-- Create a status document only for a real handoff.
-- Update an existing canonical artifact instead of adding a parallel fallback.
+- Start by updating one canonical artifact. A template does not justify a file.
+- Split content only for a different owner, lifecycle, or audience.
+- A specification owns the contract. A decision record links to that contract
+  and owns only a decision needing an independent lifecycle.
+- Keep local choices in the specification. Use a decision record for a
+  cross-component choice, cross-artifact constraint, or durable legacy decision.
+- Put traceability in the work plan only when many requirements, components, or
+  phases make a separate mapping useful.
+- Create a handoff only for an explicit transfer of work.
 
 ## Lifecycle
 
-Track decision status separately from implementation status. Use explicit states
-such as `draft`, `approved`, `rejected`, and `superseded`.
+### Durable
 
-When no stronger convention exists:
+Durable means canonical while the contract or decision remains relevant. It
+does not mean append-only or permanently retained.
 
-- keep active specifications in `docs/specs/`
-- move a specification to `docs/specs/legacy/` only after the active successor
-  names `Supersedes` and the legacy document names `Superseded By`
-- retain rejected and superseded decisions as history
-- treat legacy documents as context, not current authority
+Maintain specifications and decision records in place as current truth. Do not
+use them as changelogs, activity feeds, execution histories, test-run archives,
+commit journals, or system logs. Git owns document change chronology;
+operational logging owns runtime events.
 
-For legacy code, record its current contract and classify it as retained,
-compatibility-bound, migrating, or removal-approved. Keep one owning artifact
-for its successor or retirement record. Name the target state, affected
-consumers, recovery information when relevant, and evidence that the
-contract—not merely the old files—has been retired.
+When a durable artifact is superseded, link the successor only while the old
+rationale remains operationally useful, is still referenced, or must be kept
+for audit. Otherwise transfer any still-current fact to its owner and delete
+the obsolete artifact; Git retains its history.
+
+Delete rejected proposals by default. Retain a concise decision record only
+when the rejection itself remains a current material constraint and merits an
+independent owner, lifecycle, or audience; delete it when that constraint no
+longer applies.
+
+For legacy code, record the current contract in the owning specification. Add a
+decision record only when successor or retirement reasoning needs an independent
+lifecycle. Record the target state, affected consumers, recovery information
+when relevant, and evidence that the contract—not merely old files—has retired.
+
+### Working
+
+A work plan exists to drive unfinished work, not to preserve completed-task
+history. When the work closes, move durable facts into their owning
+specification or decision record, then delete the plan unless a named next phase
+still uses it.
+
+### Transient
+
+A handoff exists only until its recipient has taken over. Replace stale content
+during the transfer, then delete the artifact or let the repository's explicit
+handoff convention own its retention.

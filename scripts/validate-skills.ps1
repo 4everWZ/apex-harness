@@ -33,9 +33,7 @@ foreach ($name in $expected) {
 }
 
 $templates = @(
-    'algorithm-spec.md', 'design-record.md', 'dev-spec.md',
-    'implementation-plan.md', 'status-handoff.md',
-    'traceability-matrix.md', 'tradeoff-entry.md'
+    'decision-record.md', 'handoff.md', 'specification.md', 'work-plan.md'
 )
 $templateRoot = Join-Path $root 'skills\managing-project-docs\assets\templates'
 $actualTemplates = @(Get-ChildItem $templateRoot -File | Sort-Object Name | ForEach-Object Name)
@@ -62,4 +60,4 @@ foreach ($relativePath in $prohibited) {
     }
 }
 
-Write-Host 'PASS: static structure and frontmatter for two Codex skills and seven templates are valid.'
+Write-Host 'PASS: static structure and frontmatter for two Codex skills and four templates are valid.'

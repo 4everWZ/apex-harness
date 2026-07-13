@@ -10,5 +10,10 @@
   freshness, and the completion boundary.
 - Documentation owns topology, templates, artifact ownership, lifecycle, and
   legacy management.
+- Durable documentation holds current contracts or decisions, never changelogs,
+  activity histories, execution journals, or system logs. Git owns document
+  change chronology; operational logging owns runtime events.
+- Default to one canonical artifact and split only for a distinct owner,
+  lifecycle, or audience.
 - Keep fallback templates under `skills/managing-project-docs/assets/templates/`.
 - Do not add routers, aliases, hooks, runtime adapters, or duplicate workflows.
