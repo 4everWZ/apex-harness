@@ -1,0 +1,11 @@
+{
+  "configuration": "current-before-bootstrap-trigger-clarification",
+  "source": "working tree over base 8acea00aa14c72e62a5771c20d33011875a0adfe",
+  "results": [
+    {"id": 1, "selected_skills": ["using-apex", "managing-project-docs"], "rationale": "APEX is requested but not stated active, so the bootstrap applies, while document hierarchy, template selection, supersession, and legacy lifecycle directly select managing-project-docs and the explicit instruction excludes full governance."},
+    {"id": 2, "selected_skills": ["governing-project-work", "shaping-solutions", "managing-project-docs"], "rationale": "Because APEX is already active, no bootstrap is needed; the risky public-contract redesign and explicit evidence boundary select governance, competing architectures select shaping, and the durable design record selects project-doc lifecycle management."},
+    {"id": 3, "selected_skills": ["using-apex", "coordinating-subagents"], "rationale": "APEX needs bootstrap and the explicit subagent enablement selects coordination; give the inventory agent only its bounded file scope, start the reviewer with no inherited turns but supply the approved architecture, exact Git scope, evidence, and explicit inputs, and leave model, reasoning, and scheduling settings to runtime defaults."},
+    {"id": 4, "selected_skills": ["using-apex"], "rationale": "APEX needs bootstrap, but possible speedup without explicit subagent enablement does not select coordinating-subagents and repository inventory alone matches no other leaf."},
+    {"id": 5, "selected_skills": ["coordinating-subagents", "shaping-solutions", "managing-project-docs"], "rationale": "APEX is already active; explicitly requested read-only investigators select coordination, resolving the architecture choice and creating a persistent implementation plan select shaping, and the durable plan's topology and lifecycle select project-doc management."}
+  ]
+}

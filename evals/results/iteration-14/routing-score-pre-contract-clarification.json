@@ -1,0 +1,45 @@
+{
+  "per_configuration": {
+    "current": {
+      "queries": [
+        {"id": 1, "expected_skills": ["managing-project-docs"], "selected_skills": ["managing-project-docs"], "passed": true, "evidence": "Exact unordered set match."},
+        {"id": 2, "expected_skills": ["governing-project-work", "managing-project-docs", "shaping-solutions"], "selected_skills": ["governing-project-work", "shaping-solutions", "managing-project-docs"], "passed": true, "evidence": "Exact unordered set match; array order differs but membership is identical."},
+        {"id": 3, "expected_skills": ["coordinating-subagents"], "selected_skills": ["coordinating-subagents"], "passed": true, "evidence": "Exact unordered set match."},
+        {"id": 4, "expected_skills": [], "selected_skills": [], "passed": true, "evidence": "Exact unordered set match: both sets are empty."},
+        {"id": 5, "expected_skills": ["coordinating-subagents", "managing-project-docs", "shaping-solutions"], "selected_skills": ["coordinating-subagents", "shaping-solutions", "managing-project-docs"], "passed": true, "evidence": "Exact unordered set match; array order differs but membership is identical."}
+      ]
+    },
+    "previous": {
+      "queries": [
+        {"id": 1, "expected_skills": ["managing-project-docs"], "selected_skills": ["using-apex", "governing-project-work"], "passed": false, "evidence": "Missing managing-project-docs; unexpected using-apex and governing-project-work."},
+        {"id": 2, "expected_skills": ["governing-project-work", "managing-project-docs", "shaping-solutions"], "selected_skills": ["governing-project-work", "shaping-solutions"], "passed": false, "evidence": "Missing managing-project-docs."},
+        {"id": 3, "expected_skills": ["coordinating-subagents"], "selected_skills": ["using-apex", "coordinating-subagents"], "passed": false, "evidence": "Unexpected using-apex."},
+        {"id": 4, "expected_skills": [], "selected_skills": ["using-apex"], "passed": false, "evidence": "Expected an empty set; unexpected using-apex."},
+        {"id": 5, "expected_skills": ["coordinating-subagents", "managing-project-docs", "shaping-solutions"], "selected_skills": ["governing-project-work", "shaping-solutions", "coordinating-subagents"], "passed": false, "evidence": "Missing managing-project-docs; unexpected governing-project-work."}
+      ]
+    }
+  },
+  "aggregates": {
+    "current": {"passed": 5, "failed": 0, "total": 5, "pass_rate": 1.0},
+    "previous": {"passed": 0, "failed": 5, "total": 5, "pass_rate": 0.0},
+    "current_minus_previous": {"passed_queries": 5, "pass_rate": 1.0}
+  },
+  "query_3_contract": {
+    "configuration": "current",
+    "rationale": "The coordination boundary is one bounded read-only inventory role plus a separate reviewer started without inherited conversation and supplied only the approved architecture, exact Git scope, relevant evidence, and explicit inputs, while scheduling, concurrency, model selection, and reasoning settings remain runtime defaults.",
+    "checks": [
+      {"criterion": "bounded_roles", "passed": true, "evidence": "The rationale specifies a bounded read-only inventory role and a separate reviewer whose review target and supplied context are constrained."},
+      {"criterion": "fresh_review_without_inherited_conversation", "passed": true, "evidence": "It explicitly says the reviewer is started without inherited conversation."},
+      {"criterion": "explicit_requirements_git_evidence_inputs", "passed": false, "evidence": "It explicitly supplies exact Git scope and relevant evidence, but says approved architecture rather than explicitly supplying approved requirements; the phrase explicit inputs does not identify what those inputs are."},
+      {"criterion": "controller_boundary", "passed": false, "evidence": "The rationale does not explicitly state that the controller retains scope, authority, integration, evidence reconciliation, or final-claim ownership."},
+      {"criterion": "runtime_boundary", "passed": true, "evidence": "It explicitly leaves scheduling and concurrency to runtime defaults."},
+      {"criterion": "no_model_reasoning_scheduling_override", "passed": true, "evidence": "It explicitly leaves scheduling, model selection, and reasoning settings at runtime defaults and specifies no override."}
+    ],
+    "passed": false,
+    "evidence": "The rationale clearly covers bounded roles, fresh context, Git/evidence inputs, runtime ownership, and absence of overrides, but it does not explicitly supply approved requirements or state the controller's retained responsibilities."
+  },
+  "conclusion": {
+    "recorded_result": "The stored current selections match 5/5 labeled routes and the stored previous selections match 0/5; query 3 still misses two contract checks in this intermediate sample.",
+    "confidence_limits": "This is a single self-reported routing sample with unverified skill loading and no transcript, timing, token, variance, or causal performance evidence."
+  }
+}

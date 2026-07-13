@@ -1,8 +1,10 @@
 # APEX
 
-APEX is a compact software-engineering skill series for coding agents. It adds
+APEX is a compact, Codex-first software-engineering skill series. It adds
 explicit governance only where ordinary model judgment is insufficient and
-keeps execution workflows focused.
+keeps execution workflows focused. Claude Code, Gemini CLI, and Antigravity are
+compatibility readers of the same skill semantics; they do not define separate
+APEX workflows.
 
 ## Skills
 
@@ -10,6 +12,7 @@ keeps execution workflows focused.
 skills/
 ├── using-apex/
 ├── governing-project-work/
+├── managing-project-docs/
 ├── shaping-solutions/
 ├── managing-git/
 ├── coordinating-subagents/
@@ -17,31 +20,31 @@ skills/
 └── testing-changes/
 ```
 
-`using-apex` is the sole bootstrap and routing entry. Runtimes may still expose
-the leaves so the router can select them directly after bootstrap.
+`using-apex` is the bootstrap and complete capability map. Leaves remain
+directly selectable: notably, documentation work can select
+`managing-project-docs` without loading the bootstrap or full governance.
 `governing-project-work` owns substantial-work risk, authority, evidence, and
-documentation decisions. Leaves consume that boundary and do not duplicate it.
+completion boundaries. `managing-project-docs` owns document topology,
+templates, artifact lifecycle, handoffs, and legacy management.
 
-Governance fallback templates live under
-`skills/governing-project-work/assets/templates/`. They cover development and
+Documentation fallback templates live under
+`skills/managing-project-docs/assets/templates/`. They cover development and
 algorithm specs, design records, implementation plans, traceability matrices,
 tradeoff entries, and user-requested status handoffs. Repository-native formats
 take precedence; the fallbacks preserve a consistent docs and legacy lifecycle
 without making every task create every artifact.
 
-Subagent coordination is opt-in per task or phase. APEX does not select it from
-available concurrency or potential speedup alone, and each enabled role gets
-its own minimum-sufficient effort instead of a uniform setting.
+Subagent coordination is a Codex-first, opt-in workflow per task or phase. APEX
+does not select it from available concurrency or potential speedup alone and
+does not override Codex model, scheduling, or reasoning defaults.
 
-## Supported runtime adapters
+## Runtime support
 
-- Claude Code
-- Codex
-- Antigravity
-- Gemini CLI
+- Codex is the native, first-priority runtime.
+- Claude Code, Gemini CLI, and Antigravity are compatibility adapters.
 
-Other agent runtimes are intentionally unsupported; their manifests, adapters,
-and tests are not bundled.
+Other runtimes are intentionally unsupported. The compatibility adapters
+only make the canonical Codex-first skills discoverable and readable.
 
 Claude Code and Gemini CLI provide local manifest validators. Codex and
 Antigravity currently have no repository-local host-install smoke test, so their
@@ -69,13 +72,13 @@ Contributor architecture guidance lives in
 
 ## Migration from the consolidated skills
 
-The seven-skill series intentionally changes direct skill names. The canonical
+The eight-skill series intentionally changes direct skill names. The canonical
 old-to-new routing table is embedded in [`using-apex`](skills/using-apex/SKILL.md)
 so every injected bootstrap can resolve it without an external path.
 
 Prompts should use the current names. `using-apex` can translate a user's old
 workflow wording, but direct runtime lookup of a deleted name is a breaking
-change required to keep the series below eight skills.
+change required to keep the series at eight skills.
 
 The brainstorming browser server and visual companion were deliberately
 removed. Visual comparisons should use the current runtime's image, browser, or

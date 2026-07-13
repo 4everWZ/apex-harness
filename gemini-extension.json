@@ -1,6 +1,6 @@
 {
   "name": "apex",
-  "description": "APEX governance with composable software engineering leaf skills",
+  "description": "Gemini CLI compatibility adapter for Codex-first APEX skills",
   "version": "0.1.0",
   "contextFileName": "GEMINI.md"
 }

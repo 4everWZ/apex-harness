@@ -1,7 +1,7 @@
 # APEX structural contract tests
 
 The runner executes the compact series and documentation ownership checks. It
-verifies the seven-skill inventory, frontmatter/directory consistency, bootstrap
+verifies the eight-skill inventory, frontmatter/directory consistency, bootstrap
 imports, migration documentation, Git/subagent boundaries, documentation
 topology, evidence-freshness wording, and the four-runtime adapter scope.
 

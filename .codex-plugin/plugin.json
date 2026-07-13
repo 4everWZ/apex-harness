@@ -1,7 +1,7 @@
 {
   "name": "apex",
   "version": "0.1.0",
-  "description": "Seven cohesive APEX skills for governed project work, solution shaping, Git, subagents, debugging, and testing.",
+  "description": "Eight cohesive, Codex-first APEX skills for governance, project docs, solution shaping, Git, subagents, debugging, and testing.",
   "author": {
     "name": "Jesse Vincent",
     "email": "jesse@fsck.com",
@@ -22,7 +22,7 @@
   "interface": {
     "displayName": "APEX",
     "shortDescription": "Governed software engineering workflows for coding agents",
-    "longDescription": "Use seven cohesive APEX skills to govern substantial work and select focused shaping, Git, subagent, debugging, and testing workflows.",
+    "longDescription": "Use eight cohesive Codex-first APEX skills for substantial-work governance, durable project docs, shaping, Git, opt-in subagents, debugging, and testing.",
     "developerName": "Jesse Vincent",
     "category": "Coding",
     "capabilities": [

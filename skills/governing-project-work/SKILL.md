@@ -1,6 +1,6 @@
 ---
 name: governing-project-work
-description: Governs substantial software, architecture, data, ML, research, or cross-module work when risk, mutation authority, evidence strength, or durable documentation needs an explicit decision. Skip for trivial local edits with an obvious contract and low blast radius.
+description: Governs substantial software, architecture, data, ML, research, or cross-module work when risk, mutation authority, evidence strength, or the completion boundary needs an explicit decision. Skip for trivial local edits with an obvious contract and low blast radius.
 ---
 
 # Governing Project Work
@@ -18,16 +18,17 @@ Before implementation, state only the decisions that matter:
   effects are separate
 - design status: resolved or requiring a user decision
 - verification path and evidence strength
-- existing or required documentation sources of truth
+- evidence required to support the final claim
 
 Omit irrelevant fields. Missing mutation authority is not permission.
 
 Read [workflow.md](references/workflow.md) when classification, authority, or
-fresh evidence needs more detail. Read
-[documentation.md](references/documentation.md) only when durable project
-documents, templates, or legacy lifecycle decisions are relevant. For ML,
-data, numerical, or research semantics, read
+fresh evidence needs more detail. For ML, data, numerical, or research semantics, read
 [research-contracts.md](references/research-contracts.md).
+
+Select `managing-project-docs` directly when document topology, templates,
+artifact lifecycle, handoffs, or legacy management is the actual need. This
+governance skill is not a prerequisite for document management.
 
 ## Governing rules
 
@@ -35,18 +36,6 @@ data, numerical, or research semantics, read
   asking the user. Ask when a remaining choice would materially change intent.
 - Select planning, TDD, worktrees, delegation, review, or documentation because
   the task needs them, not because APEX provides them.
-- Keep the touched source of truth aligned with behavior. Create a new artifact
-  only when it will outlive the conversation or coordinate later work.
-- Governance decides whether substantial work requires a durable artifact and
-  which artifact owns the decision. `shaping-solutions` owns the artifact's
-  design or plan content after that boundary is supplied. For non-substantial
-  work, shaping may persist a user-requested plan without manufacturing a full
-  governance record.
-- Record material cross-cutting tradeoffs once. Leaf documents link to that
-  decision instead of copying it.
-- Preserve durable decision history. Supersede legacy artifacts explicitly and
-  isolate legacy code behind owned boundaries; removal or compatibility changes
-  require scope, migration, and verification authority.
 - Scale verification to failure cost and claim breadth. A passing but unrelated
   command is not evidence.
 

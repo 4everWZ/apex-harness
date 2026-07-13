@@ -2,7 +2,7 @@
 set -euo pipefail
 
 ROOT="$(cd "$(dirname "$0")/../.." && pwd)"
-DOC="$ROOT/skills/governing-project-work/references/documentation.md"
+DOC="$ROOT/skills/managing-project-docs/references/documentation.md"
 FLOW="$ROOT/skills/governing-project-work/references/workflow.md"
 failures=0
 
@@ -27,12 +27,12 @@ check "$FLOW" '`git status --short --branch`' "freshness records Git status"
 check "$FLOW" "staged and unstaged diff summaries" "freshness separates diff summaries"
 check "$FLOW" "explicit ignored, generated, external" "freshness names extra inputs"
 check "$FLOW" "not content identities" "summaries do not overclaim identity"
-check "$ROOT/skills/governing-project-work/SKILL.md" \
-  "Governance decides whether substantial work requires a durable artifact" \
-  "governance owns substantial artifact obligation"
+check "$ROOT/skills/managing-project-docs/SKILL.md" \
+  "This skill is directly selectable" \
+  "documentation management is directly selectable"
 check "$ROOT/skills/shaping-solutions/SKILL.md" \
-  "owns the content and quality of the selected artifact" \
-  "shaping owns selected artifact content"
+  "owns the substantive design or plan" \
+  "shaping owns design and plan content"
 
 for template in \
   dev-spec.md \
@@ -42,7 +42,7 @@ for template in \
   traceability-matrix.md \
   tradeoff-entry.md \
   status-handoff.md; do
-  if [ -s "$ROOT/skills/governing-project-work/assets/templates/$template" ]; then
+  if [ -s "$ROOT/skills/managing-project-docs/assets/templates/$template" ]; then
     echo "  [PASS] template exists: $template"
   else
     echo "  [FAIL] template exists: $template"

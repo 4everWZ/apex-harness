@@ -59,7 +59,8 @@ external inputs.
 - Debug before fixing when cause is unknown.
 - Isolate with a worktree when repository state or parallel work makes in-place
   edits unsafe.
-- Delegate only when the user explicitly enables subagents for the current task
-  and the bounded work has clear inputs, authority, review boundary, and
-  role-specific effort.
+- Apply `coordinating-subagents` only when the user explicitly enables it for
+  the current task and bounded roles have clear inputs, authority, and review
+  boundaries. Otherwise leave subagent behavior to Codex and its runtime
+  defaults without imposing this skill's workflow.
 - Request independent review when risk or lifecycle justifies another judgment.

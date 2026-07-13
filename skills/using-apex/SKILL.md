@@ -1,12 +1,15 @@
 ---
 name: using-apex
-description: Bootstrap and routing entry for the APEX software-engineering skill series. Use when APEX is requested and has not already been injected. Once bootstrapped, select the smallest applicable leaf directly instead of loading this entry again.
+description: Bootstrap and full-series routing entry for APEX. Use when the user explicitly asks to bootstrap, load, or coordinate APEX as a whole and it has not already been injected. Do not select it merely because a directly discoverable leaf matches; managing-project-docs and user-enabled coordinating-subagents may trigger directly.
 ---
 
 # Using APEX
 
 APEX coordinates a small set of engineering workflows. It does not replace the
 model's normal coding judgment or repeat higher-priority instructions.
+
+This entry supplies the complete map when full APEX coordination is requested.
+It is not a mandatory parent call before a runtime selects a concrete leaf.
 
 If you are a subagent assigned one bounded role, follow that assignment. Do not
 reload this entry or widen your role.
@@ -17,7 +20,8 @@ Use only the skills whose concrete trigger matches:
 
 | Need | Skill |
 |---|---|
-| substantial risk, authority, evidence, or documentation decisions | `governing-project-work` |
+| substantial risk, mutation authority, evidence strength, or completion boundaries | `governing-project-work` |
+| document topology, templates, artifact lifecycle, handoffs, or legacy management | `managing-project-docs` |
 | unresolved intent, competing designs, or a durable implementation plan | `shaping-solutions` |
 | worktree isolation or an explicit branch lifecycle action | `managing-git` |
 | user-enabled independent investigation, delegated implementation, or independent review | `coordinating-subagents` |
@@ -27,6 +31,8 @@ Use only the skills whose concrete trigger matches:
 For a routine, bounded edit, use no leaf unless one of those needs is present.
 `coordinating-subagents` is additionally gated by an explicit user request or
 enablement for the current task; parallelism alone never selects it.
+`managing-project-docs` is directly selectable when its trigger matches; do not
+load this bootstrap or full governance first merely to use it.
 
 When a user names a pre-consolidation workflow, translate its intent:
 
@@ -60,19 +66,22 @@ ceremony. Across the series:
 - keep one source of truth for each decision or artifact
 - verify the claim being made and state uncovered boundaries
 
-Load `governing-project-work` when those decisions need an explicit record.
-Otherwise apply this boundary in ordinary prose and continue.
+Load `governing-project-work` only when risk, mutation authority, evidence
+strength, or the completion boundary needs an explicit decision. Route
+unresolved intent to `shaping-solutions` and durable artifact ownership or
+lifecycle to `managing-project-docs`. Otherwise continue in ordinary prose.
 
 ## Composition
 
 A common substantial flow is:
 
-1. govern the work
+1. govern risk, authority, evidence, or completion when needed
 2. resolve intent or diagnose cause
-3. shape a plan only if persistence or coordination benefits from one
-4. implement inline, or with selected subagents only when the user enabled them
-5. test the changed claims
-6. perform only the Git lifecycle action the user authorized
+3. select and manage durable documents when their lifecycle matters
+4. shape a plan only if persistence or coordination benefits from one
+5. implement, using the subagent skill only when the user enabled it
+6. test the changed claims
+7. perform only the Git lifecycle action the user authorized
 
 This is a routing guide, not a mandatory pipeline. Announce the selected skill
 briefly when one is used and explain why.

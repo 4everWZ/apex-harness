@@ -2,6 +2,7 @@ import assert from 'node:assert/strict';
 import fs from 'node:fs';
 import path from 'node:path';
 import { execFileSync } from 'node:child_process';
+import { createHash } from 'node:crypto';
 import { fileURLToPath } from 'node:url';
 
 const root = path.resolve(path.dirname(fileURLToPath(import.meta.url)), '../..');
@@ -31,7 +32,7 @@ assertCompleteIds(evals.evals, evals.evals.length, 'source evals');
 
 const routes = readJson('evals/routing-evals.json');
 const expectedNames = new Set(routes.flatMap((item) => item.expected_skills));
-const skillNames = [
+const historicalSkillNames = [
   'using-apex',
   'governing-project-work',
   'shaping-solutions',
@@ -40,11 +41,12 @@ const skillNames = [
   'debugging-systematically',
   'testing-changes',
 ];
-const assertDescriptionSet = (items, label) => {
-  assert.equal(items.length, skillNames.length, `${label} snapshots seven descriptions`);
-  assert.deepEqual([...new Set(items.map((item) => item.name))].sort(), [...skillNames].sort(), `${label} covers each skill exactly once`);
+const currentSkillNames = [...historicalSkillNames, 'managing-project-docs'];
+const assertDescriptionSet = (items, label, expected = historicalSkillNames) => {
+  assert.equal(items.length, expected.length, `${label} snapshots ${expected.length} descriptions`);
+  assert.deepEqual([...new Set(items.map((item) => item.name))].sort(), [...expected].sort(), `${label} covers each skill exactly once`);
 };
-for (const name of skillNames) {
+for (const name of currentSkillNames) {
   assert.ok(expectedNames.has(name), `routing set covers ${name}`);
 }
 assert.ok(routes.some((item) => item.expected_skills.length === 0), 'routing set includes no-skill near misses');
@@ -129,7 +131,10 @@ for (const run of [1, 2, 3]) {
   assertCompleteIds(selections.results, currentQueries.length, `iteration 12 run ${run}`);
   assert.ok(selections.results.every((item) => !('expected' in item) && !('passed' in item)), `current blind run ${run} contains no labels or self-grades`);
   for (const item of selections.results) {
-    exactSet(item.selected_skills, routeById.get(item.id).expected_skills);
+    const historicalExpected = item.id === 3
+      ? ['shaping-solutions']
+      : routeById.get(item.id).expected_skills;
+    exactSet(item.selected_skills, historicalExpected);
     currentPasses += 1;
   }
 }
@@ -144,6 +149,10 @@ const compositionRouteById = indexById(compositionQueries.map((item) => {
   assert.ok(route, `iteration 13 query ${item.id} has a current route`);
   return { id: item.id, ...route };
 }));
+const historicalCompositionExpected = new Map([
+  [1, ['governing-project-work', 'shaping-solutions', 'testing-changes']],
+  [2, ['coordinating-subagents', 'governing-project-work', 'shaping-solutions']],
+]);
 for (const item of compositionQueries) assert.equal(item.query, compositionRouteById.get(item.id).query, `iteration 13 query ${item.id} matches its route`);
 const compositionDescriptions = readJson('evals/results/iteration-13/descriptions-only.json');
 assertDescriptionSet(compositionDescriptions, 'iteration 13 descriptions');
@@ -164,7 +173,7 @@ for (const run of [1, 2, 3]) {
   assert.ok(selections.results.every((item) => !('expected' in item) && !('passed' in item)), `iteration 13 run ${run} contains no labels or self-grades`);
   for (const item of selections.results) {
     if (sameSet(item.selected_skills, originalCompositionById.get(item.id).expected_skills)) originalPasses += 1;
-    exactSet(item.selected_skills, compositionRouteById.get(item.id).expected_skills);
+    exactSet(item.selected_skills, historicalCompositionExpected.get(item.id));
     revisedPasses += 1;
   }
 }
@@ -173,6 +182,88 @@ assert.deepEqual({ passed: originalPasses, total: 6 }, { passed: compositionGrad
 assert.ok(compositionGrade.ground_truth_revision, 'composition grading records the query-2 revision');
 assert.deepEqual(compositionGrade.revised.aggregate, { passed: revisedPasses, total: 6 });
 assert.deepEqual(compositionGrade.revised.per_run, [1, 2, 3].map((run) => ({ run, passed: compositionQueries.length, total: compositionQueries.length, mismatches: [] })));
+
+const splitQueries = readJson('evals/results/iteration-14/queries-only.json');
+const splitTruth = readJson('evals/results/iteration-14/ground-truth.json');
+const splitCurrent = readJson('evals/results/iteration-14/current-selections.json');
+const splitPrevious = readJson('evals/results/iteration-14/previous-selections.json');
+const splitMetadata = readJson('evals/results/iteration-14/sample-metadata.json');
+const splitScore = readJson('evals/results/iteration-14/routing-score.json');
+const splitContent = readJson('evals/results/iteration-14/current-skill-content.json');
+assertCompleteIds(splitQueries, 5, 'iteration 14 label-hidden queries');
+assert.ok(splitQueries.every((item) => !('expected_skills' in item)), 'iteration 14 queries contain no labels');
+assertCompleteIds(splitTruth, 5, 'iteration 14 ground truth');
+assertCompleteIds(splitCurrent.results, 5, 'iteration 14 current results');
+assertCompleteIds(splitPrevious.results, 5, 'iteration 14 previous results');
+const splitTruthById = indexById(splitTruth);
+let splitCurrentPasses = 0;
+let splitPreviousPasses = 0;
+for (const item of splitCurrent.results) {
+  exactSet(item.selected_skills, splitTruthById.get(item.id).expected_skills);
+  splitCurrentPasses += 1;
+}
+for (const item of splitPrevious.results) {
+  if (sameSet(item.selected_skills, splitTruthById.get(item.id).expected_skills)) splitPreviousPasses += 1;
+}
+assert.equal(splitPrevious.source_commit, '8acea00aa14c72e62a5771c20d33011875a0adfe');
+assert.equal(splitMetadata.base_commit, splitPrevious.source_commit);
+assert.equal(splitMetadata.runs_per_configuration, 1);
+assert.equal(splitMetadata.skill_loading_verified, false);
+assert.equal(splitMetadata.official_skill_creator_benchmark, false);
+assert.equal(splitMetadata.transcripts_available, false);
+assert.equal(splitScore.sample_type, 'single_self_reported_routing_sample');
+assert.equal(splitScore.official_benchmark, false);
+assert.deepEqual(splitScore.aggregates.current, { configuration: splitCurrent.configuration, exact_matches: splitCurrentPasses, total_queries: 5, exact_match_rate: splitCurrentPasses / 5 });
+assert.deepEqual(splitScore.aggregates.previous, { configuration: splitPrevious.configuration, exact_matches: splitPreviousPasses, total_queries: 5, exact_match_rate: splitPreviousPasses / 5 });
+const splitCurrentById = indexById(splitCurrent.results);
+const splitPreviousById = indexById(splitPrevious.results);
+assertCompleteIds(splitScore.per_query_exact_matches, 5, 'iteration 14 score rows');
+for (const row of splitScore.per_query_exact_matches) {
+  const expected = splitTruthById.get(row.id).expected_skills;
+  const current = splitCurrentById.get(row.id).selected_skills;
+  const previous = splitPreviousById.get(row.id).selected_skills;
+  exactSet(row.expected_skills, expected);
+  exactSet(row.current_selected_skills, current);
+  exactSet(row.previous_selected_skills, previous);
+  assert.equal(row.current_exact_match, sameSet(current, expected));
+  assert.equal(row.previous_exact_match, sameSet(previous, expected));
+}
+const contractRationale = splitCurrent.results.find((item) => item.id === 3).rationale;
+for (const pattern of [
+  /one concrete bounded role/,
+  /inherit no conversation turns/,
+  /approved requirements or acceptance criteria/,
+  /exact Git or repository scope and observed state/,
+  /controller retains scope, mutation authority, integration/,
+  /share the active workspace/,
+]) assert.match(contractRationale, pattern);
+assert.doesNotMatch(contractRationale, /light effort|high effort|reasoning effort|reasoning settings|model selection/i);
+assert.equal(splitScore.query_3_checks.length, 6);
+assert.ok(splitScore.query_3_checks.every((item) => item.passed));
+assert.equal(splitScore.recorded_result.classification, 'non_causal_observation');
+assert.equal(splitScore.confidence_limits.causal_inference_supported, false);
+assert.equal(splitScore.confidence_limits.variance_estimable, false);
+assert.deepEqual(Object.keys(splitContent.files).sort(), currentSkillNames.map((name) => `skills/${name}/SKILL.md`).sort(), 'iteration 14 hash manifest covers exactly the current skills');
+for (const [relative, expectedHash] of Object.entries(splitContent.files)) {
+  const actualHash = createHash('sha256').update(fs.readFileSync(path.join(root, relative))).digest('hex');
+  assert.equal(actualHash, expectedHash, `iteration 14 pins current skill content: ${relative}`);
+}
+assert.ok(fs.existsSync(path.join(root, 'evals/results/iteration-14/pre-clarification-current-selections.json')), 'iteration 14 retains the bootstrap-trigger failure');
+assert.ok(fs.existsSync(path.join(root, 'evals/results/iteration-14/routing-score-pre-contract-clarification.json')), 'iteration 14 retains the controller-contract failure');
+assert.ok(fs.existsSync(path.join(root, 'evals/results/iteration-14/run-record.md')), 'iteration 14 retains evaluator assignments and evidence limits');
+
+const durablePlanRoute = routes.find((item) => item.query === 'The API design is approved; write a durable four-stage implementation plan for another engineer.');
+exactSet(durablePlanRoute.expected_skills, ['managing-project-docs', 'shaping-solutions']);
+const typoEval = evals.evals.find((item) => item.id === 6);
+assert.match(typoEval.expected_output, /without selecting using-apex or a leaf skill/);
+const durablePlanEval = evals.evals.find((item) => item.id === 7);
+assert.match(durablePlanEval.expected_output, /managing-project-docs/);
+assert.match(durablePlanEval.expected_output, /shaping-solutions/);
+assert.doesNotMatch(durablePlanEval.expected_output, /Uses governing-project-work/);
+const coupledPlanEval = evals.evals.find((item) => item.id === 9);
+assert.match(coupledPlanEval.expected_output, /managing-project-docs/);
+assert.match(coupledPlanEval.expected_output, /shaping-solutions/);
+assert.doesNotMatch(coupledPlanEval.expected_output, /governing-project-work/);
 
 for (const scenario of ['debugging', 'tdd', 'docs', 'git', 'review']) {
   const metadata = readJson(`evals/results/iteration-9/eval-${scenario}/eval_metadata.json`);

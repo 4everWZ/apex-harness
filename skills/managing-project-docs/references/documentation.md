@@ -12,7 +12,7 @@ Prefer repository conventions. When none exist, use this neutral topology:
 | tradeoff log | `docs/tradeoffs.md` | `assets/templates/tradeoff-entry.md` | a material cross-cutting compromise or deviation needs one owner |
 | status or handoff | repository convention | `assets/templates/status-handoff.md` | the user asks for a durable handoff |
 
-Template paths are relative to `governing-project-work/`. Prefer a repository's
+Template paths are relative to `managing-project-docs/`. Prefer a repository's
 existing template. Otherwise copy the smallest applicable fallback and remove
 unused optional sections; templates are starting shapes, not mandatory forms.
 

@@ -1,0 +1,11 @@
+{
+  "configuration": "current-before-controller-contract-clarification",
+  "source": "working tree over base 8acea00aa14c72e62a5771c20d33011875a0adfe",
+  "results": [
+    {"id": 1, "selected_skills": ["managing-project-docs"], "rationale": "Document hierarchy, template selection, supersession, and legacy lifecycle directly select managing-project-docs; the user explicitly excludes full governance, and a direct leaf does not require using-apex."},
+    {"id": 2, "selected_skills": ["governing-project-work", "shaping-solutions", "managing-project-docs"], "rationale": "Risk and the explicit evidence boundary select governance, competing architectures select shaping-solutions, and the durable design record selects managing-project-docs; using-apex is unnecessary because APEX is already active."},
+    {"id": 3, "selected_skills": ["coordinating-subagents"], "rationale": "The coordination boundary is one bounded read-only inventory role plus a separate reviewer started without inherited conversation and supplied only the approved architecture, exact Git scope, relevant evidence, and explicit inputs, while scheduling, concurrency, model selection, and reasoning settings remain runtime defaults."},
+    {"id": 4, "selected_skills": [], "rationale": "Possible parallel speedup does not satisfy the explicit opt-in gate for coordinating-subagents, and no other leaf trigger is present."},
+    {"id": 5, "selected_skills": ["coordinating-subagents", "shaping-solutions", "managing-project-docs"], "rationale": "The explicit request for two independent read-only agents selects coordinating-subagents, resolving the architecture choice and producing a persistent plan select shaping-solutions, and the durable plan artifact selects managing-project-docs; APEX is already active."}
+  ]
+}

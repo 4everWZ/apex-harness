@@ -61,10 +61,10 @@
     {
       "id": 6,
       "prompt": "Routing-only scenario: change one typo in a private Markdown note with no generated docs or linked sources of truth. Explain the proportionate APEX route and verification; do not edit.",
-      "expected_output": "Uses the lightweight using-apex boundary without activating a leaf skill, proposes the bounded edit, and limits verification to the relevant diff.",
+      "expected_output": "Uses ordinary model judgment without selecting using-apex or a leaf skill, proposes the bounded edit, and limits verification to the relevant diff.",
       "files": [],
       "expectations": [
-        "No APEX leaf skill is selected for the routine bounded edit.",
+        "Neither using-apex nor an APEX leaf is selected for the routine bounded edit.",
         "No plan, worktree, subagent, TDD cycle, or durable documentation is manufactured.",
         "The proposed verification is limited to the relevant changed diff."
       ]
@@ -72,11 +72,11 @@
     {
       "id": 7,
       "prompt": "Routing-only scenario: an approved cross-service API design now needs a durable implementation plan. Explain which APEX skills own the documentation obligation versus the plan content; do not edit files.",
-      "expected_output": "Uses governing-project-work to decide the substantial documentation obligation and source-of-truth path, then shaping-solutions to write plan content without creating a second spec.",
+      "expected_output": "Uses managing-project-docs for the durable plan's topology and lifecycle, then shaping-solutions for plan content without creating a second spec; governance is selected only if risk, authority, evidence, or completion independently requires it.",
       "files": [],
       "expectations": [
-        "The substantial-work policy decides whether and where the durable artifact is required.",
-        "The planning workflow owns plan content after the documentation boundary is supplied.",
+        "The documentation workflow owns the durable artifact's location and lifecycle.",
+        "The planning workflow owns plan content after the documentation topology is supplied.",
         "The plan links to rather than duplicates the approved design or specification."
       ]
     },
@@ -95,10 +95,11 @@
     {
       "id": 9,
       "prompt": "Routing-only scenario: requirements are approved and implementation has four dependent tasks, but all edits are tightly coupled and no delegation is requested. Decide the APEX planning and execution route.",
-      "expected_output": "Uses shaping-solutions for a durable plan, keeps execution inline, and does not select coordinating-subagents solely because the plan has multiple tasks.",
+      "expected_output": "Uses managing-project-docs for the durable plan's placement and lifecycle plus shaping-solutions for its content, keeps execution inline, and does not select coordinating-subagents solely because the plan has multiple tasks.",
       "files": [],
       "expectations": [
-        "A durable implementation plan is selected because later execution benefits from it.",
+        "The durable implementation plan selects managing-project-docs for placement and lifecycle.",
+        "The plan content selects shaping-solutions because later execution benefits from it.",
         "Tightly coupled execution remains inline.",
         "Multiple tasks alone do not select subagents or worktree isolation."
       ]
@@ -117,7 +118,7 @@
     },
     {
       "id": 11,
-      "prompt": "Routing-only scenario: the user says 'please use brainstorming and then subagent-driven-development.' Explain how the seven-skill APEX series handles these old workflow names.",
+      "prompt": "Routing-only scenario: the user says 'please use brainstorming and then subagent-driven-development.' Explain how the eight-skill APEX series handles these old workflow names.",
       "expected_output": "Translates brainstorming to shaping-solutions and delegated development intent to coordinating-subagents, while re-evaluating current triggers and authority instead of treating deleted names as bypasses.",
       "files": [],
       "expectations": [
@@ -152,13 +153,14 @@
     {
       "id": 14,
       "prompt": "Routing-only composition scenario: APEX is already active. Have two read-only agents investigate independent constraints, use their evidence to resolve an architecture choice, and produce a durable implementation plan. Select every applicable workflow; do not mutate files.",
-      "expected_output": "Selects coordinating-subagents, governing-project-work, and shaping-solutions without reloading using-apex.",
+      "expected_output": "Selects coordinating-subagents, managing-project-docs, and shaping-solutions without reloading using-apex or inventing a governance trigger.",
       "files": [],
       "expectations": [
         "Independent read-only investigations select coordinating-subagents.",
-        "Using evidence to resolve a substantial architecture decision and create a durable record selects governing-project-work.",
+        "The durable implementation plan selects managing-project-docs for placement and lifecycle.",
         "Resolving the architecture choice and producing a durable plan selects shaping-solutions.",
-        "The response composes both applicable leaves rather than forcing a single choice.",
+        "No explicit risk, permission, evidence-strength, or completion decision selects governing-project-work.",
+        "The response composes all three applicable leaves rather than forcing a single choice.",
         "Already-active APEX does not reload using-apex."
       ]
     },
@@ -175,14 +177,39 @@
     },
     {
       "id": 16,
-      "prompt": "Routing-only scenario: the user explicitly enables subagents for this task and asks for a light-effort bounded file inventory plus a high-effort fresh architecture review of an already approved design. Select the APEX route and explain effort assignment; do not mutate files.",
-      "expected_output": "Selects coordinating-subagents and assigns different minimum-sufficient effort to the two roles without reopening the approved design.",
+      "prompt": "Routing-only scenario: the user explicitly enables subagents for this task and asks for one bounded file inventory plus a fresh-context architecture review of an already approved design. Select the APEX route and explain the Codex-compatible context boundary; do not mutate files.",
+      "expected_output": "Selects coordinating-subagents, gives each role bounded inputs, starts the reviewer without inherited conversation context, and leaves model and scheduling settings to Codex defaults without reopening the approved design.",
       "files": [],
       "expectations": [
         "Explicit user activation satisfies the subagent gate.",
-        "The bounded inventory receives light effort and the architecture review receives high effort.",
-        "The response does not assign one uniform effort to every subagent.",
+        "Each subagent receives a bounded role, explicit inputs, and a return contract.",
+        "The fresh reviewer does not inherit the controller's conversation context.",
+        "The response does not override Codex model, scheduling, or reasoning defaults.",
         "The approved design is not reopened through shaping-solutions."
+      ]
+    },
+    {
+      "id": 17,
+      "prompt": "Routing-only documentation scenario: reorganize the project document hierarchy, select fallback spec and status templates, and define supersession plus legacy handling. Do not load using-apex or full governance unless independently required; do not edit files.",
+      "expected_output": "Selects managing-project-docs directly, applies repository-native topology before fallback templates, assigns one owner per artifact, and defines explicit supersession and legacy states without loading using-apex or governing-project-work.",
+      "files": [],
+      "expectations": [
+        "Document topology and artifact lifecycle select managing-project-docs directly.",
+        "Repository-native formats take precedence over fallback templates.",
+        "Active, superseded, and legacy ownership remains explicit.",
+        "using-apex and full governance are not selected merely for documentation management."
+      ]
+    },
+    {
+      "id": 18,
+      "prompt": "Routing-only composition scenario: APEX is active. A risky public API redesign needs an explicit evidence boundary, a durable design record, and resolution of two competing architectures. Select every applicable workflow; do not edit files.",
+      "expected_output": "Selects governing-project-work for risk and evidence, managing-project-docs for the durable design record lifecycle, and shaping-solutions for the unresolved architecture choice.",
+      "files": [],
+      "expectations": [
+        "Risk and evidence strength select governing-project-work.",
+        "Design-record topology and lifecycle select managing-project-docs.",
+        "The unresolved architecture choice selects shaping-solutions.",
+        "The three skills compose without duplicating ownership."
       ]
     }
   ]

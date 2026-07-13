@@ -1,0 +1,11 @@
+{
+  "configuration": "previous",
+  "source_commit": "8acea00aa14c72e62a5771c20d33011875a0adfe",
+  "results": [
+    {"id": 1, "selected_skills": ["using-apex", "governing-project-work"], "rationale": "APEX requires bootstrapping, and the historical governance skill explicitly owns durable documentation hierarchy, template, and legacy-lifecycle decisions while allowing only the smallest relevant boundary."},
+    {"id": 2, "selected_skills": ["governing-project-work", "shaping-solutions"], "rationale": "The risky public API redesign requires an explicit risk, evidence, and durable-documentation boundary, while the competing architectures require design clarification and a durable design record."},
+    {"id": 3, "selected_skills": ["using-apex", "coordinating-subagents"], "rationale": "APEX requires bootstrapping, and the explicit request for bounded inventory and fresh-context independent review satisfies the historical subagent activation gate. The controller retains scope, authority, integration, and final-claim ownership; fresh agents receive only the context needed for their role, and delegation alone is read-only."},
+    {"id": 4, "selected_skills": ["using-apex"], "rationale": "APEX requires bootstrapping, but possible speedup and independent directories do not satisfy the historical coordination skill's explicit user-enablement gate, and no other leaf trigger is present."},
+    {"id": 5, "selected_skills": ["governing-project-work", "shaping-solutions", "coordinating-subagents"], "rationale": "The substantial architecture decision and durable plan require a governance boundary and solution shaping, while the explicit request for two independent read-only investigators activates subagent coordination."}
+  ]
+}

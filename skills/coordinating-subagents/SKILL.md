@@ -1,29 +1,29 @@
 ---
 name: coordinating-subagents
-description: Coordinates bounded work across subagents for independent investigation, delegated implementation, or independent review. Use only when the user explicitly enables or requests subagents for the current task and separation adds real parallelism, context isolation, or reviewer independence; otherwise work inline.
+description: Coordinates bounded Codex subagents for independent investigation, delegated implementation, or independent review. Use only when the user explicitly requests or enables subagents for the current task and separation adds real parallelism, context isolation, or reviewer independence. Otherwise do not apply this skill; leave behavior to Codex and its runtime defaults.
 ---
 
 # Coordinating Subagents
 
-Delegate for a concrete benefit, not merely because agents are available. The
-controller retains scope, authority, integration, and final-claim ownership.
+Delegate for a concrete benefit, not merely because agents are available.
 
 ## Activation gate
 
-Subagent routing is off by default. Select this skill only when the user has
-explicitly enabled or requested subagents for the current task or phase. Do not
-infer activation from task size, available concurrency, an existing plan, or a
-possible speedup. If activation is absent, work inline without asking merely to
-unlock delegation.
+This coordination workflow is opt-in. Select it only when the user explicitly
+requests or enables subagents for the current task or phase. Do not infer
+activation from task size, available concurrency, an existing plan, or a
+possible speedup. If activation is absent, do not load or impose this skill and
+do not ask merely to unlock it; Codex and its runtime retain their normal
+defaults.
 
 ## Select a mode
 
 ### Independent investigation
 
-Use two or more read-only investigators when questions have no shared mutable
-state or sequential dependency. Give each one a distinct question and expected
-evidence. Run them concurrently when possible, then reconcile conflicts against
-the repository rather than voting on conclusions.
+Use read-only investigators when questions have no shared mutable state or
+sequential dependency. Give each one a distinct question and expected evidence.
+Let Codex schedule independent roles within the available concurrency, then
+reconcile conflicts against the repository rather than voting on conclusions.
 
 ### Delegated implementation
 
@@ -66,28 +66,26 @@ agreeable; accept or reject feedback based on evidence.
 
 ## Context and safety
 
-- Fresh agents receive only the context needed for their role.
+- The Codex controller retains scope, mutation authority, integration, evidence
+  reconciliation, and final claims. Give every role the approved requirements
+  or acceptance criteria, exact Git scope and observed state, relevant evidence,
+  and explicit extra inputs needed for that role.
+- Give each Codex subagent one concrete, bounded role. Reuse it for follow-up on
+  that same role; start a separate role when independence matters.
+- Share only the conversation turns needed for the assignment. For an
+  independent or unpolluted review, start without inherited turns and provide
+  the approved requirements, exact Git scope, evidence, and explicit extra
+  inputs in the assignment itself.
+- Codex subagents share the active workspace unless Git isolation was arranged;
+  treat their edits as immediately visible and never schedule overlapping
+  writers.
+- Use the runtime's available scheduling, waiting, messaging, interruption, and
+  concurrency behavior. Do not encode model selection or reasoning settings in
+  this skill.
 - Do not ask a subagent to approve a material user decision.
 - Do not grant push, merge, discard, deployment, messaging, or other external
   authority through an implementation assignment.
-- An agent report is an input. The controller checks the diff and closes stale
-  or missing evidence before claiming completion.
-
-## Set effort per role
-
-Assign the minimum sufficient reasoning effort to each subagent independently;
-do not give every role the same effort by default:
-
-| Effort | Use for |
-|---|---|
-| light | bounded lookup, inventory, or deterministic check with a clear return contract |
-| standard | focused investigation, implementation, or review with local ambiguity |
-| high | architecture, critical-risk review, unclear root cause, or cross-boundary synthesis |
-
-Use a deeper runtime-specific level only when the runtime exposes one and the
-task justifies its cost. Never guess a platform parameter. Record the intended
-effort in the assignment; if the runtime cannot set it, narrow the role and
-state that the requested effort was advisory rather than enforced.
+- An agent report is an input, not completion evidence by itself.
 
 ## Return contract
 

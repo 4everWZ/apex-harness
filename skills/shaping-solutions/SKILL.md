@@ -30,13 +30,12 @@ design gate.
 6. Persist it only when repository governance, coordination, or future reuse
    requires a durable record.
 
-For substantial work, consume the artifact obligation and ownership selected by
-`governing-project-work`; do not independently create a competing spec, design,
-or plan. This skill owns the content and quality of the selected artifact, not
-the repository-wide documentation policy. Use the repository's canonical
+When a durable artifact is needed, use `managing-project-docs` for its topology,
+ownership, and lifecycle. This skill owns the substantive design or plan; do
+not create a competing spec, design, or plan. Use the repository's canonical
 template; when none exists, use the selected template under
-`governing-project-work/assets/templates/` and delete sections that do not
-carry information.
+`managing-project-docs/assets/templates/` and delete sections that do not carry
+information.
 
 Routine details consistent with the approved direction do not need repeated
 approval.

@@ -1,0 +1,13 @@
+{
+  "purpose": "Record a single self-reported routing sample for the split documentation route and Codex-first opt-in subagent contract against the prior committed APEX series.",
+  "method": "Fresh-context Codex subagents returned exact unordered skill selections from label-hidden queries. One was assigned the current skill content and one the seven skills at the previous commit. A first current sample exposed bootstrap shadowing and was retained before the trigger clarification and fresh rerun.",
+  "base_commit": "8acea00aa14c72e62a5771c20d33011875a0adfe",
+  "runs_per_configuration": 1,
+  "timing_available": false,
+  "token_metrics_available": false,
+  "skill_loading_verified": false,
+  "transcripts_available": false,
+  "official_skill_creator_benchmark": false,
+  "viewer_artifact_available": false,
+  "notes": "Assignment summaries and final responses are retained, and current skill bytes are pinned by SHA-256. The collaboration notifications exposed neither raw assignment tool envelopes, transcripts, nor timing/token metrics. This is not an official skill-creator benchmark and supports only reproducible arithmetic over the stored self-reported selections, not causal performance or variance claims."
+}

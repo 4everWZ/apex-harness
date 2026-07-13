@@ -9,10 +9,10 @@ fail() { echo "  [FAIL] $1"; failures=$((failures + 1)); }
 has() { grep -Fq "$2" "$1" && pass "$3" || fail "$3"; }
 lacks() { grep -Fq "$2" "$1" && fail "$3" || pass "$3"; }
 
-expected="coordinating-subagents debugging-systematically governing-project-work managing-git shaping-solutions testing-changes using-apex"
+expected="coordinating-subagents debugging-systematically governing-project-work managing-git managing-project-docs shaping-solutions testing-changes using-apex"
 actual="$(find "$ROOT/skills" -mindepth 1 -maxdepth 1 -type d -exec test -f '{}/SKILL.md' \; -print | sed 's#.*/##' | sort | tr '\n' ' ' | sed 's/ $//')"
-[ "$actual" = "$expected" ] && pass "exactly seven intended skills exist" || {
-  fail "exactly seven intended skills exist"
+[ "$actual" = "$expected" ] && pass "exactly eight intended skills exist" || {
+  fail "exactly eight intended skills exist"
   echo "    expected: $expected"
   echo "    actual:   $actual"
 }
@@ -26,6 +26,8 @@ done
 entry="$ROOT/skills/using-apex/SKILL.md"
 has "$entry" "For a routine, bounded edit, use no leaf" "entry keeps routine work lightweight"
 has "$entry" '`governing-project-work`' "entry routes substantial governance"
+has "$entry" '`managing-project-docs`' "entry knows the direct documentation leaf"
+has "$entry" "not a mandatory parent call" "entry does not shadow direct leaves"
 lacks "$entry" "references/codex-tools.md" "entry has no platform tool catalog"
 
 governance="$ROOT/skills/governing-project-work/SKILL.md"
@@ -33,11 +35,16 @@ has "$governance" "Missing mutation authority is not permission" "governance kee
 
 subagents="$ROOT/skills/coordinating-subagents/SKILL.md"
 has "$subagents" "Delegation alone is read-only" "delegation does not grant mutation"
-has "$subagents" "Subagent routing is off by default" "subagent routing requires user activation"
-has "$subagents" "Assign the minimum sufficient reasoning effort" "subagent effort is role-specific"
+has "$subagents" "This coordination workflow is opt-in" "subagent workflow requires user activation"
+has "$subagents" "Codex and its runtime retain their normal" "subagent workflow preserves Codex defaults"
+lacks "$subagents" "reasoning effort" "subagent workflow does not override reasoning settings"
 has "$subagents" "approved task boundary or plan remain the source of truth" \
   "subagents use Git and task boundary as source of truth"
 has "$subagents" "Summaries describe observed state" "summaries do not claim content identity"
+
+docs_skill="$ROOT/skills/managing-project-docs/SKILL.md"
+has "$docs_skill" "This skill is directly selectable" "documentation does not require bootstrap"
+has "$docs_skill" "do not activate full project governance" "documentation does not imply full governance"
 
 git_skill="$ROOT/skills/managing-git/SKILL.md"
 has "$git_skill" 'default to `.worktrees/`' "manual worktree fallback uses project-local default"

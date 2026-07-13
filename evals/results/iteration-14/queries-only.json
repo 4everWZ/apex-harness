@@ -1,0 +1,22 @@
+[
+  {
+    "id": 1,
+    "query": "Reorganize our docs hierarchy, choose the right spec and status templates, and define how superseded specs move into legacy. Do not activate full project governance. Select every applicable APEX skill."
+  },
+  {
+    "id": 2,
+    "query": "APEX is already active. This risky public API redesign needs an explicit evidence boundary, a durable design record, and resolution of two competing architectures. Select every applicable workflow."
+  },
+  {
+    "id": 3,
+    "query": "I explicitly enable subagents for this task. Have one bounded agent inventory the files and a fresh-context reviewer inspect the approved architecture without inheriting this conversation. Explain the coordination boundary and select every applicable APEX skill."
+  },
+  {
+    "id": 4,
+    "query": "A repository inventory has three independent directories and parallel agents might be faster, but I did not request or enable subagents. Select every applicable APEX skill."
+  },
+  {
+    "id": 5,
+    "query": "APEX is already active. Have two read-only agents investigate independent constraints, use their evidence to resolve an architecture choice, and produce a durable implementation plan. Select every applicable workflow."
+  }
+]
