@@ -1,6 +1,6 @@
 ---
 name: governing-project-work
-description: Establishes an explicit boundary for project risk, mutation authority, evidence strength, and completion claims. Use when the user asks for governance or when consequential, irreversible, external, public-contract, data, or research work needs those boundaries stated. Do not use for routine coding, planning, testing, Git, or documentation work unless the boundary itself is the task.
+description: Establishes an explicit boundary for project risk, mutation authority, evidence strength, and completion claims. Use when the user asks to establish or review a project-work boundary, or when consequential, irreversible, external, public-contract, data, or research work needs those boundaries stated. Do not use for routine coding, planning, testing, Git, or documentation work unless the boundary itself is the task.
 ---
 
 # Governing Project Work
@@ -29,5 +29,5 @@ resume, or long-running change.
 ## Keep it separate
 
 Do not turn ordinary implementation choices into governance. If the work also
-needs project documentation, `managing-project-docs` may store this boundary in
-the owning artifact, but neither skill requires the other.
+needs project documentation, preserve separate governance ownership and defer
+artifact placement to `managing-project-docs`. Neither skill requires the other.

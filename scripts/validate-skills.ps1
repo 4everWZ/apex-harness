@@ -30,6 +30,27 @@ foreach ($name in $expected) {
     }
     & $Python $validator $skill
     if ($LASTEXITCODE -ne 0) { throw "Skill validation failed: $name" }
+
+    $content = Get-Content -Raw -LiteralPath $skillFile
+    foreach ($match in [regex]::Matches($content, '\[[^\]]+\]\(([^)]+)\)')) {
+        $target = $match.Groups[1].Value
+        if ($target -match '^(?:[a-z]+:|#)') { continue }
+        $relativeTarget = ($target -split '#', 2)[0].Replace('/', [IO.Path]::DirectorySeparatorChar)
+        if (-not (Test-Path -LiteralPath (Join-Path $skill $relativeTarget))) {
+            throw "Broken SKILL.md link in ${name}: $target"
+        }
+    }
+}
+
+$references = @(
+    'skills\governing-project-work\references\boundary.md',
+    'skills\managing-project-docs\references\documentation.md'
+)
+foreach ($relativePath in $references) {
+    $path = Join-Path $root $relativePath
+    if (-not (Test-Path -LiteralPath $path) -or (Get-Item $path).Length -eq 0) {
+        throw "Missing skill reference: $relativePath"
+    }
 }
 
 $templates = @(

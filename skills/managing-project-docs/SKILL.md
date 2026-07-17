@@ -10,5 +10,5 @@ creating a project artifact, or before moving, superseding, or retiring durable
 material. Treat it as the single source for topology, ownership, lifecycle,
 legacy treatment, and fallback template selection.
 
-`governing-project-work` triggers independently. When both skills apply, link
-or store the project boundary without transferring governance ownership here.
+`governing-project-work` triggers independently; this skill does not assume
+ownership of its project boundary.
