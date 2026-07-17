@@ -68,9 +68,10 @@ foreach ($row in $requiredTopologyRows) {
 }
 
 $pathPrecedence = @(
-    "1. the repository's established convention for that artifact type",
-    '2. an explicit convention in the accepted project documentation',
-    '3. the fallback path in the topology table'
+    '1. an explicit user-selected path',
+    "2. the repository's established convention for that artifact type",
+    '3. an explicit convention in the accepted project documentation',
+    '4. the fallback path in the topology table'
 )
 $previousIndex = -1
 foreach ($clause in $pathPrecedence) {
