@@ -55,17 +55,39 @@ foreach ($relativePath in $references) {
 
 $topologyPath = Join-Path $root 'skills\managing-project-docs\references\documentation.md'
 $topology = Get-Content -Raw -LiteralPath $topologyPath
-$requiredTopologyPaths = @(
-    'docs/specs/<topic>.md',
-    'docs/design/YYYY-MM-DD-<topic>-design.md',
-    'docs/plans/<topic>.md',
-    'docs/handoffs/<topic>.md',
+$requiredTopologyRows = @(
+    '| specification | durable | `docs/specs/<topic>.md` | `assets/templates/specification.md` |',
+    '| decision record | durable | `docs/design/YYYY-MM-DD-<topic>-design.md` | `assets/templates/decision-record.md` |',
+    '| work plan | working | `docs/plans/<topic>.md` | `assets/templates/work-plan.md` |',
+    '| handoff | transient | `docs/handoffs/<topic>.md` | `assets/templates/handoff.md` |'
+)
+foreach ($row in $requiredTopologyRows) {
+    if (-not $topology.Contains($row)) {
+        throw "Missing or changed documentation topology row: $row"
+    }
+}
+
+$pathPrecedence = @(
+    "1. the repository's established convention for that artifact type",
+    '2. an explicit convention in the accepted project documentation',
+    '3. the fallback path in the topology table'
+)
+$previousIndex = -1
+foreach ($clause in $pathPrecedence) {
+    $index = $topology.IndexOf($clause, [StringComparison]::Ordinal)
+    if ($index -le $previousIndex) {
+        throw "Missing or reordered path-precedence clause: $clause"
+    }
+    $previousIndex = $index
+}
+
+$requiredSupportingPaths = @(
     'docs/specs/legacy/<topic>.md',
     'docs/plans/<topic>-boundary.md'
 )
-foreach ($requiredPath in $requiredTopologyPaths) {
+foreach ($requiredPath in $requiredSupportingPaths) {
     if (-not $topology.Contains($requiredPath)) {
-        throw "Missing fallback documentation path: $requiredPath"
+        throw "Missing supporting documentation path: $requiredPath"
     }
 }
 
@@ -100,4 +122,4 @@ foreach ($relativePath in $prohibited) {
     }
 }
 
-Write-Host 'PASS: skill frontmatter is valid; required references, topology paths, and templates are present; SKILL.md links resolve.'
+Write-Host 'PASS: skill frontmatter is valid; required references, topology mappings, supporting paths, and templates are present; SKILL.md links resolve.'

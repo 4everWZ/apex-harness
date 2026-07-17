@@ -24,8 +24,9 @@ operational logging owns runtime events.
 
 When a repository has no established documentation convention, the fallback
 paths are `docs/specs/`, `docs/design/`, `docs/plans/`, and `docs/handoffs/`.
-Retained superseded specifications live under `docs/specs/legacy/`; APEX does
-not create branded documentation subdirectories.
+The fallback for retained superseded specifications is `docs/specs/legacy/`;
+the fallback for working project boundaries is `docs/plans/`. Handoffs are
+rewritten in place, deleted after takeover, and have no legacy lifecycle.
 
 Each skill has its own frontmatter trigger and can be selected without a router
 or the other skill. Static validation does not claim behavioral trigger rates.
