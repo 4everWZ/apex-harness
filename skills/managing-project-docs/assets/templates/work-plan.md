@@ -2,6 +2,7 @@
 
 - **Goal:** [observable outcome]
 - **Source:** [canonical specification or decision links]
+- **Project boundary:** [link when one exists]
 
 ## Work
 

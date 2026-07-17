@@ -11,6 +11,16 @@ audit retention is required, transfer a frozen copy to a named audit system or
 convention with an owner and retention condition, confirm the transfer, and
 delete the working record. The audit copy is not current authority or evidence.
 
+## Path
+
+When persisting the record in the repository, resolve its path in this order:
+
+1. an explicit user or repository convention for project boundaries
+2. the existing canonical boundary for the same subject
+3. `docs/plans/<topic>-boundary.md`
+
+Use a stable lowercase kebab-case `<topic>` that names the governed subject.
+
 ## Risk
 
 - Consequence:

@@ -81,14 +81,17 @@ foreach ($clause in $pathPrecedence) {
     $previousIndex = $index
 }
 
-$requiredSupportingPaths = @(
-    'docs/specs/legacy/<topic>-NN.md',
-    'docs/plans/<topic>-boundary.md'
-)
+$requiredSupportingPaths = @('docs/specs/legacy/<topic>-NN.md')
 foreach ($requiredPath in $requiredSupportingPaths) {
     if (-not $topology.Contains($requiredPath)) {
         throw "Missing supporting documentation path: $requiredPath"
     }
+}
+
+$boundaryPath = Join-Path $root 'skills\governing-project-work\references\boundary.md'
+$boundary = Get-Content -Raw -LiteralPath $boundaryPath
+if (-not $boundary.Contains('docs/plans/<topic>-boundary.md')) {
+    throw 'Missing governance boundary fallback path: docs/plans/<topic>-boundary.md'
 }
 
 $templates = @(

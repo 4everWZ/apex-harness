@@ -46,8 +46,6 @@ Apply the same path-resolution order to these supporting records:
 - retained superseded specification fallback:
   `docs/specs/legacy/<topic>-NN.md`, using the lowest unused two-digit number
   beginning with `01`
-- separately persisted project boundary fallback:
-  `docs/plans/<topic>-boundary.md`
 
 Before moving an artifact or deleting one with a successor, redirect its inbound
 links to the new canonical path or successor. Repair relative links or path
@@ -66,9 +64,9 @@ old path, then remove directories left empty by the change.
 - A work plan owns unfinished execution. Add traceability there when many
   requirements, components, or phases need an explicit mapping.
 - A handoff owns the current state for one explicit transfer.
-- A project boundary remains governance-owned. Durable artifacts link to it;
-  an active work plan or handoff may carry it for that artifact's lifetime.
-  Resolve its links before closing the boundary.
+- A project boundary remains governance-owned at its governance-resolved path.
+  Project documents reference it by link while it is active. Resolve those links
+  before closing the boundary.
 
 ## Manage lifecycle
 
@@ -78,10 +76,15 @@ Maintain specifications and decision records in place as current truth. Git
 owns their change chronology; operational logging owns runtime events.
 
 When superseding a durable artifact, transfer current facts to their owner. Keep
-the old artifact while its rationale remains useful, referenced, or required for
-audit. Set its status to `superseded` and its `Superseded by` field to the new
-artifact; set the new artifact's `Supersedes` field to the old one. Otherwise
-redirect inbound links to the successor and delete the old artifact.
+the old artifact while its rationale remains useful, a non-lineage consumer
+still references it, or audit requires it. Set its status to `superseded` and
+its `Superseded by` field to the new artifact; set the new artifact's
+`Supersedes` field to the old one.
+
+Lineage fields do not by themselves require retention. Before deleting a
+retained predecessor, update its direct successor: point `Supersedes` to the
+predecessor's earlier retained ancestor, or clear the field when none remains.
+Redirect other inbound links to the successor, then delete the predecessor.
 
 To retain a superseded specification, move the active file to the next legacy
 `<topic>-NN.md` path, then put the successor at the resolved active path. Keep a

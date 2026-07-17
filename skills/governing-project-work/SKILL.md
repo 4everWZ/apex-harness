@@ -30,5 +30,6 @@ defined there.
 ## Keep it separate
 
 Do not turn ordinary implementation choices into governance. If the work also
-needs project documentation, preserve separate governance ownership and defer
-artifact placement to `managing-project-docs`. Neither skill requires the other.
+needs project documentation, keep the boundary separately owned at the path
+resolved by [boundary.md](references/boundary.md). Project documents link to
+that record. Neither skill requires the other.
