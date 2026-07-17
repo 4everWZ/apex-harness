@@ -4,7 +4,8 @@
 - **Owner:** [decision owner]
 - **Scope:** [affected contracts or components]
 - **Canonical specification:** [link when one exists]
-- **Supersedes / Superseded by:** [links when applicable]
+- **Supersedes:** [link when applicable]
+- **Superseded by:** [link when applicable]
 
 ## Context
 
