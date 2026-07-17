@@ -49,11 +49,11 @@ Apply the same path-resolution order to these supporting records:
 - separately persisted project boundary fallback:
   `docs/plans/<topic>-boundary.md`
 
-When moving an artifact, redirect inbound links to its new canonical path or
-successor and repair relative links or path references inside the moved file.
-When deleting an artifact without a successor, remove its inbound links. Check
-that current repository documents no longer reference the old path, then remove
-directories left empty by the change.
+Before moving an artifact or deleting one with a successor, redirect its inbound
+links to the new canonical path or successor. Repair relative links or path
+references inside a moved file. When deleting without a successor, remove the
+inbound links. Check that current repository documents no longer reference the
+old path, then remove directories left empty by the change.
 
 ## Own information
 
@@ -77,17 +77,19 @@ directories left empty by the change.
 Maintain specifications and decision records in place as current truth. Git
 owns their change chronology; operational logging owns runtime events.
 
-When superseding a durable artifact, transfer current facts to their owner and
-link the successor while the old rationale remains useful, referenced, or
-required for audit. Otherwise delete the obsolete artifact and use Git history.
+When superseding a durable artifact, transfer current facts to their owner. Keep
+the old artifact while its rationale remains useful, referenced, or required for
+audit. Set its status to `superseded` and its `Superseded by` field to the new
+artifact; set the new artifact's `Supersedes` field to the old one. Otherwise
+redirect inbound links to the successor and delete the old artifact.
 
 To retain a superseded specification, move the active file to the next legacy
-`<topic>-NN.md` path, set its status to `superseded`, and link its `Superseded
-by` field to the successor. Put the successor at the resolved active path and
-link its `Supersedes` field to the retained file.
+`<topic>-NN.md` path, then put the successor at the resolved active path. Keep a
+retained decision record at its resolved decision path.
 
 Keep a rejected decision record while that rejection remains a current material
-constraint with an independent owner, lifecycle, or audience.
+constraint with an independent owner, lifecycle, or audience. Delete it after
+the constraint ends and resolve its inbound links through the path rules.
 
 For legacy code, keep its current contract in the owning specification. Use a
 decision record when successor or retirement reasoning needs an independent
