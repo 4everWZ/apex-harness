@@ -39,12 +39,16 @@ outcome.
 
 The date in a decision path is when the decision was established. Update that
 record in place while it owns the same decision. Create and cross-link a new
-dated record for a materially new decision.
+dated record for a materially new decision. If its base path already owns a
+different decision, append `-NN` before `.md`, treating the unsuffixed path as
+generation `01` and using one greater than the highest suffix recorded in the
+current tree or Git history.
 
 Apply the same path-resolution order to these supporting records:
 
 - retained superseded specification fallback:
-  `docs/specs/legacy/<topic>-NN.md`, using the lowest unused two-digit number
+  `docs/specs/legacy/<topic>-NN.md`, using one greater than the highest
+  generation recorded for that topic in the current tree or Git history,
   beginning with `01`
 
 Before moving an artifact or deleting one with a successor, redirect its inbound
@@ -87,8 +91,11 @@ predecessor's earlier retained ancestor, or clear the field when none remains.
 Redirect other inbound links to the successor, then delete the predecessor.
 
 To retain a superseded specification, move the active file to the next legacy
-`<topic>-NN.md` path, then put the successor at the resolved active path. Keep a
-retained decision record at its resolved decision path.
+`<topic>-NN.md` path before writing the successor at the resolved active path.
+Update older lineage fields that identified the predecessor at its former active
+path so they identify its legacy path. Keep current-contract links on the active
+path, and apply the directional lineage fields above to predecessor and
+successor. Keep a retained decision record at its resolved decision path.
 
 Keep a rejected decision record while that rejection remains a current material
 constraint with an independent owner, lifecycle, or audience. Delete it after

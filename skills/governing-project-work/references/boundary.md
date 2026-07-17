@@ -15,9 +15,14 @@ delete the working record. The audit copy is not current authority or evidence.
 
 When persisting the record in the repository, resolve its path in this order:
 
-1. an explicit user or repository convention for project boundaries
-2. the existing canonical boundary for the same subject
-3. `docs/plans/<topic>-boundary.md`
+1. an explicit user-selected path
+2. a repository instruction that names the project-boundary convention
+3. the existing canonical boundary for the same subject
+4. `docs/plans/<topic>-boundary.md`
+
+At the same priority, select the candidate marked canonical or current, then the
+candidate linked by current project documents. If candidates remain tied, ask
+the user to name the canonical path.
 
 Use a stable lowercase kebab-case `<topic>` that names the governed subject.
 
