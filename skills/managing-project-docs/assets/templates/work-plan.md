@@ -1,7 +1,8 @@
 # [Outcome] Work Plan
 
 - **Goal:** [observable outcome]
-- **Source:** [canonical specification or decision links]
+- **Specification:** [implementation contract when one exists]
+- **Related decisions:** [rationale or constraints when applicable]
 - **Project boundary:** [link when one exists]
 
 ## Work

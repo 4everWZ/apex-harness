@@ -38,12 +38,11 @@ Update an existing canonical artifact at its current path. Use a stable
 lowercase kebab-case `<topic>` that names the owned contract, decision, or
 outcome.
 
-The date in a decision path is when the decision was established. Update that
-record in place while it owns the same decision. Create and cross-link a new
-dated record for a materially new decision. If its base path already owns a
-different decision, append `-NN` before `.md`, treating the unsuffixed path as
-generation `01` and using one greater than the highest suffix recorded in the
-current tree or Git history.
+The date in a decision path is when the decision was established. When the
+lifecycle rules call for a successor, create and cross-link a new dated record.
+If its base path already owns a different decision, append `-NN` before `.md`,
+treating the unsuffixed path as generation `01` and using one greater than the
+highest suffix recorded in the current tree or Git history.
 
 Apply the same path-resolution order to these supporting records:
 
@@ -73,12 +72,53 @@ old path, then remove directories left empty by the change.
   Project documents reference it by link while it is active. Resolve those links
   before closing the boundary.
 
+### Resolve content conflicts
+
+Use an explicit user or repository canonical designation first. Otherwise use
+the active canonical artifact that owns the information: a specification for
+the current contract, a decision record for the choice and rationale, a work
+plan for unfinished execution, a handoff for the current transfer, and a project
+boundary for its governance fields. Within the same ownership, prefer active or
+current material over draft, superseded, or legacy material; recency alone does
+not establish authority. If active canonical artifacts still conflict within
+the same ownership, resolve the inconsistency with their named authority or ask
+the user rather than choosing by date.
+
+### Promotion boundary
+
+Promote rationale from a specification or work plan to a decision record only
+when it becomes a durable decision beyond its originating artifact or needs a
+distinct owner, lifecycle, or audience. Otherwise keep it in the owning
+specification.
+
+Keep a local unresolved question in the specification's `Open decisions` while
+it blocks that contract. Create a proposed decision record only when a candidate
+direction needs an independent owner, lifecycle, or audience, or spans
+artifacts. Link it from the open item. When the decision becomes active, update
+the specification and remove the open item; when it is rejected, retain the
+open item only if the question remains unresolved.
+
 ## Manage lifecycle
 
 ### Durable
 
 Maintain specifications and decision records in place as current truth. Git
 owns their change chronology; operational logging owns runtime events.
+
+When activating or superseding a decision changes the current contract, update
+the owning specification in the same logical change. The decision owns the
+choice and rationale; the specification owns the resulting contract. Until
+they are synchronized, treat their disagreement as an unresolved documentation
+conflict rather than choosing one artifact as complete truth.
+
+When revisiting a decision:
+
+- update it in place when the governed choice is unchanged and only its context,
+  rationale, or consequences need clarification
+- create and cross-link a successor when the governed choice changes materially,
+  then mark the predecessor `superseded`
+- when it no longer constrains the project and has no successor, resolve its
+  inbound links and delete it; Git retains its history
 
 When superseding a durable artifact, transfer current facts to their owner. Keep
 the old artifact while its rationale remains useful, a non-lineage consumer
@@ -109,9 +149,15 @@ information, and evidence that the contract has retired.
 
 ### Working
 
-Use a work plan to drive unfinished work. At closure, transfer durable facts to
-their specification or decision record, then delete the plan unless a named
-next phase continues to use it.
+Use a work plan to drive unfinished work. During execution, transfer rationale
+as soon as it becomes part of the current contract or an independently owned
+decision, then replace its plan detail with a link to the owning specification
+or decision record. At closure, transfer any remaining durable facts, then
+preserve required execution evidence in the system named by the specification,
+repository convention, or active project boundary. Durable documents keep only
+stable references or current conclusions, never raw run logs. Do not delete the
+plan while it is the only surviving pointer to required evidence. Delete it
+after these transfers unless a named next phase continues to use it.
 
 ### Transient
 

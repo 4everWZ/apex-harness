@@ -3,6 +3,7 @@
 - **Status:** draft | active | superseded
 - **Owner:** [canonical owner]
 - **Scope:** [owned behavior or contract]
+- **Governing decisions:** [links when applicable]
 - **Supersedes:** [link when applicable]
 - **Superseded by:** [link when applicable]
 

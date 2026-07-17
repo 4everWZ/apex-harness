@@ -6,6 +6,7 @@
 - **Canonical specification:** [link when one exists]
 - **Supersedes:** [link when applicable]
 - **Superseded by:** [link when applicable]
+- **Revisit when:** [observable condition; omit when none is meaningful]
 
 ## Context
 
@@ -17,5 +18,4 @@
 
 ## Consequences
 
-[Only material downstream effects, obligations, and conditions for revisiting
-this decision.]
+[Only material downstream effects and obligations.]
