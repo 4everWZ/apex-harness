@@ -6,8 +6,10 @@ information.
 This is a working governance record, not durable project documentation or an
 execution history. Maintain it in place only while the governed work is active.
 At closure, transfer any still-current durable constraint or decision to its
-owner, then delete the record. Retain a frozen copy only for an explicit audit
-requirement; never treat that copy as current authority or fresh evidence.
+owner, resolve every live reference to the record, then delete it. If independent
+audit retention is required, transfer a frozen copy to a named audit system or
+convention with an owner and retention condition, confirm the transfer, and
+delete the working record. The audit copy is not current authority or evidence.
 
 ## Risk
 
@@ -30,15 +32,16 @@ requirement; never treat that copy as current authority or fresh evidence.
 - Observed `HEAD`:
 - `git status --short --branch` summary:
 - Staged and unstaged diff summary:
-- Explicit generated, ignored, external, or other Git-invisible inputs:
+- Explicit claim-relevant generated, ignored, external, or other Git-invisible inputs:
 
 These Git summaries locate observed state; they are not content identities.
-Reuse evidence while inputs relevant to the claim are known to match. If that
-is unknown, refresh only the affected evidence.
+Freshness is established by verification, not by a timestamp or generalized
+snapshot metadata. Reuse evidence only while claim-relevant inputs are known to
+match; otherwise reacquire only the affected evidence.
 
 ## Completion
 
 - Completion claim:
-- Evidence obtained:
+- Evidence supporting completion:
 - Unverified or excluded boundary:
 - Remaining risk or required decision:

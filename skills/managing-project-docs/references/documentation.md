@@ -26,7 +26,9 @@ Template paths are relative to `managing-project-docs/`.
 - Keep a project boundary separately owned. Durable specifications and decisions
   link to it rather than embed it; a work plan or handoff may carry it only for
   that artifact's lifetime. A separately persisted boundary follows its own
-  governance-defined working lifecycle.
+  governance-defined working lifecycle. Boundary links are valid only while the
+  record is active; at closure, transfer still-current durable facts and remove
+  or replace every link before deleting the record.
 
 ## Lifecycle
 
