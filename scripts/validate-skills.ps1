@@ -71,14 +71,17 @@ foreach ($name in $templates) {
 $manifestPath = Join-Path $root '.codex-plugin\plugin.json'
 $manifest = Get-Content -Raw -LiteralPath $manifestPath | ConvertFrom-Json
 if ($manifest.skills -ne './skills/' -or $null -ne $manifest.hooks) {
-    throw 'Codex manifest must expose only ./skills/ and no hooks.'
+    throw 'Codex manifest must expose ./skills/ and omit hooks.'
 }
 
-$prohibited = @('.claude-plugin', 'GEMINI.md', 'gemini-extension.json', 'hooks', 'evals', 'tests')
+$prohibited = @(
+    '.app.json', '.claude-plugin', '.mcp.json', 'GEMINI.md',
+    'gemini-extension.json', 'hooks', 'evals', 'tests'
+)
 foreach ($relativePath in $prohibited) {
     if (Test-Path -LiteralPath (Join-Path $root $relativePath)) {
         throw "Unsupported package path exists: $relativePath"
     }
 }
 
-Write-Host 'PASS: static structure and frontmatter for two Codex skills and four templates are valid.'
+Write-Host 'PASS: skill frontmatter is valid; required references and templates are present and non-empty; SKILL.md links resolve.'

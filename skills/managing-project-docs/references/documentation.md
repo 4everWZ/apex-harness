@@ -25,7 +25,8 @@ Template paths are relative to `managing-project-docs/`.
 - Create a handoff only for an explicit transfer of work.
 - Keep a project boundary separately owned. Durable specifications and decisions
   link to it rather than embed it; a work plan or handoff may carry it only for
-  that artifact's lifetime.
+  that artifact's lifetime. A separately persisted boundary follows its own
+  governance-defined working lifecycle.
 
 ## Lifecycle
 

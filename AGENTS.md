@@ -7,9 +7,9 @@
 - Skills encode the user's project mechanisms, not general software-engineering
   advice or replacement policy for Codex.
 - Governance owns only risk, mutation authority, evidence strength and
-  freshness, and the completion boundary.
-- Documentation owns topology, templates, artifact ownership, lifecycle, and
-  legacy management.
+  freshness, the completion boundary, and its working record lifecycle.
+- Documentation owns topology, templates, artifact ownership, lifecycle for its
+  four project-document types, and legacy management.
 - Durable documentation holds current contracts or decisions, never changelogs,
   activity histories, execution journals, or system logs. Git owns document
   change chronology; operational logging owns runtime events.

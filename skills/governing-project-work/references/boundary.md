@@ -3,6 +3,12 @@
 Use this shape when the boundary must persist. Omit fields that carry no
 information.
 
+This is a working governance record, not durable project documentation or an
+execution history. Maintain it in place only while the governed work is active.
+At closure, transfer any still-current durable constraint or decision to its
+owner, then delete the record. Retain a frozen copy only for an explicit audit
+requirement; never treat that copy as current authority or fresh evidence.
+
 ## Risk
 
 - Consequence:

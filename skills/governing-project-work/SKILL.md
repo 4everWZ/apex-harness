@@ -24,7 +24,8 @@ State only the applicable fields:
 
 Use a short prose boundary for the current task. Read
 [boundary.md](references/boundary.md) when the boundary must survive a handoff,
-resume, or long-running change.
+resume, or long-running change; a persisted record follows the working lifecycle
+defined there.
 
 ## Keep it separate
 
