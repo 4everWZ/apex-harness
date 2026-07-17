@@ -71,7 +71,7 @@ foreach ($name in $templates) {
 $manifestPath = Join-Path $root '.codex-plugin\plugin.json'
 $manifest = Get-Content -Raw -LiteralPath $manifestPath | ConvertFrom-Json
 if ($manifest.skills -ne './skills/' -or $null -ne $manifest.hooks) {
-    throw 'Codex manifest must expose ./skills/ and omit hooks.'
+    throw 'Codex manifest must expose ./skills/ and must not configure hooks.'
 }
 
 $prohibited = @(
