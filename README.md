@@ -22,6 +22,11 @@ decision record, a working plan, and a transient handoff. Durable artifacts
 hold current contracts or decisions. Git owns document change chronology, and
 operational logging owns runtime events.
 
+When a repository has no established documentation convention, the fallback
+paths are `docs/specs/`, `docs/design/`, `docs/plans/`, and `docs/handoffs/`.
+Retained superseded specifications live under `docs/specs/legacy/`; APEX does
+not create branded documentation subdirectories.
+
 Each skill has its own frontmatter trigger and can be selected without a router
 or the other skill. Static validation does not claim behavioral trigger rates.
 

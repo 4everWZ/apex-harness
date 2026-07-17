@@ -1,15 +1,43 @@
 # Project Documentation Topology
 
-Use repository conventions first. When none exist, use this fallback:
+Resolve locations through the path contract below, then use this topology:
 
-| Artifact | Lifecycle | Fallback template | Owns |
-|---|---|---|---|
-| specification | durable | `assets/templates/specification.md` | current behavior, interfaces, acceptance, and optional algorithm, data, ML, evaluation, or research semantics |
-| decision record | durable | `assets/templates/decision-record.md` | a material design choice, cross-artifact tradeoff, or legacy successor or retirement decision |
-| work plan | working | `assets/templates/work-plan.md` | ordered execution, blockers, and optional requirement mapping |
-| handoff | transient | `assets/templates/handoff.md` | current state for one explicit transfer of work |
+| Artifact | Lifecycle | Fallback path | Fallback template | Owns |
+|---|---|---|---|---|
+| specification | durable | `docs/specs/<topic>.md` | `assets/templates/specification.md` | current behavior, interfaces, acceptance, and optional algorithm, data, ML, evaluation, or research semantics |
+| decision record | durable | `docs/design/YYYY-MM-DD-<topic>-design.md` | `assets/templates/decision-record.md` | a material design choice, cross-artifact tradeoff, or legacy successor or retirement decision |
+| work plan | working | `docs/plans/<topic>.md` | `assets/templates/work-plan.md` | ordered execution, blockers, and optional requirement mapping |
+| handoff | transient | `docs/handoffs/<topic>.md` | `assets/templates/handoff.md` | current state for one explicit transfer of work |
 
 Template paths are relative to `managing-project-docs/`.
+
+## Path contract
+
+Resolve each artifact path in this order:
+
+1. the repository's established convention for that artifact type
+2. an explicit convention in the accepted project documentation
+3. the fallback path in the topology table
+
+Apply these rules after choosing the convention:
+
+- Update an existing canonical artifact at its current path; do not create a
+  parallel fallback file merely because its name differs from the fallback.
+- Replace `<topic>` with a stable lowercase kebab-case subject. Name the owned
+  contract, decision, or outcome—not the agent, tool, session, or current task.
+- The date in a decision path is when that decision was established, not a
+  version number. Update the record in place while it owns the same decision;
+  create and cross-link a new dated record only for a materially new decision.
+- Keep retained superseded specifications under
+  `docs/specs/legacy/<topic>.md`. Move one there only when the lifecycle rules
+  require retention; otherwise delete it and rely on Git history.
+- Persist a separate project boundary, when one is actually needed, at
+  `docs/plans/<topic>-boundary.md`. It remains a working governance record, not
+  a fifth project-document type.
+- When moving or deleting an artifact, update or remove its inbound repository
+  links in the same change. Remove directories left empty by that change.
+- Do not create branded or tool-specific documentation subdirectories such as
+  `docs/apex/`.
 
 ## Artifact budget
 

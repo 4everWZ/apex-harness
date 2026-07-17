@@ -53,6 +53,22 @@ foreach ($relativePath in $references) {
     }
 }
 
+$topologyPath = Join-Path $root 'skills\managing-project-docs\references\documentation.md'
+$topology = Get-Content -Raw -LiteralPath $topologyPath
+$requiredTopologyPaths = @(
+    'docs/specs/<topic>.md',
+    'docs/design/YYYY-MM-DD-<topic>-design.md',
+    'docs/plans/<topic>.md',
+    'docs/handoffs/<topic>.md',
+    'docs/specs/legacy/<topic>.md',
+    'docs/plans/<topic>-boundary.md'
+)
+foreach ($requiredPath in $requiredTopologyPaths) {
+    if (-not $topology.Contains($requiredPath)) {
+        throw "Missing fallback documentation path: $requiredPath"
+    }
+}
+
 $templates = @(
     'decision-record.md', 'handoff.md', 'specification.md', 'work-plan.md'
 )
@@ -84,4 +100,4 @@ foreach ($relativePath in $prohibited) {
     }
 }
 
-Write-Host 'PASS: skill frontmatter is valid; required references and templates are present and non-empty; SKILL.md links resolve.'
+Write-Host 'PASS: skill frontmatter is valid; required references, topology paths, and templates are present; SKILL.md links resolve.'
