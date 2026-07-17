@@ -24,7 +24,8 @@ operational logging owns runtime events.
 
 When a repository has no established documentation convention, the fallback
 paths are `docs/specs/`, `docs/design/`, `docs/plans/`, and `docs/handoffs/`.
-The fallback for retained superseded specifications is `docs/specs/legacy/`;
+The fallback for retained superseded specifications is
+`docs/specs/legacy/<topic>-NN.md`;
 the fallback for working project boundaries is `docs/plans/`. Handoffs are
 rewritten in place, deleted after takeover, and have no legacy lifecycle.
 

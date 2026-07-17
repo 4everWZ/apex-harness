@@ -82,7 +82,7 @@ foreach ($clause in $pathPrecedence) {
 }
 
 $requiredSupportingPaths = @(
-    'docs/specs/legacy/<topic>.md',
+    'docs/specs/legacy/<topic>-NN.md',
     'docs/plans/<topic>-boundary.md'
 )
 foreach ($requiredPath in $requiredSupportingPaths) {

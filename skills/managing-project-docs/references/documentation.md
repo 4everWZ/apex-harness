@@ -1,5 +1,10 @@
 # Project Documentation Topology
 
+- [Topology](#topology)
+- [Resolve paths](#resolve-paths)
+- [Own information](#own-information)
+- [Manage lifecycle](#manage-lifecycle)
+
 ## Topology
 
 | Artifact | Lifecycle | Fallback path | Fallback template | Owns |
@@ -19,6 +24,15 @@ Resolve each artifact path in this order:
 2. an explicit convention in the accepted project documentation
 3. the fallback path in the topology table
 
+Recognize an established convention from repository instructions or a document
+index that names the path, or from current canonical artifacts of the same type
+that consistently use it. Recognize an accepted project convention from an
+active specification or decision that explicitly names it.
+
+At the same priority, select the candidate marked canonical or current, then the
+candidate linked by current project documents. If candidates remain tied, ask
+the user to name the canonical location.
+
 Update an existing canonical artifact at its current path. Use a stable
 lowercase kebab-case `<topic>` that names the owned contract, decision, or
 outcome.
@@ -30,13 +44,16 @@ dated record for a materially new decision.
 Apply the same path-resolution order to these supporting records:
 
 - retained superseded specification fallback:
-  `docs/specs/legacy/<topic>.md`
+  `docs/specs/legacy/<topic>-NN.md`, using the lowest unused two-digit number
+  beginning with `01`
 - separately persisted project boundary fallback:
   `docs/plans/<topic>-boundary.md`
 
-When moving or deleting an artifact, update its inbound repository links and
-its own relative links or path references in the same change. Remove directories
-left empty by the change.
+When moving an artifact, redirect inbound links to its new canonical path or
+successor and repair relative links or path references inside the moved file.
+When deleting an artifact without a successor, remove its inbound links. Check
+that current repository documents no longer reference the old path, then remove
+directories left empty by the change.
 
 ## Own information
 
@@ -63,6 +80,11 @@ owns their change chronology; operational logging owns runtime events.
 When superseding a durable artifact, transfer current facts to their owner and
 link the successor while the old rationale remains useful, referenced, or
 required for audit. Otherwise delete the obsolete artifact and use Git history.
+
+To retain a superseded specification, move the active file to the next legacy
+`<topic>-NN.md` path, set its status to `superseded`, and link its `Superseded
+by` field to the successor. Put the successor at the resolved active path and
+link its `Supersedes` field to the retained file.
 
 Keep a rejected decision record while that rejection remains a current material
 constraint with an independent owner, lifecycle, or audience.
