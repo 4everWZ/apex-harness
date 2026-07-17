@@ -23,6 +23,3 @@
 - Specification or decision:
 - Active work plan:
 - Persistent project boundary: [link when one exists]
-
-Replace stale content during the transfer. Delete this handoff after takeover
-unless the repository has an explicit retention convention.

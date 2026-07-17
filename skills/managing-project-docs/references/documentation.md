@@ -14,6 +14,7 @@ Template paths are relative to `managing-project-docs/`.
 ## Artifact budget
 
 - Start by updating one canonical artifact. A template does not justify a file.
+- Copy only applicable template sections; remove empty guidance and placeholders.
 - Split content only for a different owner, lifecycle, or audience.
 - A specification owns the contract. A decision record links to that contract
   and owns only a decision needing an independent lifecycle.

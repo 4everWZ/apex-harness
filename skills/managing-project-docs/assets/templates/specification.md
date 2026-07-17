@@ -16,7 +16,7 @@
 
 ## Acceptance
 
-| Observable requirement | Evidence or verification |
+| Observable requirement | Verification method |
 |---|---|
 |  |  |
 

@@ -16,5 +16,5 @@
 
 ## Consequences
 
-[Compatibility, migration, ownership, operations, verification, and revisit
-condition when applicable.]
+[Only material downstream effects, obligations, and conditions for revisiting
+this decision.]
