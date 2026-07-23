@@ -15,7 +15,7 @@ skills/
   when that boundary matters.
 - [`managing-project-docs`](skills/managing-project-docs/SKILL.md) applies the
   preferred document topology, templates, ownership, supersession, and legacy
-  lifecycle.
+  lifecycle. Its artifact-specific references load only when relevant.
 
 Documentation falls back to four shapes: a durable specification, a durable
 decision record, a working plan, and a transient handoff. Durable artifacts
@@ -39,6 +39,10 @@ the fallback for working project boundaries is
 `docs/plans/<topic>-boundary.md`. Handoffs are rewritten in place for the same
 transfer, and deleted after takeover or abandonment once still-current facts
 have moved to their owner. They have no legacy lifecycle.
+
+For repositories with enough project documents to need a human entry point,
+`docs/README.md` may index canonical artifacts. It owns navigation only and
+does not duplicate their contracts, decisions, status, rationale, or work state.
 
 Each skill has its own frontmatter trigger and can be selected without a router
 or the other skill. Static validation does not claim behavioral trigger rates.

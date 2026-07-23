@@ -5,10 +5,21 @@ description: Applies the project's preferred topology, ownership, synchronizatio
 
 # Managing Project Docs
 
-Read [documentation.md](references/documentation.md) before selecting or
-creating a project artifact, or before moving, superseding, or retiring durable
-material. Treat it as the single source for topology, ownership, lifecycle,
-legacy treatment, and fallback template selection.
+Read only the references required by the task:
+
+- [topology.md](references/topology.md) — selecting, creating, splitting,
+  merging, moving, deleting, indexing, or resolving ownership or path conflicts
+- [specifications.md](references/specifications.md) — specification status,
+  implementation synchronization, proposals, supersession, legacy, or
+  retirement; also read `topology.md` for path, identity, retention, or deletion
+  operations
+- [decisions.md](references/decisions.md) — decision promotion, path identity,
+  status, supersession, rejection, or specification synchronization; also read
+  `topology.md` for path, successor, retention, or deletion operations
+- [working-docs.md](references/working-docs.md) — work-plan or handoff lifecycle;
+  also read `topology.md` for path, closure, replacement, or deletion operations
+
+For a task spanning artifact types, read each applicable reference.
 
 `governing-project-work` triggers independently; this skill does not assume
 ownership of its project boundary.

@@ -44,7 +44,10 @@ foreach ($name in $expected) {
 
 $references = @(
     'skills\governing-project-work\references\boundary.md',
-    'skills\managing-project-docs\references\documentation.md'
+    'skills\managing-project-docs\references\decisions.md',
+    'skills\managing-project-docs\references\specifications.md',
+    'skills\managing-project-docs\references\topology.md',
+    'skills\managing-project-docs\references\working-docs.md'
 )
 foreach ($relativePath in $references) {
     $path = Join-Path $root $relativePath
@@ -53,8 +56,25 @@ foreach ($relativePath in $references) {
     }
 }
 
-$topologyPath = Join-Path $root 'skills\managing-project-docs\references\documentation.md'
+$documentationReferenceRoot = Join-Path $root 'skills\managing-project-docs\references'
+$expectedDocumentationReferences = @(
+    'decisions.md', 'specifications.md', 'topology.md', 'working-docs.md'
+)
+$actualDocumentationReferences = @(
+    Get-ChildItem $documentationReferenceRoot -File |
+        Sort-Object Name |
+        ForEach-Object Name
+)
+if (Compare-Object $expectedDocumentationReferences $actualDocumentationReferences) {
+    throw "Expected exactly these documentation references: $($expectedDocumentationReferences -join ', '); found: $($actualDocumentationReferences -join ', ')"
+}
+
+$topologyPath = Join-Path $documentationReferenceRoot 'topology.md'
 $topology = Get-Content -Raw -LiteralPath $topologyPath
+$specifications = Get-Content -Raw -LiteralPath (Join-Path $documentationReferenceRoot 'specifications.md')
+$decisions = Get-Content -Raw -LiteralPath (Join-Path $documentationReferenceRoot 'decisions.md')
+$workingDocs = Get-Content -Raw -LiteralPath (Join-Path $documentationReferenceRoot 'working-docs.md')
+$managingSkill = Get-Content -Raw -LiteralPath (Join-Path $root 'skills\managing-project-docs\SKILL.md')
 $readme = Get-Content -Raw -LiteralPath (Join-Path $root 'README.md')
 $requiredTopologyRows = @(
     '| specification | durable | `docs/specs/<topic>.md` | `assets/templates/specification.md` |',
@@ -85,53 +105,84 @@ foreach ($clause in $pathPrecedence) {
 
 $requiredSupportingPaths = @('docs/specs/legacy/<topic>-NN.md')
 foreach ($requiredPath in $requiredSupportingPaths) {
-    if (-not $topology.Contains($requiredPath)) {
+    if (-not $specifications.Contains($requiredPath)) {
         throw "Missing supporting documentation path: $requiredPath"
     }
 }
+if (-not $specifications.Contains('with the topology path') -or
+    -not $specifications.Contains("topology table's step 4")) {
+    throw 'Retained specification paths must inherit normal path precedence.'
+}
 
 $requiredSynchronizationClauses = @(
-    'specification owns a proposed contract in its change context',
+    'An active specification owns the accepted current contract.',
+    'A draft owns a',
+    'proposed contract and does not claim that implementation already conforms.',
+    'Active and draft are Git versions of the same canonical artifact',
+    'Git owns their',
+    'coexistence and history.',
     'Its presence in the implementation does not establish',
-    'write the draft at its canonical',
-    'whose integration baseline retains the active version',
-    'do not normalize it by rewriting the specification unless the changed',
-    'Apply an accepted contract',
-    'Activate a specification only after its open decisions are resolved',
-    'Do not treat documentation synchronization as complete'
+    'temporary workarounds as unfinished',
+    'Apply an accepted contract change',
+    'Activate only after open decisions are resolved',
+    'not treat documentation synchronization as complete'
 )
 foreach ($clause in $requiredSynchronizationClauses) {
-    if (-not $topology.Contains($clause)) {
+    if (-not $specifications.Contains($clause)) {
         throw "Missing specification-synchronization rule: $clause"
     }
 }
-if (-not $topology.Contains('decision record was first established,') -or
-    -not $topology.Contains('Keep that path when the record becomes')) {
+if (-not $decisions.Contains('is when the record was') -or
+    -not $decisions.Contains('Activation or rejection does not')) {
     throw 'Decision-record proposal and activation dates must preserve one stable path.'
 }
-if (-not $topology.Contains('When a specification draft is rejected or abandoned:') -or
-    -not $topology.Contains('the last active') -or
-    -not $topology.Contains('materialize the predecessor from the integration baseline or Git')) {
+if (-not $decisions.Contains('A proposed decision is a candidate, not an authoritative') -or
+    -not $decisions.Contains('Activate only when the user or a named owner or')) {
+    throw 'Proposed decisions must remain non-authoritative until accepted.'
+}
+if (-not $decisions.Contains('distinct owner, lifecycle, or audience, or spans artifacts')) {
+    throw 'Decision promotion must preserve every independent-ownership condition.'
+}
+if (-not $managingSkill.Contains('also read') -or
+    -not $managingSkill.Contains('`topology.md` for path, successor, retention, or deletion operations') -or
+    -not $decisions.Contains('shared retention and lineage rules')) {
+    throw 'Decision successor operations must load topology identity rules.'
+}
+if (-not $specifications.Contains('For a rejected or abandoned draft:') -or
+    -not $specifications.Contains('the legacy artifact is the last') -or
+    -not $specifications.Contains('discard the draft Git version')) {
     throw 'Specification draft rejection and predecessor retention must be explicit.'
 }
-if (-not $topology.Contains('An explicit proposal path is temporary and noncanonical') -or
-    -not $topology.Contains('Do not leave both copies active.')) {
-    throw 'Accepted specification proposals must converge on one canonical active artifact.'
-}
-if (-not $topology.Contains("contract retires without a successor") -or
-    -not $topology.Contains('leave a retired contract marked active')) {
+if (-not $specifications.Contains("contract retires without a successor") -or
+    -not $specifications.Contains('leave a retired contract active')) {
     throw 'Successorless specification retirement must have a terminal transition.'
 }
-if (-not $topology.Contains('Before deleting a handoff for a completed or abandoned transfer')) {
+if (-not $workingDocs.Contains('Before deleting a handoff for a completed or abandoned transfer')) {
     throw 'Handoff cleanup must transfer still-current facts before deletion.'
 }
-if (-not $topology.Contains('When not retaining a') -or
-    -not $topology.Contains('clear the successor''s `Supersedes` field')) {
+if (-not $managingSkill.Contains('`topology.md` for path, closure, replacement, or deletion operations') -or
+    -not $workingDocs.Contains('Apply the topology path and link rules when selecting, closing, replacing, or')) {
+    throw 'Working-document closure must load topology identity rules.'
+}
+if (-not $specifications.Contains('When not retaining a superseded specification') -or
+    -not $specifications.Contains("successor's") -or
+    -not $specifications.Contains('Git history retains the')) {
     throw 'Non-retained specification predecessors must not leave invalid lineage.'
 }
 if (-not $readme.Contains('only when the choice needs an independent') -or
     -not $readme.Contains('owner, lifecycle, or audience')) {
     throw 'README must preserve the qualified decision-record promotion boundary.'
+}
+if (-not $topology.Contains('The index owns navigation,') -or
+    -not $readme.Contains('It owns navigation only')) {
+    throw 'Optional document indexes must remain navigation-only.'
+}
+if (-not $topology.Contains('Copy the applicable template sections and remove unused placeholders.')) {
+    throw 'Template use must remove unused placeholders.'
+}
+if (-not $topology.Contains('Compare authority within the same Git version.') -or
+    -not $topology.Contains('are not content conflicts.')) {
+    throw 'Active and draft specification authority must remain scoped by Git context.'
 }
 
 $boundaryPath = Join-Path $root 'skills\governing-project-work\references\boundary.md'
@@ -165,7 +216,7 @@ foreach ($name in $templates) {
     }
 }
 $specificationTemplate = Get-Content -Raw -LiteralPath (Join-Path $templateRoot 'specification.md')
-if (-not $specificationTemplate.Contains('draft (proposed) | active (accepted and verified) | superseded')) {
+if (-not $specificationTemplate.Contains('draft (proposed) | active (accepted current contract) | superseded')) {
     throw 'Specification template must distinguish proposed and accepted status.'
 }
 if (-not $specificationTemplate.Contains('Stable evidence reference — optional')) {

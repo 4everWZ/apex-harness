@@ -1,6 +1,6 @@
 # [Subject] Specification
 
-- **Status:** draft (proposed) | active (accepted and verified) | superseded
+- **Status:** draft (proposed) | active (accepted current contract) | superseded
 - **Owner:** [canonical owner]
 - **Scope:** [owned behavior or contract]
 - **Governing decisions:** [links when applicable]
