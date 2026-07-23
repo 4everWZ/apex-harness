@@ -1,8 +1,5 @@
 # Working Document Lifecycle
 
-Apply the topology path and link rules when selecting, closing, replacing, or
-deleting a work plan or handoff.
-
 ## Work plans
 
 Use a work plan to drive unfinished work. During execution, transfer rationale
@@ -24,5 +21,4 @@ contents in place for the same transfer.
 Before deleting a handoff for a completed or abandoned transfer, move every
 still-current enduring fact to its durable or working owner. Then delete the
 stale handoff before writing a new one, carrying forward only current facts and
-canonical links. A handoff has no legacy lifecycle; remove any directory left
-empty by its deletion.
+canonical links. A handoff has no legacy lifecycle.

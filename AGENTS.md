@@ -13,6 +13,9 @@
 - Durable documentation holds current contracts or decisions, never changelogs,
   activity histories, execution journals, or system logs. Git owns document
   change chronology; operational logging owns runtime events.
+- Preserve an established documentation topology. Use fallback topology only
+  when no authoritative convention exists. Never reorganize canonical artifacts
+  from model preference alone.
 - Default to one canonical artifact and split only for a distinct owner,
   lifecycle, or audience.
 - Keep fallback templates under `skills/managing-project-docs/assets/templates/`.

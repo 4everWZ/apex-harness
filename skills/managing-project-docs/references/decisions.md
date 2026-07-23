@@ -2,21 +2,17 @@
 
 ## Promote a decision
 
-Promote rationale from a specification or work plan only when it becomes a
-durable decision beyond that artifact or needs a distinct owner, lifecycle, or
-audience. Otherwise keep it with its current owner.
+Promote rationale from a specification or work plan under the skill's promotion
+rule; otherwise keep it with its current owner.
 
 Keep a local unresolved question in the specification's `Open decisions` while
-it blocks that contract. Create a proposed decision record only when a candidate
-direction needs a distinct owner, lifecycle, or audience, or spans artifacts.
-Link it from the open item. When the decision becomes active, update the
-specification and remove the open item; when rejected, retain the open item only
-if the question remains unresolved.
+it blocks that contract. Link an independently owned proposal from the open
+item. When the decision becomes active, update the specification and remove the
+open item; when rejected, retain the open item only if the question remains
+unresolved.
 
 A proposed decision is a candidate, not an authoritative current constraint. An
-active decision is accepted. Activate only when the user or a named owner or
-authority selects it, or when it passes the repository's established acceptance
-or review process.
+active decision is accepted under the skill's acceptance rule.
 
 ## Preserve path identity
 
@@ -25,12 +21,11 @@ first established, including as a proposal. Activation or rejection does not
 rename it.
 
 Apply the topology path precedence when creating, moving, or deleting a record
-or successor, and its shared retention and lineage rules when superseding one.
+or successor, and its retention and lineage rules when superseding one.
 
 For a material successor, create and cross-link a new dated record. If its base
 path already owns a different decision, append `-NN` before `.md`, treating the
-unsuffixed path as generation `01` and choosing one greater than the highest
-suffix in the current tree or Git history.
+unsuffixed path as generation `01` and using the next unused suffix.
 
 ## Change status
 

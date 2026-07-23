@@ -1,12 +1,11 @@
 ---
 name: governing-project-work
-description: Establishes an explicit boundary for project risk, mutation authority, evidence strength, and completion claims. Use when the user asks to establish or review a project-work boundary, or when work has material risk from irreversible or external effects, public-contract compatibility, or data or research privacy, integrity, publication, or interpretation. Do not use for routine coding, planning, testing, Git, documentation, or low-risk read-only analysis or research when those material consequences do not apply, unless the boundary itself is the task.
+description: Establishes or reviews an explicit boundary for project risk, mutation authority, evidence strength and freshness, and completion claims. Use when the user requests that boundary or when work has material irreversible, external, public-contract, privacy, integrity, publication, or interpretation risk. Do not trigger for ordinary low-risk project work unless the boundary itself is requested.
 ---
 
 # Governing Project Work
 
-Externalize the few decisions that are easy to lose during substantial work.
-This is a boundary mechanism, not a general software-engineering policy.
+Externalize only the applicable project boundary.
 
 ## Establish the boundary
 
@@ -27,9 +26,5 @@ Use a short prose boundary for the current task. Read
 resume, or long-running change; a persisted record follows the working lifecycle
 defined there.
 
-## Keep it separate
-
-Do not turn ordinary implementation choices into governance. If the work also
-needs project documentation, keep the boundary separately owned at the path
-resolved by [boundary.md](references/boundary.md). Project documents link to
-that record. Neither skill requires the other.
+Project documentation links to a persisted boundary while it is active but does
+not own it.

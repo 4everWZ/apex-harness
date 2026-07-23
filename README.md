@@ -1,8 +1,7 @@
 # APEX
 
-APEX is a Codex-only collection of two personal project-work mechanisms. It
-does not teach Codex general software engineering or wrap its built-in coding,
-Git, testing, debugging, planning, or subagent behavior.
+APEX provides two independent Codex project mechanisms: project-work boundaries
+and project-document lifecycle.
 
 ```text
 skills/
@@ -23,13 +22,9 @@ hold current contracts or decisions. Git owns document change chronology, and
 operational logging owns runtime events.
 
 Specifications follow a contract loop: draft the intended contract when it can
-be known in advance, implement and verify it, classify discoveries, and write
-back only accepted behavior and semantics. Material reasons for an accepted
-change belong in a decision record only when the choice needs an independent
-owner, lifecycle, or audience; otherwise they stay with the owning
-specification. Bugs and temporary workarounds remain unfinished work rather than
-silently redefining the contract. Before completion, the implementation,
-verification, active decisions, and specification must be synchronized.
+be known in advance, implement it, and synchronize accepted behavior before
+activation. Independently owned choices belong in decision records; unfinished
+deviations do not redefine the contract.
 
 When a repository has no established documentation convention, the fallback
 paths are `docs/specs/`, `docs/design/`, `docs/plans/`, and `docs/handoffs/`.

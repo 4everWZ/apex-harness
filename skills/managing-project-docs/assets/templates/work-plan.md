@@ -17,5 +17,4 @@
 
 ## Optional coordination
 
-[Add only when needed: dependencies, owners, affected paths, consumed or
-produced interfaces, or requirement-to-implementation-to-evidence mapping.]
+[Add only coordination information required to execute or verify the plan.]

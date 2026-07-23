@@ -24,9 +24,8 @@
 
 ## Technical semantics — optional
 
-[Include only when data, numerical, algorithm, ML, evaluation, or research
-semantics must be authoritative: definitions, assumptions, inputs and outputs,
-procedure or objective, edge cases, reproducibility, and decision rules.]
+[Include authoritative technical semantics needed to interpret, verify, or
+reproduce the contract.]
 
 ## Open decisions — optional
 

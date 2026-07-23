@@ -1,5 +1,9 @@
 # Project Documentation Topology
 
+Preserve an established documentation topology. Use this fallback only when no
+authoritative convention exists. Never reorganize canonical artifacts from
+model preference alone.
+
 ## Choose the owner
 
 | Artifact | Lifecycle | Fallback path | Fallback template | Owns |
@@ -12,9 +16,8 @@
 Template paths are relative to `managing-project-docs/`.
 Copy the applicable template sections and remove unused placeholders.
 
-Start with one canonical artifact. Split only for a distinct owner, lifecycle,
-or audience. A project boundary remains governance-owned at its
-governance-resolved path; project documents link to it while it is active.
+A project boundary remains governance-owned at its governance-resolved path;
+project documents link to it while it is active.
 
 ## Resolve paths
 
@@ -25,10 +28,9 @@ Resolve each artifact path in this order:
 3. an explicit convention in the accepted project documentation
 4. the fallback path in the topology table
 
-Recognize a repository convention from instructions, a document index that
-names the path, or consistent current canonical artifacts of the same type.
-Recognize a project convention only from an active specification or decision
-that explicitly names it.
+Recognize an authoritative convention from repository instructions, a document
+index, consistent current artifacts of the same type, or an active specification
+or decision that explicitly names it.
 
 At the same priority, prefer the candidate marked canonical or current, then one
 linked by current project documents. If candidates remain tied, ask the user to
@@ -56,11 +58,9 @@ date.
 
 ## Preserve identity
 
-Before moving an artifact or deleting one with a successor, redirect inbound
-links to the new canonical path or successor and repair relative references
-inside a moved file. When deleting without a successor, remove its inbound
-links. Confirm that current repository documents no longer reference the old
-path, then remove directories left empty by the change.
+After a canonical identity or location changes, no current reference may point
+to the retired identity, and only the resolved canonical artifact may remain
+current.
 
 When superseding a durable artifact, first transfer current facts to their
 owner. Retain the predecessor only while its rationale remains useful, a
@@ -68,10 +68,9 @@ non-lineage consumer references it, or audit requires it. For a retained
 predecessor, set `Status` to `superseded`, set `Superseded by` to the successor,
 and set the successor's `Supersedes` field to the predecessor.
 
-Lineage alone does not require retention. Before deleting a retained
-predecessor, point its direct successor's `Supersedes` field to the earlier
-retained ancestor, or clear it when none remains. Redirect other inbound links
-to the successor, then delete the predecessor. Git owns the chronology.
+Lineage alone does not require retention. If a retained predecessor is removed,
+its direct successor points to the earlier retained ancestor or clears
+`Supersedes`; current links resolve to the successor. Git owns the chronology.
 
 ## Optional document index
 

@@ -4,13 +4,11 @@ Use this shape when the boundary must persist. Omit fields that carry no
 information.
 
 This is a working governance record, not durable project documentation or an
-execution history. Maintain it in place only while the governed work is active.
-At closure, transfer any still-current durable constraint or decision to its
-owner, resolve every live reference to the record, then delete it. If independent
-audit retention is required, transfer a frozen copy to a named audit system or
-convention with an owner and retention condition, confirm the transfer, and
-delete the working record. The audit copy grants no current authority and does
-not by itself satisfy evidence freshness for a current claim.
+execution history. At closure, every durable constraint or decision resides
+with its owner, no live reference points to the boundary, and the working record
+is deleted. A required audit copy has a named owner and retention condition; it
+grants no current authority and does not establish freshness for a current
+claim.
 
 ## Path
 
@@ -27,12 +25,8 @@ the user to name the canonical path.
 
 Use a stable lowercase kebab-case `<topic>` that names the governed subject.
 
-When an active boundary must move to a newly resolved path, transfer its current
-content to that path, redirect every live reference, and confirm that the new
-copy is the only canonical working record before deleting the old copy. If both
-paths contain current edits, resolve or merge them through the named authority
-instead of choosing by path priority alone. A project boundary has no legacy
-lifecycle.
+A location change preserves current content and references and leaves one
+canonical working record. A project boundary has no legacy lifecycle.
 
 ## Risk
 
@@ -42,25 +36,20 @@ lifecycle.
 
 ## Authority
 
-- Authorized file mutations:
-- Authorized Git mutations:
-- Authorized external effects:
+- Authorized mutations or effects:
 - Explicit exclusions:
 - Authority source or decision:
 
 ## Evidence
 
 - Claim to support:
-- Required evidence strength:
-- Observed `HEAD`:
-- `git status --short --branch` summary:
-- Staged and unstaged diff summary:
-- Explicit claim-relevant generated, ignored, external, or other Git-invisible inputs:
+- Required evidence strength and freshness:
+- Claim-relevant observed state:
+- Claim-relevant inputs outside that state:
 
-These Git summaries locate observed state; they are not content identities.
-Freshness is established by verification, not by a timestamp or generalized
-snapshot metadata. Reuse evidence only while claim-relevant inputs are known to
-match; otherwise reacquire only the affected evidence.
+Record only the state identity needed to delimit or reproduce the claim. Reuse
+evidence while claim-relevant inputs match; otherwise reacquire the affected
+evidence.
 
 Re-evaluate the applicable risk, authority, evidence, and completion fields
 after a material scope, authority, or claim-relevant input change and before

@@ -14,8 +14,8 @@
 
 ## Decision
 
-[Proposed or selected direction, its disposition, and the minimum rationale
-needed to understand it.]
+[State the proposal or decision and the minimum rationale needed to understand
+it; `Status` records its disposition.]
 
 ## Consequences
 
