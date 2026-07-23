@@ -55,6 +55,7 @@ foreach ($relativePath in $references) {
 
 $topologyPath = Join-Path $root 'skills\managing-project-docs\references\documentation.md'
 $topology = Get-Content -Raw -LiteralPath $topologyPath
+$readme = Get-Content -Raw -LiteralPath (Join-Path $root 'README.md')
 $requiredTopologyRows = @(
     '| specification | durable | `docs/specs/<topic>.md` | `assets/templates/specification.md` |',
     '| decision record | durable | `docs/design/YYYY-MM-DD-<topic>-design.md` | `assets/templates/decision-record.md` |',
@@ -89,10 +90,64 @@ foreach ($requiredPath in $requiredSupportingPaths) {
     }
 }
 
+$requiredSynchronizationClauses = @(
+    'specification owns a proposed contract in its change context',
+    'Its presence in the implementation does not establish',
+    'write the draft at its canonical',
+    'whose integration baseline retains the active version',
+    'do not normalize it by rewriting the specification unless the changed',
+    'Apply an accepted contract',
+    'Activate a specification only after its open decisions are resolved',
+    'Do not treat documentation synchronization as complete'
+)
+foreach ($clause in $requiredSynchronizationClauses) {
+    if (-not $topology.Contains($clause)) {
+        throw "Missing specification-synchronization rule: $clause"
+    }
+}
+if (-not $topology.Contains('decision record was first established,') -or
+    -not $topology.Contains('Keep that path when the record becomes')) {
+    throw 'Decision-record proposal and activation dates must preserve one stable path.'
+}
+if (-not $topology.Contains('When a specification draft is rejected or abandoned:') -or
+    -not $topology.Contains('the last active') -or
+    -not $topology.Contains('materialize the predecessor from the integration baseline or Git')) {
+    throw 'Specification draft rejection and predecessor retention must be explicit.'
+}
+if (-not $topology.Contains('An explicit proposal path is temporary and noncanonical') -or
+    -not $topology.Contains('Do not leave both copies active.')) {
+    throw 'Accepted specification proposals must converge on one canonical active artifact.'
+}
+if (-not $topology.Contains("contract retires without a successor") -or
+    -not $topology.Contains('leave a retired contract marked active')) {
+    throw 'Successorless specification retirement must have a terminal transition.'
+}
+if (-not $topology.Contains('Before deleting a handoff for a completed or abandoned transfer')) {
+    throw 'Handoff cleanup must transfer still-current facts before deletion.'
+}
+if (-not $topology.Contains('When not retaining a') -or
+    -not $topology.Contains('clear the successor''s `Supersedes` field')) {
+    throw 'Non-retained specification predecessors must not leave invalid lineage.'
+}
+if (-not $readme.Contains('only when the choice needs an independent') -or
+    -not $readme.Contains('owner, lifecycle, or audience')) {
+    throw 'README must preserve the qualified decision-record promotion boundary.'
+}
+
 $boundaryPath = Join-Path $root 'skills\governing-project-work\references\boundary.md'
 $boundary = Get-Content -Raw -LiteralPath $boundaryPath
 if (-not $boundary.Contains('docs/plans/<topic>-boundary.md')) {
     throw 'Missing governance boundary fallback path: docs/plans/<topic>-boundary.md'
+}
+if (-not $boundary.Contains('not by itself satisfy evidence freshness for a current claim')) {
+    throw 'Audit-copy semantics must distinguish retention from current evidence freshness.'
+}
+if (-not $boundary.Contains('When an active boundary must move to a newly resolved path') -or
+    -not $boundary.Contains('the only canonical working record before deleting the old copy')) {
+    throw 'Persistent boundary relocation must converge on one canonical record.'
+}
+if (-not $boundary.Contains('after a material scope, authority, or claim-relevant input change')) {
+    throw 'Persistent boundaries must be refreshed after material change.'
 }
 
 $templates = @(
@@ -108,6 +163,17 @@ foreach ($name in $templates) {
     if (-not (Test-Path -LiteralPath $path) -or (Get-Item $path).Length -eq 0) {
         throw "Missing documentation template: $name"
     }
+}
+$specificationTemplate = Get-Content -Raw -LiteralPath (Join-Path $templateRoot 'specification.md')
+if (-not $specificationTemplate.Contains('draft (proposed) | active (accepted and verified) | superseded')) {
+    throw 'Specification template must distinguish proposed and accepted status.'
+}
+if (-not $specificationTemplate.Contains('Stable evidence reference — optional')) {
+    throw 'Specification template must support a stable acceptance-evidence reference.'
+}
+$decisionTemplate = Get-Content -Raw -LiteralPath (Join-Path $templateRoot 'decision-record.md')
+if (-not $decisionTemplate.Contains('Proposed or selected direction, its disposition')) {
+    throw 'Decision template must describe proposed, active, and rejected directions coherently.'
 }
 
 $manifestPath = Join-Path $root '.codex-plugin\plugin.json'

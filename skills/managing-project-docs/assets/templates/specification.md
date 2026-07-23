@@ -1,6 +1,6 @@
 # [Subject] Specification
 
-- **Status:** draft | active | superseded
+- **Status:** draft (proposed) | active (accepted and verified) | superseded
 - **Owner:** [canonical owner]
 - **Scope:** [owned behavior or contract]
 - **Governing decisions:** [links when applicable]
@@ -18,9 +18,9 @@
 
 ## Acceptance
 
-| Observable requirement | Verification method |
-|---|---|
-|  |  |
+| Observable requirement | Verification method | Stable evidence reference — optional |
+|---|---|---|
+|  |  |  |
 
 ## Technical semantics — optional
 

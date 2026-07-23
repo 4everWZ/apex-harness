@@ -14,7 +14,8 @@
 
 ## Decision
 
-[Selected direction and the minimum rationale needed to understand it.]
+[Proposed or selected direction, its disposition, and the minimum rationale
+needed to understand it.]
 
 ## Consequences
 

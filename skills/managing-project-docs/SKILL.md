@@ -1,6 +1,6 @@
 ---
 name: managing-project-docs
-description: Applies the project's preferred topology, ownership, and lifecycle for durable specifications or decision records, working plans, handoffs, supersession, and legacy documentation. Use directly when the user asks to create, update, maintain, reorganize, merge, or retire these project artifacts. Do not use for ordinary planning, status reporting, or legacy-code implementation unless the user explicitly asks for one of these project artifacts or its lifecycle. This skill is independent of project governance.
+description: Applies the project's preferred topology, ownership, synchronization, and lifecycle for durable specifications or decision records, working plans, handoffs, supersession, and legacy documentation. Use when the user asks to create, update, maintain, reorganize, merge, or retire these artifacts, or when implementation creates, changes, or reveals an accepted contract that must be synchronized with a canonical project document. Do not use for ordinary planning, status reporting, or implementation that does not affect one of these artifacts or its lifecycle. This skill is independent of project governance.
 ---
 
 # Managing Project Docs

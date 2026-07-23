@@ -1,6 +1,6 @@
 ---
 name: governing-project-work
-description: Establishes an explicit boundary for project risk, mutation authority, evidence strength, and completion claims. Use when the user asks to establish or review a project-work boundary, or for consequential, irreversible, external, or public-contract work, including data or research work with material privacy, integrity, publication, or interpretation risk. Do not use for routine coding, planning, testing, Git, documentation, or low-risk read-only analysis or research unless the boundary itself is the task.
+description: Establishes an explicit boundary for project risk, mutation authority, evidence strength, and completion claims. Use when the user asks to establish or review a project-work boundary, or when work has material risk from irreversible or external effects, public-contract compatibility, or data or research privacy, integrity, publication, or interpretation. Do not use for routine coding, planning, testing, Git, documentation, or low-risk read-only analysis or research when those material consequences do not apply, unless the boundary itself is the task.
 ---
 
 # Governing Project Work

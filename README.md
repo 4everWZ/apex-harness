@@ -22,13 +22,23 @@ decision record, a working plan, and a transient handoff. Durable artifacts
 hold current contracts or decisions. Git owns document change chronology, and
 operational logging owns runtime events.
 
+Specifications follow a contract loop: draft the intended contract when it can
+be known in advance, implement and verify it, classify discoveries, and write
+back only accepted behavior and semantics. Material reasons for an accepted
+change belong in a decision record only when the choice needs an independent
+owner, lifecycle, or audience; otherwise they stay with the owning
+specification. Bugs and temporary workarounds remain unfinished work rather than
+silently redefining the contract. Before completion, the implementation,
+verification, active decisions, and specification must be synchronized.
+
 When a repository has no established documentation convention, the fallback
 paths are `docs/specs/`, `docs/design/`, `docs/plans/`, and `docs/handoffs/`.
 The fallback for retained superseded specifications is
 `docs/specs/legacy/<topic>-NN.md`;
 the fallback for working project boundaries is
 `docs/plans/<topic>-boundary.md`. Handoffs are rewritten in place for the same
-transfer, deleted after takeover, and have no legacy lifecycle.
+transfer, and deleted after takeover or abandonment once still-current facts
+have moved to their owner. They have no legacy lifecycle.
 
 Each skill has its own frontmatter trigger and can be selected without a router
 or the other skill. Static validation does not claim behavioral trigger rates.
