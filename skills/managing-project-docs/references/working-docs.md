@@ -1,5 +1,16 @@
 # Working Document Lifecycle
 
+## Decide whether a working document is needed
+
+Do not create a work plan for an ordinary single-session change that can be
+completed and verified directly. Use one when work must resume across sessions,
+multiple contributors or systems must coordinate, ordered dependencies matter,
+blockers must remain visible, or the user explicitly requests a persisted plan.
+
+Represent development stages as sections, milestones, or tasks in one plan
+unless they have independent owners and lifecycles. Resuming the same work later
+is not by itself a handoff; a handoff requires an actual transfer.
+
 ## Work plans
 
 Use a work plan to drive unfinished work. During execution, transfer rationale

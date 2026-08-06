@@ -28,5 +28,9 @@ Use a short prose boundary for the current task. Read
 resume, or long-running change; a persisted record follows the working lifecycle
 defined there.
 
-Project documentation links to a persisted boundary while it is active but does
-not own it.
+A material-risk task does not by itself require a persisted boundary file.
+Default to a short boundary in the current interaction. Persist it only when it
+must survive a resume, transfer, long-running change, or named audit requirement.
+When persisted, expose it through the repository's applicable documentation
+topology. Project documentation does not own the boundary, and governance does
+not own the document link graph.

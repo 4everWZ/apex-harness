@@ -5,85 +5,16 @@ param(
 
 $ErrorActionPreference = 'Stop'
 $root = (Resolve-Path "$PSScriptRoot\..").Path
-$expectedSkills = @('governing-project-work', 'managing-project-docs')
-$actualSkills = @(
-    Get-ChildItem (Join-Path $root 'skills') -Directory |
-        Sort-Object Name |
-        ForEach-Object Name
-)
 
-if (Compare-Object $expectedSkills $actualSkills) {
-    throw "Expected exactly: $($expectedSkills -join ', '); found: $($actualSkills -join ', ')"
-}
-if (-not (Test-Path -LiteralPath $Python)) {
-    throw "Python environment not found at $Python"
-}
+function Assert-ExactSet {
+    param(
+        [string[]]$Expected,
+        [string[]]$Actual,
+        [string]$Label
+    )
 
-$validator = if ($SkillCreatorPath) {
-    Join-Path $SkillCreatorPath 'scripts\quick_validate.py'
-} else {
-    $null
-}
-if (-not $validator -or -not (Test-Path -LiteralPath $validator)) {
-    throw 'Set SKILL_CREATOR_PATH to the official skill-creator directory.'
-}
-
-foreach ($name in $expectedSkills) {
-    $skill = Join-Path $root "skills\$name"
-    $skillFile = Join-Path $skill 'SKILL.md'
-    $declaredName = Select-String -LiteralPath $skillFile -Pattern '^name:\s*(.+)\s*$' |
-        Select-Object -First 1
-    if (-not $declaredName -or $declaredName.Matches[0].Groups[1].Value.Trim() -ne $name) {
-        throw "Frontmatter name must match skill directory: $name"
-    }
-
-    & $Python $validator $skill
-    if ($LASTEXITCODE -ne 0) {
-        throw "Skill validation failed: $name"
-    }
-}
-
-foreach ($markdown in Get-ChildItem (Join-Path $root 'skills') -Recurse -File -Filter '*.md') {
-    $content = Get-Content -Raw -LiteralPath $markdown.FullName
-    foreach ($match in [regex]::Matches($content, '\[[^\]]+\]\(([^)]+)\)')) {
-        $target = $match.Groups[1].Value
-        if ($target -match '^(?:[a-z]+:|#)') {
-            continue
-        }
-        $relativeTarget = ($target -split '#', 2)[0].Replace(
-            '/',
-            [IO.Path]::DirectorySeparatorChar
-        )
-        if (-not (Test-Path -LiteralPath (Join-Path $markdown.DirectoryName $relativeTarget))) {
-            throw "Broken link in $($markdown.FullName): $target"
-        }
-    }
-}
-
-$documentationReferenceRoot = Join-Path $root 'skills\managing-project-docs\references'
-$expectedDocumentationReferences = @(
-    'decisions.md', 'specifications.md', 'topology.md', 'working-docs.md'
-)
-$actualDocumentationReferences = @(
-    Get-ChildItem $documentationReferenceRoot -File |
-        Sort-Object Name |
-        ForEach-Object Name
-)
-if (Compare-Object $expectedDocumentationReferences $actualDocumentationReferences) {
-    throw "Expected exactly these documentation references: $($expectedDocumentationReferences -join ', '); found: $($actualDocumentationReferences -join ', ')"
-}
-
-$requiredFiles = @(
-    'skills\governing-project-work\references\boundary.md',
-    'skills\managing-project-docs\references\decisions.md',
-    'skills\managing-project-docs\references\specifications.md',
-    'skills\managing-project-docs\references\topology.md',
-    'skills\managing-project-docs\references\working-docs.md'
-)
-foreach ($relativePath in $requiredFiles) {
-    $path = Join-Path $root $relativePath
-    if (-not (Test-Path -LiteralPath $path) -or (Get-Item $path).Length -eq 0) {
-        throw "Missing skill reference: $relativePath"
+    if (Compare-Object $Expected $Actual -CaseSensitive) {
+        throw "Changed ${Label}. Expected: $($Expected -join ', '); found: $($Actual -join ', ')"
     }
 }
 
@@ -96,60 +27,135 @@ function Assert-Headings {
     $content = Get-Content -Raw -LiteralPath $Path
     foreach ($heading in $Headings) {
         $pattern = '(?m)^## ' + [regex]::Escape($heading) + '\r?$'
-        if (-not [regex]::IsMatch($content, $pattern)) {
-            throw "Missing heading in ${Path}: $heading"
+        if ([regex]::Matches($content, $pattern).Count -ne 1) {
+            throw "Expected exactly one heading in ${Path}: $heading"
         }
     }
 }
 
-$topologyPath = Join-Path $documentationReferenceRoot 'topology.md'
-$specificationsPath = Join-Path $documentationReferenceRoot 'specifications.md'
-$decisionsPath = Join-Path $documentationReferenceRoot 'decisions.md'
-$workingDocsPath = Join-Path $documentationReferenceRoot 'working-docs.md'
+function Assert-ExactLine {
+    param(
+        [string]$Path,
+        [string]$Line
+    )
+
+    $matches = @(Get-Content -LiteralPath $Path | Where-Object { $_ -ceq $Line })
+    if ($matches.Count -ne 1) {
+        throw "Expected exactly one line in ${Path}: $Line"
+    }
+}
+
+function Assert-ProhibitedPrefix {
+    param(
+        [string]$Path,
+        [string[]]$Prefixes
+    )
+
+    foreach ($line in Get-Content -LiteralPath $Path) {
+        $normalized = $line.TrimStart()
+        foreach ($prefix in $Prefixes) {
+            if ($normalized.StartsWith($prefix, [StringComparison]::Ordinal)) {
+                throw "Prohibited field in ${Path}: $prefix"
+            }
+        }
+    }
+}
+
+$expectedSkills = @('governing-project-work', 'managing-project-docs')
+$actualSkills = @(
+    Get-ChildItem (Join-Path $root 'skills') -Directory |
+        Sort-Object Name |
+        ForEach-Object Name
+)
+Assert-ExactSet $expectedSkills $actualSkills 'skill set'
+
+if (-not (Test-Path -LiteralPath $Python)) {
+    throw "Python environment not found at $Python"
+}
+$officialValidator = if ($SkillCreatorPath) {
+    Join-Path $SkillCreatorPath 'scripts\quick_validate.py'
+} else {
+    $null
+}
+if (-not $officialValidator -or -not (Test-Path -LiteralPath $officialValidator)) {
+    throw 'Set SKILL_CREATOR_PATH to the official skill-creator directory.'
+}
+
+foreach ($name in $expectedSkills) {
+    $skill = Join-Path $root "skills\$name"
+    $declaredName = Select-String -LiteralPath (Join-Path $skill 'SKILL.md') `
+        -Pattern '^name:\s*(.+)\s*$' -CaseSensitive | Select-Object -First 1
+    if (-not $declaredName -or
+        $declaredName.Matches[0].Groups[1].Value.Trim() -cne $name) {
+        throw "Frontmatter name must match skill directory: $name"
+    }
+    & $Python $officialValidator $skill
+    if ($LASTEXITCODE -ne 0) {
+        throw "Official skill validation failed: $name"
+    }
+}
+
+$documentationReferenceRoot = Join-Path $root 'skills\managing-project-docs\references'
+$governanceReferenceRoot = Join-Path $root 'skills\governing-project-work\references'
+$expectedReferences = @(
+    'decisions.md', 'specifications.md', 'topology.md', 'working-docs.md'
+)
+$actualReferences = @(
+    Get-ChildItem $documentationReferenceRoot -File |
+        Sort-Object Name |
+        ForEach-Object Name
+)
+Assert-ExactSet $expectedReferences $actualReferences 'documentation reference set'
+Assert-ExactSet @('boundary.md') @(
+    Get-ChildItem $governanceReferenceRoot -File |
+        Sort-Object Name |
+        ForEach-Object Name
+) 'governance reference set'
+
 $boundaryPath = Join-Path $root 'skills\governing-project-work\references\boundary.md'
+$decisionsPath = Join-Path $documentationReferenceRoot 'decisions.md'
+$specificationsPath = Join-Path $documentationReferenceRoot 'specifications.md'
+$topologyPath = Join-Path $documentationReferenceRoot 'topology.md'
+$workingDocsPath = Join-Path $documentationReferenceRoot 'working-docs.md'
+$requiredFiles = @(
+    $boundaryPath, $decisionsPath, $specificationsPath, $topologyPath,
+    $workingDocsPath
+)
+foreach ($path in $requiredFiles) {
+    if (-not (Test-Path -LiteralPath $path -PathType Leaf) -or
+        (Get-Item -LiteralPath $path).Length -eq 0) {
+        throw "Missing or empty skill reference: $path"
+    }
+}
 
 Assert-Headings $topologyPath @(
-    'Choose the artifact', 'Resolve paths', 'Resolve content conflicts',
-    'Preserve identity', 'Retire or delete an artifact',
+    'Choose the artifact', 'Resolve paths', 'Choose specification boundaries',
+    'Resolve content conflicts', 'Preserve identity', 'Keep references sparse',
+    'Consolidate an over-split set', 'Retire or delete an artifact',
     'Optional document index'
 )
 Assert-Headings $specificationsPath @(
-    'Interpret status', 'Draft and synchronize', 'Reject a draft',
-    'Supersede or retire'
+    'Select the contract boundary', 'Interpret status', 'Draft and synchronize',
+    'Reject a draft', 'Supersede or retire'
 )
 Assert-Headings $decisionsPath @(
     'Promote a decision', 'Preserve path identity', 'Change status'
 )
-Assert-Headings $workingDocsPath @('Work plans', 'Handoffs')
+Assert-Headings $workingDocsPath @(
+    'Decide whether a working document is needed', 'Work plans', 'Handoffs'
+)
 Assert-Headings $boundaryPath @('Path', 'Risk', 'Authority', 'Evidence', 'Completion')
 
-$expectedTopology = @{
-    'specification' = @('durable', 'docs/specs/<topic>.md', 'assets/templates/specification.md')
-    'decision record' = @('durable', 'docs/design/YYYY-MM-DD-<topic>-design.md', 'assets/templates/decision-record.md')
-    'work plan' = @('working', 'docs/plans/<topic>.md', 'assets/templates/work-plan.md')
-    'handoff' = @('transient', 'docs/handoffs/<topic>.md', 'assets/templates/handoff.md')
-}
-$foundTopology = @{}
-foreach ($line in Get-Content -LiteralPath $topologyPath) {
-    if ($line -notmatch '^\|') {
-        continue
-    }
-    $cells = @(
-        $line.Trim([char]'|').Split([char]'|') |
-            ForEach-Object { $_.Trim().Trim([char]'`') }
-    )
-    if ($cells.Count -lt 4 -or -not $expectedTopology.ContainsKey($cells[0])) {
-        continue
-    }
-    $expected = $expectedTopology[$cells[0]]
-    $actual = @($cells[1], $cells[2], $cells[3])
-    if (Compare-Object $expected $actual -SyncWindow 0) {
-        throw "Changed topology mapping for $($cells[0])"
-    }
-    $foundTopology[$cells[0]] = $true
-}
-if (Compare-Object @($expectedTopology.Keys | Sort-Object) @($foundTopology.Keys | Sort-Object)) {
-    throw 'Missing documentation topology mapping.'
+$topologyLines = @(
+    '| Artifact | Lifecycle | Create only when | Fallback path | Authoritative for |',
+    '|---|---|---|---|---|',
+    '| specification | durable | a stable contract meets the specification boundary rule below | `docs/specs/<topic>.md` | current behavior, interfaces, invariants, and acceptance |',
+    '| decision record | durable | a material choice or proposal needs independent acceptance or durable rationale | `docs/design/YYYY-MM-DD-<topic>-design.md` | the choice, tradeoff, and rationale |',
+    '| work plan | working | unfinished work must remain coordinated or resumable | `docs/plans/<topic>.md` | ordered execution and unresolved work |',
+    '| handoff | transient | responsibility is actually transferring | `docs/handoffs/<topic>.md` | the current state of that transfer |'
+)
+foreach ($line in $topologyLines) {
+    Assert-ExactLine $topologyPath $line
 }
 
 $specifications = Get-Content -Raw -LiteralPath $specificationsPath
@@ -170,43 +176,62 @@ $actualTemplates = @(
         Sort-Object Name |
         ForEach-Object Name
 )
-if (Compare-Object $expectedTemplates $actualTemplates) {
-    throw "Expected exactly these templates: $($expectedTemplates -join ', '); found: $($actualTemplates -join ', ')"
-}
-foreach ($name in $expectedTemplates) {
-    $path = Join-Path $templateRoot $name
-    if ((Get-Item $path).Length -eq 0) {
-        throw "Empty documentation template: $name"
-    }
-}
+Assert-ExactSet $expectedTemplates $actualTemplates 'template set'
+
+$specificationTemplate = Join-Path $templateRoot 'specification.md'
+$decisionTemplate = Join-Path $templateRoot 'decision-record.md'
+$workPlanTemplate = Join-Path $templateRoot 'work-plan.md'
+$handoffTemplate = Join-Path $templateRoot 'handoff.md'
+
+Assert-ExactLine $specificationTemplate '## Governing decisions — optional'
+Assert-ExactLine $specificationTemplate '- **Superseded by:** [retained predecessor only; omit otherwise]'
+Assert-ExactLine $decisionTemplate '- **Superseded by:** [retained predecessor only; omit otherwise]'
+Assert-ExactLine $workPlanTemplate '- **Primary contracts:** [minimum direct links when they exist]'
+Assert-ExactLine $workPlanTemplate '- **Project boundary:** [link only when persisted]'
+Assert-ExactLine $handoffTemplate '## Primary working artifact'
+Assert-ExactLine $handoffTemplate '- Active work plan:'
+Assert-ExactLine $handoffTemplate '- Project boundary: [only when no active work plan exists and one is persisted]'
+
+Assert-ProhibitedPrefix $specificationTemplate @('- **Supersedes:**', '- **Project boundary:**')
+Assert-ProhibitedPrefix $decisionTemplate @(
+    '- **Supersedes:**', '- **Affected contract:**', '- **Affected artifacts:**',
+    '- **Project boundary:**'
+)
+Assert-ProhibitedPrefix $workPlanTemplate @('- **Related decisions:**', '- **Active work plan:**')
+Assert-ProhibitedPrefix $handoffTemplate @('- Specification:', '- Decision:')
 
 function Get-StatusNames {
     param([string]$Path)
 
-    $statusLine = Select-String -LiteralPath $Path -Pattern '^-\s+\*\*Status:\*\*\s*(.+)$' |
-        Select-Object -First 1
-    if (-not $statusLine) {
-        throw "Missing status field: $Path"
-    }
-    @(
-        $statusLine.Matches[0].Groups[1].Value.Split([char]'|') |
-            ForEach-Object { (($_.Trim()) -split '\s+', 2)[0] } |
-            Sort-Object
+    $lines = @(
+        Select-String -LiteralPath $Path `
+            -Pattern '^-\s+\*\*Status:\*\*\s*(.+)$' -CaseSensitive
     )
+    if ($lines.Count -ne 1) {
+        throw "Expected exactly one status field: $Path"
+    }
+    $statuses = @(
+        $lines[0].Matches[0].Groups[1].Value.Split([char]'|') |
+            ForEach-Object { $_.Trim() }
+    )
+    if ($statuses -ccontains '' -or
+        @($statuses | Sort-Object -Unique -CaseSensitive).Count -ne $statuses.Count) {
+        throw "Invalid status options: $Path"
+    }
+    @($statuses | Sort-Object -CaseSensitive)
 }
 
-$specificationStatuses = Get-StatusNames (Join-Path $templateRoot 'specification.md')
-if (Compare-Object @('active', 'draft', 'superseded') $specificationStatuses) {
-    throw 'Specification template has invalid status values.'
-}
-$decisionStatuses = Get-StatusNames (Join-Path $templateRoot 'decision-record.md')
-if (Compare-Object @('active', 'proposed', 'rejected', 'superseded') $decisionStatuses) {
-    throw 'Decision template has invalid status values.'
-}
+Assert-ExactSet @('active', 'draft', 'superseded') `
+    (Get-StatusNames $specificationTemplate) 'specification statuses'
+Assert-ExactSet @('active', 'proposed', 'rejected', 'superseded') `
+    (Get-StatusNames $decisionTemplate) 'decision statuses'
 
 $manifestPath = Join-Path $root '.codex-plugin\plugin.json'
 $manifest = Get-Content -Raw -LiteralPath $manifestPath | ConvertFrom-Json
-if ($manifest.skills -ne './skills/' -or $null -ne $manifest.hooks) {
+$manifestKeys = @($manifest.PSObject.Properties.Name)
+if ($manifestKeys -cnotcontains 'skills' -or
+    @($manifestKeys | Where-Object { $_ -ieq 'hooks' }).Count -ne 0 -or
+    $manifest.skills -isnot [string] -or $manifest.skills -cne './skills/') {
     throw 'Codex manifest must expose ./skills/ and must not configure hooks.'
 }
 
@@ -220,4 +245,4 @@ foreach ($relativePath in $prohibited) {
     }
 }
 
-Write-Host 'PASS: skill structure, skill-local links, topology mappings, references, templates, status values, and manifest are valid.'
+Write-Host 'PASS: official skill validation and repository structure contracts are valid.'

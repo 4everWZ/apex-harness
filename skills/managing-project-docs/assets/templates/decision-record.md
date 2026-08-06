@@ -2,9 +2,7 @@
 
 - **Status:** proposed | active | rejected | superseded
 - **Acceptance authority:** [person, team, role, or repository process]
-- **Affected artifacts:** [canonical specifications or components]
-- **Supersedes:** [link when applicable]
-- **Superseded by:** [link when applicable]
+- **Superseded by:** [retained predecessor only; omit otherwise]
 - **Revisit when:** [observable condition; omit when none exists]
 
 ## Context

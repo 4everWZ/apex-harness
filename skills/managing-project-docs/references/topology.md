@@ -4,20 +4,36 @@ Preserve an established documentation topology. Use this fallback only when no
 authoritative convention exists. Never reorganize canonical artifacts from
 model preference alone.
 
+## Contents
+
+- [Choose the artifact](#choose-the-artifact)
+- [Resolve paths](#resolve-paths)
+- [Choose specification boundaries](#choose-specification-boundaries)
+- [Resolve content conflicts](#resolve-content-conflicts)
+- [Preserve identity](#preserve-identity)
+- [Keep references sparse](#keep-references-sparse)
+- [Consolidate an over-split set](#consolidate-an-over-split-set)
+- [Retire or delete an artifact](#retire-or-delete-an-artifact)
+- [Optional document index](#optional-document-index)
+
 ## Choose the artifact
 
-| Artifact | Lifecycle | Fallback path | Fallback template | Authoritative for |
+| Artifact | Lifecycle | Create only when | Fallback path | Authoritative for |
 |---|---|---|---|---|
-| specification | durable | `docs/specs/<topic>.md` | `assets/templates/specification.md` | current behavior, interfaces, acceptance, and optional algorithm, data, ML, evaluation, or research semantics |
-| decision record | durable | `docs/design/YYYY-MM-DD-<topic>-design.md` | `assets/templates/decision-record.md` | a material design choice, cross-artifact tradeoff, or legacy successor or retirement decision |
-| work plan | working | `docs/plans/<topic>.md` | `assets/templates/work-plan.md` | ordered execution, blockers, and optional requirement mapping |
-| handoff | transient | `docs/handoffs/<topic>.md` | `assets/templates/handoff.md` | current state for one explicit transfer of work |
+| specification | durable | a stable contract meets the specification boundary rule below | `docs/specs/<topic>.md` | current behavior, interfaces, invariants, and acceptance |
+| decision record | durable | a material choice or proposal needs independent acceptance or durable rationale | `docs/design/YYYY-MM-DD-<topic>-design.md` | the choice, tradeoff, and rationale |
+| work plan | working | unfinished work must remain coordinated or resumable | `docs/plans/<topic>.md` | ordered execution and unresolved work |
+| handoff | transient | responsibility is actually transferring | `docs/handoffs/<topic>.md` | the current state of that transfer |
 
-Template paths are relative to `managing-project-docs/`.
-Copy the applicable template sections and remove unused placeholders.
+Templates are under `assets/templates/` and are named `specification.md`,
+`decision-record.md`, `work-plan.md`, and `handoff.md`. Copy only the applicable
+sections and remove unused placeholders.
 
-A project boundary remains governance-owned at its governance-resolved path;
-project documents link to it while it is active.
+A project boundary remains governance-owned at its governance-resolved path.
+Link it from the active work plan; when no plan exists, link it from the active
+handoff. When neither exists, leave the boundary standalone at that path rather
+than creating another artifact solely to link it. Do not repeat the link
+elsewhere.
 
 ## Resolve paths
 
@@ -38,6 +54,12 @@ name the canonical location.
 
 Update an existing canonical artifact at its current path. Use stable lowercase
 kebab-case topics that name the owned contract, decision, or outcome.
+
+## Choose specification boundaries
+
+Use the contract-boundary criteria in the specification lifecycle. Otherwise
+keep an algorithm, stage, pipeline step, or internal module as a section of the
+owning specification.
 
 ## Resolve content conflicts
 
@@ -62,9 +84,43 @@ After a canonical identity or location changes, no current reference may point
 to the retired identity, and only the resolved canonical artifact may remain
 current.
 
-For a retained predecessor, set `Status` to `superseded`, set `Superseded by` to
-the successor, and set the successor's `Supersedes` field to the predecessor.
-Lineage alone does not require retention.
+For a retained predecessor, set `Status` to `superseded` and `Superseded by` to
+the successor. Lineage alone does not require retention or a reciprocal link
+from the current artifact.
+
+## Keep references sparse
+
+Link only to direct authority or dependency; do not repeat transitive links.
+A specification may link to decisions that independently own material rationale;
+those decisions do not link back to the specification.
+A work plan may link to the minimum set of primary specifications it directly
+coordinates and an active persisted
+project boundary; it does not link back to a handoff. A handoff links only to its
+active work plan and does not repeat the plan's specification or boundary links.
+When no plan exists, the handoff links to the active persisted boundary and to
+the primary canonical artifact when one exists. Omit a nonexistent primary
+artifact rather than creating one for the link. An index links to canonical
+artifacts, which do not link back.
+
+Do not add reciprocal links; a retained predecessor's forward lineage link is
+sufficient.
+
+## Consolidate an over-split set
+
+When multiple artifacts describe one subject:
+
+1. Identify the smallest set of stable contracts and material decisions.
+2. Select one canonical artifact for each contract.
+3. Merge still-current contract information into those artifacts.
+4. Keep separate decision records only for independently durable rationale.
+5. Merge unfinished execution into the minimum number of active work plans.
+6. Remove generated data, runtime events, and experiment logs from project
+   documents after confirming their existing owning systems; do not initiate an
+   external move without authority.
+7. Repair direct current references.
+8. Delete artifacts that no longer own independently useful information.
+
+Do not preserve one file per historical stage; Git owns chronology.
 
 ## Retire or delete an artifact
 
@@ -79,8 +135,8 @@ Before deleting any project artifact:
 5. Otherwise delete it; Git retains document chronology.
 
 A superseded status does not itself require retention. If a retained
-predecessor is removed, its direct successor points to the earlier retained
-ancestor or clears `Supersedes`; current links resolve to the successor.
+predecessor is removed, any retained lineage bypasses it and current links
+resolve to the successor.
 
 ## Optional document index
 

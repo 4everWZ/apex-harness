@@ -2,9 +2,7 @@
 
 - **Status:** draft | active | superseded
 - **Acceptance authority:** [person, team, role, or repository process]
-- **Governing decisions:** [links when applicable]
-- **Supersedes:** [link when applicable]
-- **Superseded by:** [link when applicable]
+- **Superseded by:** [retained predecessor only; omit otherwise]
 
 ## Intent
 
@@ -21,6 +19,10 @@
 | Observable requirement | Verification method | Stable evidence reference — optional |
 |---|---|---|
 |  |  |  |
+
+## Governing decisions — optional
+
+[Only decisions that independently own material rationale.]
 
 ## Technical semantics — optional
 

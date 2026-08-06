@@ -1,24 +1,47 @@
 ---
 name: managing-project-docs
-description: Applies project-document topology, ownership, synchronization, and lifecycle for specifications, decision records, work plans, handoffs, supersession, and legacy material. Use when one of those artifacts or its lifecycle is being created, changed, synchronized, reorganized, or retired. Does not own project governance.
+description: Maintains the smallest coherent set of canonical project documents. Updates or consolidates existing artifacts before creating new ones, and applies ownership, synchronization, supersession, and retirement rules for specifications, decision records, work plans, and handoffs. Use when those artifacts are created, changed, reorganized, consolidated, superseded, or retired. Does not own project governance.
 ---
 
 # Managing Project Docs
 
+Prefer no new artifact. When project information must change, update an existing
+canonical artifact before creating another file.
+Honor explicit user instructions and established repository conventions for
+artifact topology or retention. Apply the selection, budget, linking, and
+retirement defaults below only where they do not specify the behavior. When the
+user asks to review or consolidate that topology, propose or apply the requested
+change without silently overriding unrelated conventions.
+
 ## Terms
 
 - **Canonical** — the single authoritative identity or location for an artifact.
-- **Active** — accepted and currently authoritative under the repository's
-  acceptance process.
-- **Current** — still applicable to the project, regardless of age.
+- **Current** — still applicable; a plan or handoff remains current while its
+  execution or transfer remains open.
 - **Artifact ownership** — the information type an artifact is authoritative for.
-- **Accountable owner** — the person, team, role, or process responsible for an
-  artifact or task.
-- **Acceptance authority** — the person, team, role, or process authorized to
-  accept or activate an artifact.
+- **Acceptance authority** — the user, person, team, role, or repository process
+  authorized to accept or activate an artifact.
 
-Split or promote content only for distinct artifact ownership, lifecycle, or
-audience.
+Use this order:
+
+1. Make no documentation change when no durable or working information changes.
+2. Update or extend the existing canonical artifact.
+3. Create one artifact only when the content needs independent artifact
+   ownership or lifecycle.
+4. Split further only when every result remains independently maintained,
+   accepted, or consumed.
+
+The existence of a template, implementation unit, algorithm, development stage,
+experiment, review, date, or task is not by itself a reason to create a file.
+Create a work plan only for work that must remain coordinated or resumable, and
+a handoff only for an actual transfer of responsibility.
+
+As a default budget, an ordinary single-session change creates no project
+document. A durable contract change uses one specification; independently useful
+rationale may add one decision record; coordinated or multi-session work uses
+one active plan; an actual transfer may add one handoff. Exceed this budget only
+when each additional artifact has independent ownership or lifecycle.
+
 Proposed content becomes authoritative only through the user, a named authority,
 or the repository's established acceptance process.
 

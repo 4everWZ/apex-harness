@@ -12,7 +12,9 @@ APEX provides two independent Codex skills:
 - Use governance when the user requests a project boundary or omitting one could
   materially change authorization, verification, or the completion claim.
 - Use document management when creating, changing, synchronizing, reorganizing,
-  or retiring one of its project artifacts.
+  consolidating, or retiring one of its project artifacts. Prefer updating an
+  existing canonical artifact; create a new one only for independent ownership
+  or lifecycle.
 
 Each skill has its own frontmatter trigger and neither requires a router or the
 other skill.
@@ -30,11 +32,12 @@ Repository conventions take precedence over these fallback shapes and paths.
 
 ## Example
 
-For a feature with a material design choice, the specification owns the accepted
-contract, a decision record owns the independent choice, and a work plan drives
-unfinished implementation. Create a handoff only for an actual transfer. At
-closure, move still-current facts to their authoritative durable artifact and
-retire working or transient records under their lifecycle rules.
+For a feature with a material design choice, update one specification for the
+accepted contract and add a decision record only when its rationale remains
+independently useful. Add one work plan only when execution must remain
+coordinated or resumable, and a handoff only for an actual transfer. At closure,
+move still-current facts to their authoritative durable artifact and retire
+working or transient records under their lifecycle rules.
 
 ## Default paths
 
@@ -59,5 +62,7 @@ $env:SKILL_CREATOR_PATH = 'C:\path\to\official\skill-creator'
 ```
 
 Pass `-Python C:\path\to\python.exe` to use another isolated environment.
-Static validation checks frontmatter, links, topology mappings, references,
-templates, and the manifest; it does not measure behavioral trigger rates.
+Static validation checks official skill validity plus the repository's required
+skill set, reference and template sets, headings, fallback topology, status
+schema, and manifest. It is intentionally not a general Markdown parser or a
+behavioral evaluation; substantial revisions use fresh forward tests.

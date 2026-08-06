@@ -23,16 +23,17 @@ rename it.
 Apply the topology path precedence when creating, moving, or deleting a record
 or successor, and its retention and lineage rules when superseding one.
 
-For a material successor, create and cross-link a new dated record. If its base
-path already owns a different decision, append `-NN` before `.md`, treating the
-unsuffixed path as generation `01` and using the next unused suffix.
+For a material successor, create a new dated record and link the retained
+predecessor forward to it. If its base path already owns a different decision,
+append `-NN` before `.md`, treating the unsuffixed path as generation `01` and
+using the next unused suffix.
 
 ## Change status
 
 Update a record in place when the governed choice is unchanged and only its
 context, rationale, or consequences need clarification. When the choice changes
-materially, create and cross-link a successor, then mark the predecessor
-`superseded`. Keep a retained decision record at its resolved path.
+materially, create a successor, then mark the retained predecessor `superseded`
+and link it forward. Keep a retained decision record at its resolved path.
 
 When an activated or superseded decision changes the current contract, update
 the owning specification in the same logical change. The decision owns the
@@ -40,6 +41,8 @@ choice and rationale; the specification owns the resulting contract. Treat
 disagreement as an unresolved documentation conflict.
 
 Keep a rejected decision while its rejection remains a current material
-constraint with independent artifact ownership, lifecycle, or audience. When
-any decision no longer constrains the project and has no successor, retire it
-under the topology procedure.
+constraint with independent maintenance or consumption. Retain a superseded
+decision only when it satisfies the topology retention rule; a successor alone
+does not justify retention. Retire any decision that no longer constrains the
+project and has no independent retention reason, whether or not it has a
+successor.

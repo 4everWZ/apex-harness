@@ -1,5 +1,17 @@
 # Specification Lifecycle
 
+## Select the contract boundary
+
+A specification represents a stable contract, not the chronology of developing
+it. Prefer one active specification for one coherent contract. Give an internal
+algorithm, stage, or module its own specification only when it has an
+independently maintained behavioral contract and at least one of independent
+acceptance, consumers, replacement, or versioning.
+
+Implementation stages, experiments and run histories, candidate reviews,
+confirmation records, generated manifests, runtime snapshots, method-revision
+history, and task notes are not specifications by themselves.
+
 ## Interpret status
 
 An active specification owns the accepted current contract. A draft owns a
@@ -22,8 +34,9 @@ specification.
 Before activation or a claim that contract synchronization is complete, the
 specification, implementation, evidence, and active decisions agree. Open
 decisions are resolved and evidence supports acceptance. Reference stable
-evidence; keep run logs in their external system. When governance owns evidence
-strength or freshness, link to its boundary.
+evidence; keep run logs in their external system. Apply governance-owned
+evidence requirements during verification; expose a persisted boundary through
+the documentation topology rather than duplicating its link here.
 
 ## Reject a draft
 
@@ -43,17 +56,22 @@ precedence, using `docs/specs/legacy/<topic>-NN.md` as its fallback in place of
 the topology table's step 4. Use the next unused generation, beginning with
 `01`.
 
-Do not retain predecessors merely to preserve a complete generation sequence.
-Assign a legacy generation only after the artifact independently satisfies a
-retention condition.
+Deletion is the default after supersession. Retain a predecessor only for
+independently useful rationale not owned by a decision record, a current
+non-lineage consumer, or an explicit audit or compliance requirement. Before
+placing it under `legacy/`, record `Retention reason` and `Remove when`. Do not
+assign a legacy generation merely to preserve a complete sequence.
+
+Exclude retained legacy specifications from normal current-document navigation.
+Read them only to resolve lineage, audit, or a documented historical dependency.
 
 When retaining a superseded specification, the legacy artifact is the last
 active Git version, not the successor draft. Keep the successor at the canonical
 path, repair older lineage fields that named the predecessor's former path, and
 apply the topology lineage rules.
 
-When not retaining a superseded specification, clear the successor's
-`Supersedes` field and apply the topology retirement procedure.
+When not retaining a superseded specification, apply the topology retirement
+procedure.
 
 For legacy code, keep the current contract in its specification. Put successor
 or retirement reasoning in a decision record under the skill's promotion rule.

@@ -6,9 +6,15 @@ information.
 This is a working governance record, not durable project documentation or an
 execution history. At closure, every durable constraint or decision resides
 with its owner, no live reference points to the boundary, and the working record
-is deleted. A required audit copy has a named owner and retention condition; it
-grants no current authority and does not establish freshness for a current
-claim.
+is deleted. When audit retention remains required, transfer the required content
+to the audit system and path designated by its named owner or repository
+convention before deleting the working record, but perform that transfer only
+within already-established mutation authority. If the destination or required
+authority is absent or unresolved, do not move the content or close the boundary;
+preserve the working record until the owner resolves the missing condition. Do
+not rename or retain the working boundary as the audit copy. The audit copy has
+a retention condition, grants no current authority, and does not establish
+freshness for a current claim.
 
 ## Path
 
