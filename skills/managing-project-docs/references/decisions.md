@@ -40,6 +40,6 @@ choice and rationale; the specification owns the resulting contract. Treat
 disagreement as an unresolved documentation conflict.
 
 Keep a rejected decision while its rejection remains a current material
-constraint with an independent owner, lifecycle, or audience. When any decision
-no longer constrains the project and has no successor, resolve inbound links and
-delete it; Git retains its history.
+constraint with independent artifact ownership, lifecycle, or audience. When
+any decision no longer constrains the project and has no successor, retire it
+under the topology procedure.

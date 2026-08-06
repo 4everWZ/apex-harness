@@ -5,7 +5,20 @@ description: Applies project-document topology, ownership, synchronization, and 
 
 # Managing Project Docs
 
-Split or promote content only for a distinct owner, lifecycle, or audience.
+## Terms
+
+- **Canonical** — the single authoritative identity or location for an artifact.
+- **Active** — accepted and currently authoritative under the repository's
+  acceptance process.
+- **Current** — still applicable to the project, regardless of age.
+- **Artifact ownership** — the information type an artifact is authoritative for.
+- **Accountable owner** — the person, team, role, or process responsible for an
+  artifact or task.
+- **Acceptance authority** — the person, team, role, or process authorized to
+  accept or activate an artifact.
+
+Split or promote content only for distinct artifact ownership, lifecycle, or
+audience.
 Proposed content becomes authoritative only through the user, a named authority,
 or the repository's established acceptance process.
 

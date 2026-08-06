@@ -1,16 +1,16 @@
 # [Subject] Specification
 
-- **Status:** draft (proposed) | active (accepted current contract) | superseded
-- **Owner:** [canonical owner]
-- **Scope:** [owned behavior or contract]
+- **Status:** draft | active | superseded
+- **Acceptance authority:** [person, team, role, or repository process]
 - **Governing decisions:** [links when applicable]
 - **Supersedes:** [link when applicable]
 - **Superseded by:** [link when applicable]
 
 ## Intent
 
-- Outcome:
-- Non-goals or limits:
+- Intended outcome:
+- In scope:
+- Out of scope:
 
 ## Contract
 
@@ -24,9 +24,9 @@
 
 ## Technical semantics — optional
 
-[Include authoritative technical semantics needed to interpret, verify, or
-reproduce the contract.]
+[Only authoritative semantics needed to interpret, verify, or reproduce the
+contract.]
 
 ## Open decisions — optional
 
-[Only unresolved questions that prevent this contract from becoming active.]
+[Only unresolved questions that prevent activation.]

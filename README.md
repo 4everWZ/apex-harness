@@ -1,46 +1,49 @@
 # APEX
 
-APEX provides two independent Codex project mechanisms: project-work boundaries
-and project-document lifecycle.
+APEX provides two independent Codex skills:
 
-```text
-skills/
-├── governing-project-work/
-└── managing-project-docs/
-```
+- [`governing-project-work`](skills/governing-project-work/SKILL.md) defines
+  material risk, authority, evidence, and completion boundaries.
+- [`managing-project-docs`](skills/managing-project-docs/SKILL.md) manages
+  specifications, decisions, work plans, handoffs, and their lifecycle.
 
-- [`governing-project-work`](skills/governing-project-work/SKILL.md) records the
-  risk, authority, evidence strength and freshness, and completion boundary
-  when that boundary matters.
-- [`managing-project-docs`](skills/managing-project-docs/SKILL.md) applies the
-  preferred document topology, templates, ownership, supersession, and legacy
-  lifecycle. Its artifact-specific references load only when relevant.
+## When to use
 
-Documentation falls back to four shapes: a durable specification, a durable
-decision record, a working plan, and a transient handoff. Durable artifacts
-hold current contracts or decisions. Git owns document change chronology, and
-operational logging owns runtime events.
+- Use governance when the user requests a project boundary or omitting one could
+  materially change authorization, verification, or the completion claim.
+- Use document management when creating, changing, synchronizing, reorganizing,
+  or retiring one of its project artifacts.
 
-Specifications follow a contract loop: draft the intended contract when it can
-be known in advance, implement it, and synchronize accepted behavior before
-activation. Independently owned choices belong in decision records; unfinished
-deviations do not redefine the contract.
+Each skill has its own frontmatter trigger and neither requires a router or the
+other skill.
 
-When a repository has no established documentation convention, the fallback
-paths are `docs/specs/`, `docs/design/`, `docs/plans/`, and `docs/handoffs/`.
-The fallback for retained superseded specifications is
-`docs/specs/legacy/<topic>-NN.md`;
-the fallback for working project boundaries is
-`docs/plans/<topic>-boundary.md`. Handoffs are rewritten in place for the same
-transfer, and deleted after takeover or abandonment once still-current facts
-have moved to their owner. They have no legacy lifecycle.
+## Documentation model
 
-For repositories with enough project documents to need a human entry point,
-`docs/README.md` may index canonical artifacts. It owns navigation only and
-does not duplicate their contracts, decisions, status, rationale, or work state.
+| Artifact | Lifecycle | Authoritative for |
+|---|---|---|
+| specification | durable | current contract and acceptance |
+| decision record | durable | an independently owned choice and rationale |
+| work plan | working | unfinished execution and blockers |
+| handoff | transient | one explicit transfer of work |
 
-Each skill has its own frontmatter trigger and can be selected without a router
-or the other skill. Static validation does not claim behavioral trigger rates.
+Repository conventions take precedence over these fallback shapes and paths.
+
+## Example
+
+For a feature with a material design choice, the specification owns the accepted
+contract, a decision record owns the independent choice, and a work plan drives
+unfinished implementation. Create a handoff only for an actual transfer. At
+closure, move still-current facts to their authoritative durable artifact and
+retire working or transient records under their lifecycle rules.
+
+## Default paths
+
+- specifications: `docs/specs/<topic>.md`
+- decision records: `docs/design/YYYY-MM-DD-<topic>-design.md`
+- work plans: `docs/plans/<topic>.md`
+- handoffs: `docs/handoffs/<topic>.md`
+- retained superseded specifications: `docs/specs/legacy/<topic>-NN.md`
+- persisted project boundaries: `docs/plans/<topic>-boundary.md`
 
 ## Validation
 
@@ -56,5 +59,5 @@ $env:SKILL_CREATOR_PATH = 'C:\path\to\official\skill-creator'
 ```
 
 Pass `-Python C:\path\to\python.exe` to use another isolated environment.
-Validation follows the installed official `skill-creator`; it checks static
-structure and frontmatter rather than serving as a behavior benchmark.
+Static validation checks frontmatter, links, topology mappings, references,
+templates, and the manifest; it does not measure behavioral trigger rates.

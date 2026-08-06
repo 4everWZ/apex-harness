@@ -1,11 +1,13 @@
 ---
 name: governing-project-work
-description: Establishes or reviews an explicit boundary for project risk, mutation authority, evidence strength and freshness, and completion claims. Use when the user requests that boundary or when work has material irreversible, external, public-contract, privacy, integrity, publication, or interpretation risk. Do not trigger for ordinary low-risk project work unless the boundary itself is requested.
+description: Establishes or reviews an explicit boundary for project risk, mutation authority, evidence strength and freshness, and completion claims. Use when the user requests such a boundary, or when work can cause material irreversible or external effects, change a public contract, expose private data, compromise integrity, or support a consequential completion claim. Do not trigger for ordinary reversible repository edits.
 ---
 
 # Governing Project Work
 
 Externalize only the applicable project boundary.
+A boundary is warranted only when omitting it could materially change how the
+work should be authorized, verified, or described as complete.
 
 ## Establish the boundary
 

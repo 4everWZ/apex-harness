@@ -109,8 +109,9 @@ $workingDocsPath = Join-Path $documentationReferenceRoot 'working-docs.md'
 $boundaryPath = Join-Path $root 'skills\governing-project-work\references\boundary.md'
 
 Assert-Headings $topologyPath @(
-    'Choose the owner', 'Resolve paths', 'Resolve content conflicts',
-    'Preserve identity', 'Optional document index'
+    'Choose the artifact', 'Resolve paths', 'Resolve content conflicts',
+    'Preserve identity', 'Retire or delete an artifact',
+    'Optional document index'
 )
 Assert-Headings $specificationsPath @(
     'Interpret status', 'Draft and synchronize', 'Reject a draft',

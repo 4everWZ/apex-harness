@@ -1,22 +1,20 @@
 # [Decision]
 
 - **Status:** proposed | active | rejected | superseded
-- **Owner:** [decision owner]
-- **Scope:** [affected contracts or components]
-- **Canonical specification:** [link when one exists]
+- **Acceptance authority:** [person, team, role, or repository process]
+- **Affected artifacts:** [canonical specifications or components]
 - **Supersedes:** [link when applicable]
 - **Superseded by:** [link when applicable]
-- **Revisit when:** [observable condition; omit when none is meaningful]
+- **Revisit when:** [observable condition; omit when none exists]
 
 ## Context
 
-[Constraint or tradeoff that requires an independently owned decision.]
+[The constraint, tradeoff, or unresolved choice.]
 
 ## Decision
 
-[State the proposal or decision and the minimum rationale needed to understand
-it; `Status` records its disposition.]
+[The selected option and the minimum rationale needed to understand it.]
 
 ## Consequences
 
-[Only material downstream effects and obligations.]
+[Material obligations, limitations, and downstream effects.]

@@ -30,7 +30,7 @@ strength or freshness, link to its boundary.
 For a rejected or abandoned draft:
 
 - discard the draft Git version; an existing active version remains canonical
-- if no active version exists, resolve inbound links and delete the artifact
+- if no active version exists, retire the artifact under the topology procedure
 - first transfer a still-current rejection constraint to a rejected decision
   record under the skill's promotion rule
 
@@ -43,21 +43,23 @@ precedence, using `docs/specs/legacy/<topic>-NN.md` as its fallback in place of
 the topology table's step 4. Use the next unused generation, beginning with
 `01`.
 
+Do not retain predecessors merely to preserve a complete generation sequence.
+Assign a legacy generation only after the artifact independently satisfies a
+retention condition.
+
 When retaining a superseded specification, the legacy artifact is the last
 active Git version, not the successor draft. Keep the successor at the canonical
 path, repair older lineage fields that named the predecessor's former path, and
 apply the topology lineage rules.
 
 When not retaining a superseded specification, clear the successor's
-`Supersedes` field and redirect current links to it. Git history retains the
-predecessor.
+`Supersedes` field and apply the topology retirement procedure.
 
 For legacy code, keep the current contract in its specification. Put successor
 or retirement reasoning in a decision record under the skill's promotion rule.
 Record the target state, affected consumers, relevant recovery information, and
 evidence that the contract retired.
 
-When a contract retires without a successor, transfer every still-current fact
-and independently owned retirement decision, resolve inbound links, then delete
-the specification. Do not leave a retired contract active or invent a successor
-only to retain the file.
+When a contract retires without a successor, apply the topology retirement
+procedure. Do not leave a retired contract active or invent a successor only to
+retain the file.

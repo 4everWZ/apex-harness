@@ -1,15 +1,15 @@
 # [Topic] Handoff
 
-## Target
+## Transfer
 
-- Recipient:
-- Transfer completes when:
-- Outcome:
-- Boundary or non-goals:
+- Recipient or role: [optional]
+- Transfer goal:
+- Complete when:
+- Exclusions:
 
 ## Current state
 
-- Position:
+- Current checkpoint:
 - Verified:
 - Not verified:
 - Blocker:

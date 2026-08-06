@@ -4,9 +4,9 @@ Preserve an established documentation topology. Use this fallback only when no
 authoritative convention exists. Never reorganize canonical artifacts from
 model preference alone.
 
-## Choose the owner
+## Choose the artifact
 
-| Artifact | Lifecycle | Fallback path | Fallback template | Owns |
+| Artifact | Lifecycle | Fallback path | Fallback template | Authoritative for |
 |---|---|---|---|---|
 | specification | durable | `docs/specs/<topic>.md` | `assets/templates/specification.md` | current behavior, interfaces, acceptance, and optional algorithm, data, ML, evaluation, or research semantics |
 | decision record | durable | `docs/design/YYYY-MM-DD-<topic>-design.md` | `assets/templates/decision-record.md` | a material design choice, cross-artifact tradeoff, or legacy successor or retirement decision |
@@ -62,15 +62,25 @@ After a canonical identity or location changes, no current reference may point
 to the retired identity, and only the resolved canonical artifact may remain
 current.
 
-When superseding a durable artifact, first transfer current facts to their
-owner. Retain the predecessor only while its rationale remains useful, a
-non-lineage consumer references it, or audit requires it. For a retained
-predecessor, set `Status` to `superseded`, set `Superseded by` to the successor,
-and set the successor's `Supersedes` field to the predecessor.
+For a retained predecessor, set `Status` to `superseded`, set `Superseded by` to
+the successor, and set the successor's `Supersedes` field to the predecessor.
+Lineage alone does not require retention.
 
-Lineage alone does not require retention. If a retained predecessor is removed,
-its direct successor points to the earlier retained ancestor or clears
-`Supersedes`; current links resolve to the successor. Git owns the chronology.
+## Retire or delete an artifact
+
+Before deleting any project artifact:
+
+1. Transfer every still-current fact to the artifact that owns it.
+2. Redirect or remove every current inbound reference.
+3. Preserve required evidence in its designated evidence system.
+4. Retain the artifact only when its rationale remains independently useful, a
+   non-lineage consumer still depends on it, or an explicit audit requirement
+   applies.
+5. Otherwise delete it; Git retains document chronology.
+
+A superseded status does not itself require retention. If a retained
+predecessor is removed, its direct successor points to the earlier retained
+ancestor or clears `Supersedes`; current links resolve to the successor.
 
 ## Optional document index
 
