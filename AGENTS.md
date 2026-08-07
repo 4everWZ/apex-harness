@@ -11,3 +11,5 @@
 - Keep fallback templates under
   `skills/managing-project-docs/assets/templates/`.
 - Static validation must not be described as behavioral evaluation.
+- Keep static validation structural; do not encode preferred wording, headings,
+  metadata, or workflow behavior as validation rules.

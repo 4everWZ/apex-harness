@@ -42,8 +42,8 @@ Resolve each artifact path in this order:
 4. the fallback path in the topology table
 
 Recognize an authoritative convention from repository instructions, a document
-index, consistent current artifacts of the same type, or an active specification
-or decision that explicitly names it.
+index, consistent current artifacts of the same type, or a current specification
+or active decision that explicitly names it.
 
 At the same priority, prefer the candidate marked canonical or current, then one
 linked by current project documents. If candidates remain tied, ask the user to

@@ -46,8 +46,7 @@ mapping to the existing canonical specification or active work plan. Do not
 create a separate matrix by default; follow an established repository matrix
 convention when one exists.
 
-Proposed content becomes authoritative only through the user, a named owner, or
-the repository's established acceptance process.
+Writing or editing a document does not by itself make a proposed contract authoritative; follow the repository's normal acceptance process.
 
 Read [topology.md](references/topology.md) for any project-topology decision,
 including a change to canonical identity or location. Read the lifecycle

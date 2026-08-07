@@ -22,6 +22,11 @@ evidence state, blockers, and next action needed to resume. Transfer rationale
 when it becomes part of the current contract or an independently owned decision,
 then replace plan detail with a link to its durable owner.
 
+Treat the plan's stated Goal as its lifecycle boundary. An open task or blocker
+keeps the plan current only while it belongs to that Goal. Follow-on work outside
+that Goal does not prevent retirement. Create or extend another plan only when
+the follow-on work independently meets the work-plan criteria.
+
 ## Retire working documents
 
 Retire a work plan when:
@@ -35,8 +40,9 @@ Retire a work plan when:
 
 Code being written is not by itself delivery. If the changed claim remains
 unverified, do not retire the plan as delivered. Explicit supersession,
-abandonment, or cancellation remains possible after transferring its remaining
-boundary. A named next phase, open task, or blocker also keeps the plan current.
+abandonment, or cancellation remains possible only after transferring its
+remaining boundary and any still-current constraint, blocker, cancellation
+reason, or unverified boundary to the appropriate owner.
 
 When a retirement condition is met, apply the topology retirement procedure.
 Do not repeat its fact-transfer, link-repair, evidence, or retention checklist
@@ -52,11 +58,16 @@ Keep one handoff at the canonical path for the current transfer and update it in
 place instead of creating parallel handoffs. A later transfer may reuse the same
 path with new contents; Git preserves the prior transfer's history.
 
-Reading a handoff does not constitute accepting it. After the recipient has read
-and accepted the transfer, move every still-current fact, evidence boundary,
-blocker, and next action into the active work plan or the relevant canonical
-specification or decision record. If no such artifact exists, the handoff may
-temporarily remain the primary working artifact.
+Reading a handoff does not constitute accepting it. Before acceptance, the
+handoff may temporarily be the primary transfer artifact. After the recipient
+has read and accepted the transfer, a handoff must not become a long-term work
+tracker. If substantive unfinished work still needs to remain coordinated or
+resumable and meets the work-plan criteria, create or update the current work
+plan. Otherwise move every still-current fact, evidence boundary, blocker, and
+next action into the relevant canonical specification, decision record, or
+other durable owner. If those facts have been absorbed but the transfer is not
+yet complete, the handoff may remain temporarily as a transfer envelope; do not
+use it to accumulate plan tasks.
 
 Retire a handoff only when its transfer completion condition is met or it is
 explicitly abandoned, no still-current information exists only in the handoff,
