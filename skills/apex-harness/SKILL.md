@@ -24,7 +24,7 @@ semantic risk, evidence boundaries, material user decisions, and stopping.
 ## Route the work
 
 Read [workflow.md](references/workflow.md) for semantic tiers, consultation,
-completion claims, and persisted execution boundaries.
+completion claims, and the execution loop.
 
 Read [verification.md](references/verification.md) for evidence selection,
 anti-loop rules, TDD boundaries, and stopping conditions.
@@ -38,10 +38,9 @@ documents, use `managing-project-docs` for ownership and lifecycle.
 
 ## Activation output
 
-Before implementation, state briefly:
-
-- the semantic tier and why;
-- the claim that must be supported;
-- the cheapest credible verification path;
-- any material choice that still belongs to the user;
-- whether an existing canonical document needs synchronization.
+Before implementation, briefly orient the user in natural prose. State the
+semantic tier and the consequence that justifies it, then name the changed claim
+and the cheapest evidence that could falsify it. Mention a material user choice
+or canonical-document synchronization only when one actually exists. Omit empty
+categories, do not emit placeholders, and do not delay the work to format a
+fixed checklist.

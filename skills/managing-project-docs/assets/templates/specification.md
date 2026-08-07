@@ -1,9 +1,5 @@
 # [Subject] Specification
 
-- **Status:** draft | active | superseded
-- **Acceptance authority:** [person, team, role, or repository process]
-- **Superseded by:** [retained predecessor only; omit otherwise]
-
 ## Intent
 
 - Intended outcome:

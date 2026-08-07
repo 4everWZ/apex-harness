@@ -4,7 +4,7 @@
 - `skills/` contains exactly `apex-harness` and
   `managing-project-docs`.
 - Each skill has its own frontmatter trigger and neither requires a router.
-- Governance and documentation responsibilities must not overlap.
+- Execution and documentation responsibilities must not overlap.
 - Preserve existing repository documentation conventions before applying
   fallback paths.
 - Do not add routers, aliases, hooks, runtime adapters, or duplicate workflows.

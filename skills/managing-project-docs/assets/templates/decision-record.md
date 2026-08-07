@@ -1,7 +1,6 @@
 # [Decision]
 
 - **Status:** proposed | active | rejected | superseded
-- **Acceptance authority:** [person, team, role, or repository process]
 - **Superseded by:** [retained predecessor only; omit otherwise]
 - **Revisit when:** [observable condition; omit when none exists]
 

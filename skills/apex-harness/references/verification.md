@@ -3,24 +3,25 @@
 ## Choose evidence
 
 Verification exists to support the changed claim, not to maximize test activity.
-Run existing relevant checks before creating new test machinery. Choose the
-cheapest check that can distinguish the current hypotheses: inspect the call
-chain or source of truth, load the real config or checkpoint, check a tensor
-shape, run a minimal forward, or execute a focused regression as appropriate.
+Prefer an existing check when it directly covers the changed claim. Do not run a
+broad suite merely because it exists. Choose the cheapest check that can
+distinguish the current hypotheses: inspect the call chain or source of truth,
+load the real config or checkpoint, check a tensor shape, run a minimal forward,
+or execute a focused regression as appropriate.
 
 Do not refactor production code merely to make testing easier unless testability
 is itself the problem. Avoid harnesses that only exercise mocks or unrelated
 paths.
 
-## Verification cycle
+## Avoid verification loops
 
-A cycle is a hypothesis, a check, and an observed result. It must produce new
-evidence or reduce uncertainty about the changed claim. Do not rerun an
-unchanged check when the code, inputs, environment, or hypothesis is unchanged.
+Every verification attempt must produce new evidence or reduce uncertainty
+about the changed claim. Do not repeat a verification cycle unless the code,
+inputs, environment, hypothesis, or check has materially changed.
 
-If two consecutive cycles produce no new evidence, stop editing. Re-read the
-source of truth, identify why the hypothesis did not discriminate, and change
-the hypothesis or the check instead of applying another random patch.
+When a line of inquiry stops producing information, stop patching. Re-read the
+source of truth and reframe the hypothesis or choose a check that can
+discriminate between the remaining explanations.
 
 ## TDD is a technique
 

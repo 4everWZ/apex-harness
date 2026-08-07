@@ -12,12 +12,12 @@ Implementation stages, experiments and run histories, candidate reviews,
 confirmation records, generated manifests, runtime snapshots, method-revision
 history, and task notes are not specifications by themselves.
 
-## Interpret status
+## Resolve draft and current state
 
-An active specification owns the accepted current contract. A draft owns a
-proposed contract and does not claim that implementation already conforms.
-Active and draft are Git versions of the same canonical artifact; Git owns their
-coexistence and history.
+An accepted specification owns the current contract. A draft owns a proposed
+contract and does not claim that implementation already conforms. Draft and
+accepted states are established by Git context and the repository's acceptance
+process; the default specification template does not require a status field.
 
 ## Draft and synchronize
 
@@ -35,8 +35,7 @@ Before activation or a claim that contract synchronization is complete, the
 specification, implementation, evidence, and active decisions agree. Open
 decisions are resolved and evidence supports acceptance. Reference stable
 evidence; keep run logs in their external system. Apply `apex-harness` evidence
-requirements during verification; expose a persisted execution boundary through
-the documentation topology rather than duplicating its link here.
+requirements during verification.
 
 ## Reject a draft
 
@@ -59,8 +58,9 @@ the topology table's step 4. Use the next unused generation, beginning with
 Deletion is the default after supersession. Retain a predecessor only for
 independently useful rationale not owned by a decision record, a current
 non-lineage consumer, or an explicit audit or compliance requirement. Before
-placing it under `legacy/`, record `Retention reason` and `Remove when`. Do not
-assign a legacy generation merely to preserve a complete sequence.
+placing it under `legacy/`, record `Superseded by`, `Retention reason`, and
+`Remove when`. Do not assign a legacy generation merely to preserve a complete
+sequence.
 
 Exclude retained legacy specifications from normal current-document navigation.
 Read them only to resolve lineage, audit, or a documented historical dependency.

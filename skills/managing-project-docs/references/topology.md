@@ -25,15 +25,12 @@ model preference alone.
 | work plan | working | unfinished work must remain coordinated or resumable | `docs/plans/<topic>.md` | ordered execution and unresolved work |
 | handoff | transient | responsibility is actually transferring | `docs/handoffs/<topic>.md` | the current state of that transfer |
 
-Templates are under `assets/templates/` and are named `specification.md`,
-`decision-record.md`, `work-plan.md`, and `handoff.md`. Copy only the applicable
-sections and remove unused placeholders.
-
-A persisted execution boundary remains `apex-harness`-owned at its
-apex-harness-resolved path. Link it from the active work plan; when no plan
-exists, link it from the active handoff. When neither exists, leave the boundary
-standalone at that path rather than creating another artifact solely to link it.
-Do not repeat the link elsewhere.
+Templates are under `assets/templates/`:
+[specification](../assets/templates/specification.md),
+[decision record](../assets/templates/decision-record.md),
+[work plan](../assets/templates/work-plan.md), and
+[handoff](../assets/templates/handoff.md). Copy only the applicable sections and
+remove unused placeholders.
 
 ## Resolve paths
 
@@ -69,13 +66,12 @@ draft Git versions of one canonical artifact are not content conflicts.
 Use an explicit user or repository canonical designation first. Otherwise use
 the artifact that owns the information: a specification for its contract, a
 decision record for the choice and rationale, a work plan for unfinished
-execution, a handoff for the current transfer, and a project boundary for its
-governance fields.
+execution, or a handoff for the current transfer.
 
 Within the same Git version and ownership, prefer active or current material over
 draft, proposed, superseded, or legacy material; recency alone does not establish
 authority. If active canonical artifacts still conflict, resolve the
-inconsistency with their named authority or ask the user rather than choosing by
+inconsistency with their named owner or ask the user rather than choosing by
 date.
 
 ## Preserve identity
@@ -84,9 +80,10 @@ After a canonical identity or location changes, no current reference may point
 to the retired identity, and only the resolved canonical artifact may remain
 current.
 
-For a retained predecessor, set `Status` to `superseded` and `Superseded by` to
-the successor. Lineage alone does not require retention or a reciprocal link
-from the current artifact.
+For a retained decision record, set `Status` to `superseded` and record
+`Superseded by` to the successor. For a retained specification, record
+`Superseded by`, `Retention reason`, and `Remove when`. Lineage alone does not
+require retention or a reciprocal link from the current artifact.
 
 ## Keep references sparse
 
@@ -94,13 +91,10 @@ Link only to direct authority or dependency; do not repeat transitive links.
 A specification may link to decisions that independently own material rationale;
 those decisions do not link back to the specification.
 A work plan may link to the minimum set of primary specifications it directly
-coordinates and an active persisted
-project boundary; it does not link back to a handoff. A handoff links only to its
-active work plan and does not repeat the plan's specification or boundary links.
-When no plan exists, the handoff links to the active persisted boundary and to
-the primary canonical artifact when one exists. Omit a nonexistent primary
-artifact rather than creating one for the link. An index links to canonical
-artifacts, which do not link back.
+coordinates; it does not link back to a handoff. A handoff links only to its
+active work plan or, when no plan exists, the primary canonical artifact. Omit a
+nonexistent primary artifact rather than creating one for the link. An index
+links to canonical artifacts, which do not link back.
 
 Do not add reciprocal links; a retained predecessor's forward lineage link is
 sufficient.

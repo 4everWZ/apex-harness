@@ -2,7 +2,6 @@
 
 - **Goal:** [observable outcome]
 - **Primary contracts:** [minimum direct links when they exist]
-- **Project boundary:** [link only when persisted]
 
 ## Work
 

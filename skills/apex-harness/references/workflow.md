@@ -35,8 +35,10 @@ config or script semantics, CLI behavior, local refactors, internal interface
 adjustments, or an additive REST endpoint with no migration, compatibility,
 security, payment, or existing-contract change.
 
-Run relevant existing checks first. Add only the smallest targeted regression or
-local check that covers a changed behavior not already supported.
+Prefer an existing check when it directly covers the changed claim. When that
+coverage is missing, add only the smallest targeted regression or local check
+that can support the changed behavior. Do not run a broad suite merely because
+it exists.
 
 ### Tier C — Local low-risk change
 
@@ -45,8 +47,10 @@ data, evaluation, architecture, or contract semantics: for example, button
 color, logging, comments, docstrings, an obvious non-semantic local fix, a
 non-behavioral rename, or simple plumbing.
 
-Use one cheap local check. Do not create a dedicated harness or project
-document unless a real contract boundary is crossed.
+Use the cheapest relevant check that can falsify the changed claim. For
+non-behavioral edits, inspecting the diff may be sufficient. Do not create a
+dedicated harness or project document unless a real contract boundary is
+crossed.
 
 ### Boundary examples
 
@@ -84,21 +88,6 @@ the relevant evidence supports the changed behavior. State separately:
 Static checks establish structure and validity only; they do not establish
 behavioral routing or research correctness.
 
-## Persisted execution boundary
-
-Keep risk, authority, evidence, and completion in the current interaction unless
-the boundary must survive a resume, an actual transfer, or a named audit. When
-it must persist, resolve the path in this order:
-
-1. an explicit user-selected path;
-2. a repository convention;
-3. the current canonical boundary for the same subject;
-4. `docs/plans/<topic>-boundary.md`.
-
-The persisted boundary belongs to `apex-harness`. `managing-project-docs` may
-link to it from the active work plan, or from the handoff when no plan exists,
-but does not own its risk or evidence policy.
-
 ## Execution loop
 
 1. Read the real contract and classify semantic risk.
@@ -106,6 +95,6 @@ but does not own its risk or evidence policy.
 3. Resolve choices from repository evidence; ask only at a material boundary.
 4. Implement the smallest defensible change.
 5. Run the cheapest evidence that can support or distinguish the claim.
-6. Continue only while the claim remains unsupported and each cycle adds
-   evidence or reduces uncertainty.
+6. Continue only while the claim remains unsupported and each subsequent check
+   adds evidence or reduces uncertainty.
 7. Stop when the claim is supported, or state the precise remaining boundary.

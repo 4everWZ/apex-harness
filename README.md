@@ -49,7 +49,6 @@ working or transient records under their lifecycle rules.
 - work plans: `docs/plans/<topic>.md`
 - handoffs: `docs/handoffs/<topic>.md`
 - retained superseded specifications: `docs/specs/legacy/<topic>-NN.md`
-- persisted project boundaries: `docs/plans/<topic>-boundary.md`
 
 ## Validation
 
@@ -65,7 +64,7 @@ $env:SKILL_CREATOR_PATH = 'C:\path\to\official\skill-creator'
 ```
 
 Pass `-Python C:\path\to\python.exe` to use another isolated environment.
-Static validation checks official skill validity plus the repository's required
-skill set, reference and template sets, headings, fallback topology, status
-schema, and manifest. It is intentionally not a general Markdown parser or a
-behavioral evaluation; substantial revisions use fresh forward tests.
+Static validation checks official skill validity, matching skill names, local
+Markdown links, non-empty templates, the plugin manifest, and unsupported
+package paths. It does not enforce skill design, document headings, metadata,
+or behavioral routing; static validation is not behavioral evaluation.

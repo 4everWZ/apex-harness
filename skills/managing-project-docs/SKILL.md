@@ -19,8 +19,6 @@ change without silently overriding unrelated conventions.
 - **Current** — still applicable; a plan or handoff remains current while its
   execution or transfer remains open.
 - **Artifact ownership** — the information type an artifact is authoritative for.
-- **Acceptance authority** — the user, person, team, role, or repository process
-  authorized to accept or activate an artifact.
 
 Use this order:
 
@@ -48,8 +46,8 @@ mapping to the existing canonical specification or active work plan. Do not
 create a separate matrix by default; follow an established repository matrix
 convention when one exists.
 
-Proposed content becomes authoritative only through the user, a named authority,
-or the repository's established acceptance process.
+Proposed content becomes authoritative only through the user, a named owner, or
+the repository's established acceptance process.
 
 Read [topology.md](references/topology.md) for any project-topology decision,
 including a change to canonical identity or location. Read the lifecycle
