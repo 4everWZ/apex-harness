@@ -55,20 +55,20 @@ precedence, using `docs/specs/legacy/<topic>-NN.md` as its fallback in place of
 the topology table's step 4. Use the next unused generation, beginning with
 `01`.
 
-Deletion is the default after supersession. Retain a predecessor only for
-independently useful rationale not owned by a decision record, a current
-non-lineage consumer, or an explicit audit or compliance requirement. Before
-placing it under `legacy/`, record `Superseded by`, `Retention reason`, and
-`Remove when`. Do not assign a legacy generation merely to preserve a complete
-sequence.
+Deletion is the default after supersession. Retain a predecessor only when the
+topology retention rule applies. Before placing it under `legacy/`, record
+`Retention reason` and `Remove when`; add `Superseded by` only when navigation is
+required by the user, an audit requirement, or repository convention. Do not
+assign a legacy generation merely to preserve a complete sequence.
 
 Exclude retained legacy specifications from normal current-document navigation.
 Read them only to resolve lineage, audit, or a documented historical dependency.
 
 When retaining a superseded specification, the legacy artifact is the last
 active Git version, not the successor draft. Keep the successor at the canonical
-path, repair older lineage fields that named the predecessor's former path, and
-apply the topology lineage rules.
+path. If a direct navigation link was intentionally retained, repair older
+lineage fields that named the predecessor's former path; otherwise Git history
+provides lineage. Apply the topology lineage rules.
 
 When not retaining a superseded specification, apply the topology retirement
 procedure.

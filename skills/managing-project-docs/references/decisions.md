@@ -23,8 +23,9 @@ rename it.
 Apply the topology path precedence when creating, moving, or deleting a record
 or successor, and its retention and lineage rules when superseding one.
 
-For a material successor, create a new dated record and link the retained
-predecessor forward to it. If its base path already owns a different decision,
+For a material successor, create a new dated record. Link a retained predecessor
+forward to it only when the user, an audit requirement, or a repository
+convention needs navigation. If its base path already owns a different decision,
 append `-NN` before `.md`, treating the unsuffixed path as generation `01` and
 using the next unused suffix.
 
@@ -32,8 +33,10 @@ using the next unused suffix.
 
 Update a record in place when the governed choice is unchanged and only its
 context, rationale, or consequences need clarification. When the choice changes
-materially, create a successor, then mark the retained predecessor `superseded`
-and link it forward. Keep a retained decision record at its resolved path.
+materially, create a successor and retire the prior record by default under the
+topology procedure. If the prior record is retained, mark it `superseded` and
+link it forward only when navigation is explicitly needed. Keep a retained
+decision record at its resolved path.
 
 When an activated or superseded decision changes the current contract, update
 the owning specification in the same logical change. The decision owns the

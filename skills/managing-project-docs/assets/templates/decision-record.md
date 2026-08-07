@@ -1,7 +1,7 @@
 # [Decision]
 
 - **Status:** proposed | active | rejected | superseded
-- **Superseded by:** [retained predecessor only; omit otherwise]
+- **Superseded by:** [optional direct successor link when navigation is needed]
 - **Revisit when:** [observable condition; omit when none exists]
 
 ## Context

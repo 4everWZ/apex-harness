@@ -80,10 +80,11 @@ After a canonical identity or location changes, no current reference may point
 to the retired identity, and only the resolved canonical artifact may remain
 current.
 
-For a retained decision record, set `Status` to `superseded` and record
-`Superseded by` to the successor. For a retained specification, record
-`Superseded by`, `Retention reason`, and `Remove when`. Lineage alone does not
-require retention or a reciprocal link from the current artifact.
+For a retained decision record, set `Status` to `superseded`. For a retained
+specification, record `Retention reason` and `Remove when`. Record a direct
+`Superseded by` link only when the user, an audit requirement, or a repository
+convention needs navigation; otherwise Git history is sufficient. Lineage alone
+does not require retention or a reciprocal link from the current artifact.
 
 ## Keep references sparse
 
@@ -96,8 +97,8 @@ active work plan or, when no plan exists, the primary canonical artifact. Omit a
 nonexistent primary artifact rather than creating one for the link. An index
 links to canonical artifacts, which do not link back.
 
-Do not add reciprocal links; a retained predecessor's forward lineage link is
-sufficient.
+Do not add reciprocal links. A direct successor link is optional and belongs
+only where navigation is explicitly needed.
 
 ## Consolidate an over-split set
 
@@ -123,9 +124,9 @@ Before deleting any project artifact:
 1. Transfer every still-current fact to the artifact that owns it.
 2. Redirect or remove every current inbound reference.
 3. Preserve required evidence in its designated evidence system.
-4. Retain the artifact only when its rationale remains independently useful, a
-   non-lineage consumer still depends on it, or an explicit audit requirement
-   applies.
+4. Retain the artifact only for an established audit, active consumer, recovery,
+   or repository-convention reason. Retention requires a concrete reason;
+   historical chronology alone is preserved by Git.
 5. Otherwise delete it; Git retains document chronology.
 
 A superseded status does not itself require retention. If a retained

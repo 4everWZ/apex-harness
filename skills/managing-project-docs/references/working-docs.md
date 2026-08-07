@@ -13,24 +13,55 @@ is not by itself a handoff; a handoff requires an actual transfer.
 
 ## Work plans
 
+Keep at most one current work plan for one coherent initiative. Before creating
+another plan, locate and extend the existing current plan. Create a separate
+plan only when the work has an independent owner, scope, or lifecycle.
+
 Use a work plan to drive unfinished work. During execution, keep only the claim,
 evidence state, blockers, and next action needed to resume. Transfer rationale
 when it becomes part of the current contract or an independently owned decision,
 then replace plan detail with a link to its durable owner.
 
-At closure, transfer remaining durable facts and preserve required execution
-evidence in the system named by the specification or repository convention.
-Durable documents keep stable references or current conclusions, never raw run
-logs. Do not delete the plan while it is the only surviving pointer to required
-evidence. A named next phase means the work is still open; otherwise retire the
-plan under the topology procedure.
+## Retire working documents
+
+Retire a work plan when:
+
+- its outcome is delivered and its changed claim is credibly verified;
+- the work is explicitly abandoned or cancelled;
+- its scope is superseded or consolidated into another canonical plan or
+  specification; or
+- the initiative or a required dependency is closed and the plan is no longer
+  resumable.
+
+Code being written is not by itself delivery. If the changed claim remains
+unverified, do not retire the plan as delivered. Explicit supersession,
+abandonment, or cancellation remains possible after transferring its remaining
+boundary. A named next phase, open task, or blocker also keeps the plan current.
+
+When a retirement condition is met, apply the topology retirement procedure.
+Do not repeat its fact-transfer, link-repair, evidence, or retention checklist
+here. Delete the plan by default; retain it only for a concrete audit, consumer,
+recovery, or repository-convention reason. Git preserves chronology. Do not add
+a retired status, archive directory, or retirement document.
 
 ## Handoffs
 
-Keep one handoff at the canonical path for the current transfer and replace its
-contents in place for the same transfer.
+Handoff is a temporary transfer envelope, not a canonical project record.
 
-A handoff is ready to retire only after its transfer completes or is abandoned
-and its still-current facts have a durable or working owner. Apply the topology
-retirement procedure before writing a new handoff, carrying forward only current
-facts and canonical links. A handoff has no legacy lifecycle.
+Keep one handoff at the canonical path for the current transfer and update it in
+place instead of creating parallel handoffs. A later transfer may reuse the same
+path with new contents; Git preserves the prior transfer's history.
+
+Reading a handoff does not constitute accepting it. After the recipient has read
+and accepted the transfer, move every still-current fact, evidence boundary,
+blocker, and next action into the active work plan or the relevant canonical
+specification or decision record. If no such artifact exists, the handoff may
+temporarily remain the primary working artifact.
+
+Retire a handoff only when its transfer completion condition is met or it is
+explicitly abandoned, no still-current information exists only in the handoff,
+and no open blocker or named next action remains owned by it. For an abandoned
+transfer, first move still-valid constraints, blockers, and the cancellation
+reason to the appropriate owner. Apply the topology retirement procedure, then
+delete the handoff by default. Retain it only for a concrete audit, consumer,
+recovery, or repository-convention reason.
