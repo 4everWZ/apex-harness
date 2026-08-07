@@ -2,15 +2,18 @@
 
 APEX provides two independent Codex skills:
 
-- [`governing-project-work`](skills/governing-project-work/SKILL.md) defines
-  material risk, authority, evidence, and completion boundaries.
+- [`apex-harness`](skills/apex-harness/SKILL.md) provides semantic-risk
+  execution discipline, claim-focused verification, user decision boundaries,
+  research/ML evidence rules, and explicit stopping conditions.
 - [`managing-project-docs`](skills/managing-project-docs/SKILL.md) manages
   specifications, decisions, work plans, handoffs, and their lifecycle.
 
 ## When to use
 
-- Use governance when the user requests a project boundary or omitting one could
-  materially change authorization, verification, or the completion claim.
+- Use the harness for substantial coding, cross-module refactors, architecture,
+  research, ML, or any change whose semantic consequences need explicit risk,
+  evidence, or completion discipline. Do not use it for trivial low-risk local
+  edits.
 - Use document management when creating, changing, synchronizing, reorganizing,
   consolidating, or retiring one of its project artifacts. Prefer updating an
   existing canonical artifact; create a new one only for independent ownership

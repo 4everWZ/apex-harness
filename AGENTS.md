@@ -1,7 +1,7 @@
 # Repository rules
 
 - This repository targets Codex only.
-- `skills/` contains exactly `governing-project-work` and
+- `skills/` contains exactly `apex-harness` and
   `managing-project-docs`.
 - Each skill has its own frontmatter trigger and neither requires a router.
 - Governance and documentation responsibilities must not overlap.

@@ -1,7 +1,7 @@
 {
   "name": "apex",
-  "version": "0.2.0",
-  "description": "Two Codex project-work skills for governance boundaries and documentation lifecycle.",
+  "version": "0.3.0",
+  "description": "Two Codex project-work skills for semantic-risk execution discipline and documentation lifecycle.",
   "author": {
     "name": "4everWZ",
     "url": "https://github.com/4everWZ"
@@ -9,15 +9,18 @@
   "license": "MIT",
   "keywords": [
     "codex",
-    "governance",
+    "execution",
+    "verification",
+    "research",
+    "ml",
     "documentation",
     "workflow"
   ],
   "skills": "./skills/",
   "interface": {
     "displayName": "APEX",
-    "shortDescription": "Project boundaries and documentation lifecycle",
-    "longDescription": "Use two independent Codex skills for explicit project boundaries and a consistent documentation topology, template, and legacy lifecycle.",
+    "shortDescription": "Semantic-risk execution and project docs",
+    "longDescription": "Use two independent Codex skills for claim-focused execution discipline, research/ML evidence boundaries, and a consistent project documentation lifecycle.",
     "developerName": "4everWZ",
     "category": "Coding",
     "capabilities": [
@@ -25,7 +28,7 @@
       "Write"
     ],
     "defaultPrompt": [
-      "Define the risk, authority, evidence, and completion boundary for this work.",
+      "Classify the semantic risk, define the changed claim, and stop when the evidence supports it.",
       "Organize this project's specifications, plans, decisions, and legacy documents."
     ],
     "brandColor": "#F59E0B",

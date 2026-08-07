@@ -29,11 +29,11 @@ Templates are under `assets/templates/` and are named `specification.md`,
 `decision-record.md`, `work-plan.md`, and `handoff.md`. Copy only the applicable
 sections and remove unused placeholders.
 
-A project boundary remains governance-owned at its governance-resolved path.
-Link it from the active work plan; when no plan exists, link it from the active
-handoff. When neither exists, leave the boundary standalone at that path rather
-than creating another artifact solely to link it. Do not repeat the link
-elsewhere.
+A persisted execution boundary remains `apex-harness`-owned at its
+apex-harness-resolved path. Link it from the active work plan; when no plan
+exists, link it from the active handoff. When neither exists, leave the boundary
+standalone at that path rather than creating another artifact solely to link it.
+Do not repeat the link elsewhere.
 
 ## Resolve paths
 

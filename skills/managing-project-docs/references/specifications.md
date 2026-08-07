@@ -34,8 +34,8 @@ specification.
 Before activation or a claim that contract synchronization is complete, the
 specification, implementation, evidence, and active decisions agree. Open
 decisions are resolved and evidence supports acceptance. Reference stable
-evidence; keep run logs in their external system. Apply governance-owned
-evidence requirements during verification; expose a persisted boundary through
+evidence; keep run logs in their external system. Apply `apex-harness` evidence
+requirements during verification; expose a persisted execution boundary through
 the documentation topology rather than duplicating its link here.
 
 ## Reject a draft

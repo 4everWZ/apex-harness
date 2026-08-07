@@ -61,7 +61,7 @@ function Assert-ProhibitedPrefix {
     }
 }
 
-$expectedSkills = @('governing-project-work', 'managing-project-docs')
+$expectedSkills = @('apex-harness', 'managing-project-docs')
 $actualSkills = @(
     Get-ChildItem (Join-Path $root 'skills') -Directory |
         Sort-Object Name |
@@ -96,7 +96,17 @@ foreach ($name in $expectedSkills) {
 }
 
 $documentationReferenceRoot = Join-Path $root 'skills\managing-project-docs\references'
-$governanceReferenceRoot = Join-Path $root 'skills\governing-project-work\references'
+$harnessReferenceRoot = Join-Path $root 'skills\apex-harness\references'
+$expectedHarnessReferences = @(
+    'research-ml.md', 'verification.md', 'workflow.md'
+)
+$actualHarnessReferences = @(
+    Get-ChildItem $harnessReferenceRoot -File |
+        Sort-Object Name |
+        ForEach-Object Name
+)
+Assert-ExactSet $expectedHarnessReferences $actualHarnessReferences 'harness reference set'
+
 $expectedReferences = @(
     'decisions.md', 'specifications.md', 'topology.md', 'working-docs.md'
 )
@@ -106,20 +116,17 @@ $actualReferences = @(
         ForEach-Object Name
 )
 Assert-ExactSet $expectedReferences $actualReferences 'documentation reference set'
-Assert-ExactSet @('boundary.md') @(
-    Get-ChildItem $governanceReferenceRoot -File |
-        Sort-Object Name |
-        ForEach-Object Name
-) 'governance reference set'
 
-$boundaryPath = Join-Path $root 'skills\governing-project-work\references\boundary.md'
+$workflowPath = Join-Path $harnessReferenceRoot 'workflow.md'
+$verificationPath = Join-Path $harnessReferenceRoot 'verification.md'
+$researchMlPath = Join-Path $harnessReferenceRoot 'research-ml.md'
 $decisionsPath = Join-Path $documentationReferenceRoot 'decisions.md'
 $specificationsPath = Join-Path $documentationReferenceRoot 'specifications.md'
 $topologyPath = Join-Path $documentationReferenceRoot 'topology.md'
 $workingDocsPath = Join-Path $documentationReferenceRoot 'working-docs.md'
 $requiredFiles = @(
-    $boundaryPath, $decisionsPath, $specificationsPath, $topologyPath,
-    $workingDocsPath
+    $workflowPath, $verificationPath, $researchMlPath, $decisionsPath,
+    $specificationsPath, $topologyPath, $workingDocsPath
 )
 foreach ($path in $requiredFiles) {
     if (-not (Test-Path -LiteralPath $path -PathType Leaf) -or
@@ -144,7 +151,17 @@ Assert-Headings $decisionsPath @(
 Assert-Headings $workingDocsPath @(
     'Decide whether a working document is needed', 'Work plans', 'Handoffs'
 )
-Assert-Headings $boundaryPath @('Path', 'Risk', 'Authority', 'Evidence', 'Completion')
+Assert-Headings $workflowPath @(
+    'Classify by semantic consequence', 'Consultation boundary',
+    'Completion claims', 'Persisted execution boundary', 'Execution loop'
+)
+Assert-Headings $verificationPath @(
+    'Choose evidence', 'Verification cycle', 'TDD is a technique', 'Stop'
+)
+Assert-Headings $researchMlPath @(
+    'Preserve experiment meaning', 'Check the real experimental boundaries',
+    'Keep claims proportional to evidence'
+)
 
 $topologyLines = @(
     '| Artifact | Lifecycle | Create only when | Fallback path | Authoritative for |',
@@ -159,11 +176,11 @@ foreach ($line in $topologyLines) {
 }
 
 $specifications = Get-Content -Raw -LiteralPath $specificationsPath
-$boundary = Get-Content -Raw -LiteralPath $boundaryPath
+$workflow = Get-Content -Raw -LiteralPath $workflowPath
 if (-not $specifications.Contains('docs/specs/legacy/<topic>-NN.md')) {
     throw 'Missing retained-specification fallback path.'
 }
-if (-not $boundary.Contains('docs/plans/<topic>-boundary.md')) {
+if (-not $workflow.Contains('docs/plans/<topic>-boundary.md')) {
     throw 'Missing project-boundary fallback path.'
 }
 

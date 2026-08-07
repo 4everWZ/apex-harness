@@ -1,6 +1,6 @@
 ---
 name: managing-project-docs
-description: Maintains the smallest coherent set of canonical project documents. Updates or consolidates existing artifacts before creating new ones, and applies ownership, synchronization, supersession, and retirement rules for specifications, decision records, work plans, and handoffs. Use when those artifacts are created, changed, reorganized, consolidated, superseded, or retired. Does not own project governance.
+description: Maintains the smallest coherent set of canonical project documents. Updates or consolidates existing artifacts before creating new ones, and applies ownership, synchronization, supersession, and retirement rules for specifications, decision records, work plans, and handoffs. Use when those artifacts are created, changed, reorganized, consolidated, superseded, or retired. Does not own execution risk or evidence policy.
 ---
 
 # Managing Project Docs
@@ -41,6 +41,12 @@ document. A durable contract change uses one specification; independently useful
 rationale may add one decision record; coordinated or multi-session work uses
 one active plan; an actual transfer may add one handoff. Exceed this budget only
 when each additional artifact has independent ownership or lifecycle.
+
+When enough independently trackable requirements make partial implementation or
+scope drift realistically easy to miss, add a compact spec-to-implementation
+mapping to the existing canonical specification or active work plan. Do not
+create a separate matrix by default; follow an established repository matrix
+convention when one exists.
 
 Proposed content becomes authoritative only through the user, a named authority,
 or the repository's established acceptance process.
