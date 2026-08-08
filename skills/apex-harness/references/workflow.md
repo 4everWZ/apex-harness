@@ -40,7 +40,7 @@ Use the cheapest relevant check that can falsify the changed claim. For non-beha
 
 ## Consultation boundary
 
-Repository code, active specs, schemas, and call sites should resolve routine implementation choices without user interruption. Ask before choosing among materially different outcomes that change scope, public behavior, evaluation or data semantics, research interpretation, or an external contract.
+Repository code, current specifications, schemas, and call sites should resolve routine implementation choices without user interruption. Ask before choosing among materially different outcomes that change scope, public behavior, evaluation or data semantics, research interpretation, or an external contract.
 
 Risk escalation changes verification and documentation, not the authority to make a product or research decision. Do not silently reduce a requested feature or experiment because a cheaper implementation is easier.
 
@@ -62,4 +62,4 @@ Static checks establish structure and validity only; they do not establish behav
 4. Implement the smallest defensible change.
 5. Run the cheapest evidence that can support or distinguish the claim.
 6. Continue only while the claim remains unsupported and each subsequent check adds evidence or reduces uncertainty.
-7. Stop when the claim is supported, or state the precise remaining boundary.
+7. Stop when the claim is supported, or state the precise remaining unverified scope.

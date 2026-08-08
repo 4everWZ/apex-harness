@@ -23,7 +23,7 @@ Retire a work plan when:
 - its scope is superseded or consolidated into another canonical plan or specification; or
 - the initiative or a required dependency is closed and the plan is no longer resumable.
 
-Code being written is not by itself delivery. If the changed claim remains unverified, do not retire the plan as delivered. Explicit supersession, abandonment, or cancellation remains possible only after transferring its remaining boundary and any still-current constraint, blocker, cancellation reason, or unverified boundary to the appropriate owner.
+Code being written is not by itself delivery. If the changed claim remains unverified, do not retire the plan as delivered. Explicit supersession, abandonment, or cancellation remains possible only after transferring any still-current constraint, blocker, cancellation reason, or unverified claim that future work still depends on to the appropriate owner.
 
 When a retirement condition is met, apply the topology retirement procedure. Do not repeat its fact-transfer, link-repair, evidence, or retention checklist here. Delete the plan by default; retain it only for a concrete audit, consumer, recovery, or repository-convention reason. Git preserves chronology. Do not add a retired status, archive directory, or retirement document.
 

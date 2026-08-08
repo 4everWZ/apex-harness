@@ -43,4 +43,4 @@ Those changes still need the most appropriate inspection, build, integration, fo
 
 ## Stop
 
-Once the changed claim is credibly supported, stop. Do not expand verification into adjacent unchanged behavior merely for reassurance. Report the evidence and the remaining boundary rather than implying a stronger claim than the checks support.
+Once the changed claim is credibly supported, stop. Do not expand verification into adjacent unchanged behavior merely for reassurance. Report the evidence and the remaining unverified scope rather than implying a stronger claim than the checks support.

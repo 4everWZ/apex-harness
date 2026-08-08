@@ -20,6 +20,6 @@
 
 ## Primary working artifact
 
-- Active work plan:
+- Current work plan:
 
-[When no work plan exists, replace `Active work plan` with `Primary canonical artifact` when one exists; otherwise omit it. Do not duplicate the plan's specification or decision links.]
+[When no work plan exists, replace `Current work plan` with `Primary canonical artifact` when one exists; otherwise omit it. Do not duplicate the plan's specification or decision links.]

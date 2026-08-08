@@ -22,9 +22,9 @@ Use this order:
 
 The existence of a template, implementation unit, algorithm, development stage, experiment, review, date, or task is not by itself a reason to create a file. Create a work plan only for work that must remain coordinated or resumable, and a handoff only for an actual transfer of responsibility.
 
-As a default budget, an ordinary single-session change creates no project document. A durable contract change uses one specification; independently useful rationale may add one decision record; coordinated or multi-session work uses one active plan; an actual transfer may add one handoff. Exceed this budget only when each additional artifact has independent ownership or lifecycle.
+As a default budget, an ordinary single-session change creates no project document. A durable contract change uses one specification; independently useful rationale may add one decision record; coordinated or multi-session work uses one current work plan; an actual transfer may add one handoff. Exceed this budget only when each additional artifact has independent ownership or lifecycle.
 
-When enough independently trackable requirements make partial implementation or scope drift realistically easy to miss, add a compact spec-to-implementation mapping to the existing canonical specification or active work plan. Do not create a separate matrix by default; follow an established repository matrix convention when one exists.
+When enough independently trackable requirements make partial implementation or scope drift realistically easy to miss, add a compact spec-to-implementation mapping to the existing canonical specification or current work plan. Do not create a separate matrix by default; follow an established repository matrix convention when one exists.
 
 Writing or editing a document does not by itself make a proposed contract authoritative; follow the repository's normal acceptance process.
 
