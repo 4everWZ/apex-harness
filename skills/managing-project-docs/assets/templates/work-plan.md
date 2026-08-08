@@ -11,5 +11,4 @@
 
 ## Blockers
 
-[Only items that currently prevent the next task. Remove this section when
-empty.]
+[Only items that currently prevent the next task. Remove this section when empty.]

@@ -22,8 +22,7 @@
 
 ## Technical semantics — optional
 
-[Only authoritative semantics needed to interpret, verify, or reproduce the
-contract.]
+[Only authoritative semantics needed to interpret, verify, or reproduce the contract.]
 
 ## Open decisions — optional
 

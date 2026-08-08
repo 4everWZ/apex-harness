@@ -2,25 +2,15 @@
 
 APEX provides two independent Codex skills:
 
-- [`apex-harness`](skills/apex-harness/SKILL.md) provides semantic-risk
-  execution discipline, claim-focused verification, user decision boundaries,
-  research/ML evidence rules, and explicit stopping conditions.
-- [`managing-project-docs`](skills/managing-project-docs/SKILL.md) manages
-  specifications, decisions, work plans, handoffs, and their lifecycle.
+- [`apex-harness`](skills/apex-harness/SKILL.md) provides semantic-risk execution discipline, claim-focused verification, user decision boundaries, research/ML evidence rules, and explicit stopping conditions.
+- [`managing-project-docs`](skills/managing-project-docs/SKILL.md) manages specifications, decisions, work plans, handoffs, and their lifecycle.
 
 ## When to use
 
-- Use the harness for substantial coding, cross-module refactors, architecture,
-  research, ML, or any change whose semantic consequences need explicit risk,
-  evidence, or completion discipline. Do not use it for trivial low-risk local
-  edits.
-- Use document management when creating, changing, synchronizing, reorganizing,
-  consolidating, or retiring one of its project artifacts. Prefer updating an
-  existing canonical artifact; create a new one only for independent ownership
-  or lifecycle.
+- Use the harness for substantial coding, cross-module refactors, architecture, research, ML, or any change whose semantic consequences need explicit risk, evidence, or completion discipline. Do not use it for trivial low-risk local edits.
+- Use document management when creating, changing, synchronizing, reorganizing, consolidating, or retiring one of its project artifacts. Prefer updating an existing canonical artifact; create a new one only for independent ownership or lifecycle.
 
-Each skill has its own frontmatter trigger and neither requires a router or the
-other skill.
+Each skill has its own frontmatter trigger and neither requires a router or the other skill.
 
 ## Documentation model
 
@@ -35,12 +25,7 @@ Repository conventions take precedence over these fallback shapes and paths.
 
 ## Example
 
-For a feature with a material design choice, update one specification for the
-accepted contract and add a decision record only when its rationale remains
-independently useful. Add one work plan only when execution must remain
-coordinated or resumable, and a handoff only for an actual transfer. At closure,
-move still-current facts to their authoritative durable artifact and retire
-working or transient records under their lifecycle rules.
+For a feature with a material design choice, update one specification for the accepted contract and add a decision record only when its rationale remains independently useful. Add one work plan only when execution must remain coordinated or resumable, and a handoff only for an actual transfer. At closure, move still-current facts to their authoritative durable artifact and retire working or transient records under their lifecycle rules.
 
 ## Default paths
 
@@ -52,9 +37,7 @@ working or transient records under their lifecycle rules.
 
 ## Validation
 
-From the repository root, create the validation environment, install its pinned
-dependency, point `SKILL_CREATOR_PATH` at the official `skill-creator` package,
-and run:
+From the repository root, create the validation environment, install its pinned dependency, point `SKILL_CREATOR_PATH` at the official `skill-creator` package, and run:
 
 ```powershell
 python -m venv .venv
@@ -63,8 +46,4 @@ $env:SKILL_CREATOR_PATH = 'C:\path\to\official\skill-creator'
 .\scripts\validate-skills.ps1
 ```
 
-Pass `-Python C:\path\to\python.exe` to use another isolated environment.
-Static validation checks official skill validity, matching skill names, local
-Markdown links, non-empty templates, the plugin manifest, and unsupported
-package paths. It does not enforce skill design, document headings, metadata,
-or behavioral routing; static validation is not behavioral evaluation.
+Pass `-Python C:\path\to\python.exe` to use another isolated environment. Static validation checks official skill validity, matching skill names, local Markdown links, non-empty templates, the plugin manifest, and unsupported package paths. It does not enforce skill design, document headings, metadata, or behavioral routing; static validation is not behavioral evaluation.

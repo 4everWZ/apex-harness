@@ -1,8 +1,6 @@
 # Project Documentation Topology
 
-Preserve an established documentation topology. Use this fallback only when no
-authoritative convention exists. Never reorganize canonical artifacts from
-model preference alone.
+Preserve an established documentation topology. Use this fallback only when no authoritative convention exists. Never reorganize canonical artifacts from model preference alone.
 
 ## Contents
 
@@ -25,12 +23,7 @@ model preference alone.
 | work plan | working | unfinished work must remain coordinated or resumable | `docs/plans/<topic>.md` | ordered execution and unresolved work |
 | handoff | transient | responsibility is actually transferring | `docs/handoffs/<topic>.md` | the current state of that transfer |
 
-Templates are under `assets/templates/`:
-[specification](../assets/templates/specification.md),
-[decision record](../assets/templates/decision-record.md),
-[work plan](../assets/templates/work-plan.md), and
-[handoff](../assets/templates/handoff.md). Copy only the applicable sections and
-remove unused placeholders.
+Templates are under `assets/templates/`: [specification](../assets/templates/specification.md), [decision record](../assets/templates/decision-record.md), [work plan](../assets/templates/work-plan.md), and [handoff](../assets/templates/handoff.md). Copy only the applicable sections and remove unused placeholders.
 
 ## Resolve paths
 
@@ -41,64 +34,35 @@ Resolve each artifact path in this order:
 3. an explicit convention in the accepted project documentation
 4. the fallback path in the topology table
 
-Recognize an authoritative convention from repository instructions, a document
-index, consistent current artifacts of the same type, or a current specification
-or active decision that explicitly names it.
+Recognize an authoritative convention from repository instructions, a document index, consistent current artifacts of the same type, or a current specification or active decision that explicitly names it.
 
-At the same priority, prefer the candidate marked canonical or current, then one
-linked by current project documents. If candidates remain tied, ask the user to
-name the canonical location.
+At the same priority, prefer the candidate marked canonical or current, then one linked by current project documents. If candidates remain tied, ask the user to name the canonical location.
 
-Update an existing canonical artifact at its current path. Use stable lowercase
-kebab-case topics that name the owned contract, decision, or outcome.
+Update an existing canonical artifact at its current path. Use stable lowercase kebab-case topics that name the owned contract, decision, or outcome.
 
 ## Choose specification boundaries
 
-Use the contract-boundary criteria in the specification lifecycle. Otherwise
-keep an algorithm, stage, pipeline step, or internal module as a section of the
-owning specification.
+Use the contract-boundary criteria in the specification lifecycle. Otherwise keep an algorithm, stage, pipeline step, or internal module as a section of the owning specification.
 
 ## Resolve content conflicts
 
-Compare authority within the same Git version. Differences between active and
-draft Git versions of one canonical artifact are not content conflicts.
+Compare authority within the same Git version. Differences between active and draft Git versions of one canonical artifact are not content conflicts.
 
-Use an explicit user or repository canonical designation first. Otherwise use
-the artifact that owns the information: a specification for its contract, a
-decision record for the choice and rationale, a work plan for unfinished
-execution, or a handoff for the current transfer.
+Use an explicit user or repository canonical designation first. Otherwise use the artifact that owns the information: a specification for its contract, a decision record for the choice and rationale, a work plan for unfinished execution, or a handoff for the current transfer.
 
-Within the same Git version and ownership, prefer active or current material over
-draft, proposed, superseded, or legacy material; recency alone does not establish
-authority. If active canonical artifacts still conflict, resolve the
-inconsistency with their named owner or ask the user rather than choosing by
-date.
+Within the same Git version and ownership, prefer active or current material over draft, proposed, superseded, or legacy material; recency alone does not establish authority. If active canonical artifacts still conflict, resolve the inconsistency with their named owner or ask the user rather than choosing by date.
 
 ## Preserve identity
 
-After a canonical identity or location changes, no current reference may point
-to the retired identity, and only the resolved canonical artifact may remain
-current.
+After a canonical identity or location changes, no current reference may point to the retired identity, and only the resolved canonical artifact may remain current.
 
-For a retained decision record, set `Status` to `superseded`. For a retained
-specification, record `Retention reason` and `Remove when`. Record a direct
-`Superseded by` link only when the user, an audit requirement, or a repository
-convention needs navigation; otherwise Git history is sufficient. Lineage alone
-does not require retention or a reciprocal link from the current artifact.
+For a retained decision record, set `Status` to `superseded`. For a retained specification, record `Retention reason` and `Remove when`. Record a direct `Superseded by` link only when the user, an audit requirement, or a repository convention needs navigation; otherwise Git history is sufficient. Lineage alone does not require retention or a reciprocal link from the current artifact.
 
 ## Keep references sparse
 
-Link only to direct authority or dependency; do not repeat transitive links.
-A specification may link to decisions that independently own material rationale;
-those decisions do not link back to the specification.
-A work plan may link to the minimum set of primary specifications it directly
-coordinates; it does not link back to a handoff. A handoff links only to its
-active work plan or, when no plan exists, the primary canonical artifact. Omit a
-nonexistent primary artifact rather than creating one for the link. An index
-links to canonical artifacts, which do not link back.
+Link only to direct authority or dependency; do not repeat transitive links. A specification may link to decisions that independently own material rationale; those decisions do not link back to the specification. A work plan may link to the minimum set of primary specifications it directly coordinates; it does not link back to a handoff. A handoff links only to its active work plan or, when no plan exists, the primary canonical artifact. Omit a nonexistent primary artifact rather than creating one for the link. An index links to canonical artifacts, which do not link back.
 
-Do not add reciprocal links. A direct successor link is optional and belongs
-only where navigation is explicitly needed.
+Do not add reciprocal links. A direct successor link is optional and belongs only where navigation is explicitly needed.
 
 ## Consolidate an over-split set
 
@@ -109,9 +73,7 @@ When multiple artifacts describe one subject:
 3. Merge still-current contract information into those artifacts.
 4. Keep separate decision records only for independently durable rationale.
 5. Merge unfinished execution into the minimum number of active work plans.
-6. Remove generated data, runtime events, and experiment logs from project
-   documents after confirming their existing owning systems; do not initiate an
-   external move without authority.
+6. Remove generated data, runtime events, and experiment logs from project documents after confirming their existing owning systems; do not initiate an external move without authority.
 7. Repair direct current references.
 8. Delete artifacts that no longer own independently useful information.
 
@@ -124,19 +86,11 @@ Before deleting any project artifact:
 1. Transfer every still-current fact to the artifact that owns it.
 2. Redirect or remove every current inbound reference.
 3. Preserve required evidence in its designated evidence system.
-4. Retain the artifact only for an established audit, active consumer, recovery,
-   or repository-convention reason. Retention requires a concrete reason;
-   historical chronology alone is preserved by Git.
+4. Retain the artifact only for an established audit, active consumer, recovery, or repository-convention reason. Retention requires a concrete reason; historical chronology alone is preserved by Git.
 5. Otherwise delete it; Git retains document chronology.
 
-A superseded status does not itself require retention. If a retained
-predecessor is removed, any retained lineage bypasses it and current links
-resolve to the successor.
+A superseded status does not itself require retention. If a retained predecessor is removed, any retained lineage bypasses it and current links resolve to the successor.
 
 ## Optional document index
 
-Use `docs/README.md` only when the repository convention or the number of
-artifacts warrants a human navigation entry point. The index owns navigation,
-not contracts, decisions, status, rationale, or work state. Link to canonical
-current artifacts and avoid copying their content. Omit the index when the
-repository is already easy to navigate.
+Use `docs/README.md` only when the repository convention or the number of artifacts warrants a human navigation entry point. The index owns navigation, not contracts, decisions, status, rationale, or work state. Link to canonical current artifacts and avoid copying their content. Omit the index when the repository is already easy to navigate.
