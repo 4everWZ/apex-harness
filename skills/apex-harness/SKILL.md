@@ -20,7 +20,7 @@ Use this skill when the work needs execution discipline beyond ordinary coding j
 
 Read [workflow.md](references/workflow.md) for semantic tiers, consultation, completion claims, and the execution loop.
 
-Read [verification.md](references/verification.md) for evidence selection, anti-loop rules, TDD boundaries, and stopping conditions.
+Read [verification.md](references/verification.md) for evidence selection, testing boundaries, anti-loop rules, and stopping conditions.
 
 Read [research-ml.md](references/research-ml.md) when the work changes model, data, training, inference, evaluation, checkpoint, or research semantics.
 

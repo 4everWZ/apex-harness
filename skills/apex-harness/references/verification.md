@@ -6,28 +6,9 @@ Verification exists to support the changed claim, not to maximize test activity.
 
 Do not refactor production code merely to make testing easier unless testability is itself the problem. Avoid harnesses that only exercise mocks or unrelated paths.
 
-## Expensive integrity checks
+## Expensive integrity evidence
 
-Treat cryptographic hashing, such as SHA-256, as claim-specific evidence, not a default verification step. A Tier A classification alone does not require a checksum. Use a full checksum only when the changed claim actually depends on byte identity, artifact integrity, reproducibility, or a repository or supply-chain contract that explicitly requires it.
-
-For large files, datasets, or artifact trees, first determine whether cheaper evidence can establish the needed claim:
-
-- file size and metadata;
-- an existing trusted manifest or published checksum;
-- checks on changed artifacts only;
-- format or structural validation;
-- representative reads or targeted samples;
-- transfer-tool integrity guarantees.
-
-Hash only the artifacts covered by the integrity claim. Do not hash an entire dataset or artifact tree merely to gain confidence in a local code change. For example, changing one dataloader branch does not justify hashing a multi-terabyte dataset; inspect the diff and use claim-relevant loading or focused checks instead.
-
-Do not recompute a checksum for an unchanged artifact merely for reassurance. Recompute it when the artifact may have changed, the trusted reference has changed, or the integrity claim itself requires fresh evidence.
-
-A checksum establishes byte identity relative to a reference, not correctness, authenticity, or provenance by itself. Without a trusted reference, a newly computed checksum is only an identifier for the observed bytes. Provenance or authenticity requires a trusted reference or verification mechanism, such as a publisher-provided or signed manifest.
-
-Use a full checksum when a downloaded artifact must be compared with a trusted published checksum, a transfer requires byte-for-byte verification, a fixed dataset version is part of a reproducibility manifest, corruption is being investigated against a known-good reference, or security or supply-chain policy requires it.
-
-Use direct loading, parser or structural validation, representative reads, metadata, or a transfer tool's own integrity result when those checks support the actual claim more directly.
+Treat expensive integrity checks as claim-specific evidence. Use checksums only when byte identity, artifact integrity, reproducibility, or an explicit repository contract is part of the changed claim. Otherwise prefer cheaper claim-relevant evidence, and do not repeat expensive checks merely for reassurance.
 
 ## Avoid verification loops
 
@@ -35,11 +16,13 @@ Every verification attempt must produce new evidence or reduce uncertainty about
 
 When a line of inquiry stops producing information, stop patching. Re-read the source of truth and reframe the hypothesis or choose a check that can discriminate between the remaining explanations.
 
-## TDD is a technique
+## Tests are evidence
 
-Use a test-first regression when a stable boundary can express the failure and the test protects the intended behavior. TDD is not the default workflow for exploratory ML, architecture analysis, generated artifacts, subjective visual judgment, or infrastructure where a credible failing test cannot be constructed.
+Treat tests as one form of verification evidence, not a required workflow sequence. Prefer existing tests when they directly cover the changed behavior. Add or update a persistent regression test only when the behavior is stable and future regression risk justifies maintaining that coverage.
 
-Those changes still need the most appropriate inspection, build, integration, forward-pass, benchmark, or other claim-relevant evidence.
+Treat test-first as optional. Use it when it helps isolate a reproducible bug or clarify a stable behavioral contract; do not treat writing the test before the implementation as a quality criterion.
+
+Do not create test-only abstractions, mocks, fixtures, harnesses, or production refactors merely to perform TDD ceremony. For changes without a useful stable test boundary—including exploratory ML, architecture analysis, generated artifacts, subjective visual judgment, and infrastructure diagnostics—use the most direct claim-relevant inspection, build, integration, forward-pass, benchmark, or runtime evidence.
 
 ## Stop
 

@@ -23,7 +23,7 @@ Start with an explicit claim and the evidence that could support it. Use a dedic
 
 Use Tier B for ordinary behavior changes whose impact is controlled and that do not cross a Tier A boundary: normal features, backend logic, medium bugfixes, config or script semantics, CLI behavior, local refactors, internal interface adjustments, or an additive REST endpoint with no migration, compatibility, security, payment, or existing-contract change.
 
-Prefer an existing check when it directly covers the changed claim. When that coverage is missing, add only the smallest targeted regression or local check that can support the changed behavior. Do not run a broad suite merely because it exists.
+Prefer an existing check when it directly covers the changed claim. Add the smallest focused persistent regression test only when future regression risk justifies maintaining that coverage; otherwise use the cheapest local check that can support the claim. Do not run a broad suite merely because it exists.
 
 ### Tier C — Local low-risk change
 
