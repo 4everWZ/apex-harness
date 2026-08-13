@@ -34,11 +34,11 @@ Use the contract-boundary criteria in the specification lifecycle. Otherwise kee
 
 ## Resolve content conflicts
 
-Compare authority within the same Git version. Differences between a draft revision and the currently accepted specification are not content conflicts.
+Compare documents as they exist in the same repository state when deciding which one is authoritative. Do not treat an unaccepted draft disagreeing with the accepted specification as a documentation conflict; the draft is only a proposal.
 
 Use an explicit user or repository canonical designation first. Otherwise use the artifact that owns the information: a specification for its contract, a decision record for the choice and rationale, a work plan for unfinished execution, or a handoff for the current transfer.
 
-Within the same ownership, prefer the current specification, work plan, or handoff, or an active decision, over draft, proposed, superseded, or legacy material. Recency alone does not establish authority. If current canonical artifacts still conflict, resolve the inconsistency with their named owner or ask the user rather than choosing by date.
+If two documents of the same type claim to define the same information, prefer one explicitly marked canonical or current, then one linked by current project documents. Prefer a current specification, work plan, or handoff, or an active decision, over draft, proposed, superseded, or legacy material. Recency alone does not establish authority. If documents that still appear current and canonical conflict, resolve the inconsistency with their named owner or ask the user rather than choosing by date.
 
 ## Preserve identity
 

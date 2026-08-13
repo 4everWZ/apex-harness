@@ -2,7 +2,7 @@
 
 ## Select the contract boundary
 
-A specification represents a stable contract, not the chronology of developing it. Prefer one current specification for one coherent contract. Give an internal algorithm, stage, or module its own specification only when it has an independently maintained behavioral contract and at least one of independent acceptance, consumers, replacement, or versioning.
+A specification represents a stable contract, not the chronology of developing it. Prefer one current specification for one coherent contract. Give an internal algorithm, stage, or module its own specification only when the project maintains it as a contract of its own—for example, it is accepted, consumed, replaced, or versioned independently.
 
 Implementation stages, experiments and run histories, candidate reviews, confirmation records, generated manifests, runtime snapshots, method-revision history, and task notes are not specifications by themselves.
 
@@ -24,7 +24,7 @@ For a rejected or abandoned draft:
 
 - discard the draft Git version; an existing accepted version remains canonical
 - if no accepted version exists, retire the artifact under the topology procedure
-- first transfer a still-current rejection constraint to a rejected decision record under the skill's promotion rule
+- first transfer a still-current rejection constraint to a rejected decision record when the constraint needs to be maintained or referenced independently; otherwise keep it in the current document that still depends on it
 
 A rejected draft has no legacy lifecycle.
 
@@ -40,6 +40,6 @@ When retaining a superseded specification, the legacy artifact is the last accep
 
 When not retaining a superseded specification, apply the topology retirement procedure.
 
-For legacy code, keep the current contract in its specification. Put successor or retirement reasoning in a decision record under the skill's promotion rule. Record the target state, affected consumers, relevant recovery information, and evidence that the contract retired.
+For legacy code, keep the current contract in its specification. Create a separate decision record for successor or retirement reasoning only when the choice or rationale needs to be accepted, maintained, or referenced independently; otherwise keep the reasoning with the specification. Record the target state, affected consumers, relevant recovery information, and evidence that the contract retired.
 
 When a contract retires without a successor, apply the topology retirement procedure. Do not leave a retired contract as the current contract or invent a successor only to retain the file.

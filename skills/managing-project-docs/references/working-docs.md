@@ -29,10 +29,14 @@ When a retirement condition is met, apply the topology retirement procedure. Do 
 
 ## Handoffs
 
-Handoff is a temporary transfer envelope, not a canonical project record.
+A handoff is a temporary record of a transfer, not a canonical project record.
 
 Keep one handoff at the canonical path for the current transfer and update it in place instead of creating parallel handoffs. A later transfer may reuse the same path with new contents; Git preserves the prior transfer's history.
 
-Reading a handoff does not constitute accepting it. Before acceptance, the handoff may temporarily be the primary transfer artifact. After the recipient has read and accepted the transfer, a handoff must not become a long-term work tracker. If substantive unfinished work still needs to remain coordinated or resumable and meets the work-plan criteria, create or update the current work plan. Otherwise move every still-current fact, evidence boundary, blocker, and next action into the relevant canonical specification, decision record, or other durable owner. If those facts have been absorbed but the transfer is not yet complete, the handoff may remain temporarily as a transfer envelope; do not use it to accumulate plan tasks.
+Reading a handoff does not constitute accepting it. Before acceptance, the handoff may temporarily be the primary transfer document.
+
+After the recipient accepts the transfer, do not use the handoff as a long-term work tracker. If substantive unfinished work still needs to remain coordinated or resumable and meets the work-plan criteria, create or update the current work plan.
+
+Otherwise move every still-current fact, evidence boundary, blocker, and next action into the relevant canonical specification, decision record, or other durable owner. If those facts have been absorbed but the transfer is not yet complete, the handoff may remain temporarily as a record of the transfer; do not use it to accumulate plan tasks.
 
 Retire a handoff only when its transfer completion condition is met or it is explicitly abandoned, no still-current information exists only in the handoff, and no open blocker or named next action remains owned by it. For an abandoned transfer, first move still-valid constraints, blockers, and the cancellation reason to the appropriate owner. Apply the topology retirement procedure, then delete the handoff by default. Retain it only for a concrete audit, consumer, recovery, or repository-convention reason.

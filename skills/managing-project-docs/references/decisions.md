@@ -1,12 +1,12 @@
 # Decision Record Lifecycle
 
-## Promote a decision
+## Decide when to create a record
 
-Promote rationale from a specification or work plan under the skill's promotion rule; otherwise keep it with its current owner.
+Create a separate decision record only when a choice or its rationale needs to be accepted, maintained, or referenced independently. Otherwise keep the rationale in the specification or work plan that needs it.
 
-Keep a local unresolved question in the specification's `Open decisions` while it blocks that contract. Link an independently owned proposal from the open item. When the decision becomes active, update the specification and remove the open item; when rejected, retain the open item only if the question remains unresolved.
+Keep a local unresolved question in the specification's `Open decisions` while it blocks that contract. Link a separate proposal from the open item when the proposal meets the decision-record criteria above. When the decision becomes active, update the specification and remove the open item; when rejected, retain the open item only if the question remains unresolved.
 
-A proposed decision is a candidate, not an authoritative current constraint. An active decision is accepted under the skill's acceptance rule.
+A proposed decision is a candidate, not an authoritative current constraint. Treat it as active only after the repository's normal acceptance process accepts it; editing the document alone does not make it authoritative.
 
 ## Preserve path identity
 
