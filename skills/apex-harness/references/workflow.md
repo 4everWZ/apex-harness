@@ -38,6 +38,16 @@ Use the cheapest relevant check that can falsify the changed claim. For non-beha
 - Replacing a cache is Tier B while external semantics are unchanged; a change to consistency, persistence, or user-visible behavior is Tier A.
 - ML and research work is not automatically Tier A. Training or inference semantics, data or label meaning, evaluation, algorithms, and research claims are Tier A; training-log formatting is Tier C and a dataloader worker bug is Tier B.
 
+## Re-evaluate a failing approach
+
+Do not assume that repeated local failures only require more local fixes. When repairs begin adding state, abstractions, lifecycle, compatibility machinery, assumptions, or other obligations mainly to preserve an earlier workaround, treat that compensating complexity as evidence against the underlying approach. Revisit the earliest still-changeable assumption or design decision responsible before adding another layer.
+
+Continue local repairs while the approach remains sound. When a clearly simpler or safer alternative stays within the authorized scope and preserves the requested behavior, semantics, and evaluation criteria, replan autonomously. Validate the alternative's key assumption before investing further implementation work.
+
+Stop when continuing requires a material choice that the user has not authorized and repository evidence cannot resolve. Before stopping, identify the failed assumption, the evidence against the current path, the additional compensating work it would require, and the smallest viable alternatives. Recommend one without silently choosing across the material tradeoff.
+
+Treat stopping as a valid engineering outcome. Do not keep modifying the system merely to preserve autonomous progress or justify work already invested.
+
 ## Consultation boundary
 
 Repository code, current specifications, schemas, and call sites should resolve routine implementation choices without user interruption. Ask before choosing among materially different outcomes that change scope, public behavior, evaluation or data semantics, research interpretation, or an external contract.
@@ -59,7 +69,7 @@ Static checks establish structure and validity only; they do not establish behav
 1. Read the real contract and classify semantic risk.
 2. Define the changed claim and what completion means.
 3. Resolve choices from repository evidence; ask only at a material boundary.
-4. Implement the smallest defensible change.
+4. Implement the smallest defensible change; re-evaluate the approach when repairs begin creating compensating complexity.
 5. Run the cheapest evidence that can support or distinguish the claim.
 6. Continue only while the claim remains unsupported and each subsequent check adds evidence or reduces uncertainty.
 7. Stop when the claim is supported, or state the precise remaining unverified scope.
