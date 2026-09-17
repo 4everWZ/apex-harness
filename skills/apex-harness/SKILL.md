@@ -26,6 +26,8 @@ Read [research-ml.md](references/research-ml.md) when the work changes model, da
 
 If a canonical project document would become wrong or misleading, update it. When a task creates, splits, consolidates, supersedes, or retires project documents, use `managing-project-docs` for ownership and lifecycle.
 
+For input requirements or specifications, use `managing-project-docs` to determine their ownership and maintenance responsibilities.
+
 ## Activation output
 
 Before implementation, briefly orient the user in natural prose. State the semantic tier and the consequence that justifies it, then name the changed claim and the cheapest evidence that could falsify it. Mention a material user choice or canonical-document synchronization only when one actually exists. Omit empty categories, do not emit placeholders, and do not delay the work to format a fixed checklist.
