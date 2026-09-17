@@ -23,6 +23,8 @@ Each skill has its own frontmatter trigger and neither requires a router or the 
 
 Repository conventions take precedence over these fallback shapes and paths.
 
+Task inputs, including traditional requirements specifications, define or constrain requested work. Using a document as input neither creates nor removes its maintenance responsibilities. Inputs without maintenance responsibilities remain unchanged unless maintaining them is part of the authorized task. Coordinate the transition from the current contract to the authorized target in working context or a work plan when needed, then synchronize accepted changes into the canonical specification.
+
 ## Example
 
 For a feature with a material design choice, update one specification for the accepted contract and add a decision record only when its rationale remains independently useful. Add one work plan only when execution must remain coordinated or resumable, and a handoff only for an actual transfer. At closure, move still-current facts to their authoritative durable artifact and retire working or transient records under their lifecycle rules.

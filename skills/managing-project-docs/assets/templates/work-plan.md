@@ -1,6 +1,7 @@
 # [Outcome] Work Plan
 
 - **Goal:** [observable outcome]
+- **Input requirements — optional:** [minimum direct references]
 - **Primary contracts:** [minimum direct links when they exist]
 
 ## Work

@@ -12,6 +12,8 @@ Keep at most one current work plan for one coherent initiative. Before creating 
 
 Use a work plan to drive unfinished work. During execution, keep only the claim, evidence state, blockers, and next action needed to resume. Transfer rationale when it becomes part of the current contract or an independently owned decision, then replace plan detail with a link to its durable owner.
 
+When work uses input requirements, keep implementation state, clarifications, and approved deviations in working context or the current plan. In a plan, reference the minimum relevant inputs and map tasks to existing requirement IDs or source sections only when needed to avoid omissions. Use direct references instead of transcribing inputs into another requirements document. Do not write progress back into an input without maintenance responsibilities. A plan remains optional under the criteria above.
+
 Treat the plan's stated Goal as its lifecycle boundary. An open task or blocker keeps the plan current only while it belongs to that Goal. Follow-on work outside that Goal does not prevent retirement. Create or extend another plan only when the follow-on work independently meets the work-plan criteria.
 
 ## Retire working documents

@@ -4,6 +4,8 @@
 
 Verification exists to support the changed claim, not to maximize test activity. Prefer an existing check when it directly covers the changed claim. Do not run a broad suite merely because it exists. Choose the cheapest check that can distinguish the current hypotheses: inspect the call chain or source of truth, load the real config or checkpoint, check a tensor shape, run a minimal forward, or execute a focused regression as appropriate.
 
+When the changed claim derives from an input requirement, verify against the authorized requirement or approved deviation, not whatever behavior the implementation happened to produce.
+
 Do not refactor production code merely to make testing easier unless testability is itself the problem. Avoid harnesses that only exercise mocks or unrelated paths.
 
 ## Expensive integrity evidence

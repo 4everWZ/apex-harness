@@ -66,10 +66,10 @@ Static checks establish structure and validity only; they do not establish behav
 
 ## Execution loop
 
-1. Read the real contract and classify semantic risk.
-2. Define the changed claim and what completion means.
-3. Resolve choices from repository evidence; ask only at a material boundary.
-4. Implement the smallest defensible change; re-evaluate the approach when repairs begin creating compensating complexity.
+1. Read the current contract and governing task inputs. Distinguish accepted behavior from the requested target and classify semantic risk.
+2. Define the changed claim and what completion means from the current contract and authorized target requirements, preserving the requested scope.
+3. Resolve choices from repository evidence and governing inputs; ask only at a material boundary.
+4. Implement the smallest defensible change; re-evaluate the approach when repairs begin creating compensating complexity. Do not rewrite input requirements to make the implementation appear conformant.
 5. Run the cheapest evidence that can support or distinguish the claim.
-6. Continue only while the claim remains unsupported and each subsequent check adds evidence or reduces uncertainty.
-7. Stop when the claim is supported, or state the precise remaining unverified scope.
+6. Continue only while the claim remains unsupported and each subsequent check adds evidence or reduces uncertainty. When evidence undermines a material requirement or assumption, re-evaluate the approach and apply the consultation boundary before changing the requested outcome.
+7. When the claim is supported, synchronize any canonical project document that would otherwise be wrong or misleading and stop; otherwise state the precise remaining unverified scope.

@@ -10,11 +10,15 @@ Implementation stages, experiments and run histories, candidate reviews, confirm
 
 An accepted specification owns the current contract. A draft owns a proposed contract and does not claim that implementation already conforms. Draft and accepted states are established by Git context and the repository's acceptance process; the default specification template does not require a status field.
 
+Input requirements describe requested behavior, while the accepted specification describes the currently effective contract. Coordinate an authorized transition in working context or a work plan when needed. Implementing an input does not by itself promote that source document to the canonical specification.
+
 ## Draft and synchronize
 
 Prefer drafting a new or changed contract before implementation when its observable behavior, interfaces, invariants, or acceptance can reasonably be defined. Exploratory implementation may precede a draft, but it does not establish the contract.
 
 At synchronization, the specification contains the accepted contract, independently owned choices link to their decisions, unaccepted deviations remain unresolved, and non-contract implementation details remain outside the specification.
+
+Synchronize accepted changes with their owning specification in the same logical change. Leave input baselines without maintenance responsibilities unchanged unless maintaining them is part of the authorized task.
 
 Before accepting the specification or claiming that contract synchronization is complete, confirm that the specification, implementation, evidence, and active decisions agree. Open decisions are resolved and evidence supports acceptance. Reference stable evidence; keep run logs in their external system. Apply `apex-harness` evidence requirements during verification.
 

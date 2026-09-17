@@ -13,6 +13,10 @@ Preserve an established documentation topology. Use this fallback only when no a
 
 Templates are under `assets/templates/`: [specification](../assets/templates/specification.md), [decision record](../assets/templates/decision-record.md), [work plan](../assets/templates/work-plan.md), and [handoff](../assets/templates/handoff.md). Copy only the applicable sections and remove unused placeholders.
 
+## Task inputs
+
+Task inputs without a maintained role established by user instructions or repository conventions are outside this documentation topology. Do not consolidate or retire them under the procedures below. Referencing an existing maintained document as input preserves its ownership and lifecycle.
+
 ## Resolve paths
 
 Resolve each artifact path in this order:
@@ -36,6 +40,8 @@ Use the contract-boundary criteria in the specification lifecycle. Otherwise kee
 
 Compare documents as they exist in the same repository state when deciding which one is authoritative. Do not treat an unaccepted draft disagreeing with the accepted specification as a documentation conflict; the draft is only a proposal.
 
+A task input proposing changed behavior may likewise differ from the current contract. Treat an authorized target's difference as work to coordinate, rather than as conflicting current specifications; supplying reference material alone does not authorize changing the contract.
+
 Use an explicit user or repository canonical designation first. Otherwise use the artifact that owns the information: a specification for its contract, a decision record for the choice and rationale, a work plan for unfinished execution, or a handoff for the current transfer.
 
 If two documents of the same type claim to define the same information, prefer one explicitly marked canonical or current, then one linked by current project documents. Prefer a current specification, work plan, or handoff, or an active decision, over draft, proposed, superseded, or legacy material. Recency alone does not establish authority. If documents that still appear current and canonical conflict, resolve the inconsistency with their named owner or ask the user rather than choosing by date.
@@ -48,7 +54,7 @@ For a retained decision record, set `Status` to `superseded`. For a retained spe
 
 ## Keep references sparse
 
-Link only to direct authority or dependency; do not repeat transitive links. A specification may link to decisions that independently own material rationale; those decisions do not link back to the specification. A work plan may link to the minimum set of primary specifications it directly coordinates; it does not link back to a handoff. A handoff links only to its current work plan or, when no plan exists, the primary canonical artifact. Omit a nonexistent primary artifact rather than creating one for the link. An index links to canonical artifacts, which do not link back.
+Link only to direct authority or dependency; do not repeat transitive links. A specification may link to decisions that independently own material rationale; those decisions do not link back to the specification. A work plan may link to the minimum set of primary specifications and task inputs it directly uses; it does not link back to a handoff. A handoff links only to its current work plan or, when no plan exists, the primary canonical artifact. Omit a nonexistent primary artifact rather than creating one for the link. An index links to canonical artifacts, which do not link back.
 
 Do not add reciprocal links. A direct successor link is optional and belongs only where navigation is explicitly needed.
 

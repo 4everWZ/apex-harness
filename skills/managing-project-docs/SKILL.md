@@ -14,6 +14,11 @@ Follow explicit user instructions and established repository conventions first. 
 - **Canonical** — the single authoritative identity or location for a document.
 - **Current** — still applicable; a plan or handoff remains current while its execution or transfer remains open.
 - **Artifact ownership** — the information a document is responsible for keeping current.
+- **Input artifact** — material supplied to define or constrain a task, such as requirements, an external specification, an issue, a brief, a benchmark definition, or a user-provided plan.
+
+Using a document as task input does not by itself establish or remove its maintained role. Preserve maintenance responsibilities established by user instructions or repository conventions. Repository location, filename, detail, or formal structure alone does not establish that role.
+
+Consume inputs without such maintenance responsibilities as baselines. Do not rewrite, annotate, or synchronize them unless maintaining them is part of the authorized task.
 
 Use this order:
 
@@ -26,7 +31,7 @@ The existence of a template, implementation unit, algorithm, development stage, 
 
 By default, an ordinary single-session change needs no project document. Use one specification for a durable contract. Add a decision record only when its choice or rationale needs to be accepted, maintained, or referenced independently. Use one current work plan for coordinated or multi-session work, and a handoff only for an actual transfer. Add more files only when each one needs to be accepted, maintained, consumed, replaced, or retired independently.
 
-When enough independently trackable requirements make partial implementation or scope drift realistically easy to miss, add a compact spec-to-implementation mapping to the existing canonical specification or current work plan. Do not create a separate matrix by default; follow an established repository matrix convention when one exists.
+When enough independently trackable requirements make partial implementation or scope drift realistically easy to miss, add a compact spec-to-implementation mapping to the existing canonical specification or current work plan. For input baselines without maintenance responsibilities, keep the execution mapping in working context or the current plan. Do not create a separate matrix by default; follow an established repository matrix convention when one exists.
 
 Writing or editing a document does not by itself make a proposed contract authoritative; follow the repository's normal acceptance process.
 
