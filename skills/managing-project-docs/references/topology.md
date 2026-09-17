@@ -15,7 +15,7 @@ Templates are under `assets/templates/`: [specification](../assets/templates/spe
 
 ## Task inputs
 
-Task inputs without a maintained role established by user instructions or repository conventions are outside this documentation topology. Do not consolidate or retire them under the procedures below. Referencing an existing maintained document as input preserves its ownership and lifecycle.
+Task inputs without a maintained role established by user instructions or repository conventions are outside this documentation topology. Do not consolidate or retire them under the procedures below.
 
 ## Resolve paths
 

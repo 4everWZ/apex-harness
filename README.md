@@ -1,6 +1,6 @@
 # APEX
 
-APEX provides two independent Codex skills:
+APEX bundles two Codex skills:
 
 - [`apex-harness`](skills/apex-harness/SKILL.md) provides semantic-risk execution discipline, claim-focused verification, user decision boundaries, research/ML evidence rules, and explicit stopping conditions.
 - [`managing-project-docs`](skills/managing-project-docs/SKILL.md) manages specifications, decisions, work plans, handoffs, and their lifecycle.
@@ -10,7 +10,7 @@ APEX provides two independent Codex skills:
 - Use the harness for substantial coding, cross-module refactors, architecture, research, ML, or any change whose semantic consequences need explicit risk, evidence, or completion discipline. Do not use it for trivial low-risk local edits.
 - Use document management when creating, changing, synchronizing, reorganizing, consolidating, or retiring one of its project artifacts. Prefer updating an existing canonical artifact; create a new one only for independent ownership or lifecycle.
 
-Each skill has its own frontmatter trigger and neither requires a router or the other skill.
+Both skills are installed together. Each has its own frontmatter trigger and responsibility; no router is required.
 
 ## Documentation model
 

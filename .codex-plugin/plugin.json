@@ -20,7 +20,7 @@
   "interface": {
     "displayName": "APEX",
     "shortDescription": "Semantic-risk execution and project docs",
-    "longDescription": "Use two independent Codex skills for claim-focused execution discipline, research/ML evidence boundaries, and a consistent project documentation lifecycle.",
+    "longDescription": "Use the two bundled Codex skills for claim-focused execution discipline, research/ML evidence boundaries, and a consistent project documentation lifecycle.",
     "developerName": "4everWZ",
     "category": "Coding",
     "capabilities": [
