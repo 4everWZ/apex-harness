@@ -72,4 +72,4 @@ Static checks establish structure and validity only; they do not establish behav
 4. Implement the smallest defensible change; re-evaluate the approach when repairs begin creating compensating complexity. Do not rewrite input requirements to make the implementation appear conformant.
 5. Run the cheapest evidence that can support or distinguish the claim.
 6. Continue only while the claim remains unsupported and each subsequent check adds evidence or reduces uncertainty. When evidence undermines a material requirement or assumption, re-evaluate the approach and apply the consultation boundary before changing the requested outcome.
-7. When the claim is supported, synchronize any canonical project document that would otherwise be wrong or misleading and stop; otherwise state the precise remaining unverified scope.
+7. Before synchronization, resolve any disagreement between the implementation and the authorized contract; do not revise the contract merely to match the implementation. When the claim is supported, synchronize any canonical project document that would otherwise be wrong or misleading and stop; otherwise state the precise remaining unverified scope.

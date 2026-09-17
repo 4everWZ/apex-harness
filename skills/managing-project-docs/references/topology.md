@@ -6,7 +6,7 @@ Preserve an established documentation topology. Use this fallback only when no a
 
 | Artifact | Lifecycle | Create only when | Fallback path | Authoritative for |
 |---|---|---|---|---|
-| specification | durable | a stable contract meets the specification boundary rule below | `docs/specs/<topic>.md` | current behavior, interfaces, invariants, and acceptance |
+| specification | durable | a stable contract meets the specification boundary rule below | `docs/specs/<topic>.md` | current accepted contract, interfaces, invariants, and acceptance |
 | decision record | durable | a material choice or proposal needs independent acceptance or durable rationale | `docs/design/YYYY-MM-DD-<topic>-design.md` | the choice, tradeoff, and rationale |
 | work plan | working | unfinished work must remain coordinated or resumable | `docs/plans/<topic>.md` | ordered execution and unresolved work |
 | handoff | transient | responsibility is actually transferring | `docs/handoffs/<topic>.md` | the current state of that transfer |

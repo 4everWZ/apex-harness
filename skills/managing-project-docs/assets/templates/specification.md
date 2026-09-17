@@ -8,7 +8,7 @@
 
 ## Contract
 
-[Current responsibilities, interfaces, failure behavior, and invariants.]
+[Responsibilities, interfaces, failure behavior, and invariants.]
 
 ## Acceptance
 
