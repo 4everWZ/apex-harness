@@ -29,12 +29,10 @@ Use this order:
 
 The existence of a template, implementation unit, algorithm, development stage, experiment, review, date, or task is not by itself a reason to create a file. Create a work plan only for work that must remain coordinated or resumable, and a handoff only for an actual transfer of responsibility.
 
-By default, an ordinary single-session change needs no project document. Use one specification for a durable contract. Add a decision record only when its choice or rationale needs to be accepted, maintained, or referenced independently. Use one current work plan for coordinated or multi-session work, and a handoff only for an actual transfer. Add more files only when each one needs to be accepted, maintained, consumed, replaced, or retired independently.
+By default, an ordinary single-session change needs no project document. Use one specification for a durable contract. Add a decision record only when its choice or rationale needs to be accepted, maintained, or referenced independently. Use one current work plan for coordinated or multi-session work, and a handoff only for an actual transfer.
 
 When enough independently trackable requirements make partial implementation or scope drift realistically easy to miss, add a compact spec-to-implementation mapping to the existing canonical specification or current work plan. For input baselines without maintenance responsibilities, keep the execution mapping in working context or the current plan. Do not create a separate matrix by default; follow an established repository matrix convention when one exists.
 
 Writing or editing a document does not by itself make a proposed contract authoritative; follow the repository's normal acceptance process.
 
 Read [topology.md](references/topology.md) when choosing which document is authoritative, resolving its path, consolidating documents, or retiring one. Read the lifecycle reference for every document type in scope: [specifications](references/specifications.md), [decisions](references/decisions.md), or [work plans and handoffs](references/working-docs.md).
-
-For a task spanning artifact types, read each applicable reference.

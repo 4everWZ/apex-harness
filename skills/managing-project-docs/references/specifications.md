@@ -20,7 +20,7 @@ At synchronization, the specification contains the accepted contract, independen
 
 Synchronize accepted changes with their owning specification in the same logical change.
 
-Before accepting the specification or claiming that contract synchronization is complete, confirm that the specification, implementation, evidence, and active decisions agree. Open decisions are resolved and evidence supports acceptance. Reference stable evidence; keep run logs in their external system. Apply `apex-harness` evidence requirements during verification.
+Before accepting the specification or claiming that contract synchronization is complete, confirm that the specification, implementation, evidence, and active decisions agree. Open decisions are resolved and evidence supports acceptance. Reference existing durable evidence when useful; keep run logs in their external system. Do not create evidence artifacts or identity metadata solely to make documentation more traceable. Apply `apex-harness` evidence requirements during verification.
 
 ## Reject a draft
 

@@ -12,7 +12,7 @@
 
 ## Acceptance
 
-| Observable requirement | Verification method | Stable evidence reference — optional |
+| Observable requirement | Verification method | Evidence reference — optional |
 |---|---|---|
 |  |  |  |
 
