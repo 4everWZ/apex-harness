@@ -1,11 +1,13 @@
 ---
 name: managing-project-docs
-description: Keeps project documentation small and coherent by updating or consolidating existing specifications, decision records, work plans, and handoffs before creating new files. Use when those documents are created, changed, reorganized, consolidated, superseded, or retired. Does not define execution risk or verification policy.
+description: Maintains project specifications, decision records, work plans, and handoffs by ownership and lifecycle. Use when defining or changing a maintained project contract, establishing its missing documentation owner, or creating, reorganizing, consolidating, superseding, or retiring these documents. Does not define execution risk or verification policy.
 ---
 
 # Managing Project Docs
 
-Keep project documentation as small as possible. If new information already belongs in a current specification, decision record, work plan, or handoff, update that file instead of creating another one.
+Keep documentation small and useful: give information a clear owner, avoid duplicates, and keep task history and run logs out of project documents. Determine ownership and lifecycle before choosing a file; reuse an existing artifact only when it owns that information.
+
+The specification states the accepted current contract. Implementation is the actual system state; evidence supports whether it conforms. Inputs supply requested targets or constraints. A work plan is optional and tracks the unfinished transition, not the current contract. Do not add documents, status fields, approvals, or reports just to demonstrate that this workflow was followed.
 
 Follow explicit user instructions and established repository conventions first. Use this skill's default locations, linking, and lifecycle rules only when the repository has no convention for the case. When the user asks to review or consolidate the existing documentation structure, make the requested change without silently overriding unrelated conventions.
 
@@ -23,9 +25,11 @@ Consume inputs without such maintenance responsibilities as baselines. Do not re
 Use this order:
 
 1. Make no documentation change when no durable or working information changes.
-2. Update or extend the existing canonical document.
-3. Create a separate file only when its information needs to be accepted, maintained, consumed, replaced, or retired independently.
-4. Split further only when each resulting file meets one of those independent needs.
+2. Identify whether the information belongs to a durable contract, an independently maintained decision, unfinished execution, or a transfer.
+3. Update or extend the existing canonical owner for that role, including a maintained section of another document when repository conventions assign it that role.
+4. Create a separate file when no suitable owner exists and the information needs to be accepted, maintained, consumed, replaced, or retired independently. Split further only when each resulting file meets one of those independent needs.
+
+When work defines or changes durable behavior, interfaces, invariants, or acceptance, read the [specification lifecycle](references/specifications.md) before choosing its owner, including when the project currently has only a plan. A work plan's existence does not satisfy specification ownership.
 
 The existence of a template, implementation unit, algorithm, development stage, experiment, review, date, or task is not by itself a reason to create a file. Create a work plan only for work that must remain coordinated or resumable, and a handoff only for an actual transfer of responsibility.
 
@@ -35,4 +39,4 @@ When enough independently trackable requirements make partial implementation or 
 
 Writing or editing a document does not by itself make a proposed contract authoritative; follow the repository's normal acceptance process.
 
-Read [topology.md](references/topology.md) when choosing which document is authoritative, resolving its path, consolidating documents, or retiring one. Read the lifecycle reference for every document type in scope: [specifications](references/specifications.md), [decisions](references/decisions.md), or [work plans and handoffs](references/working-docs.md).
+Read [topology.md](references/topology.md) when choosing which document is authoritative, resolving its path, consolidating documents, or retiring one. Also read the lifecycle reference for any [decisions](references/decisions.md) or [work plans and handoffs](references/working-docs.md) in scope.

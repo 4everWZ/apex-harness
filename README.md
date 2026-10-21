@@ -8,7 +8,7 @@ APEX bundles two Codex skills:
 ## When to use
 
 - Use the harness for substantial coding, cross-module refactors, architecture, research, ML, or any change whose semantic consequences need explicit risk, evidence, or completion discipline. Do not use it for trivial low-risk local edits.
-- Use document management when creating, changing, synchronizing, reorganizing, consolidating, or retiring one of its project artifacts. Prefer updating an existing canonical artifact; create a new one only for independent ownership or lifecycle.
+- Use document management when defining or changing a maintained project contract, resolving a missing contract owner, or creating, changing, synchronizing, reorganizing, consolidating, or retiring one of its project artifacts. Determine information ownership and lifecycle first, then reuse a suitable canonical owner or create one where needed. Minimize duplicate maintenance rather than file count.
 
 Both skills are installed together. Each has its own frontmatter trigger and responsibility; no router is required.
 
@@ -16,18 +16,22 @@ Both skills are installed together. Each has its own frontmatter trigger and res
 
 | Artifact | Lifecycle | Authoritative for |
 |---|---|---|
-| specification | durable | current contract and acceptance |
+| specification | durable | accepted current normative contract and acceptance criteria |
 | decision record | durable | an independently owned choice and rationale |
-| work plan | working | unfinished execution and blockers |
+| work plan | optional, working | unfinished transition, execution, and blockers |
 | handoff | transient | one explicit transfer of work |
 
 Repository conventions take precedence over these fallback shapes and paths.
+
+The specification states the accepted current contract. Implementation is the actual system state; evidence supports whether it conforms. Inputs supply requested targets or constraints, and an optional plan coordinates the transition. Contract acceptance does not by itself establish implementation conformance, and implementation drift does not redefine the contract.
+
+An existing README or API document may already serve as the maintained specification. If the task involves a durable contract with no suitable owner, establish one and move accepted contract content out of the work plan; unaccepted targets remain clearly proposed. Taking over an existing project does not by itself require reconstructing unrelated specifications. Distinguish observed behavior, the authorized target, and unresolved questions when drafting a missing contract.
 
 Task inputs, including traditional requirements specifications, define or constrain requested work. Using a document as input neither creates nor removes its maintenance responsibilities. Inputs without maintenance responsibilities remain unchanged unless maintaining them is part of the authorized task. Coordinate the transition from the current contract to the authorized target in working context or a work plan when needed, then synchronize accepted changes into the canonical specification.
 
 ## Example
 
-For a feature with a material design choice, update one specification for the accepted contract and add a decision record only when its rationale remains independently useful. Add one work plan only when execution must remain coordinated or resumable, and a handoff only for an actual transfer. At closure, move still-current facts to their authoritative durable artifact and retire working or transient records under their lifecycle rules.
+For a feature with a material design choice, draft the proposed contract before implementation when it can be defined, and synchronize it into the current specification when accepted. Add a decision record only when its rationale remains independently useful, a work plan only when execution must remain coordinated or resumable, and a handoff only for an actual transfer. Keep plans focused on remaining work rather than task history; retain a plan with unverified delivery work. At closure, move still-current facts to their owners and retire working or transient records under their lifecycle rules. Confirm content is recoverable before relying on Git instead of retaining it, and preserve the actual last accepted content when a predecessor must be retained.
 
 ## Default paths
 

@@ -24,7 +24,7 @@ Read [verification.md](references/verification.md) for evidence selection, testi
 
 Read [research-ml.md](references/research-ml.md) when the work changes model, data, training, inference, evaluation, checkpoint, or research semantics.
 
-If a canonical project document would become wrong or misleading, update it. When a task creates, splits, consolidates, supersedes, or retires project documents, use `managing-project-docs` for ownership and lifecycle.
+When work defines or changes a durable contract, check whether it has a maintained specification owner; use `managing-project-docs` to resolve a missing owner. If a canonical project document would become wrong or misleading, update it. When a task creates, splits, consolidates, supersedes, or retires project documents, use `managing-project-docs` for ownership and lifecycle.
 
 For input requirements or specifications, use `managing-project-docs` to determine their ownership and maintenance responsibilities.
 

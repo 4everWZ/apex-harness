@@ -26,4 +26,4 @@
 
 ## Open decisions — optional
 
-[Only unresolved questions that prevent activation.]
+[Draft only: unresolved questions that prevent acceptance. Omit from the accepted current specification.]

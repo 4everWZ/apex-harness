@@ -2,25 +2,29 @@
 
 ## Select the contract boundary
 
-A specification represents a stable contract, not the chronology of developing it. Prefer one current specification for one coherent contract. Give an internal algorithm, stage, or module its own specification only when the project maintains it as a contract of its own—for example, it is accepted, consumed, replaced, or versioned independently.
+A current specification records the accepted normative contract: what the system is required to do. It does not describe whatever the implementation happens to do or the chronology of developing it. Prefer one current specification for one coherent contract. Give an internal algorithm, stage, or module its own specification only when the project maintains it as a contract of its own—for example, it is accepted, consumed, replaced, or versioned independently.
+
+An existing README, API document, or other maintained artifact may already own that specification role under repository conventions; update it rather than creating a parallel specification. If no suitable owner exists, establish a specification for the contract involved in the task. Move accepted contract content out of a work plan into that owner; keep unaccepted targets clearly proposed and execution state in working context or the plan. Taking over an existing project does not require reconstructing specifications for unrelated contracts.
 
 Implementation stages, experiments and run histories, candidate reviews, confirmation records, generated manifests, runtime snapshots, method-revision history, and task notes are not specifications by themselves.
 
 ## Resolve draft and current state
 
-An accepted specification owns the current contract. A draft owns a proposed contract and does not claim that implementation already conforms. Draft and accepted states are established by Git context and the repository's acceptance process; the default specification template does not require a status field.
+An accepted specification owns the current contract. A draft describes a proposed contract and does not replace the accepted one. Use Git context and the repository's existing acceptance process to distinguish them; no extra file or status field is required just to represent that distinction.
 
 Input requirements may propose changes to the accepted contract; coordinate authorized changes in working context or a work plan when needed.
+
+When establishing a missing specification, distinguish observed implementation behavior, the authorized target, and unresolved questions. Code and tests inform the draft but do not by themselves establish that a behavior is an accepted contract.
 
 ## Draft and synchronize
 
 Prefer drafting a new or changed contract before implementation when its observable behavior, interfaces, invariants, or acceptance can reasonably be defined. Exploratory implementation may precede a draft, but it does not establish the contract.
 
-At synchronization, the specification contains the accepted contract, independently owned choices link to their decisions, unaccepted deviations remain unresolved, and non-contract implementation details remain outside the specification.
+At synchronization, the current specification contains the accepted contract, and independently owned choices link to their decisions. Keep unaccepted targets or deviations in working context, the plan, or a clearly distinguished draft version. Keep implementation progress, conformance gaps, and unfinished acceptance checks in working context or the plan rather than accumulating them in the specification.
 
 Synchronize accepted changes with their owning specification in the same logical change.
 
-Before accepting the specification or claiming that contract synchronization is complete, confirm that the specification, implementation, evidence, and active decisions agree. Open decisions are resolved and evidence supports acceptance. Reference existing durable evidence when useful; keep run logs in their external system. Do not create evidence artifacts or identity metadata solely to make documentation more traceable. Apply `apex-harness` evidence requirements during verification.
+Contract acceptance establishes what is required; it does not prove implementation conformance. An accepted contract can precede its implementation. Before claiming delivery or conformance, check the implementation against that contract and the evidence supporting the claim. A failing or missing check leaves conformance unresolved; it does not weaken the contract. Reference existing durable evidence when useful; keep run logs in their external system. Do not create evidence artifacts or identity metadata solely to make documentation more traceable. Apply `apex-harness` evidence requirements during verification.
 
 ## Reject a draft
 
@@ -40,7 +44,7 @@ Deletion is the default after supersession. Retain a predecessor only when the t
 
 Exclude retained legacy specifications from normal current-document navigation. Read them only to resolve lineage, audit, or a documented historical dependency.
 
-When retaining a superseded specification, the legacy artifact is the last accepted Git version, not the successor draft. Keep the successor at the canonical path. If a direct navigation link was intentionally retained, repair older lineage fields that named the predecessor's former path; otherwise Git history provides lineage. Apply the topology lineage rules.
+When retaining a superseded specification, preserve the actual last accepted content, not the successor draft or an assumed Git version. Acceptance may include uncommitted changes; use a Git version only after confirming that it contains the accepted content. Apply the topology recovery rule before replacing the predecessor. Keep the successor at the canonical path. If a direct navigation link was intentionally retained, repair older lineage fields that named the predecessor's former path; otherwise recoverable Git history provides lineage. Apply the topology lineage rules.
 
 When not retaining a superseded specification, apply the topology retirement procedure.
 

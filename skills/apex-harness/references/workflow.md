@@ -66,10 +66,10 @@ Static checks establish structure and validity only; they do not establish behav
 
 ## Execution loop
 
-1. Read the current contract and governing task inputs. Distinguish accepted behavior from the requested target and classify semantic risk.
+1. Read the accepted current contract, actual implementation, and governing task inputs. Distinguish the requested target from the contract and classify semantic risk.
 2. Define the changed claim and what completion means from the current contract and authorized target requirements, preserving the requested scope.
 3. Resolve choices from repository evidence and governing inputs; ask only at a material boundary.
 4. Implement the smallest defensible change; re-evaluate the approach when repairs begin creating compensating complexity. Do not rewrite input requirements to make the implementation appear conformant.
 5. Run the cheapest evidence that can support or distinguish the claim.
 6. Continue only while the claim remains unsupported and each subsequent check adds evidence or reduces uncertainty. When evidence undermines a material requirement or assumption, re-evaluate the approach and apply the consultation boundary before changing the requested outcome.
-7. Before synchronization, resolve any disagreement between the implementation and the authorized contract; do not revise the contract merely to match the implementation. When the claim is supported, synchronize any canonical project document that would otherwise be wrong or misleading and stop; otherwise state the precise remaining unverified scope.
+7. Synchronize accepted contract changes in the same logical change; this does not establish implementation conformance. Before claiming delivery, resolve any disagreement between the implementation and the authorized contract; do not revise the contract merely to match the implementation. When the claim is supported, synchronize any other canonical project document that would otherwise be wrong or misleading and stop; otherwise state the precise remaining unverified scope.

@@ -6,7 +6,7 @@ Preserve an established documentation topology. Use this fallback only when no a
 
 | Artifact | Lifecycle | Create only when | Fallback path | Authoritative for |
 |---|---|---|---|---|
-| specification | durable | a stable contract meets the specification boundary rule below | `docs/specs/<topic>.md` | current accepted contract, interfaces, invariants, and acceptance |
+| specification | durable | a stable contract meets the specification boundary rule below | `docs/specs/<topic>.md` | accepted current normative contract, interfaces, invariants, and acceptance criteria |
 | decision record | durable | a material choice or proposal needs independent acceptance or durable rationale | `docs/design/YYYY-MM-DD-<topic>-design.md` | the choice, tradeoff, and rationale |
 | work plan | working | unfinished work must remain coordinated or resumable | `docs/plans/<topic>.md` | ordered execution and unresolved work |
 | handoff | transient | responsibility is actually transferring | `docs/handoffs/<topic>.md` | the current state of that transfer |
@@ -69,19 +69,21 @@ When multiple artifacts describe one subject:
 5. Merge unfinished execution into the minimum number of current work plans.
 6. Remove generated data, runtime events, and experiment logs from project documents after confirming their existing owning systems; do not initiate an external move without authority.
 7. Repair direct current references.
-8. Delete artifacts that no longer own independently useful information.
+8. Retire artifacts that no longer own independently useful information under the procedure below.
 
-Do not preserve one file per historical stage; Git owns chronology.
+Do not preserve one file per historical stage; use recoverable Git history for chronology.
 
 ## Retire or delete an artifact
+
+Before deleting or replacing content that still needs to be retained, ensure it is preserved in its designated owner or recoverable from the source you rely on. When relying on Git, confirm that the relevant content is recorded; being tracked is not enough. If required content cannot be preserved or recovered, keep the original and report the specific blocker; do not automatically commit it or create a backup scheme.
 
 Before deleting any project artifact:
 
 1. Transfer every still-current fact to the artifact that owns it.
 2. Redirect or remove every current inbound reference.
 3. Preserve required evidence in its designated evidence system.
-4. Retain the artifact only for an established audit, current consumer, recovery, or repository-convention reason. Retention requires a concrete reason; historical chronology alone is preserved by Git.
-5. Otherwise delete it; Git retains document chronology.
+4. Retain the artifact only for an established audit, current consumer, recovery, or repository-convention reason. Historical chronology alone does not justify keeping the file.
+5. Otherwise delete it.
 
 A superseded status does not itself require retention. If a retained predecessor is removed, any retained lineage bypasses it and current links resolve to the successor.
 
