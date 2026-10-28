@@ -1,0 +1,32 @@
+# Sentinel score-method v1
+
+本文件承接所有者已接受的 M01–M18，作为设备 SDK 方法兼容性的维护规范；原始 `tmp/method-brief.md` 是只读输入。方法的接受与替换独立于离线 QA 的 evaluation protocol v3，不因实现优化而改变。以下要求的接受不代表已有实现或验收证据。
+
+- **M01** 输入为 `(stream_id, event_id, timestamp, x)`，x 为有限实数。成功输出包含 `stream_id`、`event_id`、`score`、`anomaly`、`warmup_remaining`，不得省略 warmup 状态。
+- **M02** 每条流独立维护最近 W=64 个已接受值；均值、窗口和去重状态不跨流共享。
+- **M03** 当前 x 插入前计算分数；n 是此前窗口长度。先评分再插入，超过 64 时移除最旧值。
+- **M04** n<16 时 `score=null`、`anomaly=false`、`warmup_remaining=16-n`，本次有限有效值仍插入。n>=16 时 `warmup_remaining=0`。
+- **M05** n>=16 时 `mu=sum(prior_window)/n`；`sigma=sqrt(sum((v-mu)^2)/n)`，使用总体标准差。
+- **M06** `score=abs(x-mu)/max(sigma,0.001)`；不把 epsilon 加在 sigma 上，不替换为不同的方差截断。
+- **M07** 当且仅当 `score>3` 时异常，等于 3 为正常。
+- **M08** 同流 timestamp 不小于上一条已接受时间；允许相等。逆序返回 `OUT_OF_ORDER`，不改窗口、去重或最后时间。
+- **M09** NaN、正负无穷返回 `INVALID_VALUE`，不改任何状态，也不消耗 warmup。
+- **M10** 同流同 event_id、timestamp 和数值的重放返回该事件原始输出，不重复插入。同 event_id 不同时间或数值返回 `EVENT_CONFLICT`，不改状态。保留事件的重放判断优先于新事件的时间检查。
+- **M11** FIFO 保留最近 128 个已接受 event_id；重放不刷新 FIFO。淘汰后的 id 作为普通新事件处理，重新检查时间。
+- **M12** 批输入按数组顺序处理，不预排序。单条错误不回滚其他成功输入；每条各自先评分再更新状态。
+- **M13** `reset(stream_id)` 清空该流窗口、最后时间和去重，不影响其他流。
+- **M14** 保存、恢复保留窗口顺序、最后时间、去重 FIFO 和原始输出；继续输入的结果与不中断执行一致。
+- **M15** 单条有效输入数值输出绝对误差 <=1e-9；不得用近似方差改变异常布尔结果。实现优化必须保留上述语义。
+- **M16** 验收向量 A：此前依次交替的 16 个 -1,+1，当前 x=3，得到 mu=0、sigma=1、score=3、anomaly=false；当前 x 不进入此前窗口统计。
+- **M17** 验收向量 B：此前 16 个 0，当前 x=0.004，score=4、anomaly=true；零标准差不产生 null 或无穷。
+- **M18** 验收覆盖第 16/17 次输入 warmup、第 64/65 个值移除、重复原始输出、128/129 去重淘汰、多流隔离、错误不变状态、恢复连续性。
+
+## Python 接口与快照表示
+
+`sentinel.Detector.process(stream_id, event_id, timestamp, x)` 返回不可变的 `ScoreResult` 或含 `stream_id`、`event_id`、`error` 的 `ErrorResult`。`process_batch(events)` 接受四元组迭代输入，返回逐条结果列表。标识符为不可变可哈希 Python 对象；timestamp 由调用者提供可排序可比较的值，单位不由检测器决定。调用者负责串行调用。
+
+x 支持内置 int、float、Decimal 和 Rational。float 按传入的二进制实际值处理；非实数类型返回 `INVALID_VALUE`。成功 score 使用 `Decimal`，warmup 时为 Python `None`。调用者如需 JSON，应按消费端支持的数值精度编码，不能把大数无条件转成 float。异常判定使用精确有理数比较，Decimal 输出保留充分绝对精度。此表示不改变 M05–M07 的公式。
+
+`snapshot()` 返回版本 1 的不可变 `Snapshot`：依次包含每流窗口、最后时间、去重 FIFO 和缓存原始结果。`Detector.from_snapshot(snapshot)` 恢复独立的可变容器，未知版本报 ValueError。该 Python 快照可用标准库 pickle 持久化；它是可信本地应用状态，不是外部数据交换格式，不加载不可信 pickle。快照生成后继续处理不改变已有快照。
+
+median/MAD 与 W=128 尚未接受，不属于 score-method v1。

@@ -2,7 +2,9 @@
 
 ## Select the contract boundary
 
-A current specification records the accepted normative contract: what the system is required to do. It does not describe whatever the implementation happens to do or the chronology of developing it. Prefer one current specification for one coherent contract. Give an internal algorithm, stage, or module its own specification only when the project maintains it as a contract of its own—for example, it is accepted, consumed, replaced, or versioned independently.
+A current specification records the accepted normative contract: what the system is required to do. It does not describe whatever the implementation happens to do or the chronology of developing it. A coherent contract may use one specification or an overall specification with subordinate technical specifications. Split substantial subsystem or algorithm detail when a focused reference makes implementation, verification, or maintenance clearer; these layers need no separate release, acceptance process, or lifecycle. Keep simple details as sections.
+
+The overall specification owns scope, shared constraints, and relationships; technical specifications own their detailed definitions and acceptance criteria. Link to those owners instead of repeating their content. Preserve the interfaces, formulas, state and error semantics, invariants, and acceptance needed to implement and verify each part; neither summarizing nor splitting justifies omitting them.
 
 An existing README, API document, or other maintained artifact may already own that specification role under repository conventions; update it rather than creating a parallel specification. If no suitable owner exists, establish a specification for the contract involved in the task. Move accepted contract content out of a work plan into that owner; keep unaccepted targets clearly proposed and execution state in working context or the plan. Taking over an existing project does not require reconstructing specifications for unrelated contracts.
 
@@ -10,7 +12,7 @@ Implementation stages, experiments and run histories, candidate reviews, confirm
 
 ## Resolve draft and current state
 
-An accepted specification owns the current contract. A draft describes a proposed contract and does not replace the accepted one. Use Git context and the repository's existing acceptance process to distinguish them; no extra file or status field is required just to represent that distinction.
+An accepted specification owns its part of the current contract. A draft describes a proposed contract and does not replace the accepted one. Use Git context and the repository's existing acceptance process to distinguish them; no extra file or status field is required just to represent that distinction.
 
 Input requirements may propose changes to the accepted contract; coordinate authorized changes in working context or a work plan when needed.
 
@@ -20,7 +22,7 @@ When establishing a missing specification, distinguish observed implementation b
 
 Prefer drafting a new or changed contract before implementation when its observable behavior, interfaces, invariants, or acceptance can reasonably be defined. Exploratory implementation may precede a draft, but it does not establish the contract.
 
-At synchronization, the current specification contains the accepted contract, and independently owned choices link to their decisions. Keep unaccepted targets or deviations in working context, the plan, or a clearly distinguished draft version. Keep implementation progress, conformance gaps, and unfinished acceptance checks in working context or the plan rather than accumulating them in the specification.
+At synchronization, each specification contains the accepted contract for its scope, and independently owned choices link to their decisions. Keep unaccepted targets or deviations in working context, the plan, or a clearly distinguished draft version. Keep implementation progress, conformance gaps, and unfinished acceptance checks in working context or the plan rather than accumulating them in the specification.
 
 Synchronize accepted changes with their owning specification in the same logical change.
 

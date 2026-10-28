@@ -1,0 +1,20 @@
+# Sentinel implementation
+
+Goal: implement and independently verify the detector and evaluator, then verify their combined acceptance. The accepted contract is owned by [Sentinel](../specs/sentinel.md) and its technical layers; the unmodified baseline input is [method brief](../../tmp/method-brief.md).
+
+This session implements only the detector; the evaluator and real evaluation are deferred. Use only `D:/Code/prompt/apex/.venv/Scripts/python.exe` and the standard library. Do not install dependencies, access external hosts/data, deploy, or run a real evaluation in this session.
+
+| Requirements | Implementation / acceptance work | State |
+|---|---|---|
+| M01–M07 | `sentinel/detector.py`: public result, independent prior window, warmup, exact population moments, epsilon floor and strict threshold | Implemented; local acceptance and decimal-reference checks pass |
+| M08–M12 | `sentinel/detector.py`: invalid/order/conflict errors, original-output replay, FIFO and sequential batches | Implemented; atomicity, FIFO and batch tests pass |
+| M13–M15 | `sentinel/detector.py`: reset, snapshot continuity, exact moments and magnitude-scaled Decimal scores | Implemented; reset/restore, sampled absolute-error, extreme-value and exact-threshold tests pass |
+| M16–M18 | `tests/test_detector.py`: acceptance vectors, window/warmup/FIFO boundaries, stream isolation and error atomicity | 14 local detector tests pass |
+| E01–E05 | Implement split, isolated state and label-aligned macro F1 | Deferred |
+| E06–E10 | Implement timing/reporting; acquire authorized H1/reference/data; measure targets | Deferred; no measurements |
+| E11 | Independent evaluator acceptance tests | Deferred |
+| E12 | Independent SDK compatibility and detector/evaluator consistency | Deferred |
+
+Local evidence: `D:/Code/prompt/apex/.venv/Scripts/python.exe -B -m unittest discover -s tests -v` passes 14 tests. This includes vectors A/B, population denominator, epsilon flooring, pre-insertion scoring, warmup 16/17, window 64/65, FIFO 128/129, retained original outputs, equal timestamps, error atomicity, reset, multistream isolation, snapshot independence/continuation, and a deterministic independent 90-digit decimal comparison across ordinary and large-offset samples. Extreme finite inputs exercise intermediate-overflow avoidance and a 700-digit reference comparison for a score exceeding float range. Exact rational inputs just above/below 3 check strict threshold behavior despite final-root rounding. These checks establish local detector behavior, not device SDK integration or evaluator conformance.
+
+Next: resume evaluator development in the next phase. Before choosing material E01 details, resolve the protocol's unspecified minimum samples rule and exact split boundary interpretation with its owner. Host H1 and external data are unnecessary for detector completion. Evaluator implementation, independent protocol acceptance, SDK integration and combined acceptance remain open; no real evaluation, quality comparison or latency measurement has run.

@@ -25,6 +25,8 @@ Repository conventions take precedence over these fallback shapes and paths.
 
 The specification states the accepted current contract. Implementation is the actual system state; evidence supports whether it conforms. Inputs supply requested targets or constraints, and an optional plan coordinates the transition. Contract acceptance does not by itself establish implementation conformance, and implementation drift does not redefine the contract.
 
+A contract may use an overall specification and subordinate technical specifications without separate releases or lifecycles. Each layer owns distinct content; necessary technical semantics remain explicit.
+
 An existing README or API document may already serve as the maintained specification. If the task involves a durable contract with no suitable owner, establish one and move accepted contract content out of the work plan; unaccepted targets remain clearly proposed. Taking over an existing project does not by itself require reconstructing unrelated specifications. Distinguish observed behavior, the authorized target, and unresolved questions when drafting a missing contract.
 
 Task inputs, including traditional requirements specifications, define or constrain requested work. Using a document as input neither creates nor removes its maintenance responsibilities. Inputs without maintenance responsibilities remain unchanged unless maintaining them is part of the authorized task. Coordinate the transition from the current contract to the authorized target in working context or a work plan when needed, then synchronize accepted changes into the canonical specification.
@@ -53,3 +55,5 @@ $env:SKILL_CREATOR_PATH = 'C:\path\to\official\skill-creator'
 ```
 
 Pass `-Python C:\path\to\python.exe` to use another isolated environment. Static validation checks official skill validity, matching skill names, local Markdown links, non-empty templates, the plugin manifest, and unsupported package paths. It does not enforce skill design, document headings, metadata, or behavioral routing; static validation is not behavioral evaluation.
+
+Behavioral cases for new-project specification boundaries and completeness are in [tests/behavioral/spec-boundaries](tests/behavioral/spec-boundaries/README.md). They use independent executions and semantic review of actual artifacts; recorded results state their scope and limitations.

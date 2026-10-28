@@ -1,0 +1,30 @@
+# Relay Audit Format v1
+
+本文件维护审计消费者依赖的已接受导出格式与验收要求（R23–R30）。格式版本和验收独立于公共 API 发布；传输接口和未给定字段类型尚未决定。
+
+## 事件与字段
+
+- **R23：** 已提交的创建、开始、取消请求和终态转换分别必须有审计事件。失败事务不得产生看似已提交的事件。
+- **R24：** 事件字段为 `event_id`、`tenant_id`、`job_id`、`kind`、`occurred_at`、`tenant_sequence`、`actor_type`、`actor_id`。`occurred_at` 为 UTC RFC3339；`kind` 必须属于声明的枚举。枚举的具体字面值仍待定义，不因本文列出事件类别而假定 wire 值。
+- **R25：** `tenant_sequence` 在各 tenant 内严格递增，允许空洞，不允许重复或倒序。不同 tenant 的 sequence 不可比较。
+- **R28：** 事件仅允许上述声明字段；不得含 `payload`、`lease_token`、`Idempotency-Key`、credentials 或原始错误堆栈。
+
+## 导出与分页
+
+- **R26：** `format_version=1`。导出为 UTF-8 JSON Lines，每行一个完整事件，以换行结束。JSON 数组不是等价输出。版本信息的承载位置尚待明确，不能据此擅自给事件增加未声明字段。
+- **R27：** 请求从指定 `tenant_sequence` 之后导出，边界为 exclusive；每批最多 1000 条，返回 `next_sequence`。重复请求可重放相同历史事件，`event_id` 不改变。
+- **R29：** 审计消费者不得读取其他 tenant 的事件。不得以全租户混合排序并暴露数据来修复顺序问题。
+
+## 格式独立验收
+
+**R30：** 用 golden 文件验证格式；API 状态测试不能代替格式验收。最低覆盖：
+
+| 范围 | 必须观察的结果 |
+|---|---|
+| R23 | 创建、开始、取消请求及终态转换的已提交事件；失败事务不出现伪提交事件 |
+| R24、R26 | Unicode 内容的 UTF-8 JSON Lines；一行一个完整事件、行末换行；拒绝以 JSON 数组替代；UTC RFC3339 和已声明 kind 枚举；format_version=1 |
+| R25、R27 | 多个同时间事件仍按 tenant_sequence 保持顺序；允许空洞；无重复或倒序；exclusive 起点、1000 条分页边界、next_sequence；历史重放保持 event_id |
+| R27、R30 | 空批次的合法表示与继续位置；在完成接口澄清后固定 golden 预期 |
+| R28–R29 | 声明字段白名单及所有禁止字段检查；跨 tenant 请求不暴露事件，分页与排序均保持隔离 |
+
+尚无 golden 文件或执行结果。空批次的 `next_sequence`、版本和分页元信息的承载位置等未决定义须先完成接受，再固定其 golden 文件。

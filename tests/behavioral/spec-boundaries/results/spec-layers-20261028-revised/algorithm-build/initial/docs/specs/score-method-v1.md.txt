@@ -1,0 +1,40 @@
+# score-method v1
+
+This document owns the accepted device-facing detection method M01–M18.
+
+## Input and outputs
+
+- **M01:** Input is `(stream_id, event_id, timestamp, x)`, where x is a finite real number. Successful output contains `stream_id`, `event_id`, `score`, `anomaly`, and `warmup_remaining`; warmup state must not be omitted.
+- **M02:** Each stream independently holds the latest W=64 accepted values. Streams share no mean, window, or deduplication state.
+- **M03:** Score uses the window before inserting the current x. Let n be that prior window's size. Score first, insert x second, then remove the oldest value if the window exceeds W.
+- **M04:** For n<16, `score=None`, `anomaly=False`, and `warmup_remaining=16-n`. The finite valid input is still inserted. For n>=16, `warmup_remaining=0`.
+- **M05:** For n>=16, `mu=sum(prior_values)/n` and `sigma=sqrt(sum((v-mu)^2)/n)`. This is the population standard deviation; the denominator is n, not n-1.
+- **M06:** `score=abs(x-mu)/max(sigma,0.001)`. Epsilon is a denominator floor, not an addition or a different variance truncation.
+- **M07:** `anomaly` is true exactly when `score>3`; equality is not anomalous.
+
+## Ordering, replay, and state
+
+- **M08:** Within a stream, timestamp must be >= the last accepted timestamp; equality is permitted. Otherwise return `OUT_OF_ORDER` without changing window, replay state, or last timestamp.
+- **M09:** NaN and either infinity return `INVALID_VALUE`, change no state, and consume no warmup.
+- **M10:** A retained event_id replay with the same timestamp and numeric value returns its original output without inserting again. A retained id with different timestamp or value returns `EVENT_CONFLICT` without changing state. Replay lookup precedes ordinary new-event ordering, so an old retained replay remains valid after newer events.
+- **M11:** Retain the most recent 128 accepted event_ids in FIFO order. Replays do not refresh FIFO. An evicted id is processed as a new event, including timestamp validation.
+- **M12:** Process a batch sequentially in array order, without sorting. Each record scores against the state at that point; errors do not roll back other successful records.
+- **M13:** `reset(stream_id)` clears that stream's window, timestamp and replay state without affecting other streams.
+- **M14:** Snapshot/restore preserves window order, last timestamp, replay FIFO, and original outputs. Continuing from a restored snapshot must match uninterrupted processing.
+- **M15:** Valid numeric score outputs must meet absolute error <=1e-9. An approximate variance must not change anomaly booleans. Optimization preserves all method semantics.
+
+## Local Python interface and snapshots
+
+`sentinel.Detector.process(stream_id, event_id, timestamp, x)` returns an immutable `Detection` with M01 fields, or an immutable `DetectionError` with `stream_id`, `event_id` and `code`. Identifiers must be hashable; timestamps must be mutually orderable within a stream. Numeric identity uses equality, so 1 and 1.0 are the same replay value. The interface does not coerce or sort timestamps.
+
+`process_batch(records)` accepts ordered four-element records and returns one result per record. `reset(stream_id)` is idempotent. Finite Python real values are retained without coercing their numeric identity.
+
+Numeric scores use standard-library `Decimal`, avoiding binary-float range and absolute-precision limits. Exact rational population moments are rounded only at the final root with precision scaled to score magnitude; strict threshold decisions preserve the exact comparison. Warmup scores remain `None`. Snapshot outputs preserve Decimal scores natively.
+
+`snapshot()` returns an independent native Python mapping with `version=1` and an ordered `streams` list. Each stream entry has `stream_id`, `window` (oldest first), `last_timestamp`, and `events` (FIFO). Each event contains `event_id`, `timestamp`, `x` and the original output mapping. `Detector.from_snapshot(snapshot)` validates the version and structural invariants and creates independent state. No pickle execution, file format, JSON-only identifier restriction, or disk I/O is required. Callers retain responsibility for preserving native identifier and timestamp types when externally serializing this snapshot.
+
+## Acceptance
+
+- **M16:** With 16 prior values alternating -1,+1, x=3 yields mu=0, sigma=1, score=3, anomaly=false. The current x cannot participate in the prior mean.
+- **M17:** With 16 prior zeros, x=0.004 yields score=4, anomaly=true. Zero sigma does not produce null or infinity.
+- **M18:** Acceptance also covers inputs 16/17 at the warmup boundary; values 64/65 and oldest-value eviction; original replay outputs; FIFO eviction at 128/129; independent streams; unchanged state on errors; and uninterrupted-versus-restored continuation.

@@ -6,7 +6,7 @@ Preserve an established documentation topology. Use this fallback only when no a
 
 | Artifact | Lifecycle | Create only when | Fallback path | Authoritative for |
 |---|---|---|---|---|
-| specification | durable | a stable contract meets the specification boundary rule below | `docs/specs/<topic>.md` | accepted current normative contract, interfaces, invariants, and acceptance criteria |
+| specification | durable | a contract or technical layer meets the specification boundary rule below | `docs/specs/<topic>.md` | accepted current normative contract, interfaces, invariants, and acceptance criteria |
 | decision record | durable | a material choice or proposal needs independent acceptance or durable rationale | `docs/design/YYYY-MM-DD-<topic>-design.md` | the choice, tradeoff, and rationale |
 | work plan | working | unfinished work must remain coordinated or resumable | `docs/plans/<topic>.md` | ordered execution and unresolved work |
 | handoff | transient | responsibility is actually transferring | `docs/handoffs/<topic>.md` | the current state of that transfer |
@@ -34,7 +34,7 @@ Update an existing canonical artifact at its current path. Use stable lowercase 
 
 ## Choose specification boundaries
 
-Use the contract-boundary criteria in the specification lifecycle. Otherwise keep an algorithm, stage, pipeline step, or internal module as a section of the owning specification.
+Use the contract and document-layer boundaries in the specification lifecycle.
 
 ## Resolve content conflicts
 
@@ -54,7 +54,7 @@ For a retained decision record, set `Status` to `superseded`. For a retained spe
 
 ## Keep references sparse
 
-Link only to direct authority or dependency; do not repeat transitive links. A specification may link to decisions that independently own material rationale; those decisions do not link back to the specification. A work plan may link to the minimum set of primary specifications and task inputs it directly uses; it does not link back to a handoff. A handoff links only to its current work plan or, when no plan exists, the primary canonical artifact. Omit a nonexistent primary artifact rather than creating one for the link. An index links to canonical artifacts, which do not link back.
+Link only to direct authority or dependency; do not repeat transitive links. An overall specification links to technical specifications that own its detailed semantics. A specification may link to decisions that independently own material rationale; those decisions do not link back to the specification. A work plan may link to the minimum set of primary specifications and task inputs it directly uses; it does not link back to a handoff. A handoff links only to its current work plan or, when no plan exists, the primary canonical artifact. Omit a nonexistent primary artifact rather than creating one for the link. An index links to canonical artifacts, which do not link back.
 
 Do not add reciprocal links. A direct successor link is optional and belongs only where navigation is explicitly needed.
 
@@ -63,13 +63,13 @@ Do not add reciprocal links. A direct successor link is optional and belongs onl
 When multiple artifacts describe one subject:
 
 1. Identify the smallest set of stable contracts and material decisions.
-2. Select one canonical artifact for each contract.
-3. Merge still-current contract information into those artifacts.
+2. Select the canonical specification or specification layers for each contract.
+3. Consolidate duplicate content into its owning layer while preserving useful technical detail.
 4. Keep separate decision records only for independently durable rationale.
 5. Merge unfinished execution into the minimum number of current work plans.
 6. Remove generated data, runtime events, and experiment logs from project documents after confirming their existing owning systems; do not initiate an external move without authority.
 7. Repair direct current references.
-8. Retire artifacts that no longer own independently useful information under the procedure below.
+8. Retire artifacts that no longer own distinct useful information under the procedure below.
 
 Do not preserve one file per historical stage; use recoverable Git history for chronology.
 

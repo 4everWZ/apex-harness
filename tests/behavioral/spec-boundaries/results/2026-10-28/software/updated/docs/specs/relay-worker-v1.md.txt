@@ -1,0 +1,27 @@
+# Relay Worker 插件协议 v1
+
+本文件维护已接受的 worker protocol v1 契约。外部提供方独立依赖和验收此接口；服务器自带 worker 不代表所有提供方符合协议。R13–R22 的行为已接受，具体传输绑定尚未决定。
+
+## 领取与 lease
+
+- **R13**：领取返回 job_id、attempt_id、lease_token、lease_expires_at、job_type 和 payload。每次重新领取时 attempt_id 必须改变。
+- **R14**：lease 默认 60 秒；worker 每 20 秒心跳，成功心跳从服务端当前时间起延长 60 秒。到期时刻及之后 lease 即失效。
+- **R15**：心跳与结果提交必须携带 attempt_id 和 lease_token。不匹配或已过期返回 STALE_LEASE，不更新任务状态或结果。
+- **R16**：lease 过期的非终态任务重新排队；旧 worker 的迟到成功不能覆盖新 attempt 的状态。该规则同时受 R18 的次数上限约束。
+
+## 结果、失败与取消
+
+- **R17**：同一有效 attempt 的相同结果重复提交返回原确认；不同结果返回 RESULT_CONFLICT。确认丢失后的重试不能再次执行终态转换。
+- **R18**：至多领取 3 次，首次计入次数。第三次 lease 过期或可重试失败后进入 failed，error_code 为 ATTEMPTS_EXHAUSTED，不再派发。
+- **R19**：可重试失败不直接发布终态；仍有次数时返回 queued。不可重试失败立即进入 failed。
+- **R20**：worker 收到 cancel_requested 后应停止工作并确认取消；确认必须使用当前有效 lease。无法证明旧 attempt 已停止，并不代表旧 attempt 仍有权提交结果。
+
+## 版本
+
+- **R21**：领取结果携带 protocol_version=1。服务器拒绝不支持的协议版本，返回 UNSUPPORTED_PROTOCOL，且不改变任务。
+
+## 独立兼容性验收
+
+**R22**：外部提供方使用独立 conformance suite 验收协议，不得只测试服务器自带 worker。覆盖 R13–R21，尤其包括到期前、恰好到期和到期后，心跳延长、过期重新领取、旧 attempt 的迟到结果、相同结果重放、不同结果冲突、确认丢失重试、次数耗尽、失败分类、有效 lease 下取消确认，以及不支持版本拒绝。
+
+验收检查返回值和未授权更新未发生；独立套件的执行结果才能支持对应提供方的兼容性结论。本文不选择套件实现工具或 worker 内部算法。

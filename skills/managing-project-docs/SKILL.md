@@ -27,13 +27,13 @@ Use this order:
 1. Make no documentation change when no durable or working information changes.
 2. Identify whether the information belongs to a durable contract, an independently maintained decision, unfinished execution, or a transfer.
 3. Update or extend the existing canonical owner for that role, including a maintained section of another document when repository conventions assign it that role.
-4. Create a separate file when no suitable owner exists and the information needs to be accepted, maintained, consumed, replaced, or retired independently. Split further only when each resulting file meets one of those independent needs.
+4. Create a separate file only when it owns a distinct scope of information that needs to be maintained or used separately. For specifications, this may be a technical layer of the same contract; follow the specification lifecycle.
 
 When work defines or changes durable behavior, interfaces, invariants, or acceptance, read the [specification lifecycle](references/specifications.md) before choosing its owner, including when the project currently has only a plan. A work plan's existence does not satisfy specification ownership.
 
 The existence of a template, implementation unit, algorithm, development stage, experiment, review, date, or task is not by itself a reason to create a file. Create a work plan only for work that must remain coordinated or resumable, and a handoff only for an actual transfer of responsibility.
 
-By default, an ordinary single-session change needs no project document. Use one specification for a durable contract. Add a decision record only when its choice or rationale needs to be accepted, maintained, or referenced independently. Use one current work plan for coordinated or multi-session work, and a handoff only for an actual transfer.
+By default, an ordinary single-session change needs no project document. A durable contract may use one specification or useful specification layers. Add a decision record only when its choice or rationale needs to be accepted, maintained, or referenced independently. Use one current work plan for coordinated or multi-session work, and a handoff only for an actual transfer.
 
 When enough independently trackable requirements make partial implementation or scope drift realistically easy to miss, add a compact spec-to-implementation mapping to the existing canonical specification or current work plan. For input baselines without maintenance responsibilities, keep the execution mapping in working context or the current plan. Do not create a separate matrix by default; follow an established repository matrix convention when one exists.
 

@@ -1,0 +1,10 @@
+# Sentinel
+
+Sentinel is a streaming anomaly detector and an independently accepted offline evaluation protocol. The accepted requirements originate in the read-only input `tmp/method-brief.md`; this specification and its technical layers own subsequent maintenance of the contract.
+
+The detector is implemented in Python using only the standard library. Streams have independent state. Device SDK consumers implement [score-method v1](score-method-v1.md); offline QA consumers implement [evaluation protocol v3](evaluation-protocol-v3.md). Those documents own their respective formulas, interfaces, invariants and acceptance criteria. A method revision does not automatically revise the evaluation protocol, and the two may be accepted or replaced independently.
+
+The current accepted method uses W=64, a population standard deviation, epsilon=0.001 and a strict score>3 anomaly threshold. Median/MAD and W=128 remain unaccepted ideas and are outside this contract.
+
+Implementation conformance, protocol conformance and combined acceptance are separate claims. Local detector tests establish no evaluation quality or latency result. The evaluator's p95 and quality targets remain requirements until measured under its prescribed conditions. Raw evaluation samples belong to evaluation output directories, not maintained specifications.
+

@@ -1,0 +1,18 @@
+# evaluation protocol v3
+
+This document owns the accepted offline QA protocol E01–E12. Acceptance of this protocol is independent of device SDK method compatibility. Its requirements apply even before an evaluator exists.
+
+- **E01:** Labeled inputs are ordered by timestamp within each stream. Split each stream 60%/20%/20% into train/validation/test, rounding cut points down. Count streams with insufficient samples among exclusions.
+- **E02:** Train may determine candidate parameters; validation selects variants. Test is used only for the final external comparison, with no threshold tuning or variant selection based on test labels.
+- **E03:** Split intervals share neither detector windows nor replay state. Start every interval from empty state. Exclude warmup outputs from quality metrics and report their excluded count.
+- **E04:** Quality is the macro average of per-stream F1. A stream with no actual positives and no predicted positives has F1=1. A stream with actual positives but zero hits has F1=0. Global micro F1 is not a substitute.
+- **E05:** Align labels by output event_id, not batch position. Count repeated outputs once per unique event_id. Error inputs are not negative examples.
+- **E06:** Report latency on fixed host H1, one thread, batch=1. Include scoring and window/replay-state updates in timing. Exclude loading data, process startup, snapshot writing and evaluation aggregation.
+- **E07:** Latency samples are valid unique events after warmup. p95 is the sorted sample at one-based rank `ceil(0.95*N)`, without interpolation. With no samples report `unavailable`, not zero.
+- **E08:** p95 must be <=2 ms, and quality must be no worse than the exact v1 reference implementation. These are targets, not measured facts.
+- **E09:** Results on different hosts, threads, batch sizes, datasets, splits or warmup rules cannot claim an algorithm improvement under identical conditions.
+- **E10:** Reports include valid stream/event counts per split, exclusion reasons, quality summary and latency sample count. Evaluation output directories own per-sample raw results; specifications do not accumulate run logs.
+- **E11:** Evaluator acceptance independently tests split boundaries, leakage prevention, macro-average special cases, label alignment, warmup exclusion, and nearest-rank quantiles. Detector unit tests cannot substitute for protocol acceptance.
+- **E12:** Independently accept device SDK method compatibility and QA protocol conformance. A method change does not automatically change protocol v3. Final acceptance also verifies consistency of the detector/evaluator combination.
+
+Before implementation, clarify the minimum sufficient samples rule in E01, exact cut-point interpretation if it affects a boundary, H1's host identity, and the reference/data sources needed for final comparison. Those details are not licensed to be silently chosen to improve results. No target has measured evidence merely because this specification records it.
