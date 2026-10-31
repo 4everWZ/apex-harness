@@ -1,0 +1,30 @@
+# Pagination work
+
+Goal: implement and verify the accepted pagination contract.
+
+The [README](../../README.md) owns the accepted contract, including the approved C01-C04 requirements in [CR-17](../../tmp/customer-change.md). The customer brief is an input baseline; this plan owns execution state.
+
+## Current state
+
+Before CR-17, the adapter was documented as supporting R01-R06 with a maximum limit of 100 and ascending job_id ties, with local pagination checks available. CR-17 implementation has not been performed, and no new runtime evidence accompanies the brief. The supplied project snapshot contains no adapter or test files, so their actual behavior and existing checks have not been inspected. Documentation preparation does not establish delivery.
+
+## Remaining work
+
+| Approved requirement | Contract owner | Implementation and verification still required |
+|---|---|---|
+| C01: maximum limit 200 | README R02 | Update limit validation; check 1 and 200 are accepted, 201 is rejected, default remains 20, and non-integer and out-of-range values retain 400/invalid_limit. |
+| C02: descending ties and cursor traversal | README R03-R04 | Update ordering and cursor continuation together; check equal-created_at jobs traverse in descending job_id order across page boundaries without omissions or duplicates, while created_at remains descending. |
+| C03: reject old-order cursors | README R04 | Inspect the existing cursor encoding and implement a reliable distinction between old and new ordering. Verify a cursor encoded under the previous ordering returns 400/invalid_cursor, never silently reinterpreted. The encoding mechanism remains to be chosen during implementation. |
+| C04: preserve response and item fields | README R05-R06 | Verify the exact empty-page shape, top-level items/next_cursor fields, and existing job_id/created_at item fields remain intact. |
+
+Also verify unchanged R01 tenant isolation and R04 foreign/malformed cursor rejection, including when following subsequent pages. Inspect and retain existing pagination regression checks. Every row remains pending implementation and behavioral verification; no application or tests were run during documentation preparation.
+
+CSV export, a different database, and limit 500 are unaccepted suggestions and are outside this work. No database selection is required by the approved contract.
+
+## Next action
+
+1. Locate the adapter and focused pagination tests in the implementation checkout. Inspect tenant filtering, limit validation, ordering, cursor encoding and continuation, and response construction against README R01-R06. If the implementation checkout is unavailable, record that blocker here; no implementation or verification can be established from this documentation snapshot.
+2. Implement only the approved C01-C04 changes mapped above: maximum limit 200, descending job_id ties and matching cursor traversal, and explicit rejection of old-order cursors. Preserve tenant filtering on every page, tenant-bound opaque cursors containing both ordering keys, foreign/malformed cursor rejection with 400/invalid_cursor, minimum limit 1, default 20, invalid-limit handling with 400/invalid_limit, descending created_at order, the empty-page shape, and the existing response/item fields. Resolve the cursor encoding mechanism from the existing adapter without silently reinterpreting old cursors.
+3. Run the focused checks for each table row and the unchanged constraints, including multi-page equal-created_at results and cross-tenant cursor attempts. Update this plan with actual implementation and verification state, remaining failures or blockers, and the next action. No CR-17 change has been implemented or verified yet; keep the plan current until implementation and verification support delivery.
+
+The unaccepted suggestions above remain outside these next actions.

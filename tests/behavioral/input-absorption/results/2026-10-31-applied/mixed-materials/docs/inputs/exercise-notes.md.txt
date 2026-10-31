@@ -1,0 +1,10 @@
+# Exercise and review instructions
+
+These instructions govern the exercise submission and review, not the runtime features of QueueBoard.
+
+T01. Submit one archive named <candidate-id>-queueboard.zip. It must contain source, dependency instructions and the reproduction command.
+T02. Include a PDF explanation of at most six pages; discuss implementation choices, known limitations and which checks were actually run.
+T03. The review score is implementation completeness 40%, explanation 30%, reproducibility 30%.
+T04. Delivery must include a 10-minute demonstration outline. It is presentation material, not an application endpoint or UI feature.
+T05. Cite third-party source material in the explanation. Do not claim unexecuted checks or invented benchmark results.
+T06. The evaluator may ask why an alternative was rejected; retain enough explanation to answer, without recording every work session.

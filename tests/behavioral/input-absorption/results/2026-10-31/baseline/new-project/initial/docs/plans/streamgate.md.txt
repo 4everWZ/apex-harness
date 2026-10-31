@@ -1,0 +1,62 @@
+# StreamGate development plan
+
+## Goal and current state
+
+Deliver the approved [StreamGate specification](../specs/streamgate.md), including implementation, local tests, reproducible evaluation command and an evidence-backed short report, across two future sessions. The specification owns accepted requirements; this plan owns unfinished work and coverage.
+
+Only project documentation has been established. There is no implementation, executable test suite, experiment, evaluation result or completed report. All implementation and evaluation checks below are pending. Do not treat this plan as evidence of conformance.
+
+## Decisions and prerequisites
+
+- Obtain the user's implementation-language choice before selecting tooling or dependencies.
+- Obtain the user's restart-storage choice before implementing persistence. Agree the concrete API and recovery interface while preserving A08.
+- Resolve unspecified interface details before affected tests are fixed: identifier validation, success/error output shape, exact-duplicate content comparison, and precedence when a replay also predates the latest accepted timestamp. Preserve the approved duplicate and rejection semantics; do not silently weaken either.
+- Identify evaluation data and all declared labels. Identify proposed variants, whether tuning is needed, hardware, thread count and the timed region before comparison.
+- Locate the existing evidence output directory required by E03. None is present in the supplied project tree; obtain its location rather than inventing a replacement convention.
+
+## Session 1: detector, state and local correctness
+
+Start by reading the specification and resolving language and restart-storage choices with the user. Inspect the project for changes since this plan was written. Once choices are authorized, establish the intended project environment and reproducible local test commands.
+
+Implement per-stream event processing, scoring, warmup, window eviction, validation, duplicate retention, reset, recovery and ordered batches. Build local tests covering the requirement rows below, including state snapshots around errors and replays. Resolve any newly exposed ambiguity before changing accepted semantics.
+
+End the session by updating this plan in place: record actual files and commands, checks performed and their outcomes, remaining gaps and the next concrete action. Keep raw outputs in the designated evidence system when available; do not turn the plan into a command diary. A detector smoke run supports executability only.
+
+Session 1 completion requires implemented detector behavior and passing relevant local checks, or explicit remaining blockers carried into Session 2. Do not mark unchecked rows complete.
+
+## Session 2: evaluation and delivery
+
+Resume from the current coverage and blocker state. Finish any unmet Session 1 requirement before relying on detector behavior in evaluation. Resolve dataset, label set, evidence directory and comparison conditions.
+
+Implement chronological per-stream splitting, split resets, metric handling and reproducible evaluation commands. Verify their semantics with small known examples before interpreting full measurements. Resolve configuration explicitly and save it with raw runs and errors in the existing evidence directory. Keep test data out of tuning.
+
+Run relevant real evaluation and latency measurements under matched conditions. Produce the short report only from actual evidence, recording comparison conditions, conclusions and material limitations. Update README with the actual setup, local-test and evaluation commands once these exist. Documentation checks or a smoke run cannot substitute for these measurements.
+
+Session 2 completion requires E06 deliverables and verified requirement coverage. Missing data, evidence or unresolved choices leave the corresponding work open; two sessions are a scheduling plan, not a reason to narrow the approved target. Once delivered and credibly verified, synchronize any accepted contract changes, then remove this plan and its README link unless a concrete retention need exists.
+
+## Requirement coverage to maintain
+
+Each row is pending; replace its state with concrete implementation/check references as work proceeds. Grouped tests may satisfy multiple rows, but assess every ID.
+
+| ID | Work and verification focus | Planned session | State |
+|---|---|---|---|
+| A01 | Input schema and finite-number handling | 1 | Pending |
+| A02 | Score before insert; 32-value eviction and stream isolation | 1 | Pending |
+| A03 | Prior counts 0–7, outputs and insertion; transition at 8 | 1 | Pending |
+| A04 | Population variance and standard-deviation floor | 1 | Pending |
+| A05 | Strict threshold boundary | 1 | Pending |
+| A06 | Older/equal timestamps, malformed inputs and unchanged rejected state | 1 | Pending |
+| A07 | Exact replay, conflicting content, original outputs, 64-ID eviction and unchanged replay order | 1 | Pending |
+| A08 | Stream-local reset and recovery round trip of all required state | 1 | Pending |
+| A09 | Supplied batch order and partial failure preserving prior successes | 1 | Pending |
+| A10 | Both prescribed numeric fixtures | 1 | Pending |
+| E01 | Split sizes, chronological order, reset boundaries and no test tuning | 2 | Pending |
+| E02 | Warmup exclusion/count, declared-label macro F1 and zero denominators | 2 | Pending |
+| E03 | Existing evidence directory, resolved configuration, raw/error outputs and concise report | 2 | Pending |
+| E04 | Distinguish smoke evidence from measured quality/latency claims | 2 | Pending |
+| E05 | Matched comparison conditions, nearest-rank p95 and empty sample handling | 2 | Pending |
+| E06 | Working implementation, local tests, reproducible evaluation command and final short report | 2 | Pending |
+
+## Next action
+
+Obtain language and restart-storage decisions, then agree the minimal concrete interface and begin Session 1. No implementation or experiment is authorized by the present documentation-only task.

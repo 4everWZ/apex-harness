@@ -1,0 +1,22 @@
+# Pagination work
+
+Goal: implement and verify the accepted pagination contract.
+
+The [README](../../README.md) owns the accepted current contract. The approved change comes from [CR-17](../../tmp/customer-change.md). This plan owns the unfinished implementation and verification work; keep it current until that work is complete.
+
+## Current state
+
+The prior project documentation describes the adapter and local checks as supporting the previous contract: maximum limit 100 and job_id ascending for equal created_at. CR-17 has not been implemented. This documentation-only pass did not inspect implementation or tests, run the application, or establish runtime evidence. The README now records the approved target; implementation conformance and delivery remain unresolved.
+
+## Remaining work
+
+| Input | Contract owner | Implementation and acceptance work | State |
+|---|---|---|---|
+| C01 | README R02 | Raise the limit maximum to 200. Check 1 and 200 are accepted, 201 and other invalid values return 400/invalid_limit, and omission still defaults to 20. | Pending |
+| C02 | README R03, R04 | Apply descending order to both ordering keys in result sorting and cursor traversal. Verify equal-created_at ties across page boundaries, with no skipped or repeated jobs, and preserve tenant isolation and foreign/malformed cursor rejection. | Pending |
+| C03 | README R04 | Inspect the existing cursor encoding and choose a compatibility discriminator that rejects prior-order cursors with 400/invalid_cursor. Verify actual previous-format cursors are rejected rather than reinterpreted, and new cursors traverse correctly. | Pending |
+| C04 | README R05, R06 | Preserve the exact empty-page shape, response fields, and every existing item field. Inspect the adapter/tests for any item fields beyond the documented required job_id and created_at, then verify their preservation. | Pending |
+
+No CSV export, database change or selection, or maximum limit of 500 is authorized. The cursor compatibility mechanism remains an implementation choice to resolve after inspecting the existing encoding; the rejection requirement is already accepted.
+
+Next: in a later implementation session, locate and inspect the adapter and focused pagination tests, identify cursor compatibility handling and existing item fields, then implement and verify the mapped changes. No implementation or runtime verification is authorized by the present documentation task. Keep verification results with their existing evidence owner and update this plan with remaining gaps; do not claim delivery or retire the plan while conformance remains unverified.

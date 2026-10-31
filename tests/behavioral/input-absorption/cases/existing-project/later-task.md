@@ -1,0 +1,1 @@
+Review the current documentation as the starting point for the next implementation session. Update the next action so a developer can implement the approved change without losing unchanged pagination and tenant constraints. No change has been implemented or verified yet. Keep unresolved suggestions separate from the approved contract.

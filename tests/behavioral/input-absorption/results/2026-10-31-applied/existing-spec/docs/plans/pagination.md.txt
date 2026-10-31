@@ -1,0 +1,26 @@
+# Pagination work
+
+Goal: implement and verify the accepted pagination contract, including CR-17.
+
+Contract owner: [QueueDesk specification](../specs/queue-desk.md).
+
+## Current state
+
+CR-17's accepted behavior is incorporated into the specification. The previous plan reported adapter support and local checks for the pre-CR-17 contract (maximum 100, job_id ascending ties). Implementation and those checks have not been inspected or run in this documentation task. They do not establish conformance to the updated contract; delivery remains unverified.
+
+## Remaining work
+
+| Approved change | Contract owner | Implementation and verification still required |
+|---|---|---|
+| C01: maximum 200 | R02 | Update limit handling; check 1 and 200 accepted, 201 and other invalid values produce 400/invalid_limit, and omitted limit remains 20. |
+| C02: descending ties | R01, R03, R04 | Update ordering and cursor traversal for both descending keys. Check tied timestamps across page boundaries, without omissions or duplicates on a fixed data set, and preserve tenant isolation and foreign/malformed cursor rejection. |
+| C03: reject previous cursors | R04 | Inspect the existing cursor encoding and implement reliable rejection of cursors from the previous ordering. Check an actual old-format cursor returns 400/invalid_cursor instead of being reinterpreted; verify new cursors traverse the new order. |
+| C04: preserve response | R05, R06 | Check the exact empty-page shape, response fields, and existing item fields remain unchanged. |
+
+## Resume
+
+1. Inspect the adapter, cursor encoding, and focused pagination tests against R01-R06. Determine how to distinguish old cursors before changing traversal; no cursor format solution has been established here.
+2. Implement the approved changes and focused regression checks, preserving the unchanged contract.
+3. Run the relevant checks and record their actual results here or reference the existing evidence system. Resolve failures before making a delivery claim; keep this plan current until implementation and acceptance are complete.
+
+CSV export, a database change, and a maximum of 500 are unapproved and outside this work. No database selection is required or authorized. The customer's possible demo discussion does not establish a delivery commitment or runtime evidence.

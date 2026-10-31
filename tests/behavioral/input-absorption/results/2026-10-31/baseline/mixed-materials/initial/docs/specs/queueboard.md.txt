@@ -1,0 +1,21 @@
+# QueueBoard product specification
+
+This is the maintained owner of the approved product target supplied in the SRS. The target is accepted; no implementation or validation is supplied. The requirements below are preserved from the input so future work does not depend on temporary files.
+
+## Product contract
+
+P01. GET /jobs returns only records whose tenant_id equals the requesting principal's tenant_id.
+
+P02. limit is an integer in [1,100], default 20. Invalid limit returns 400 with code invalid_limit and no data.
+
+P03. Sort by created_at descending, then job_id ascending.
+
+P04. Use an opaque cursor containing both ordering keys and tenant identity. A malformed or foreign-tenant cursor returns 400 with code invalid_cursor.
+
+P05. Return exactly items and next_cursor. Each item contains job_id, created_at and title. Empty results return an empty items list and next_cursor=null.
+
+P06. Reject invalid cursors before returning records. A rejected request must not change stored records.
+
+P07. Identical stored data and identical query parameters produce identical ordering and pagination boundaries.
+
+P08. Acceptance must cover tenant isolation, tied timestamps across page boundaries, bounds and defaults, malformed/foreign cursors, empty pages and unchanged stored data on errors.

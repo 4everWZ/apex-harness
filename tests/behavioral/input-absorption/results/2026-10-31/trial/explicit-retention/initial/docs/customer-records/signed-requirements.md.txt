@@ -1,0 +1,7 @@
+# Signed InvoiceRelay requirements
+S01. Each submission includes tenant_id, invoice_id, amount_cents and currency.
+S02. Within a tenant, repeating invoice_id with identical content returns the first result without a new invoice. Conflicting content returns 409.
+S03. Authorization must restrict access to the principal tenant; missing and foreign invoices are indistinguishable.
+S04. amount_cents is a nonnegative integer; currency is one of CNY, USD and EUR. Reject invalid input without changing state.
+S05. Document acceptance checks and leave implementation conformance explicitly unverified until tested.
+The customer accepted S01-S05 and requested retaining this exact signed wording for acceptance disputes.

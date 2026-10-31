@@ -20,7 +20,7 @@ Follow explicit user instructions and established repository conventions first. 
 
 Using a document as task input does not by itself establish or remove its maintained role. Preserve maintenance responsibilities established by user instructions or repository conventions. Repository location, filename, detail, or formal structure alone does not establish that role.
 
-Consume inputs without such maintenance responsibilities as baselines. Do not rewrite, annotate, or synchronize them unless maintaining them is part of the authorized task.
+Absorb the accepted system or algorithm contract from SRS and other requirements into its specification owner through the workflow below, rather than archiving the SRS by default. Still-needed task conditions, external rules, and reference information outside that contract may be retained in full as inputs. Do not rewrite, annotate, or synchronize source material unless maintaining it is authorized. Keep a complete source only when it has a distinct reference purpose; a temporary path or Git exclusion alone does not justify a copy.
 
 Use this order:
 

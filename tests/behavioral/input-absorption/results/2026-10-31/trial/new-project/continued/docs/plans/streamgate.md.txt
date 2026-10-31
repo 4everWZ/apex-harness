@@ -1,0 +1,62 @@
+# StreamGate development plan
+
+## Goal and current state
+
+Deliver and verify the [accepted StreamGate contract](../specs/streamgate.md) over two future development sessions. The accepted requirements have been absorbed from the supplied exercise into that specification. `tmp/assignment.md` remains unchanged as supplied input and is not a maintained requirements owner.
+
+Only project documentation exists. No implementation, local tests, smoke runs, experiments, measurements, or evaluation report have been produced. Every implementation and verification item below remains open.
+
+## Unresolved choices and dependencies
+
+- Obtain the user's implementation-language choice before scaffolding the implementation or selecting its environment and test tooling.
+- Obtain the user's restart-storage choice before implementing persistence. Do not silently choose a storage format.
+- Locate the existing evidence output directory before any future run. No evidence output directory is present in the supplied project; its location remains unresolved. Preserve E03 when the location is supplied rather than inventing a replacement destination.
+- Establish the evaluation dataset, declared label set, and any variants to compare before evaluation. No quality or latency conclusion is currently supported.
+- During interface design, resolve any material ambiguity before encoding it in implementation or tests. In particular, clarify duplicate lookup versus timestamp validation when retrying a retained event after newer timestamps have been accepted, and the externally visible response for rejection/conflict. Preserve the accepted duplicate and no-state-change requirements while resolving these details.
+
+## Session 1 — A01–A10 implementation and local verification
+
+1. Read the specification and this plan. Resolve language and restart storage with the user; record accepted choices in their owning contract sections when they constrain the maintained interface. Keep unresolved choices here.
+2. Establish the chosen project environment and define event, output, reset, batch, and recovery interfaces. Resolve material interface ambiguities with the user before implementing affected behavior.
+3. Implement per-stream scoring and window handling, validation, duplicate records, reset, recovery, and ordered batches.
+4. Add and run local tests covering the mapping below, including the required A10 fixtures. Verify state preservation on rejected events and conflicts, duplicate eviction order, cross-stream isolation, reset isolation, and recovery continuation.
+5. Record the actual implementation locations, tests performed, remaining failures, and next action in this plan. A successful local smoke run supports executability only; leave quality and latency claims pending.
+
+Resume boundary: if a choice remains unresolved, leave the dependent task open with its exact blocker. At session end, update the current state rather than adding a session diary. Session 2 starts by closing any remaining Session 1 contract or correctness gaps.
+
+## Session 2 — Evaluation and final deliverables
+
+1. Confirm dataset, labels, evidence destination, variant set, hardware, thread count, and timed region. Resolve missing dependencies before running evaluation.
+2. Build a reproducible evaluation command using the approved language and project environment. Implement chronological per-stream splitting, split resets, warmup accounting, macro F1, and nearest-rank p95. Verify small and empty-input metric cases and split rounding.
+3. Run the actual evaluation. Save raw runs, resolved configuration, and error outputs to the existing evidence destination. For comparisons, hold E05 conditions equal and avoid test-data tuning.
+4. Write the short report from measured results, describing conclusions, comparison conditions, and material limitations. Cite usable evidence locations and include the reproducible evaluation command. Do not substitute smoke success or documentation for evaluation.
+5. Check all accepted requirements against implementation and evidence. Update the README with concrete usage and evaluation commands once they exist. Leave unmet requirements and unsupported claims open in this plan.
+
+## Coverage and resume tracking
+
+All rows are pending implementation and verification. Replace pending state with concrete code/test/evidence references as work is completed; keep normative detail in the specification.
+
+| Requirements | Planned work and checks | Session | State |
+|---|---|---|---|
+| A01 | Event schema and malformed-input tests | 1 | Pending |
+| A02 | Per-stream 32-value windows; score-before-insert and eviction tests | 1 | Pending |
+| A03 | Warmup outputs, remaining count, and transition at eight prior values | 1 | Pending |
+| A04 | Population statistics and standard-deviation floor tests | 1 | Pending |
+| A05 | Exact threshold and above-threshold tests | 1 | Pending |
+| A06 | Timestamp equality/ordering, nonfinite input, and unchanged rejection state | 1 | Pending |
+| A07 | Original duplicate outputs, conflict rejection, 64-record eviction, unchanged duplicate order | 1 | Pending |
+| A08 | Stream-local reset and persisted recovery of all required state | 1 | Pending |
+| A09 | Ordered batch processing and preservation of prior successes | 1 | Pending |
+| A10 | Both explicit numerical acceptance fixtures | 1 | Pending |
+| E01 | Chronological 60/20/20 split sizes, boundary resets, and no test-data tuning | 2 | Pending |
+| E02 | Warmup counts/exclusion, all declared labels, zero-denominator F1 cases | 2 | Pending |
+| E03 | Existing evidence destination; raw runs/configuration/errors and concise report | 2 | Pending |
+| E04 | Distinguish smoke evidence from measured quality/latency evidence | 1–2 | Pending |
+| E05 | Equal comparison conditions, nearest-rank p95, unavailable empty-sample p95 | 2 | Pending |
+| E06 | Implementation, passing local checks, reproducible evaluation command, measured short report | 1–2 | Pending |
+
+## Next action and completion
+
+Begin Session 1 from the accepted specification and the A01–A10 rows above. Obtain the user's language and restart-storage choices and clarify the material duplicate-ordering ambiguity before implementing the affected behavior. The first implementation session covers A01–A10 and their local verification; evaluation and the short report remain Session 2 work. Identify the existing evidence location before any run that produces evidence. There is still no implementation or experimental evidence, and all coverage rows remain pending.
+
+Keep this plan current while delivery or verification remains unfinished. After the goal is delivered and credibly verified, synchronize accepted contract changes, preserve reusable evidence in its designated destination, repair the README's plan link, and retire the plan according to the project's documentation lifecycle. Do not retire it solely because code or documentation has been written.

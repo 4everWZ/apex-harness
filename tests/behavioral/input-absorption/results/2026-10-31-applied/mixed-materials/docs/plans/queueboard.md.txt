@@ -1,0 +1,51 @@
+# QueueBoard development plan
+
+## Goal and ownership
+
+Coordinate the next two development sessions toward the approved [product specification](../specs/queueboard.md), while satisfying the preserved [exercise and review instructions](../inputs/exercise-notes.md). This plan owns unfinished work and resumption state; the specification owns P01–P08, and the exercise input owns T01–T06. These files contain the material needed to continue without this machine's `tmp/` inputs.
+
+Current state: documentation prepared only. No framework selected, implementation supplied, application run, final submission produced or behavioral checks performed. Product conformance is unresolved. The original temporary inputs remain unmodified; the SRS contract has been absorbed into its specification owner, and the exercise instructions are retained in full for their separate submission and review purpose.
+
+## Before implementation
+
+- [ ] Resolve how the requesting principal and its tenant identity are obtained; do not assume a caller-selected tenant parameter establishes identity.
+- [ ] Clarify or explicitly document choices for storage, `created_at` representation and comparison, `job_id` type and comparison, cursor encoding/validation, and end-of-pagination behavior for nonempty final pages. Preserve the approved contract; seek clarification before any choice changes scope or acceptance semantics.
+- [ ] Clarify the error response envelope and precedence when both `limit` and cursor are invalid if needed for implementation or review; do not present unspecified details as approved requirements.
+- [ ] Select the framework and dependency workflow during development, recording material choices and rejected alternatives concisely with their rationale. Keep this in a maintained explanation section unless a choice needs an independently maintained decision record.
+- [ ] Obtain the candidate ID before naming the submission archive. It does not block development.
+
+## Session 1: implement the query behavior
+
+1. Read both linked authorities and resolve the implementation prerequisites above.
+2. Establish the chosen project environment and dependency/reproduction instructions.
+3. Implement `GET /jobs`, the tenant boundary, input validation, deterministic ordering, cursor handling and response shape against P01–P07.
+4. Prepare reusable acceptance cases using P08 and the coverage map below. Execute appropriate checks when implementation work is authorized; record only actual results and remaining gaps.
+5. Before stopping, update this plan with the actual implementation state, unresolved questions, remaining work and one concrete next action. Preserve concise rationale for meaningful alternatives for T06.
+
+## Session 2: complete acceptance and prepare delivery
+
+1. Resume from the recorded next action; close implementation gaps without weakening P01–P08.
+2. Run the acceptance coverage below and the documented reproduction procedure in the intended environment. Record commands, actual outcomes and limitations sufficient to support delivery claims. Missing or failing checks remain open.
+3. Prepare the explanation within T02's six-page PDF limit, covering choices, known limitations, actual checks and third-party citations (T05). Include enough reasoning to answer questions about rejected alternatives (T06).
+4. Prepare the ten-minute demonstration outline required by T04. Keep it presentation material.
+5. Assemble the single archive named by T01 with source, dependency instructions and reproduction command; check the final package against all T01–T06, including the scoring weights in T03. Confirm the required explanation and outline are delivered with the submission.
+6. Update the plan to the actual state. If work remains after two sessions, retain the specific open work and next action rather than claiming completion. Retire the plan only when its goal is delivered and credibly checked, with accepted contract changes synchronized.
+
+The current task authorizes documentation preparation only. The implementation, application execution, PDF, demonstration and archive steps above are future work, not completed deliverables.
+
+## Coverage and resumption map
+
+All rows are pending; no implementation or behavioral evidence is available.
+
+| Requirement | Development and acceptance work remaining |
+|---|---|
+| P01 | Tenant filtering and cross-tenant isolation cases. |
+| P02 | Default, valid bounds, non-integer and out-of-range cases; error response and absence of data. |
+| P03 | Ordering cases with distinct and tied timestamps. |
+| P04 | Cursor construction and continuation; malformed and foreign-tenant rejection. |
+| P05 | Exact response/item fields, pagination response and empty-page cases. |
+| P06 | Reject invalid cursors before emitting records; compare stored records before and after rejected requests. |
+| P07 | Repeat fixed-data queries and compare order and page boundaries; traverse tied timestamps across page boundaries without omission or duplication. |
+| P08 | Review the complete acceptance suite against all required scenarios before claiming conformance. |
+
+Next action: begin session 1 by resolving the implementation prerequisites, then choose the project environment and framework. Submission naming remains blocked only on the candidate ID; all implementation and acceptance work remains pending.

@@ -1,0 +1,35 @@
+# StreamGate specification
+
+## Contract and scope
+
+This document owns the approved target for StreamGate: Direction A, requirements A01–A10 and E01–E06. Acceptance of this target does not establish implementation conformance. Direction B, its training work, and the appendix suggestions (median/MAD features and a window of 128) are outside the selected scope. Deadline, portfolio presentation and interview follow-up are administrative context.
+
+Implementation language and restart storage format are undecided. These choices must preserve the requirements below. The requirements do not yet fix a concrete public API, serialized recovery representation or evaluation dataset; details requiring a decision must be resolved before the affected work proceeds.
+
+## Event processing and state
+
+| ID | Required behavior |
+|---|---|
+| A01 | Accept events containing `stream_id`, `event_id`, integer `timestamp_ms`, and a finite numeric `value`. |
+| A02 | Keep a rolling window of 32 prior accepted values per stream. Compute the score before inserting the current value. |
+| A03 | When there are fewer than 8 prior values (`n`), return `score=null`, `anomaly=false`, and `warmup_remaining=8-n`, then insert the current value. |
+| A04 | Otherwise use the population mean and standard deviation of the prior window: `score=abs(x-mean)/max(stddev,0.01)`. |
+| A05 | Set `anomaly=true` only when `score > 3.0`. A score of exactly 3.0 is not anomalous. |
+| A06 | Reject an event older than the last accepted timestamp of its stream; equal timestamps are allowed. Reject malformed or nonfinite values. Rejection changes no state. |
+| A07 | Retain the last 64 accepted event IDs and their outputs per stream. An exact duplicate returns its original output without inserting or changing eviction order. The same ID with different content is a conflict and changes no state. |
+| A08 | Reset clears only the named stream. Recovery preserves per-stream windows, latest timestamp and duplicate records. |
+| A09 | Process batch events in supplied order. Failures do not roll back prior successes. |
+| A10 | Accept the synthetic fixture with eight prior alternating `-1,+1` values: `x=3` yields `score=3` and `anomaly=false`. With eight prior zeros, `x=0.04` yields `score=4` and `anomaly=true`. |
+
+## Evaluation and delivery
+
+| ID | Required evaluation or deliverable |
+|---|---|
+| E01 | Split each stream chronologically 60/20/20, flooring the first two split sizes. Reset state at each split. Do not tune using test data. |
+| E02 | Exclude warmup events from classification metrics and report their count. Macro F1 averages all declared labels; zero denominators contribute zero. |
+| E03 | Use the existing evidence output directory for raw runs, resolved configuration and error outputs. The short report states conclusions and comparison conditions, rather than every attempted command. |
+| E04 | A local smoke run establishes executability only. Quality and latency conclusions require their relevant real measurements. |
+| E05 | Compare variants with the same split, event ordering, hardware, thread count and timed region. Calculate p95 with nearest rank `ceil(0.95*N)`; for `N=0`, p95 is unavailable. |
+| E06 | Deliver implementation, local tests, an evaluation command and a short report. Documentation alone does not complete the final evaluation or report. |
+
+The evidence directory required by E03 must be identified before evaluation outputs are written. Dataset, declared labels, comparison variants and measurement conditions must be explicit before relevant results can be interpreted. This specification sets no unprovided quality or latency threshold.

@@ -1,0 +1,47 @@
+# StreamGate specification
+
+## Scope
+
+The accepted target is Direction A: a rolling event detector, including A01–A10 and E01–E06. Direction B and the appendix suggestions are outside the selected scope. A pretrained model is not required. Administrative submission context does not define detector behavior.
+
+Implementation language and restart storage format remain undecided. The contract below specifies required behavior independently of those choices.
+
+## Events, scoring, and state
+
+**A01 — Input.** Accept events containing `stream_id`, `event_id`, integer `timestamp_ms`, and a finite numeric `value`.
+
+**A02 — Window.** Maintain the 32 most recent prior accepted values independently for each stream. Compute each event's score before inserting its value.
+
+**A03 — Warmup.** With `n < 8` prior values, return `score=null`, `anomaly=false`, and `warmup_remaining=8-n`, then insert the current value.
+
+**A04 — Score.** With at least eight prior values, use the prior window's population mean and population standard deviation:
+
+`score = abs(value - mean) / max(stddev, 0.01)`
+
+**A05 — Threshold.** Set `anomaly=true` only for `score > 3.0`; a score exactly equal to 3.0 is not anomalous.
+
+**A06 — Validation and ordering.** Reject malformed events, nonfinite values, and timestamps older than the stream's latest accepted timestamp. Equal timestamps are allowed. Rejection changes no state.
+
+**A07 — Duplicate records.** Retain each stream's last 64 accepted event IDs together with their outputs and sufficient content information to detect conflicts. An exact duplicate returns its original output without inserting a value or changing eviction order. Reuse of a retained ID with different content is a conflict and changes no state.
+
+**A08 — Reset and recovery.** A reset clears only the named stream. Recovery preserves each stream's window, latest accepted timestamp, and duplicate records.
+
+**A09 — Batches.** Process events in the supplied order. A failure does not roll back earlier successful events in the batch.
+
+## Required scoring fixtures
+
+**A10.** In a stream with eight prior alternating values `-1,+1`, a current value of `3` produces `score=3` and `anomaly=false`. In a separate fixture with eight prior zeros, a current value of `0.04` produces `score=4` and `anomaly=true`.
+
+## Evaluation and delivery contract
+
+**E01 — Splitting.** Split each stream chronologically into 60% training, 20% validation, and 20% test portions. Floor the first two split sizes and assign the remainder to test. Reset state at each split. Do not tune using test data.
+
+**E02 — Metrics.** Exclude warmup events from classification metrics and report their count. Compute macro F1 over all declared labels, including labels with no observed examples. Zero denominators contribute zero.
+
+**E03 — Evidence and reporting.** Use the existing evidence output directory for raw runs, resolved configuration, and error outputs. The short report states conclusions and comparison conditions rather than a history of attempted commands.
+
+**E04 — Claim limits.** A local smoke run establishes executability only. Quality and latency conclusions require the corresponding real measurements.
+
+**E05 — Comparison and latency.** Compare variants using the same split, event ordering, hardware, thread count, and timed region. Compute p95 by nearest rank `ceil(0.95*N)` in the sorted measurements; with `N=0`, p95 is unavailable.
+
+**E06 — Deliverables.** Deliver an implementation, local tests, a reproducible evaluation command, and a short report. Documentation alone does not complete final evaluation or reporting.

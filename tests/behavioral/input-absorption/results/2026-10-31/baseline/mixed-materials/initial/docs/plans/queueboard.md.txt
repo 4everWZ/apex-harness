@@ -1,0 +1,71 @@
+# QueueBoard development plan
+
+## Goal and current state
+
+Coordinate the next two development sessions against the [approved product specification](../specs/queueboard.md), preserving the exercise submission and review obligations for later delivery. This plan owns unfinished execution and exercise obligations; the specification owns runtime behavior and product acceptance.
+
+Only documentation preparation has been performed. There is no supplied implementation, chosen framework, application run, or verification result. All development and acceptance work below remains open. Preparing this plan does not establish conformance.
+
+The original inputs were `tmp/srs.md` and `tmp/exercise-notes.md`. Their applicable content has been absorbed into the specification and this plan; resuming work requires neither temporary file. Preserve the originals as supplied inputs.
+
+## Exercise submission and review obligations
+
+These instructions apply to the exercise and its eventual submission, not to QueueBoard runtime features. They are retained here from the exercise notes so they remain available throughout development and delivery preparation.
+
+T01. Submit one archive named `<candidate-id>-queueboard.zip`. It must contain source, dependency instructions and the reproduction command.
+
+T02. Include a PDF explanation of at most six pages; discuss implementation choices, known limitations and which checks were actually run.
+
+T03. The review score is implementation completeness 40%, explanation 30%, reproducibility 30%.
+
+T04. Delivery must include a 10-minute demonstration outline. It is presentation material, not an application endpoint or UI feature.
+
+T05. Cite third-party source material in the explanation. Do not claim unexecuted checks or invented benchmark results.
+
+T06. The evaluator may ask why an alternative was rejected; retain enough explanation to answer, without recording every work session.
+
+## Session 1 — resolve development choices and implement the core
+
+- [ ] Confirm the development environment and choose a framework when implementation is authorized. No framework choice is made by this preparation task.
+- [ ] Resolve the principal/tenant integration, storage representation and timestamp comparison semantics, cursor encoding/validation, success pagination termination, and error response shape where the approved contract leaves details unspecified. Record implementation choices and material alternatives with brief rationale below; obtain clarification if a choice would change the approved contract.
+- [ ] Implement tenant-scoped retrieval, limit parsing/default/bounds, stable composite ordering, cursor validation before records are returned, and response projection. Cover P01–P07 without mutating stored records on rejected requests.
+- [ ] Prepare deterministic fixtures with multiple tenants, equal timestamps spanning pages, and empty results. Prepare acceptance checks using the mapping below.
+- [ ] Before stopping, update the resume section with exact remaining work, environment/reproduction instructions, and any checks actually run. Retain useful third-party source references for T05 and choice rationale for T02/T06.
+
+## Session 2 — complete acceptance and prepare delivery content
+
+- [ ] Resume from the recorded state; complete missing implementation work without weakening the specification.
+- [ ] Execute the acceptance checks below in the selected project environment, fix failures, and retain the commands, observed outcomes, and limitations needed to support later claims. Unexecuted or failing checks remain unresolved.
+- [ ] Establish dependency instructions and a reproduction command and check that another environment can follow them before claiming reproducibility (T01/T03).
+- [ ] Prepare the implementation-choice, limitations, actual-checks, citations, and rejected-alternative content needed for the eventual PDF (T02/T05/T06). Keep the eventual PDF within six pages.
+- [ ] Prepare the content needed for the eventual 10-minute demonstration outline (T04), including tenant isolation, pagination ties, invalid requests, and the actual evidence available at that time.
+- [ ] Record remaining acceptance and submission work explicitly. The current preparation task does not authorize running the application, producing the final archive/PDF/demonstration deliverables, or submitting them. Perform future implementation and execution only under the applicable development authorization; produce the final submission only when authorized.
+
+## Acceptance work remaining
+
+All rows are pending; this table is a coverage plan, not test evidence.
+
+| Requirements | Planned checks |
+| --- | --- |
+| P01, P08 | Query with distinct requesting tenants and mixed stored tenants; verify every returned record belongs to the requester, including later cursor pages. |
+| P02, P08 | Omit limit; use 1 and 100; reject nonintegers and values outside [1,100] with 400, invalid_limit, and no data. |
+| P03, P04, P07, P08 | Use tied timestamps across page boundaries; check created_at descending/job_id ascending, both cursor ordering keys and tenant identity, and repeated identical requests against unchanged data. Check consistent boundaries without lost or repeated tied records. |
+| P04, P06, P08 | Use malformed and foreign-tenant cursors; verify 400/invalid_cursor before records are returned and compare stored records before and after each rejection. |
+| P05, P08 | Check exact top-level and item fields; check empty initial and subsequent pages return items=[] and next_cursor=null. |
+| P06, P08 | Compare stored records before and after all rejected requests, including invalid limits; do not infer nonmutation merely from the HTTP status. |
+
+## Open choices and delivery inputs
+
+- No framework, storage implementation, principal integration, cursor format, or detailed response/error conventions have been selected. Resolve them during authorized development while preserving P01–P08; record any product-level clarification in the specification only when accepted.
+- The candidate ID for the eventual archive is not supplied. Obtain it before packaging; preserve the required `<candidate-id>-queueboard.zip` naming rule.
+- No dependency instructions, reproduction command, test evidence, explanation PDF, demonstration outline, or archive exists yet. The exercise rubric must guide delivery preparation without becoming an application requirement.
+
+## Implementation choices and explanation notes
+
+No implementation choices or rejected alternatives have been recorded yet. During development, retain only the chosen approach, its reason, material alternatives and rejection reasons, limitations, and third-party source references needed for T02/T05/T06. Create a separate decision record only if a choice needs an independent maintained owner.
+
+## Resume
+
+Next action: begin Session 1 by confirming development authorization and resolving the environment and contract details listed above. All implementation and acceptance tasks remain pending. No tests or application commands have been run, and no implementation verification is claimed.
+
+Keep this plan current while the coordinated work remains open. Before retiring it, transfer still-applicable exercise obligations and rationale to their delivery owners, synchronize any accepted contract clarifications, and resolve or explicitly transfer remaining work and unverified claims.

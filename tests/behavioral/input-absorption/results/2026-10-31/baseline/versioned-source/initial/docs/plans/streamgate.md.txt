@@ -1,0 +1,51 @@
+# StreamGate development plan
+
+## Goal and current state
+
+Complete the implementation, local tests, reproducible evaluation command, and evidence-supported short report for the [accepted StreamGate specification](../specs/streamgate.md) across two future development sessions.
+
+Only project documentation is prepared. Implementation, tests, experiments, measurements, and report conclusions are unfinished. The [complete original exercise](../inputs/streamgate-exercise.md) is preserved for the external review from a clean checkout. Do not treat unselected directions or appendix suggestions as approved work.
+
+## Choices and inputs still needed
+
+- Implementation language and tooling remain undecided. Select them in a future authorized development session before implementation.
+- Restart storage format remains undecided. Select it before implementing and verifying recovery; preserve all A08 state regardless of format.
+- Confirm the callable or command interface, malformed-event and conflict output representation, and exact-content equality rules for duplicate events. The contract requires original-output replay for exact duplicates, including when later accepted timestamps exist; define processing order to preserve that obligation alongside A06.
+- Obtain the evaluation dataset, its declared labels, and the existing evidence output directory required by E03. No directory or dataset was present in the supplied project. Do not silently replace the required evidence location or invent quality results.
+- Agree on the measured variants, target hardware, thread count, and timed region before comparisons. No quality or latency acceptance threshold was supplied; do not invent one or infer measured quality from a smoke run.
+
+## Session 1: detector and state correctness
+
+1. Resolve the implementation choices and interface details above without changing the accepted requirements. Record any proposed change distinctly and seek acceptance before changing scope or semantics.
+2. Implement event validation, per-stream rolling statistics, warmup, and strict anomaly threshold.
+3. Implement timestamp handling, duplicate replay and conflict handling, bounded duplicate retention, reset, recovery, and ordered partial-success batches.
+4. Add local tests that exercise the requirement groups below. In particular, verify unchanged state on rejection and conflict, unchanged duplicate eviction order on replay, state isolation across streams, and equivalent behavior after recovery.
+5. Leave the implementation and local verification state in this plan with the next concrete action for session 2. Do not claim evaluation completion from local tests.
+
+## Session 2: evaluation and final deliverables
+
+1. Resolve missing evaluation inputs and the existing evidence directory before running evaluation.
+2. Implement reproducible evaluation with chronological per-stream splits, split resets, warmup exclusion and count, declared-label macro F1, and nearest-rank p95.
+3. Provide evaluation commands and resolved configuration sufficient to reproduce the chosen run. Keep raw runs and errors in the existing evidence output directory.
+4. Run local checks and smoke execution, then obtain real quality and latency measurements under matched comparison conditions. Keep the conclusions limited to the measurements obtained.
+5. Write the short report with conclusions and comparison conditions, and compare the accepted solution and final deliverables against the complete versioned original. Confirm the README links and original source remain available in a clean checkout.
+6. Update this plan to reflect remaining gaps. Retire it only after its goal is delivered and verified, or explicitly cancelled or superseded with still-current constraints preserved.
+
+## Requirement coverage and unfinished verification
+
+All rows are pending implementation and verification. Update the evidence or gap column with actual outcomes as development proceeds; documentation is not execution evidence.
+
+| Requirements | Planned verification | Evidence or gap |
+| --- | --- | --- |
+| A01, A06 | Valid and malformed events; integer timestamp; finite values; older and equal timestamps; compare state before and after rejected events. | Pending. |
+| A02–A05, A10 | Window cap and score-before-insert; warmup boundaries and outputs; population statistics and standard-deviation floor; strict threshold; both supplied numeric fixtures. | Pending. |
+| A07 | Exact replay returns original output; conflicting content changes no state; last-64 eviction and replay eviction-order behavior; per-stream ID isolation. | Pending. |
+| A08 | Reset only the selected stream; recovery retains windows, latest timestamps, and duplicate outputs and ordering needed for subsequent behavior. | Pending storage choice and implementation. |
+| A09 | Supplied batch order and a failure after successes; earlier successes remain accepted. | Pending. |
+| E01 | Per-stream chronological 60/20/20 with floored first two sizes and remainder; state reset at each split; no test-data tuning. | Pending dataset and evaluation implementation. |
+| E02 | Warmup exclusion and reported count; all declared labels included in macro F1; zero-denominator cases. | Pending dataset labels and evaluation implementation. |
+| E03 | Raw runs, resolved configuration, and errors saved in the existing evidence output directory; concise report conclusions and conditions. | Evidence directory not supplied; no runs or report yet. |
+| E04–E05 | Separate smoke executability evidence from real quality and latency measurements; matched comparison conditions; nearest-rank p95 and empty measurements. | Pending real runs and measurement conditions. |
+| E06 | Review implementation, local tests, reproducible evaluation command, and short report together against the full original and accepted specification. | All implementation and evaluation deliverables unfinished. |
+
+Next action: begin session 1 by selecting language/tooling and defining the interface and duplicate-content equality details; keep restart storage unresolved until it is deliberately selected for recovery work.

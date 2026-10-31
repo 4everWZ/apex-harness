@@ -1,0 +1,27 @@
+# InvoiceRelay specification
+
+This document owns the approved current InvoiceRelay product contract. The customer accepted requirements S01–S05. Future accepted contract changes belong here.
+
+The [signed requirements](../customer-records/signed-requirements.md) are an immutable customer record retained unchanged for acceptance disputes. They are not the maintained product specification.
+
+## Approved contract
+
+| ID | Required behavior |
+|---|---|
+| S01 | Every submission includes `tenant_id`, `invoice_id`, `amount_cents`, and `currency`. |
+| S02 | Within one tenant, a repeated `invoice_id` with identical content returns the first result and creates no new invoice. A repeated `invoice_id` with conflicting content returns HTTP 409. |
+| S03 | Authorization restricts access to the principal's tenant. Missing invoices and invoices belonging to another tenant must be indistinguishable. |
+| S04 | `amount_cents` is a nonnegative integer. Allowed currencies are `CNY`, `USD`, and `EUR`. Invalid input is rejected without changing state. |
+| S05 | Acceptance checks must be documented. Implementation conformance remains explicitly unverified until tested. |
+
+## Acceptance checks
+
+These checks define required acceptance coverage; documenting them does not establish implementation conformance.
+
+| ID | Required checks |
+|---|---|
+| S01 | Submit with all four fields present; exercise omission of each required field and confirm required-field enforcement. |
+| S02 | Submit an invoice and repeat the same tenant, invoice ID, and content. Compare the returned result with the first result and confirm that no additional invoice was created. Repeat the invoice ID with conflicting content and require HTTP 409. Exercise the same invoice ID in separate tenants to check tenant-scoped identity. |
+| S03 | Exercise access as principals from different tenants, including a submission naming a foreign tenant. Confirm that authorization restricts each principal to its own tenant. Compare observable outcomes for missing and foreign invoices and require them to be indistinguishable. |
+| S04 | Exercise zero and positive integer amounts and each allowed currency. Exercise negative, fractional, and non-integer amounts, unsupported currencies, and missing required fields; confirm rejection and unchanged state for invalid input. |
+| S05 | Execute and record acceptance evidence for S01–S04 before claiming conformance. Until then, keep the unverified state visible in the current development plan. |

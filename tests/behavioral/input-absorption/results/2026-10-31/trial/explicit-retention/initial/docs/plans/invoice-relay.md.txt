@@ -1,0 +1,25 @@
+# InvoiceRelay development plan
+
+## Goal
+
+Implement the [approved InvoiceRelay contract](../specs/invoice-relay.md) and establish conformance through its acceptance checks in a later session.
+
+## Current state
+
+Only requirements and project documentation are present. No implementation was created or executed in this session. Implementation conformance is explicitly unverified; none of the acceptance checks has been run.
+
+## Remaining work
+
+| Scope | Work to complete | Evidence still needed |
+|---|---|---|
+| S01 | Implement submission handling and required-field enforcement. | Acceptance outcomes for complete and missing-field submissions. |
+| S02 | Implement tenant-scoped invoice identity, replay of the first result, and HTTP 409 for conflicting content. | Result comparisons and invoice-count checks for replay; conflict and cross-tenant identity checks. |
+| S03 | Implement principal-tenant authorization and indistinguishable missing/foreign invoice outcomes. | Authorization and observable-outcome checks across tenants. |
+| S04 | Implement amount/currency validation with state-preserving rejection. | Boundary and invalid-input outcomes with before/after state comparisons. |
+| S05 | Run the specification's acceptance checks and record the actual results before claiming conformance. | Executed checks covering S01–S04; failures and untested behavior remain unresolved. |
+
+Resolve interface details needed for implementation without silently extending the approved contract. The signed requirements do not define transport/routes, success response shape, which content fields determine replay equality, invalid-input response codes, or the exact observable missing/foreign response. Obtain agreement on material choices before treating them as accepted requirements.
+
+## Next action
+
+In the implementation session, settle those interface details as needed, update the specification for any accepted additions, then implement the contract and execute the documented acceptance checks. Keep conformance unverified until supporting results exist.

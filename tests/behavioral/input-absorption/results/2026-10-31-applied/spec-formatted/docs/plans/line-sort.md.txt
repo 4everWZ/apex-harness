@@ -1,0 +1,42 @@
+# LineSort Development Plan
+
+## Goal
+
+Implement and verify the accepted [LineSort contract](../specs/line-sort.md) across two development sessions. The specification owns behavior and acceptance; this plan owns unfinished work and the state needed to resume.
+
+## Current state
+
+- The approved contract is maintained in the linked specification.
+- No implementation language or dependencies have been selected.
+- Nothing has been implemented or behaviorally verified. Documentation preparation establishes no conformance claim.
+- No transfer of responsibility is in progress; resume through this plan.
+
+## Session 1: establish the implementation
+
+- [ ] Select the implementation language and the project's local environment and test workflow before writing code. Keep all contract requirements intact; resolve any necessary contract change with the user before implementing it.
+- [ ] Implement stdin processing, strict decoding, line transformation, option handling, and stdout emission against L01–L06.
+- [ ] Add acceptance cases covering the requirement groups below. Invalid input and unknown-option cases must verify zero stdout, including inputs that could otherwise produce partial output.
+- [ ] Run the available focused checks. Before ending the session, replace this current state with the actual implementation state, relevant evidence references, remaining failures or unrun checks, and one concrete next action. Leave every unverified requirement open.
+
+## Session 2: complete acceptance
+
+- [ ] Resume from the recorded state and finish any incomplete implementation or acceptance cases.
+- [ ] Run acceptance checks against the specification, checking exact bytes and exit codes where required.
+- [ ] Resolve failures without weakening the accepted contract. Record any remaining conformance gaps or blockers here.
+- [ ] Claim delivery only once the accepted contract is implemented and supported by verification evidence. Retire this plan under the documentation lifecycle when its goal is complete; keep the specification maintained.
+
+## Requirement coverage to implement and verify
+
+| Specification requirements | Required coverage | Current state |
+|---|---|---|
+| L01 | Strict UTF-8; invalid bytes produce exit 2 and zero stdout | Not implemented; unverified |
+| L02 | LF and CRLF; empty-line removal; whitespace-only lines and other characters retained | Not implemented; unverified |
+| L03 | Exact case-sensitive deduplication; no normalization, including composed/decomposed Unicode | Not implemented; unverified |
+| L04 | Unicode codepoint sorting, including non-BMP characters; reverse affects final ordering only | Not implemented; unverified |
+| L05 | Exact UTF-8 output, LF separators and final LF; empty output is zero bytes | Not implemented; unverified |
+| L06 and scope | Unknown options produce exit 2 and zero stdout; stdin/stdout only, no file arguments, in-place operation, filesystem writes or network | Not implemented; unverified |
+| Acceptance example | Run the specification's exact transformation example and compare output bytes | Not implemented; unverified |
+
+## Open work and next action
+
+Language and environment selection remain open. Begin session 1 by choosing a suitable language and local workflow, then implement against the specification. This preparation task does not select either, write implementation, or run acceptance checks.

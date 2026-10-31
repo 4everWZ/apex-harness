@@ -1,0 +1,46 @@
+# StreamGate work plan
+
+## Goal and current state
+
+Deliver and verify the approved Direction A implementation, tests, reproducible evaluation command, and short report against the [accepted specification](../specs/streamgate.md). Use the [complete original exercise](../references/streamgate-exercise.md) for the final external comparison, including excluded options and submission instructions.
+
+The project currently contains documentation only. Implementation, tests, evaluation, and report remain unfinished; no executability, quality, latency, or recovery conformance is established. All work below is pending. This plan remains current across both sessions; resuming work does not require a separate handoff.
+
+## Session 1 — implementation and local verification
+
+1. Resolve implementation language and restart storage with the project owner before committing to those choices. Define the callable input/output and error interfaces needed for implementation without weakening accepted semantics.
+2. Implement independent per-stream windows, warmup, population statistics, strict thresholding, and bounded state.
+3. Implement rejection, exact duplicate replay, conflict handling, reset, recovery, and ordered batch processing. Check that state remains unchanged on rejected events, conflicts, and duplicate replay, including eviction order.
+4. Add and run local tests covering the mapping below, including the two specified numerical fixtures, rolling-window eviction, duplicate-cache eviction, stream isolation, and restoration of all required state. Record actual outcomes and any remaining gaps here without claiming final evaluation.
+
+## Session 2 — evaluation and delivery
+
+1. Resolve evaluation data and declared labels, locate the existing evidence output directory, and establish reproducible commands and resolved configuration. No evidence directory exists in the supplied project; resolve its intended location before writing evaluation outputs.
+2. Implement chronological per-stream splits with reset boundaries, training/tuning/test separation, warmup accounting, macro F1, and nearest-rank p95 including empty samples.
+3. Run an executability smoke check and then the real measurements needed for any quality or latency claims. For variant comparisons, hold the required comparison conditions fixed and store raw runs, configuration, and errors in the resolved evidence directory.
+4. Write the short report from actual results and comparison conditions. Supply the implementation, local tests, and reproducible evaluation command. Review the full original exercise against the selected scope and resulting deliverables using only checkout-visible files.
+5. Reconcile remaining conformance gaps with evidence. Retire this plan only when its delivery and verification goal is satisfied and the accepted specification is synchronized.
+
+## Coverage and evidence to obtain
+
+| Requirements | Pending implementation or check |
+|---|---|
+| A01 | Input field and finite-number validation tests |
+| A02 | 32-value rolling window and score-before-insert tests |
+| A03 | Warmup output/count and insertion tests |
+| A04 | Population-statistic and standard-deviation-floor tests |
+| A05, A10 | Strict threshold boundary and both exact numerical fixtures |
+| A06 | Older/equal timestamp cases; malformed and nonfinite inputs; unchanged state on rejection |
+| A07 | Original-output replay, changed-content conflicts, 64-record eviction, unchanged eviction order |
+| A08 | Named-stream reset isolation; recovery of windows, timestamps, and duplicate outputs |
+| A09 | Input-order processing and partial-success retention |
+| E01 | Floor-sized per-stream chronological splits, split resets, and no test-data tuning |
+| E02 | Warmup exclusion/count, all declared labels, zero-denominator macro F1 |
+| E03 | Evidence directory and raw/configuration/error artifacts; conclusions-based report |
+| E04 | Smoke result separated from real quality and latency evidence |
+| E05 | Comparable run conditions; nearest-rank p95 and empty-sample handling |
+| E06 | Implementation, passing local checks, evaluation command, actual final evaluation, and short report |
+
+## Open choices and next action
+
+Language and restart storage remain intentionally undecided. Evaluation dataset, declared labels, evidence output location, runnable interface/commands, and measurement conditions have not been supplied or established. Resolve these as needed in the relevant session; do not silently substitute synthetic smoke results for required evaluation evidence. Next action: start Session 1 by resolving the language and restart storage choices, then implement against the accepted contract.

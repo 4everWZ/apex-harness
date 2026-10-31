@@ -1,0 +1,29 @@
+# StreamGate engineering take-home
+
+This exercise has two candidate directions. Select one and deliver code, a short report, and reproducible evaluation commands. A pretrained model is not required.
+
+## Direction A: rolling event detector
+A01. Accept events containing stream_id, event_id, integer timestamp_ms, and a finite numeric value.
+A02. Keep a rolling window of 32 prior accepted values per stream; compute the score before inserting the current value.
+A03. With fewer than 8 prior values, return score=null, anomaly=false, and warmup_remaining=8-n, then insert the current value.
+A04. Otherwise use population mean and standard deviation of the prior window and score=abs(x-mean)/max(stddev,0.01).
+A05. Mark anomaly only when score > 3.0. At exactly 3.0 it is false.
+A06. Reject an event older than the last accepted timestamp for its stream. Equal timestamps are allowed. Reject malformed or nonfinite values. Rejection changes no state.
+A07. Retain the last 64 accepted event ids and their outputs per stream. An exact duplicate returns its original output without inserting or changing eviction order; the same id with different content is a conflict and changes no state.
+A08. A reset clears only the named stream. Recovery must preserve per-stream windows, latest timestamp, and duplicate records.
+A09. For a batch, process in supplied order; failures do not roll back prior successes.
+A10. Accept a synthetic fixture of eight prior alternating -1,+1 values: x=3 produces score=3 and anomaly=false. With eight prior zeros, x=0.04 produces score=4 and anomaly=true.
+
+## Evaluation and deliverables for A
+E01. Split each stream chronologically 60/20/20, flooring the first two split sizes. Reset state at each split. Do not tune with test data.
+E02. Exclude warmup events from classification metrics but report their count. Macro F1 averages all declared labels; zero denominators contribute zero.
+E03. Use the existing evidence output directory for raw runs, resolved configuration and error outputs. The short report should state conclusions and comparison conditions, not every attempted command.
+E04. A local smoke run establishes executability only. Quality and latency conclusions require the relevant real measurements.
+E05. Compare variants using the same split, event ordering, hardware, thread count and timed region. Report p95 using nearest rank ceil(0.95*N); N=0 is unavailable.
+E06. Deliver implementation, local tests, evaluation command, and a short report. The final evaluation and report are not complete merely because documentation exists.
+
+## Direction B: learned detector
+This alternative would train a small model. Data volume, objective, and acceptable quality have not been selected. An appendix suggests median/MAD features and a window of 128 for future consideration; these are suggestions, not part of direction A.
+
+## Submission context
+The original exercise wording is supplied here for reading. Deadline, portfolio presentation and interview follow-up are administrative context, not product behavior. Implementation language and restart storage format are not fixed by this exercise.

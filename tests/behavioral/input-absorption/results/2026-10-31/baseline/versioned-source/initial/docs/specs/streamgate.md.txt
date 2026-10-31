@@ -1,0 +1,41 @@
+# StreamGate specification
+
+This document owns the accepted solution contract. Direction A and A01–A10 and E01–E06 from the [original exercise](../inputs/streamgate-exercise.md) are approved. The original remains separately available for final comparison; this specification defines the selected solution rather than replacing that source.
+
+## Scope
+
+Build the rolling event detector, local tests, reproducible evaluation command, and short report required below. Direction B, its training work, and appendix suggestions for median/MAD features and a window of 128 are not accepted. The required rolling window is 32 prior accepted values.
+
+Implementation language and restart storage format are unspecified. Administrative deadline, portfolio presentation, and interview follow-up are not product behavior.
+
+## Detector behavior
+
+| ID | Required contract |
+| --- | --- |
+| A01 | Accept events containing `stream_id`, `event_id`, integer `timestamp_ms`, and a finite numeric `value`. |
+| A02 | Keep a rolling window of 32 prior accepted values per stream. Compute the score before inserting the current value. |
+| A03 | With `n < 8` prior values, return `score=null`, `anomaly=false`, and `warmup_remaining=8-n`, then insert the current value. |
+| A04 | Otherwise compute population mean and standard deviation over the prior window, with `score=abs(x-mean)/max(stddev,0.01)`. |
+| A05 | Set `anomaly=true` only when `score > 3.0`; a score of exactly `3.0` is not an anomaly. |
+| A06 | Reject an event older than the last accepted timestamp for its stream. Equal timestamps are allowed. Reject malformed or nonfinite values. Rejection changes no state. |
+| A07 | Retain the last 64 accepted event IDs and their outputs per stream. An exact duplicate returns its original output without inserting or changing eviction order. The same ID with different content is a conflict and changes no state. |
+| A08 | A reset clears only the named stream. Recovery preserves per-stream windows, latest timestamp, and duplicate records. |
+| A09 | Process a batch in supplied order. A failure does not roll back prior successes. |
+| A10 | With eight prior alternating `-1,+1` values, `x=3` yields `score=3` and `anomaly=false`. With eight prior zeros, `x=0.04` yields `score=4` and `anomaly=true`. |
+
+These state rules apply independently to each stream. The population standard deviation in A04 is the square root of the mean squared deviation from the prior-window mean; it is not a sample estimate.
+
+## Evaluation and deliverables
+
+| ID | Required contract |
+| --- | --- |
+| E01 | Split each stream chronologically into 60/20/20, flooring the first two split sizes. Reset state at each split. Do not tune with test data. |
+| E02 | Exclude warmup events from classification metrics and report their count. Macro F1 averages all declared labels; zero denominators contribute zero. |
+| E03 | Use the existing evidence output directory for raw runs, resolved configuration, and error outputs. The short report states conclusions and comparison conditions rather than every attempted command. |
+| E04 | A local smoke run establishes executability only. Quality and latency conclusions require the relevant real measurements. |
+| E05 | Compare variants using the same split, event ordering, hardware, thread count, and timed region. Compute p95 by nearest rank `ceil(0.95*N)`; with `N=0`, p95 is unavailable. |
+| E06 | Deliver implementation, local tests, an evaluation command, and a short report. Documentation alone does not complete final evaluation or the report. |
+
+For E01, the test partition receives the remainder after the floored training and validation sizes. For E05, nearest rank uses the one-based rank in sorted measurements.
+
+Acceptance requires checking each A01–A10 and E01–E06 obligation against the implementation and evidence. A contract requirement remains in force when its implementation or verification is unfinished.

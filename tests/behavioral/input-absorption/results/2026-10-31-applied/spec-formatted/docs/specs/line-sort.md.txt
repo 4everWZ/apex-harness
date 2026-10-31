@@ -1,0 +1,21 @@
+# LineSort Specification
+
+## Intent
+
+A local stdin-to-stdout line sorter. No file arguments, filesystem writes or network.
+
+## Contract
+
+L01. Read strict UTF-8; invalid input returns exit code 2 and emits no stdout.
+L02. Recognize LF and CRLF as line endings, remove empty lines but retain whitespace-only lines, and preserve all other characters.
+L03. Deduplicate by exact case-sensitive codepoint content, with no Unicode normalization.
+L04. Sort by Unicode codepoint order. --reverse reverses only the final ordering.
+L05. Emit UTF-8 with LF and a trailing LF for nonempty output; empty output is zero bytes.
+L06. Unknown options return exit code 2 and no stdout. No in-place operation.
+
+## Acceptance
+
+| Observable requirement | Verification method |
+|---|---|
+| L01 and L06 atomic errors | Invalid UTF-8 and unknown-option cases must emit zero bytes |
+| L02-L05 exact transformation | Input b\na\r\n\n a\nb yields output ` a\na\nb\n`; also test whitespace, composed/decomposed Unicode, reverse, and empty input |
