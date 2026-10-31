@@ -1,0 +1,1 @@
+Prepare the ReviewDesk project documents from tmp/product-notes.md for implementation across several sessions. The behavior stated as approved is our target; unaccepted items remain unresolved. Establish the maintained contract and resumable work under the candidate skill and its applicable fallback template. Do not implement, choose a stack, run the app, or claim acceptance.

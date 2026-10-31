@@ -1,0 +1,37 @@
+# QueueView Specification
+
+## Intent
+A desktop browser queue viewer, supported in current Chrome and Edge. The maintained owner of behavior and acceptance is this file; README is navigation only.
+
+## Contract
+The list shows loading, records, empty, or load-error. A load error offers retry and must not masquerade as an empty list. Manual Refresh is unavailable while a request is in flight. Requests do not mutate queue records.
+
+The server reads refresh_seconds at startup. Precedence is QUEUE_REFRESH_SECONDS environment value, then refresh_seconds in project YAML, then 30. It must be a whole integer from 5 to 300 inclusive; an invalid selected value fails startup before serving. Editing YAML or the environment takes effect only after a server restart. GET /config returns exactly {"refresh_seconds": <integer>}; external v1 clients depend on that key and shape.
+
+The page reads the effective interval on initial load. Automatic refresh starts enabled in a new tab. A pause/resume control stores its preference in the current tab's session storage and restores it on reload in that tab. Other tabs are not synchronized. The preference must not be placed in server YAML, environment variables, or GET /config. A successful save takes effect immediately, without a page or server restart.
+
+While enabled, the next automatic refresh starts one effective interval after the previous request completes. A manual refresh resets that schedule. Pausing stops future automatic scheduling but does not cancel an in-flight request; that request may still update the displayed rows. Manual Refresh continues to work while paused and does not re-enable automatic scheduling. All requests obey the one-request-at-a-time rule. An interval refresh that fails leaves the last successful records visible with a retry indicator.
+
+Resuming schedules the next automatic refresh one effective interval from the resume action, without an immediate request. Repeating pause or resume in the same state must not create duplicate timers.
+
+If the tab cannot write session storage, it retains the previous effective toggle state and shows a save failure; it must not claim that the preference was saved. A previously stored malformed toggle value is treated as enabled, with a visible recovery notice. The screen shows whether automatic refresh is paused. Keyboard users can operate the control, and its effective state is exposed to assistive technology.
+
+No WebSocket transport, backend protocol extension, additional browser support, or cross-tab synchronization is in scope. The settings panel layout and polling API URLs are not specified by this contract.
+
+## Acceptance
+The following checks define conformance; changing this document does not establish implementation conformance.
+
+| Requirement | Verification method |
+|---|---|
+| QV-01: Loading, records, empty, and load-error remain distinct; load errors offer retry. | Exercise each list outcome and retry; confirm errors never appear as an empty result. |
+| QV-02: Failed interval refresh retains the last successful records and shows a retry indicator. | Load records, fail an interval refresh, and inspect retained rows and retry behavior. |
+| QV-03: At most one request is in flight, Manual Refresh is unavailable during it, and requests do not mutate records. | Hold requests open during automatic, manual, pause, and resume actions; inspect request overlap, control availability, and record integrity. |
+| QV-04: Server interval precedence, default, bounds, startup validation, and restart-only changes remain intact. | Check environment over YAML over default 30; accept integer bounds 5 and 300, reject invalid selected values before serving, and confirm configuration edits apply only after restart. |
+| QV-05: Initial load uses the effective interval; enabled polling waits one interval after completion and manual refresh resets its schedule. | Observe controlled request completion and timer timing, including manual refresh. |
+| QV-06: The preference is local to the tab, survives reload there, starts enabled in a new tab, and saves immediately. | Toggle and reload the same tab; open a new tab and observe independent states without synchronization or restart. |
+| QV-07: Pause stops future automatic scheduling, permits in-flight completion, and preserves manual refresh. | Pause with and without an in-flight request; allow completion, wait beyond the interval, and manually refresh while paused. |
+| QV-08: Resume waits one interval from the action, issues no immediate request, and repeated same-state actions create no duplicate timers. | Observe timing after resume and repeat pause/resume actions; confirm single-request behavior also holds with a request in flight. |
+| QV-09: Failed storage writes preserve the previous effective state and report failure without a saved claim. | Force write failure when pausing and when resuming; inspect effective state, scheduling, and failure feedback. |
+| QV-10: Malformed stored values recover to enabled with a visible notice. | Reload with a malformed stored preference and observe enabled behavior and the recovery notice. |
+| QV-11: Paused status is visible, keyboard operation works, and assistive technology receives the effective state. | Inspect both effective states, operate the control by keyboard, and inspect its accessibility state, including after a save failure. |
+| QV-12: The external v1 configuration payload remains exactly {"refresh_seconds": <integer>}; the toggle never enters server configuration. | Check GET /config before and after toggling and inspect configuration handling for absence of the tab preference in YAML, environment variables, and the payload. |

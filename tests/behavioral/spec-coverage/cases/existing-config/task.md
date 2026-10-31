@@ -1,0 +1,1 @@
+Prepare QueueView documentation for the approved change in tmp/change.md. Preserve the existing documentation owners and unaffected behavior. Use candidate guidance and applicable templates without replacing repository conventions. Keep implementation and verification for a later session; do not implement, choose a layout, extend the backend protocol, or claim delivery.

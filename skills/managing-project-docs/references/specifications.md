@@ -20,7 +20,7 @@ When establishing a missing specification, distinguish observed implementation b
 
 ## Draft and synchronize
 
-Prefer drafting a new or changed contract before implementation when its observable behavior, interfaces, invariants, or acceptance can reasonably be defined. Exploratory implementation may precede a draft, but it does not establish the contract.
+Prefer drafting a new or changed contract before implementation when its observable behavior, interfaces, invariants, or acceptance can reasonably be defined. Exploratory implementation may precede a draft, but it does not establish the contract. Judge completeness by whether a reader can understand the intended use, implement the accepted behavior consistently, and assess conformance without unstated assumptions; keep material gaps explicit rather than inventing answers.
 
 At synchronization, each specification contains the accepted contract for its scope, and independently owned choices link to their decisions. Keep unaccepted targets or deviations in working context, the plan, or a clearly distinguished draft version. Keep implementation progress, conformance gaps, and unfinished acceptance checks in working context or the plan rather than accumulating them in the specification.
 

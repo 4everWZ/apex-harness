@@ -1,0 +1,92 @@
+# ReviewDesk Specification
+
+## Intent
+
+ReviewDesk is a browser application for a small editorial team to submit and review text drafts. Writers compose drafts, submit them, inspect outcomes, and revise returned work. Reviewers find pending submissions and approve or return them.
+
+This document owns the behavior already approved in the supplied product notes. That approval defines the target contract; it does not establish implementation completion or acceptance results.
+
+In scope are composition, submission, review, team isolation, concurrency protection, failure handling, audit consistency, accessibility, and the desktop browser conditions below. Global administration and mobile layout are out of scope. Email notifications remain a future suggestion and are not part of this release's contract. No implementation language, framework, API URLs, or working design is selected here.
+
+## Contract
+
+### C1 — States and allowed actions
+
+A document is in exactly one of Draft, Submitted, Approved, or Returned.
+
+| Action | Starting state | Result | Conditions |
+|---|---|---|---|
+| Edit title or body | Draft or Returned | Same state | Writer action |
+| Submit | Draft or Returned | Submitted | Title and body each contain a non-whitespace character |
+| Approve | Submitted | Approved | Reviewer action; reviewer is not the submitter; explanation is optional |
+| Return | Submitted | Returned | Reviewer action; reviewer is not the submitter; explanation contains a non-whitespace character |
+
+Writers cannot edit or withdraw Submitted documents. Reviewers act only on Submitted documents. Approved is final in this release. A writer can inspect the outcome and revise Returned work for resubmission.
+
+### C2 — Composition validation and request feedback
+
+Invalid submission leaves the document state and all typed title and body text unchanged, with field-level feedback. The composition page retains entered title and body when validation or a network request fails.
+
+While a submit request is pending, the submit control is unavailable and indicates progress. A failed request shows a retry action without clearing the draft.
+
+### C3 — Submission identity and concurrent changes
+
+Repeating the same submission operation must not create another submission or audit entry.
+
+Requests carry an expected document version. A stale version is rejected with conflict, leaves stored state unchanged, and asks the user to reload the latest version before retrying. Newer work must not be silently overwritten.
+
+### C4 — Leaving unsaved edits
+
+Navigating away from unsaved edits asks for confirmation. Cancel keeps the user on the page with edits intact. Confirming discard navigates away without saving.
+
+Browser-refresh recovery and reload recovery of unsaved drafts have no accepted behavior yet; local persistence must not be promised.
+
+### C5 — Pending review list
+
+The review list has loading, nonempty, empty, and load-error states. Empty results explain that there is no pending work. Load errors offer retry and must not appear as an empty list.
+
+### C6 — Review details and outcomes
+
+Opening a submission shows its content and current state before enabling review actions. A failed approve or return request leaves the submission Submitted and shows feedback with retry. A return requires a non-whitespace explanation; approval does not require one.
+
+The server commits the review status and its audit event together, or neither. Repeating the same completed review operation returns the first outcome without another audit event.
+
+### C7 — Team isolation and self-review
+
+Editors can see only their own team's documents. An unknown document ID and an ID in another team both produce not-found behavior. Team restrictions must hold on the server and in the interface.
+
+Reviewers cannot review their own submissions. This restriction must hold on the server and in the interface, including when a client bypasses interface controls.
+
+### C8 — Accessibility and browser scope
+
+Keyboard users must be able to operate composition, the review list, and review actions. Request progress and validation errors must be exposed to assistive technology.
+
+Supported browsers are current desktop Chrome and Edge at viewport widths of at least 1024px.
+
+### C9 — Review list rendering target
+
+For the fixed H1 browser fixture containing 200 pending rows, initial list rendering after data arrival must take at most 500ms, excluding network transfer.
+
+## Acceptance
+
+These are verification methods for the approved target, not recorded results. Implementation evidence and outstanding checks belong in the work plan.
+
+| Observable requirement | Verification method |
+|---|---|
+| C1: compose, submit, inspect outcomes, revise Returned work, and resubmit | Exercise the full writer/reviewer workflow and inspect state and displayed content at each transition. |
+| C1: state and action boundaries | Exercise edit, submit, approve, and return from every state; verify Submitted cannot be edited or withdrawn and Approved remains final. |
+| C1–C2: required title and body | Try empty and whitespace-only values in each field, then non-whitespace values; verify field-level feedback, valid transition, and preservation of all typed text and original state on invalid submission. |
+| C2: submit pending, failure, and retry | Hold a request pending, then fail it; inspect disabled submit control and progress, retained title/body, failure feedback, and usable retry. |
+| C3: duplicate submission | Replay the same submission operation, including a retry after a lost response; inspect stored submissions and audit entries for duplication. |
+| C3: expected-version conflict | Have two clients use the same version, persist a change from one, then send the other's stale request; inspect conflict feedback, unchanged stored state, and the instruction to reload before retrying. |
+| C4: unsaved navigation | Attempt navigation with edits; cancel and verify location/text preservation, then confirm discard and verify navigation without saving. |
+| C5: four list states | Control data loading to produce pending, nonempty, empty, and failed loads; inspect appropriate content, empty explanation, and load-error retry without false empty results. |
+| C6: details before review actions | Delay loading submission details; verify review controls are not enabled before content and current state are shown. |
+| C6: approval and return validation | Approve without an explanation; try returning with empty/whitespace explanation, then meaningful text; verify only valid actions change state. |
+| C6: failed review and audit atomicity | Fail approve and return requests, including at persistence boundaries; inspect Submitted state, feedback/retry, and absence of a partial status/audit commit. |
+| C6: repeated completed review | Replay each completed approve/return operation; verify the first outcome is returned and no second audit event appears. |
+| C7: team boundaries and ID concealment | Use different-team accounts and direct server requests as well as the interface; verify only own-team documents are visible and unknown/cross-team IDs both produce not-found behavior. |
+| C7: self-review prohibition | Attempt approval and return of the reviewer's own submission through the interface and direct server requests; verify rejection without review mutation. |
+| C8: keyboard and assistive technology | Complete composition, list navigation, and review using the keyboard; inspect assistive-technology exposure of progress and validation feedback in supported browsers at widths including 1024px. |
+| C8: desktop compatibility | Exercise the accepted workflows on current desktop Chrome and Edge at widths of at least 1024px. |
+| C9: rendering budget | Use the fixed H1 browser fixture of 200 pending rows; measure elapsed time from data arrival to initial list rendering, excluding transfer, and compare with 500ms. |

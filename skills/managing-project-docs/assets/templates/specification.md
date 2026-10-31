@@ -2,13 +2,14 @@
 
 ## Intent
 
-- Intended outcome:
+- Intended outcome, users and main use cases:
 - In scope:
 - Out of scope:
+- Operating conditions and external dependencies:
 
 ## Contract
 
-[Responsibilities, interfaces, failure behavior, and invariants.]
+[Accepted user flows, states, business rules, interfaces, data semantics, configuration and compatibility behavior. Include applicable quality requirements such as performance, security and reliability, plus relevant defaults, boundaries, failure effects and invariants.]
 
 ## Acceptance
 
@@ -20,9 +21,9 @@
 
 [Only decisions that independently own material rationale.]
 
-## Technical semantics — optional
+## Contract details — as needed
 
-[Only authoritative semantics needed to interpret, verify, or reproduce the contract.]
+[Expand behavior that needs more explanation for implementation or acceptance, or link to its owning specification. This may include complete workflows, state transitions, formulas or data definitions. Omit this section when the contract above is sufficient.]
 
 ## Open decisions — optional
 

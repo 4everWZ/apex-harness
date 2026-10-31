@@ -1,0 +1,20 @@
+# QueueView work
+
+Goal: implement and verify the approved queue-view behavior. Keep unfinished delivery work here; the specification owns accepted behavior.
+
+Primary contract: [QueueView specification](../specs/queueview.md). Input: [approved change](../../tmp/change.md).
+
+The approved pause/resume contract is incorporated into the specification. The change is not implemented, and implementation and regression checks have not been performed. No delivery or conformance is claimed.
+
+## Work
+
+| Task | Done when | State |
+|---|---|---|
+| Review the implementation and select the settings panel layout and polling API URLs within the accepted scope. | Existing configuration, scheduling, storage, and UI paths are understood; layout and URLs are resolved without extending the backend protocol. | Pending; next session. |
+| Implement the tab preference and control (QV-06, QV-09–QV-11). | Same-tab persistence, new-tab default, immediate effective saves, failure preservation, malformed-value recovery, visible state, keyboard operation, and accessibility state satisfy the specification. | Pending. |
+| Integrate scheduling (QV-03, QV-05, QV-07–QV-08). | Pause, resume, repeated actions, in-flight completion, and manual refresh obey the specified timing and single-request rules. | Pending. |
+| Verify changed behavior (QV-06–QV-11 and affected scheduling requirements). | The specification's observable checks pass, including storage failures, malformed values, in-flight actions, and duplicate-timer prevention; actual results are available for review. | Not run. |
+| Verify preserved behavior and compatibility (QV-01–QV-05, QV-12). | List/error/retry behavior, retained records, no mutation, interval handling, startup validation, restart semantics, and the exact v1 payload pass regression checks in supported Chrome and Edge. | Not run. |
+| Assess delivery. | Implementation and evidence support the full accepted contract; unresolved failures are addressed before claiming conformance. | Pending all implementation and verification work. |
+
+Next: inspect the implementation in a later session and resolve the layout and polling URL choices. Documentation preparation authorizes no implementation or verification execution in this session. Keep the plan current while delivery remains unfinished.

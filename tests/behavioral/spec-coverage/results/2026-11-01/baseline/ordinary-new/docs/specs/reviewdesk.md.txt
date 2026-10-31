@@ -1,0 +1,65 @@
+# ReviewDesk Specification
+
+## Intent
+
+ReviewDesk is a browser application for a small editorial team to compose, submit, review, and revise text drafts. This document owns the approved product behavior. Approval of that behavior does not establish implementation conformance or completed acceptance.
+
+In scope are composition, submission outcomes, revision, pending-review discovery, approval and return, team isolation, audit consistency, keyboard access, and the desktop browser and performance constraints below. A global administration interface and mobile layout are out of scope.
+
+## Contract
+
+### Roles and visibility
+
+- **RD-01 — Team isolation:** Editors can access only their own team's documents. An unknown document ID and an ID belonging to another team both produce not-found behavior. Enforce the team boundary on the server and in the interface.
+- **RD-02 — Role workflows:** Writers can compose a draft, submit it, inspect the outcome, and revise returned work. Reviewers can find pending submissions, approve them, or return them for revision. Reviewers cannot review their own submissions; enforce this restriction on the server and in the interface.
+
+### Document lifecycle
+
+- **RD-03 — States and editing:** A document is Draft, Submitted, Approved, or Returned. Writers may edit only Draft and Returned documents. A Submitted document cannot be edited or withdrawn by its writer. Approved is final in this release.
+- **RD-04 — Submission:** Submission moves Draft or Returned to Submitted. Both title and body must contain a non-whitespace character. An invalid submission leaves the document state and all typed text unchanged and gives field-level feedback.
+- **RD-05 — Review transitions:** Reviewers may act only on Submitted documents. Approval moves Submitted to Approved and requires no explanation. Return moves Submitted to Returned and requires a non-whitespace explanation. A return that fails this requirement must not perform the return transition.
+
+### Composition and request behavior
+
+- **RD-06 — Input preservation and retry:** The composition page preserves entered title and body after validation or network failure. A failed request offers retry without clearing the draft.
+- **RD-07 — Pending submission:** While a submission request is pending, the submit control is unavailable and indicates progress.
+- **RD-08 — Submission repeat safety:** Repeating the same submission operation must not create a second submission or audit entry.
+- **RD-09 — Version conflicts:** Requests carry an expected document version. Reject a stale version with conflict, leave stored state unchanged, and ask the user to reload the latest version before retrying. Never silently overwrite newer work.
+- **RD-10 — Unsaved navigation:** Navigating away from unsaved edits asks for confirmation. Cancel keeps the user on the page with edits intact. Confirming discard navigates away without saving. This confirmation behavior does not promise recovery after browser refresh or reload.
+
+### Review experience and audit consistency
+
+- **RD-11 — List states:** The pending-review list has loading, nonempty, empty, and load-error states. Empty results explain that there is no pending work. A load error offers retry and must not appear as an empty result.
+- **RD-12 — Review readiness:** Opening a submission displays its content and current state before enabling review actions.
+- **RD-13 — Failed review operation:** A failed approve or return request leaves the submission Submitted and presents feedback with retry. The server commits the status change and its audit event together, or commits neither.
+- **RD-14 — Review repeat safety:** Repeating the same completed approve or return operation returns its first outcome without another audit event.
+
+### Accessibility, browser scope, and performance
+
+- **RD-15 — Accessible operation:** Keyboard users can operate composition, list, and review actions. Request progress and validation errors are exposed to assistive technology.
+- **RD-16 — Supported browsers:** Support current desktop Chrome and Edge with viewport width at least 1024px.
+- **RD-17 — Initial list rendering:** For the fixed H1 browser fixture containing 200 pending rows, initial list rendering after data arrival takes at most 500ms. Exclude network transfer from that duration.
+
+## Acceptance
+
+The following methods describe required future verification; they are not completed checks or acceptance results.
+
+| Observable requirement | Verification method |
+|---|---|
+| RD-01: Team boundary and not-found behavior | Exercise own-team, other-team, and unknown IDs through the interface and direct server requests; confirm the latter two both produce not-found behavior. |
+| RD-02: Role workflows and self-review ban | Exercise writer and reviewer journeys, including a reviewer opening and attempting to review their own submission through the interface and server. |
+| RD-03: State-dependent editing and finality | Check editing in Draft and Returned, denial of edit and withdrawal in Submitted, and finality of Approved. |
+| RD-04: Valid and invalid submission | Submit both eligible source states; test empty and whitespace-only title/body separately and together; verify field feedback, preserved text, and unchanged state on invalid input. |
+| RD-05: Review transitions and explanation | Approve and return Submitted documents, test absent/whitespace return explanations, and attempt review from every other state. |
+| RD-06: Composition failure recovery | Induce validation and network failures, inspect retained title/body, and retry without re-entering content. |
+| RD-07: Pending request control | Hold a submission request pending and inspect unavailable submit control and visible progress. |
+| RD-08: Submission repeat safety | Repeat the same submission operation, including after a retry, and inspect resulting submissions and audit entries for duplicates. |
+| RD-09: Conflict handling | Send a stale expected version after a newer update; verify conflict, unchanged stored state, reload guidance, and absence of a silent overwrite. |
+| RD-10: Unsaved navigation | Cancel navigation and inspect retained edits; confirm discard and verify navigation without saving. |
+| RD-11: Distinct list states | Exercise loading, nonempty response, empty response, and load failure; verify meaningful empty content and error retry behavior. |
+| RD-12: Review readiness | Delay opening a submission and verify that content and current state appear before review actions become available. |
+| RD-13: Failure and atomic review commit | Inject approve/return failures, including failure between status and audit writes; verify Submitted state, feedback/retry, and absence of partial commits. |
+| RD-14: Completed review replay | Repeat each completed review operation and verify its first outcome is returned and no second audit event exists. |
+| RD-15: Accessible operation and feedback | Complete composition, list, and review journeys by keyboard; inspect progress and validation feedback with assistive technology. |
+| RD-16: Browser scope | Run the applicable interface journeys in current desktop Chrome and Edge at supported viewport widths, including 1024px. |
+| RD-17: Rendering budget | Measure initial rendering of the fixed H1 fixture of 200 pending rows from data arrival to rendered list, excluding network transfer; compare with the 500ms maximum. |

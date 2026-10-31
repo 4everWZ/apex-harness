@@ -1,0 +1,19 @@
+# QueueView work
+
+Goal: implement and verify the approved queue-view behavior. The new pause/resume change is not implemented. The [specification](../specs/queueview.md) owns accepted behavior; the [approved change](../../tmp/change.md) supplies the task requirements.
+
+Implementation and regression checks have not been performed. All work below remains open for a later session.
+
+## Work
+
+| Contract coverage | Implementation and verification still required |
+|---|---|
+| Tab-local preference | Implement persistence across reload and enabled state in a new tab; check that other tabs are not synchronized and saving takes effect without a page or server restart. |
+| Pause and in-flight requests | Stop future automatic scheduling while allowing an existing request to complete and update rows; verify this transition. |
+| Manual refresh | Preserve manual refresh while paused, one in-flight request, and schedule reset while enabled; check that manual refresh while paused does not restart automatic scheduling. |
+| Resume and repeated actions | Schedule the next automatic refresh one effective interval from resume with no immediate request; verify no overlap and no duplicate timers from repeated same-state actions. |
+| Storage failures and recovery | Preserve the prior effective state on a failed write with a save failure and no false success claim; verify malformed stored values recover to enabled with a visible notice. |
+| Control access and state | Implement a keyboard-operable control, expose its effective state to assistive technology, and visibly indicate pause; verify each behavior. |
+| Existing contract and scope | Recheck loading/records/empty/error states, retry, retained records after interval errors, interval precedence and integer bounds, startup failure, restart-only server settings, and exact v1 payload. Verify the toggle never enters YAML, environment variables, or GET /config. Preserve Chrome and Edge support and the exclusions in the specification. |
+
+Next: inspect the implementation in a later session and plan the changes against this coverage. The settings panel layout and polling API URLs have not been chosen; do not infer them from this documentation. No implementation delivery or regression conformance is established.

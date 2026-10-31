@@ -1,0 +1,26 @@
+# QueueView Specification
+
+## Intent
+A desktop browser queue viewer, supported in current Chrome and Edge. The maintained owner of behavior and acceptance is this file; README is navigation only.
+
+## Contract
+The list shows loading, records, empty, or load-error. A load error offers retry and must not masquerade as an empty list. Manual Refresh is unavailable while a request is in flight. Requests do not mutate queue records.
+
+The server reads refresh_seconds at startup. Precedence is QUEUE_REFRESH_SECONDS environment value, then refresh_seconds in project YAML, then 30. It must be a whole integer from 5 to 300 inclusive; an invalid selected value fails startup before serving. Editing YAML or the environment takes effect only after a server restart. GET /config returns exactly {"refresh_seconds": <integer>}; external v1 clients depend on that key and shape.
+
+The page reads the effective interval on initial load. While automatic refresh is enabled, the next refresh starts one effective interval after the previous request completes, so requests never overlap. A manual refresh resets that schedule while automatic refresh is enabled. An interval refresh that fails leaves the last successful records visible with a retry indicator.
+
+Automatic refresh has a pause/resume control. Its effective state is local to the current tab and survives reload through that tab's session storage; a new tab starts enabled. Other tabs are not synchronized. Saving a change takes effect immediately without a page or server restart. This preference must not be stored in server YAML, environment variables, or GET /config.
+
+Pausing stops future automatic scheduling without cancelling a request already in flight; that request may still update the displayed rows. Manual Refresh remains available while paused, subject to the existing one-request-at-a-time rule, and does not restart automatic scheduling. Resuming schedules the next automatic refresh one effective interval from the resume action, without an immediate request; requests must still never overlap. Repeating pause or resume in the same state must not create duplicate timers.
+
+If the tab cannot write session storage, it retains the previous effective toggle state and shows a save failure; it must not claim that the preference was saved. A previously stored malformed toggle value is treated as enabled with a visible recovery notice.
+
+The screen shows whether automatic refresh is paused. Keyboard users can operate the control, and its effective state is exposed to assistive technology. The settings panel layout and polling API URLs remain unspecified. WebSocket transport, backend protocol extensions, new browser support, and cross-tab synchronization are outside this change.
+
+## Acceptance
+Check loading/empty/error distinctions, retry with retained records, single in-flight request, interval bounds and precedence, startup failure, restart-only configuration, and unchanged v1 payload.
+
+Check tab-local persistence across reload, enabled state in a new tab, absence of cross-tab synchronization, immediate saved changes, and exclusion of the toggle from all server configuration and the v1 payload. Check that pause stops future scheduling while an in-flight request can still update rows; manual refresh works while paused without overlap or restarting automatic refresh; resume waits one effective interval from the action without an immediate request; repeated same-state actions do not create duplicate timers. Check that failed storage writes preserve the prior effective state and display a save failure without claiming success, malformed stored values recover to enabled with a visible notice, and the control works by keyboard with its effective state exposed to assistive technology and a visible pause indication.
+
+No changed-contract conformance is claimed by this document.

@@ -1,0 +1,46 @@
+# ReviewDesk Implementation Work Plan
+
+- **Goal:** Implement the approved ReviewDesk behavior across sessions and assess conformance against its acceptance criteria, keeping unaccepted ideas outside the release contract.
+- **Input requirements:** [Product notes](../../tmp/product-notes.md), retained unchanged as task input rather than a second maintained contract.
+- **Primary contract:** [ReviewDesk specification](../specs/reviewdesk.md).
+
+## Resume state
+
+The approved target is documented. Implementation and acceptance have not happened. No working design, implementation language, framework, or API URLs have been chosen. No app was run and no behavior, accessibility, security, or performance checks have been performed. No H1 measurement is supplied.
+
+All implementation tasks below are open. Update this plan in place with actual task state, evidence references, blockers, and the next action as work progresses; keep accepted behavior in the specification.
+
+## Work
+
+| Task | Done when | Dependency |
+|---|---|---|
+| Prepare implementation design and verification setup | Future implementation work has a concrete design for document state, team/actor identity, expected versions, repeated-operation identity, and atomic review audit writes; verification setup can exercise the specification. Any needed product clarification is recorded before choosing behavior. | Next implementation session; no stack choice is made by this documentation task. |
+| Implement document lifecycle and writer workflow | C1–C2 writer flows work, including Returned revision/resubmission, field validation, typed-text preservation, pending progress, and failure retry; relevant acceptance checks have evidence. | Implementation design |
+| Implement concurrency and repeated submission handling | C3 stale-version requests leave stored state unchanged, instruct reload, and same-operation repeats do not duplicate submissions/audit entries; conflict and duplicate checks have evidence. | Document lifecycle |
+| Implement unsaved navigation handling | C4 cancel/discard outcomes pass without promising undecided reload persistence. | Composition workflow |
+| Implement review list and details | C5's four list states and C6's details-before-actions behavior pass. | Document lifecycle and pending submission retrieval |
+| Implement review operations and audit consistency | C1/C6 approval, return explanation, valid-state restrictions, failure retry, atomic status/audit writes, and completed-operation replay checks pass. | Document lifecycle, version handling, review details |
+| Enforce team isolation and self-review restrictions | C7 checks pass through the interface and direct server requests, covering unknown/cross-team IDs and both self-review actions. Treat these as constraints throughout implementation, not optional later hardening. | Apply during all document and review implementation |
+| Verify accessibility and browser compatibility | C8 keyboard and assistive-technology checks and full workflows pass on current desktop Chrome and Edge, including width 1024px. | Relevant interfaces implemented |
+| Measure initial list rendering | The fixed H1 fixture with 200 pending rows is available and C9 measurement excludes network transfer; measured result and supporting evidence are recorded. Address a result above 500ms before claiming conformance. | Review list implemented; fixture and measurement setup available |
+| Assess delivery and resolve remaining conformance gaps | Every specification acceptance row is checked with credible evidence; failures and missing checks are resolved or remain explicitly open. Synchronize any approved contract changes before assessing conformance. | All preceding tasks |
+
+The C1–C9 references map the implementation work to the specification; the acceptance table owns the verification methods. No task is complete merely because code exists.
+
+## Unresolved items
+
+These items are unaccepted and have no defaults. They do not erase the already approved contract or require blocking all implementation work.
+
+| Item | Treatment and next action |
+|---|---|
+| Audit retention duration | Obtain an accepted duration before implementing a retention policy or claiming retention acceptance. |
+| Cross-tab update behavior | Obtain an accepted behavior before adding automatic cross-tab updates or claiming synchronization. Expected-version conflict protection remains required. |
+| Exact title/body size limits | Obtain accepted boundaries before specifying product limits and their boundary checks. Non-whitespace validation is already required. |
+| Browser-refresh / reload recovery of unsaved drafts | Obtain an accepted recovery behavior before promising local persistence or refresh restoration. Preserve the accepted validation, network-failure, and navigation behavior. |
+| Optional email notifications | Future suggestion only; exclude from this implementation scope unless separately accepted. |
+
+## Next action
+
+Begin the implementation design and verification setup in a future implementation session. Identify any clarification needed for that work before selecting behavior for unresolved items. Locate or establish the fixed H1 fixture and its measurement setup before attempting the performance check; no measurement can be claimed from the product notes alone.
+
+Keep this plan current while work under its goal remains resumable. Retire it only after delivery is credibly verified and the contract is synchronized, or after explicit cancellation/supersession with still-needed information transferred to its owner.

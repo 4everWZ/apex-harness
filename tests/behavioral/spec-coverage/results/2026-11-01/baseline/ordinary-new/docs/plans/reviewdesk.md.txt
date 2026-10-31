@@ -1,0 +1,39 @@
+# ReviewDesk Implementation Work Plan
+
+- **Goal:** Implement and verify the approved ReviewDesk browser workflows against the [ReviewDesk specification](../specs/reviewdesk.md), leaving unaccepted ideas unresolved until an explicit decision.
+- **Input requirements:** [Product notes](../../tmp/product-notes.md) supply the approved behavior and undecided items. They remain source input; the specification owns the maintained approved contract.
+- **Current state:** No implementation or implementation acceptance has occurred. No working design, implementation language, API URLs, or framework has been selected. All implementation and verification tasks below remain open; no runtime, accessibility, concurrency, or performance evidence has been supplied.
+- **Next action:** Resolve the working design and implementation approach before coding, preserving the specification's behavior. Do not silently choose values or behavior for the open items below.
+
+## Work
+
+This table maps the specification to resumable implementation and verification work. A task is complete only when its implementation and applicable verification are complete; creating these documents completes none of the tasks.
+
+| Task | Contract coverage | Done when | Dependency |
+|---|---|---|---|
+| Establish implementation approach | All | Working design, language, framework, and API shape are chosen through the project's decision process without changing approved behavior; incorporate any approved contract changes in the specification. | First task; no approach chosen yet. |
+| Implement document lifecycle and server restrictions | RD-01–RD-05, RD-09 | State transitions, team visibility, self-review restrictions, validation, and expected-version conflicts satisfy the specification and direct-server checks. | Implementation approach. |
+| Implement safe submission and review operations | RD-08, RD-09, RD-13, RD-14 | Repeat operations preserve the specified outcome without duplicate effects; status and audit updates are atomic; failure and conflict checks pass. | Document lifecycle and server boundaries. |
+| Implement composition and revision | RD-02–RD-04, RD-06–RD-10, RD-15 | Compose, submit, inspect outcome, and revise workflows preserve text, display feedback and progress, handle conflicts/retries, confirm unsaved navigation, and work by keyboard with accessible feedback. | Lifecycle and request semantics. |
+| Implement pending list and review | RD-01–RD-03, RD-05, RD-09, RD-11–RD-15 | List states, review readiness, approve/return outcomes, retries, server-backed restrictions, and accessible interaction meet the contract. | Lifecycle and safe operations. |
+| Verify browser scope and rendering budget | RD-16, RD-17 | Supported-browser journeys pass; a reproducible measurement on the fixed H1 fixture of 200 pending rows meets the 500ms budget excluding network transfer. Preserve the fixture identity and timing boundary. | Implemented interface; fixed H1 fixture available for measurement. |
+| Complete contract verification and acceptance review | RD-01–RD-17 | Every acceptance method in the specification has evidence, gaps are resolved or explicitly taken through the acceptance process, and implementation acceptance is actually completed. | All preceding implementation and verification work. |
+
+Keep the current implementation location, evidence references, remaining gaps, and next action here as work proceeds. No implementation locations or evidence exist to map yet. Runtime logs belong with their execution system rather than in these project documents.
+
+## Unresolved decisions
+
+These items have no accepted behavior or values. Resolve them explicitly when needed; do not treat them as defaults or acceptance claims.
+
+| Item | Resolution needed |
+|---|---|
+| Working design and implementation choices | Choose the working design, language, framework, and API URLs before relevant implementation begins. |
+| Audit retention duration | Obtain an accepted duration before encoding a retention policy. |
+| Cross-tab updates | Decide expected behavior before promising or implementing a synchronization policy. |
+| Exact title/body size limits | Obtain accepted limits before imposing product-specific maxima. The approved non-whitespace validation already applies. |
+| Browser-refresh/reload recovery | Decide whether and how unsaved drafts recover. Do not promise local persistence; approved navigation confirmation remains required. |
+| Optional email notification | Future suggestion only; no implementation task or accepted release requirement. |
+
+## Verification state
+
+All implementation conformance and acceptance checks are pending. The H1 rendering target is approved, but no measurement is supplied. If the fixed H1 fixture is unavailable when performance work starts, obtain it before making a performance claim; do not substitute a different workload without an explicit decision.
