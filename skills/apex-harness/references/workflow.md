@@ -55,11 +55,9 @@ Risk escalation changes verification and documentation, not the authority to mak
 
 ## Completion claims
 
-A claim is complete only when the implementation matches the claimed scope and the relevant evidence supports the changed behavior. State separately:
+A claim is complete only when the implementation matches the claimed scope and the relevant evidence supports the changed behavior.
 
-- what was verified and with which fresh evidence;
-- what was not verified or is outside the local evidence boundary;
-- any remaining risk, blocker, or user decision.
+When reporting completion, give the evidence supporting the changed claim. Mention unverified scope, remaining risks, blockers, or user decisions only when they materially affect that claim or the next action.
 
 Static checks establish structure and validity only; they do not establish behavioral routing or research correctness.
 
