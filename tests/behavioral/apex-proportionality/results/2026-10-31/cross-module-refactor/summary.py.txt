@@ -1,0 +1,4 @@
+from text import heading
+
+def render(title, body):
+    return heading(title) + "\n\n" + body

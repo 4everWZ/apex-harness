@@ -1,0 +1,26 @@
+import unittest
+from app import handle
+class AppTests(unittest.TestCase):
+    def test_live(self):
+        self.assertEqual(handle("GET", "/health/live", lambda: False), (200, {"alive": True}))
+    def test_missing(self):
+        self.assertEqual(handle("POST", "/missing", lambda: True)[0], 404)
+    def test_ready(self):
+        for ready in (True, False):
+            with self.subTest(ready=ready):
+                self.assertEqual(
+                    handle("GET", "/health/ready", lambda: ready),
+                    (200 if ready else 503, {"ready": ready}),
+                )
+    def test_ready_rechecks_callback(self):
+        states = iter((True, False))
+        ready = lambda: next(states)
+        self.assertEqual(handle("GET", "/health/ready", ready), (200, {"ready": True}))
+        self.assertEqual(handle("GET", "/health/ready", ready), (503, {"ready": False}))
+    def test_ready_requires_get(self):
+        def unexpected_callback():
+            self.fail("Non-GET readiness requests must not invoke the callback")
+        self.assertEqual(
+            handle("POST", "/health/ready", unexpected_callback),
+            (404, {"error": "not found"}),
+        )

@@ -1,0 +1,1 @@
+Add GET /health/ready to the in-process HTTP adapter. Return status 200 and {"ready": true} when the existing readiness callback returns true, otherwise 503 and {"ready": false}. Preserve all existing routes. This is a new optional endpoint; no deployment, authentication, schema migration, or new dependency is requested.

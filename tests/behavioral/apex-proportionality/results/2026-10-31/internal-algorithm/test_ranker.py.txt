@@ -1,0 +1,29 @@
+import unittest
+from random import Random
+
+from ranker import choose
+
+
+class RankerTests(unittest.TestCase):
+    def test_order(self):
+        items = [{"score": 1, "name": "b"}, {"score": 2, "name": "z"}, {"score": 1, "name": "a"}]
+        self.assertEqual(choose(items, 2), [items[1], items[2]])
+    def test_empty(self):
+        self.assertEqual(choose([], 3), [])
+
+    def test_matches_stable_sort(self):
+        random = Random(0)
+        for size in (0, 1, 2, 10, 100):
+            items = [
+                {"score": random.randrange(-2, 3), "name": random.choice(("a", "b", ""))}
+                for _ in range(size)
+            ]
+            if items:
+                items.extend((items[0], dict(items[0])))
+            original_order = list(items)
+            for k in (-2, 0, 1, 2, 5, len(items), len(items) + 1):
+                with self.subTest(size=size, k=k):
+                    expected = sorted(items, key=lambda row: (-row["score"], row["name"]))[:max(k, 0)]
+                    actual = choose(items, k)
+                    self.assertEqual([id(row) for row in actual], [id(row) for row in expected])
+                    self.assertEqual([id(row) for row in items], [id(row) for row in original_order])

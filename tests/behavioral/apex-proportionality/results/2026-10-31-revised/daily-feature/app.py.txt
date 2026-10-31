@@ -1,0 +1,7 @@
+def handle(method, path, ready):
+    if method == "GET" and path == "/health/live":
+        return 200, {"alive": True}
+    if method == "GET" and path == "/health/ready":
+        is_ready = ready()
+        return (200 if is_ready else 503), {"ready": is_ready}
+    return 404, {"error": "not found"}

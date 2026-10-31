@@ -1,0 +1,29 @@
+import unittest
+
+from client import parse_job
+from transport import encode_job
+
+
+class JobTests(unittest.TestCase):
+    def test_encode(self):
+        self.assertEqual(
+            encode_job({"id": "j1", "status": "pending"}),
+            {"job_id": "j1", "state": "pending"},
+        )
+
+    def test_parse(self):
+        self.assertEqual(parse_job({"job_id": "j1", "state": "pending"}), ("j1", "pending"))
+
+    def test_round_trip_preserves_values(self):
+        job = {"id": "job-42", "status": "complete"}
+        self.assertEqual(parse_job(encode_job(job)), ("job-42", "complete"))
+
+    def test_parse_requires_v2_keys(self):
+        for payload in (
+            {"id": "j1", "status": "pending"},
+            {"id": "j1", "state": "pending"},
+            {"job_id": "j1", "status": "pending"},
+        ):
+            with self.subTest(payload=payload):
+                with self.assertRaises(KeyError):
+                    parse_job(payload)

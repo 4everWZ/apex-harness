@@ -1,0 +1,20 @@
+import unittest
+from metrics import macro_f1
+class MetricTests(unittest.TestCase):
+    def test_perfect(self):
+        self.assertEqual(macro_f1(["a", "b"], ["a", "b"], ["a", "b"]), 1.0)
+
+    def test_absent_label_contributes_zero(self):
+        self.assertEqual(macro_f1(["a"], ["a"], ["a", "b"]), 0.5)
+
+    def test_confusion_with_absent_label(self):
+        self.assertAlmostEqual(
+            macro_f1(["a", "a", "b"], ["a", "b", "b"], ["a", "b", "c"]),
+            4 / 9,
+        )
+
+    def test_predicted_label_with_zero_truth_support(self):
+        self.assertEqual(macro_f1(["a"], ["b"], ["a", "b"]), 0.0)
+
+    def test_all_zero_denominators(self):
+        self.assertEqual(macro_f1([], [], ["a", "b"]), 0.0)

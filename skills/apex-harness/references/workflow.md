@@ -4,24 +4,23 @@
 
 Classify by the consequence of being wrong, not by domain, file count, or apparent implementation size.
 
-Use the lowest tier justified by the changed contract or behavior; escalate only when the work crosses a higher-risk boundary. Uncertainty alone is not a reason to escalate.
+Use the lowest tier justified by the consequence of an error. Ordinary development is Tier B; escalate when the affected boundary carries a Tier A consequence, or use Tier C for local low-risk work. Uncertainty alone is not a reason to escalate. The tier identifies what needs protection; verification scope follows the changed claim and affected boundary, not the tier label.
 
 ### Tier A — High semantic or high-impact change
 
-Use Tier A when being wrong could change a system contract, data meaning, a critical security or financial boundary, a migration result, or a user or research conclusion. Typical cases include:
+Use Tier A when an error could materially break compatibility, compromise security or financial controls, corrupt or reinterpret data, impair critical availability or recovery, or invalidate an evaluation or research conclusion. Typical cases include:
 
-- changes to an existing public API contract or response schema;
-- database schema or deployment migrations;
-- authentication, authorization, permission, or payment behavior;
-- critical infrastructure or an architecture change that alters downstream contracts, availability, recovery, or data integrity;
-- cross-module contracts or data semantics;
-- training or inference semantics, evaluation protocols, algorithms, or research claims.
+- breaking changes to an API, schema, or cross-module contract relied on by existing consumers;
+- database or deployment migrations that put existing data, service continuity, or recovery at risk;
+- changes to authentication, authorization, permission, or payment enforcement;
+- infrastructure or architecture changes that affect required consistency, durability, critical availability, or recovery;
+- model, method, data, or metric changes that alter experiment meaning, result comparability, or the basis for a research claim.
 
 Start with an explicit claim and the evidence that could support it. Use a dedicated harness only when existing checks cannot isolate the changed claim.
 
 ### Tier B — Routine behavior change
 
-Use Tier B for ordinary behavior changes whose impact is controlled and that do not cross a Tier A boundary: normal features, backend logic, medium bugfixes, config or script semantics, CLI behavior, local refactors, internal interface adjustments, or an additive REST endpoint with no migration, compatibility, security, payment, or existing-contract change.
+Use Tier B for ordinary development whose impact is controlled and does not carry a Tier A consequence: features, backend logic, bugfixes, configuration or scripts, CLI behavior, internal algorithms, refactors, internal interface adjustments, and compatible API additions. Changing behavior or maintaining its specification does not by itself make the work Tier A.
 
 Prefer an existing check when it directly covers the changed claim. Add the smallest focused persistent regression test only when future regression risk justifies maintaining that coverage; otherwise use the cheapest local check that can support the claim. Do not run a broad suite merely because it exists.
 
@@ -33,10 +32,10 @@ Use the cheapest relevant check that can falsify the changed claim. For non-beha
 
 ### Boundary examples
 
-- A new REST endpoint is normally Tier B; changing an existing response schema is Tier A.
-- An internal service refactor is Tier B while its contract is unchanged; a cross-module contract, availability, or recovery change is Tier A.
-- Replacing a cache is Tier B while external semantics are unchanged; a change to consistency, persistence, or user-visible behavior is Tier A.
-- ML and research work is not automatically Tier A. Training or inference semantics, data or label meaning, evaluation, algorithms, and research claims are Tier A; training-log formatting is Tier C and a dataloader worker bug is Tier B.
+- A new endpoint or compatible optional response field is normally Tier B; removing or reinterpreting a field required by existing consumers is Tier A.
+- Changing an internal algorithm or interface is Tier B when callers' obligations and data meaning are preserved; changing shared units or identity semantics is Tier A.
+- Replacing a cache is Tier B when required consistency and durability are preserved; weakening either guarantee is Tier A. A user-visible feature change alone does not establish that consequence.
+- A dataloader concurrency fix that preserves data identity and order is Tier B; changing the training objective, label meaning, or metric definition is Tier A. Training-log formatting is Tier C.
 
 ## Re-evaluate a failing approach
 

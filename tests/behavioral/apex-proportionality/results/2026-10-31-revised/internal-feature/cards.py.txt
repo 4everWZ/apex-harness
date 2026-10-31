@@ -1,0 +1,11 @@
+def display_ids(cards):
+    return [card["id"] for card in cards]
+
+
+def rank_cards(cards):
+    """Return ids by descending preference score, breaking ties by id."""
+    ordered = sorted(
+        cards,
+        key=lambda card: (card["age_minutes"] - 2 * card["interest"], card["id"]),
+    )
+    return [card["id"] for card in ordered]

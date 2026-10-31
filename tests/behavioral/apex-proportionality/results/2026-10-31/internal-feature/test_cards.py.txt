@@ -1,0 +1,26 @@
+import unittest
+from copy import deepcopy
+
+from cards import display_ids, rank_cards
+
+
+class CardTests(unittest.TestCase):
+    def test_display_order(self):
+        self.assertEqual(display_ids([{"id": "b"}, {"id": "a"}]), ["b", "a"])
+
+    def test_rank_by_score_then_id_without_mutating_cards(self):
+        cards = [
+            {"id": "z", "interest": 3, "age_minutes": 8},
+            {"id": "b", "interest": 5, "age_minutes": 4},
+            {"id": "a", "interest": 4, "age_minutes": 2},
+            {"id": "c", "interest": -1, "age_minutes": 3},
+            {"id": "top", "interest": 4, "age_minutes": 0},
+        ]
+        original = deepcopy(cards)
+
+        self.assertEqual(rank_cards(cards), ["top", "a", "b", "z", "c"])
+        self.assertEqual(cards, original)
+        self.assertEqual(display_ids(cards), ["z", "b", "a", "c", "top"])
+
+    def test_rank_empty_cards(self):
+        self.assertEqual(rank_cards([]), [])

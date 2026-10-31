@@ -1,0 +1,1 @@
+Fix cross-tenant access in get_invoice. A principal may read an invoice only if principal.tenant_id equals invoice.tenant_id. Return 404 for both missing and foreign-tenant invoices, and preserve successful same-tenant responses. This accepted access rule applies to production customer billing data. Do not deploy or access real customer data.

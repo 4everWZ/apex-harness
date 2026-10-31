@@ -1,0 +1,5 @@
+# Job payload
+
+The implemented v2 payload contains exactly `job_id` and `state`, both strings. `encode_job` maps the internal job's `id` to `job_id` and `status` to `state`, preserving their values. The local `parse_job` consumer reads these v2 keys and returns `(job_id, state)`. No v1 aliases or version negotiation are provided.
+
+This is a breaking change from v1's `id` and `status` payload keys. External desktop clients still require v1 and have not been migrated; they are incompatible with the v2 payload. This repository contains only the encoder and one local parser, not a running transport, deployment, or external-client source. Local verification does not establish deployed or external-client compatibility.

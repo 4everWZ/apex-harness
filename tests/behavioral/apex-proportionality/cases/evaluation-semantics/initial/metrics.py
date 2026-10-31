@@ -1,0 +1,10 @@
+def macro_f1(truth, predicted, labels):
+    scores = []
+    for label in labels:
+        tp = sum(t == label and p == label for t, p in zip(truth, predicted))
+        fp = sum(t != label and p == label for t, p in zip(truth, predicted))
+        fn = sum(t == label and p != label for t, p in zip(truth, predicted))
+        denominator = 2 * tp + fp + fn
+        if denominator:
+            scores.append(2 * tp / denominator)
+    return sum(scores) / len(scores) if scores else 0.0

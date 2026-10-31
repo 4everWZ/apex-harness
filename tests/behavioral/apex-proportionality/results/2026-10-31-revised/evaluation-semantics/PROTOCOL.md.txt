@@ -1,0 +1,5 @@
+# Evaluation
+
+The accepted metric is macro F1 over every supplied label, including labels with zero support. A zero denominator contributes 0, and that label remains in the macro-average denominator.
+
+Historical published scores used a buggy implementation that omitted labels with zero denominators. The corrected implementation restores the accepted protocol; it does not change the protocol. Historical scores are not directly comparable to corrected scores when zero-denominator labels occur. Comparability requires recomputing historical scores under the accepted protocol or establishing that no zero-denominator labels occurred. No real dataset has been rerun, and no corrected published scores are reported here.

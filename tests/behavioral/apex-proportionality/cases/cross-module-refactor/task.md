@@ -1,0 +1,1 @@
+Remove the internal dependency of summary.render on the whole options dictionary: pass the existing title value directly to heading instead. Update its caller and preserve rendered output. This application has no other callers or extension API. The repository requires python -m unittest discover and python -m compileall -q summary.py text.py before delivery.

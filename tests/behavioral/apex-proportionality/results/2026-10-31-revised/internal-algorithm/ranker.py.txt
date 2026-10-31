@@ -1,0 +1,7 @@
+from heapq import nsmallest
+
+
+def choose(items, k):
+    if k <= 0:
+        return []
+    return nsmallest(k, items, key=lambda row: (-row["score"], row["name"]))

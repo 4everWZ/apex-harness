@@ -1,0 +1,3 @@
+def describe_order(ids):
+    """Return ids in ascending Unicode string order."""
+    return sorted(ids)

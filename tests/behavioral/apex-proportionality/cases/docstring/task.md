@@ -1,0 +1,1 @@
+Correct describe_order's docstring to describe its existing behavior accurately: it returns ids in ascending Unicode string order. The implementation is already correct. Keep behavior and callers unchanged.

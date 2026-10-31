@@ -1,0 +1,12 @@
+import unittest
+from billing import get_invoice
+class BillingTests(unittest.TestCase):
+    def test_same_tenant(self):
+        invoices = {"i1": {"id": "i1", "tenant_id": "t1", "amount": 10}}
+        self.assertEqual(get_invoice({"tenant_id": "t1"}, "i1", invoices), (200, {"id": "i1", "amount": 10}))
+    def test_missing(self):
+        self.assertEqual(get_invoice({"tenant_id": "t1"}, "missing", {}), (404, None))
+
+    def test_foreign_tenant(self):
+        invoices = {"i1": {"id": "i1", "tenant_id": "t2", "amount": 10}}
+        self.assertEqual(get_invoice({"tenant_id": "t1"}, "i1", invoices), (404, None))

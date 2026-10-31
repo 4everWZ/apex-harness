@@ -1,0 +1,23 @@
+import unittest
+
+from cards import display_ids, rank_cards
+
+
+class CardTests(unittest.TestCase):
+    def test_display_order(self):
+        self.assertEqual(display_ids([{"id": "b"}, {"id": "a"}]), ["b", "a"])
+
+    def test_rank_cards(self):
+        cards = [
+            {"id": "b", "interest": 3, "age_minutes": 1},
+            {"id": "n", "interest": -2, "age_minutes": 1},
+            {"id": "a", "interest": 4, "age_minutes": 3},
+            {"id": "c", "interest": 0, "age_minutes": 0},
+            {"id": "z", "interest": 10, "age_minutes": 14},
+        ]
+        original = [dict(card) for card in cards]
+        self.assertEqual(rank_cards(cards), ["z", "a", "b", "c", "n"])
+        self.assertEqual(cards, original)
+
+    def test_rank_empty(self):
+        self.assertEqual(rank_cards([]), [])
