@@ -1,0 +1,41 @@
+# ReviewDesk remaining work
+
+**Goal:** Implement and verify the accepted return-reason and server-configured refresh requirements, and finish the outstanding keyboard workflow and H1 rendering checks against the [ReviewDesk specification](../specs/review-desk.md).
+
+The specification now owns the accepted requirements. The meeting notes and `tmp/customer-srs.md` remain discussion inputs, not current contract owners. CSV export and email notifications remain undecided and are not scheduled for these two sessions.
+
+No implementation or verification has been performed in this preparation round. The documentation snapshot contains no application or tests; actual behavior, implementation gaps and available fixtures remain to be inspected. All work below is open.
+
+## Session 1: Return reasons and article workflow
+
+1. Start by obtaining the existing application, tests and intended project environment, then inspect the return action, permissions, reason storage/display, audit transaction and retry handling. Locate the agreed H1 fixture for the second session. Do not infer implementation conformance from these documents.
+2. Implement the specification's return-reason validation and writer-visible reason, preserving valid input text. Keep the current article states, permissions, pending behavior, failure recovery and state/audit atomicity.
+3. Verify absent, empty, whitespace-only, valid 500-code-point and invalid 501-code-point reasons, including non-BMP characters and valid text with surrounding whitespace. Check rejected state/audit effects, writer visibility, unauthorized review, duplicate activation, failure and retry.
+4. Check the affected return workflow with the keyboard and assistive-technology-visible errors/pending states. Resolve the exact validation-error wording with the customer before treating that wording as agreed; functional work can proceed against the accepted validation rules.
+5. Update this plan with remaining gaps and references to actual checks. Carry any unfinished work into the next session without claiming the return workflow delivered merely because code exists.
+
+## Session 2: Refresh configuration and remaining acceptance
+
+1. Review Session 1 results and carry-over gaps. Inspect server configuration parsing/startup and the browser refresh lifecycle before choosing changes to their existing interfaces.
+2. Implement the specified `refresh_seconds` configuration, startup rejection of invalid values and propagation to every user's automatic refresh after restart, with no browser override. Preserve manual refresh, non-overlap and list failure behavior.
+3. Verify the absent-key default; valid boundary and representative values; out-of-range and non-integer values; startup failure without fallback; restart effect; all-user application; and lack of browser overrides. Check slow/failed refresh and manual refresh alongside automatic refresh.
+4. Finish the outstanding keyboard workflow checks across submission, approval, return and refresh, including errors and pending states. Recheck team boundaries, self-review restrictions, editing/state rules and retry/audit behavior where the changes could affect them.
+5. Measure rendering with the agreed H1 fixture of 200 articles, from response-data arrival to rendering completion, excluding fetching time, against the 500 ms limit. Check the supported desktop Chrome/Edge environment and viewport constraint. Record real results in the existing evidence system and reference them here; a missing fixture or measurement leaves this check open.
+6. Reconcile any remaining implementation or verification gaps in this plan. Do not retire it or claim delivery unless the changed behavior and outstanding baseline checks have supporting evidence. If the two sessions do not complete that work, retain the concrete next action here.
+
+## Coverage and evidence still needed
+
+| Specification area | Planned session | Completion evidence needed |
+|---|---|---|
+| Article workflow: required reason, Unicode limit and unchanged valid text | 1 | Boundary/input checks and stored-text observations; not yet available. |
+| Article workflow: rejection effects, writer visibility, permissions, retries and atomic audit/state changes | 1; regression in 2 | Behavior and state/audit checks; not yet available. |
+| Article list and refresh: YAML default, type/range and startup failure | 2 | Configuration and startup checks; not yet available. |
+| Article list and refresh: restart, shared interval, no override, non-overlap, manual refresh and failure | 2 | Integrated refresh checks; not yet available. |
+| Quality and acceptance: keyboard and accessible error/pending states | 1 for return; completion in 2 | Workflow accessibility checks; existing check remains open. |
+| Quality and acceptance: H1 rendering | 2 | Measurement with the agreed fixture and timing boundary; existing check remains open. |
+
+## Resume constraints
+
+The next action is to inspect the application and tests in their intended environment; they are absent from this snapshot. If they or the H1 fixture cannot be obtained, report the missing artifact and keep affected implementation or acceptance work unresolved. Do not substitute a different fixture, include fetching time, weaken the threshold or claim a pass from documentation review.
+
+The return validation error's exact wording is still open. CSV export and email notification details remain outside this plan pending a separate customer decision.

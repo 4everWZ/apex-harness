@@ -1,0 +1,41 @@
+# ReviewDesk specification
+
+This document owns the accepted product contract, including the customer-accepted mandatory return reason and administrator-configured refresh interval. Acceptance establishes the requirements, not implementation conformance. CSV export and email notifications remain undecided and are not delivery requirements.
+
+## Users and scope
+
+Writers submit articles; reviewers approve or return them. A user may hold both roles, but cannot review their own article. Users can access only their team's articles. Both the server and interface enforce these permissions.
+
+The supported environment is desktop Chrome or Edge at a viewport width of at least 1024 pixels. Mobile layout is outside scope.
+
+## Article workflow
+
+Articles have Draft, Submitted, Approved and Returned states. Writers can edit their own Draft or Returned articles and submit them when title and body are nonempty. Submission changes the state to Submitted. Submitted articles cannot be edited. Reviewers can approve or return Submitted articles written by another team member. Approved is final.
+
+While a submission or review action is pending, prevent duplicate activation. On failure keep the user's text and current committed state visible, and permit retry. A retry must not create duplicate submissions or audit events. A successful action commits its state change and audit event together, or neither.
+
+### Return reasons
+
+Returning an article requires a reason. Reject a missing, empty or whitespace-only reason and any reason longer than 500 Unicode code points. Count the original reason rather than silently shortening it for validation; do not substitute UTF-16 code units or displayed glyphs for Unicode code points. Trimming for validation must not silently rewrite the stored reason.
+
+A rejected return leaves the article Submitted and adds no review audit event. A successful return makes the reason visible to the writer on the Returned article and obeys the state-change and audit-event atomicity requirement above. Validation failures obey the existing text-preservation, retry and accessible-error requirements. No exact error-message wording is prescribed.
+
+## List refresh and configuration
+
+The article list distinguishes loading, no results and load failure. Failure after a successful load retains the last loaded articles and exposes an error. Refresh requests do not overlap. Manual refresh remains available.
+
+Administrators configure the automatic refresh interval through the server's `refresh_seconds` YAML value, in seconds. When absent, it defaults to 30. An explicitly configured value must be an integer from 5 through 120 inclusive. Reject invalid configured values at server startup rather than silently falling back to the default. Configuration changes take effect after a server restart, apply to all users, and have no browser-side override. Configuring the interval does not change request non-overlap, manual refresh or failure behavior.
+
+## Quality and acceptance
+
+All workflow actions must be operable with the keyboard, and errors and pending states must be available to assistive technology. With the agreed H1 fixture of 200 articles, rendering after response data arrives must take no more than 500 ms; fetching time is excluded.
+
+| Requirement | Acceptance condition and method |
+|---|---|
+| Users, scope and article workflow | Exercise permitted and forbidden actions by role, team, author and state through both the interface and server requests. Preserve editing, submission, terminal-state and supported-environment constraints. |
+| Return reasons | Check missing, empty and whitespace-only input; nonblank 500- and 501-code-point input, including supplementary-plane characters; and valid text with surrounding whitespace. Rejection preserves Submitted with no added review audit event. Success stores the original reason and shows it to the writer. |
+| Pending actions, failure and retry | Exercise repeated activation, action failure and retry. Preserve input and committed state on failure; prevent duplicate submissions or audit events; ensure state and audit commit together or neither commits. |
+| Refresh configuration | Check absent configuration, accepted lower and upper boundaries, and invalid values including out-of-range numbers and non-integers. Invalid configuration is rejected at startup without default fallback. Check restart-based activation across user sessions and absence of a browser override. |
+| List behavior | Check loading, empty and failure states, retention of previously loaded data after failure, manual refresh, and non-overlap with slow requests at configured intervals. |
+| Accessibility | Complete all workflow actions using the keyboard and check that errors and pending states are exposed to assistive technology, including return-reason validation. |
+| H1 performance | Measure rendering with the agreed 200-article H1 fixture from response-data arrival to render completion; fetching time is excluded and the limit is 500 ms. |

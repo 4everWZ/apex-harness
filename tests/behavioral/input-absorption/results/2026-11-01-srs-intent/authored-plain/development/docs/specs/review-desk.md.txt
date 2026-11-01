@@ -1,0 +1,31 @@
+# ReviewDesk specification
+
+This document owns the accepted product contract. Contract acceptance does not establish implementation conformance.
+
+## Users and scope
+
+Writers submit articles; reviewers approve or return them. A user may hold both roles, but cannot review their own article. Users can access only their team's articles. Both the server and interface enforce these permissions.
+
+The supported environment is desktop Chrome or Edge at a viewport width of at least 1024 pixels. Mobile layout is outside scope. CSV export and email notifications have not been accepted into scope.
+
+## Article workflow
+
+Articles have Draft, Submitted, Approved and Returned states. Writers can edit their own Draft or Returned articles and submit them when title and body are nonempty. Submission changes the state to Submitted. Submitted articles cannot be edited. Reviewers can approve or return Submitted articles written by another team member. Approved is final.
+
+Returning an article requires a reason. Reject a missing, empty or whitespace-only reason. A valid reason contains at most 500 Unicode code points. Trimming for validation must not silently rewrite the stored reason. The writer must see the reason on the Returned article. A rejected return must leave the article Submitted and must not add a review audit event. The exact wording of the validation error has not been decided.
+
+While a submission or review action is pending, prevent duplicate activation. On failure keep the user's text and current committed state visible, and permit retry. A retry must not create duplicate submissions or audit events. A successful action commits its state change and audit event together, or neither.
+
+## Article list and refresh
+
+The article list distinguishes loading, no results and load failure. Failure after a successful load retains the last loaded articles and exposes an error. Refresh requests do not overlap. Manual refresh remains available.
+
+Administrators configure the automatic refresh interval through the server's `refresh_seconds` YAML value, in seconds. When the key is absent, the interval defaults to 30. A configured value must be an integer from 5 through 120 inclusive. An invalid configured value must cause server startup to fail rather than silently falling back to the default. Configuration changes take effect after a server restart, apply to all users, and have no browser-side override. The non-overlap, manual refresh and failure behavior above continues to apply.
+
+## Quality and acceptance
+
+All workflow actions must be operable with the keyboard, and errors and pending states must be available to assistive technology. With the agreed H1 fixture of 200 articles, rendering after response data arrives must take no more than 500 ms; fetching time is excluded.
+
+Acceptance of return reasons includes rejection of absent, empty, whitespace-only and over-limit reasons without state or audit changes; acceptance of a valid 500-code-point reason; counting non-BMP characters by Unicode code point; preservation of valid reason text, including its whitespace; and visibility to the writer after return. Permissions, duplicate prevention, retry behavior and atomic state/audit changes remain applicable.
+
+Acceptance of refresh configuration includes the absent-key default; valid boundary values 5 and 120; rejection at startup of values outside that range and values that are not integers; effect after restart for all users without browser overrides; and continued non-overlap, manual refresh and list failure behavior.

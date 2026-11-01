@@ -1,0 +1,45 @@
+# ReviewDesk remaining work
+
+**Goal:** Implement and verify the accepted return-reason and refresh-configuration changes while preserving the existing contract and finishing the open keyboard and H1 rendering checks.
+
+**Primary contract:** [ReviewDesk specification](../specs/review-desk.md). It owns all accepted behavior and acceptance conditions; this plan owns the unfinished implementation and verification work.
+
+The customer has accepted both maintenance changes under the meeting conditions. CSV export and email notifications remain undecided and are excluded from these two development sessions. This preparation pass changes documentation only. No implementation, test or performance evidence is available; every task below remains open.
+
+## Session 1 — Return reasons
+
+| Task | Done when |
+|---|---|
+| Obtain and inspect the application, project environment, tests and agreed H1 fixture. Locate review permissions, state transitions, reason storage, audit transactions, list scheduling and configuration loading. | The actual project entry points and existing verification commands are known; existing behavior is inspected before implementation claims are made. |
+| Implement the specification's Article workflow / Return reasons contract in the server and interface, including author visibility. | The accepted validation and original-text semantics are implemented without weakening role, team, state, atomicity, pending-action or retry behavior. |
+| Add and run focused return-reason checks against the implementation. | Cover blank input, Unicode length boundaries, preservation of original text, rejected-state and audit effects, writer visibility, permission enforcement, repeated activation and failure/retry. Record actual results and remaining gaps here. |
+| Resolve the remaining presentation details. | Confirm the error wording and placement before final customer-facing verification. If inspection exposes a material ambiguity in whitespace classification, clarify it without relaxing the whitespace-only rejection requirement. |
+
+Session 1 should leave the return-reason change verified at its functional boundary, or identify the exact failing or unexecuted checks needed to resume. Do not mark it delivered merely because code has been written.
+
+## Session 2 — Refresh configuration and integrated acceptance
+
+| Task | Done when |
+|---|---|
+| Implement the specification's List refresh and configuration contract using the existing server configuration and client update path. | Startup validation, the default, restart-based application, global scope and lack of browser override are implemented. Preserve request non-overlap, manual refresh and failure behavior. |
+| Add and run configuration and refresh checks. | Cover missing configuration, both valid boundaries, invalid configured values, startup rejection without fallback, restart activation across users, slow requests, manual refresh and retained data after failures. |
+| Verify the complete workflow in supported desktop browsers and viewport sizes. | Article transitions, team and self-review restrictions, pending actions, failure/retry, state/audit consistency and both changes satisfy the specification's acceptance conditions. Re-run any unresolved Session 1 checks. |
+| Complete the existing keyboard and assistive-technology checks, including reason validation. | All workflow actions and their errors and pending states satisfy the Accessibility acceptance condition. These checks remain open until evidence exists. |
+| Complete the existing H1 rendering check. | The agreed fixture is confirmed and rendering is measured using the specification's timing boundary and limit. Preserve actual results; investigate failures rather than weaken the requirement. |
+| Update this plan with results and any remaining work. | Claim conformance only for requirements supported by relevant checks. Keep the plan current while implementation or acceptance remains unresolved. |
+
+Session 2 depends on the project materials obtained in Session 1. Integrated acceptance requires both changes and resolution of relevant failures; an unfinished first session remains visible rather than being treated as completed by the session boundary.
+
+## Requirement coverage and evidence state
+
+| Specification scope | Work allocation | Current state |
+|---|---|---|
+| Article workflow / Return reasons | Session 1 implementation and focused checks; Session 2 integration | Not inspected or verified |
+| List refresh and configuration | Session 2 implementation and focused checks | Not inspected or verified |
+| Users and scope; existing article workflow, failure, retry and audit invariants | Inspect in Session 1; preserve during both changes; verify together in Session 2 | Not inspected or verified |
+| Quality and acceptance / Accessibility | Reason feedback in Session 1; full keyboard and assistive-technology checks in Session 2 | Existing check remains open |
+| Quality and acceptance / H1 performance | Locate fixture in Session 1; measure in Session 2 | Existing check remains open |
+
+## Blockers and next action
+
+This snapshot contains documentation only, with no application, tests or H1 fixture. Development and behavioral verification require those project materials. Begin the next session by obtaining their location and inspecting the intended project environment; no application execution or implementation is authorized for this preparation pass.
