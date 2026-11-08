@@ -1,0 +1,10 @@
+# Current acceptance
+当前范围是 [LimitDesk contract](../docs/specs/limitdesk.md)，本记录持续维护当前验收结论及有效反馈入口。
+
+当前功能验收未通过，实现尚需修复。运行 `python -m unittest discover -s tests`，3 项测试中 `test_invalid` 的 "30"、30.0 两项子用例失败，其他已列用例通过。输出已覆盖写入[当前功能检查记录](../ci/current.txt)。代码核对定位为 `int(value)` 在类型校验前执行转换，违反仅接受 Python int、其他类型抛 ValueError 且不隐式转换的要求。现有用例没有穷尽其他类型，不能据其结果宣称其余类型均符合要求。本轮未修改实现或测试。
+
+当前没有性能目标，不存在待完成的性能验收；本轮未执行性能测量，见[当前性能检查记录](../ci/performance.txt)。
+
+[工单镜像](../issues/current.md)维护有效反馈详情：F1 为已确认的契约不符合问题；F2 的 "auto" 是未接受的产品提议；F3 的慢体验仍待澄清。下一会话按[类型校验修复计划](../docs/plans/limitdesk-type-validation.md)只处理已有契约不符合问题。F2、F3 不属于该修复目标，也不构成当前性能验收标准。
+
+后续处理反馈或重新验收时同步本记录及规格中的简要结论；具体工单继续在既有镜像维护，避免重复跟踪。

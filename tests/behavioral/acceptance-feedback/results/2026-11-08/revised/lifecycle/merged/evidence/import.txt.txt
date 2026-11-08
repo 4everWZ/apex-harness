@@ -1,0 +1,1 @@
+Supplied acceptance fact: nonempty ASCII example passes; Unicode/empty/atomic failure not verified.

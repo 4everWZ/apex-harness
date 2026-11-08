@@ -1,0 +1,8 @@
+# Local issue-service mirror
+This file owns detailed feedback state.
+
+| 反馈 | 当前分类与结论 | 待处理事项与责任 |
+|---|---|---|
+| F1 | 已修复并验证关闭。客户转发的是旧截图，已确认没有修复后的新复现；相关有效结果继续适用。 | 无待处理修复工作，不因旧截图重开；证据见[验收记录](../quality/current.md)。 |
+| F2 | 已交付并通过功能验收，关闭。精确字符串 "auto" 返回整数 30；大小写及空白变体仍拒绝，原有契约回归通过。 | 无待处理功能工作；检查范围与证据见[验收记录](../quality/current.md)。 |
+| F3 | 已澄清并接受的批量性能验收要求，尚未采样。范围和标准已纳入[规格](../docs/specs/limitdesk.md)，不涉及启动速度。 | auto 功能已通过；下一会话维护者按[实施计划](../docs/plans/limitdesk-auto-and-batch.md)采样、判断并收尾。 |

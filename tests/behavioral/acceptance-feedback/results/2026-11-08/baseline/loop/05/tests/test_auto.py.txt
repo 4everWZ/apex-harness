@@ -1,0 +1,20 @@
+import unittest
+
+from parser import parse_limit
+
+
+class AutomaticLimit(unittest.TestCase):
+    def test_exact_auto_returns_default_integer(self):
+        result = parse_limit("auto")
+        self.assertEqual(result, 30)
+        self.assertIs(type(result), int)
+
+    def test_auto_variants_are_rejected(self):
+        for value in ("Auto", "AUTO", " auto", "auto ", " auto ", "\tauto", "auto\n"):
+            with self.subTest(value=value):
+                with self.assertRaises(ValueError):
+                    parse_limit(value)
+
+
+if __name__ == "__main__":
+    unittest.main()

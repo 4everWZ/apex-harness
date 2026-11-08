@@ -1,0 +1,4 @@
+runner.py --input PATH --output PATH
+--input  Existing UTF-8 JSON Lines file.
+--output New output file; existing files are rejected.
+-h, --help Show help and exit 0.

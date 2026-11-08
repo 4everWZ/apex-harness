@@ -13,7 +13,7 @@
 
 ## Acceptance
 
-[Brief current implementation and verification conclusion, with its applicable scope and direct references to existing work or acceptance evidence.]
+[Brief current implementation and verification conclusion, with its applicable scope and direct references to the existing acceptance owner, work or evidence.]
 
 | Observable requirement | Verification method | Evidence reference — optional |
 |---|---|---|

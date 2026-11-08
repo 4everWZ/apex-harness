@@ -1,13 +1,13 @@
 ---
 name: managing-project-docs
-description: Maintains project specifications, decision records, work plans, and handoffs by ownership and lifecycle. Use when defining or changing a maintained project contract, establishing its missing documentation owner, or creating, updating, reorganizing, consolidating, superseding, or retiring these documents. Does not define execution risk or verification policy.
+description: Maintains project specifications, ongoing acceptance and feedback, decisions, work plans, and handoffs by ownership and lifecycle. Use when establishing or changing their maintained information or owners, or organizing and retiring project documents. Does not define execution risk or verification policy.
 ---
 
 # Managing Project Docs
 
-Keep documentation small and useful: give information a clear owner, avoid duplicates, and keep task history and run logs out of project documents. Determine ownership and lifecycle before choosing a file; reuse an existing artifact only when it owns that information.
+Organize documentation by information ownership and actual use. Avoid duplicate maintenance, work diaries and content that has lost its purpose; keep raw run logs in their evidence system. Document types and counts follow useful responsibilities, not a fixed list. Determine ownership and lifecycle before choosing a file; reuse an existing artifact only when it owns that information.
 
-The specification states the accepted current contract and briefly reports its current implementation and verification conclusion. Implementation is the actual system state; evidence supports whether it conforms. Inputs supply requested targets or constraints. A work plan is optional and tracks the unfinished transition, not the current contract. Do not add documents, status fields, approvals, or reports just to demonstrate that this workflow was followed.
+The specification states the accepted current contract and briefly reports its current implementation and verification conclusion. Implementation is the actual system state; evidence supports whether it conforms. Ongoing acceptance and feedback use a maintained owner when needed. Inputs supply requested targets or constraints. A work plan is optional and tracks the unfinished transition, not the current contract. Do not add documents, status fields, approvals, or reports just to demonstrate that this workflow was followed.
 
 Follow explicit user instructions and established repository conventions first. Use this skill's default locations, linking, and lifecycle rules only when the repository has no convention for the case. When the user asks to review or consolidate the existing documentation structure, make the requested change without silently overriding unrelated conventions.
 
@@ -25,7 +25,7 @@ Absorb the accepted system or algorithm contract from SRS and other requirements
 Use this order:
 
 1. Make no documentation change when no durable or working information changes.
-2. Identify whether the information belongs to a durable contract, an independently maintained decision, unfinished execution, or a transfer.
+2. Identify the information's responsibility and lifecycle, such as a durable contract, ongoing acceptance and feedback, an independently maintained decision, unfinished execution, or a transfer.
 3. Update or extend the existing canonical owner for that role, including a maintained section of another document when repository conventions assign it that role.
 4. Create a separate file only when it owns a distinct scope of information that needs to be maintained or used separately. For specifications, this may be a technical layer of the same contract; follow the specification lifecycle.
 
@@ -40,3 +40,5 @@ When enough independently trackable requirements make partial implementation or 
 Writing or editing a document does not by itself make a proposed contract authoritative; follow the repository's normal acceptance process.
 
 Read [topology.md](references/topology.md) when choosing which document is authoritative, resolving its path, consolidating documents, or retiring one. Also read the lifecycle reference for any [decisions](references/decisions.md) or [work plans and handoffs](references/working-docs.md) in scope.
+
+Read [acceptance and feedback](references/acceptance.md) when maintaining results or feedback across acceptance and maintenance iterations.

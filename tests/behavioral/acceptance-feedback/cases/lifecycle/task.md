@@ -1,0 +1,1 @@
+团队现在统一维护 Beacon 的 import 和 export 验收范围，请将两个验收承载者合并到 docs/acceptance/beacon.md，保持必要结论、证据和有效反馈。import-fix 已明确取消且不再恢复，其接受要求仍有效；未来是否实施未决定。判断独立 operator 交接是否可关闭。维护相关项目文档，不改或重建已有 evidence，不运行应用，不安排新开发，不提交。

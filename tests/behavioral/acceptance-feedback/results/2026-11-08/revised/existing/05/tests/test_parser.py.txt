@@ -1,0 +1,34 @@
+import unittest
+from parser import parse_limit
+
+class AcceptedContract(unittest.TestCase):
+    def test_default(self):
+        self.assertEqual(parse_limit(), 30)
+    def test_bounds(self):
+        self.assertEqual(parse_limit(5), 5)
+        self.assertEqual(parse_limit(120), 120)
+    def test_invalid(self):
+        for value in (4, 121, True, "30", 30.0):
+            with self.subTest(value=value):
+                with self.assertRaises(ValueError):
+                    parse_limit(value)
+
+    def test_rejects_other_types(self):
+        for value in (False, b"30", [], {}, object()):
+            with self.subTest(value=value):
+                with self.assertRaises(ValueError):
+                    parse_limit(value)
+
+    def test_auto(self):
+        result = parse_limit("auto")
+        self.assertEqual(result, 30)
+        self.assertIs(type(result), int)
+
+    def test_auto_requires_exact_string(self):
+        for value in ("Auto", "AUTO", " auto", "auto ", "\tauto", "auto\n", b"auto"):
+            with self.subTest(value=value):
+                with self.assertRaises(ValueError):
+                    parse_limit(value)
+
+if __name__ == "__main__":
+    unittest.main()

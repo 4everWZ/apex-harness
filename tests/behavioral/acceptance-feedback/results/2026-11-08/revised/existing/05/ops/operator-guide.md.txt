@@ -1,0 +1,4 @@
+# Operator guide
+组件使用独立项目 Python 环境，不需要网络。值班人员从既有 CI/issue 镜像查当前状态，保留错误输入原文供复现，不把未接受的建议当作默认配置。
+
+None 或精确字符串 "auto" 返回整数 30；"Auto"、前后带空白的形式和数字字符串都不接受。其他显式值只接受 5..120 的 Python int（不含 bool）；使用边界和验收标准见[规格](../docs/specs/limitdesk.md)。当前功能验收已通过，批量性能尚待采样，实际状态见[既有验收记录](../quality/current.md)。

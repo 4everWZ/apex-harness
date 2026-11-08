@@ -1,0 +1,23 @@
+..FF
+======================================================================
+FAIL: test_invalid (test_parser.AcceptedContract.test_invalid) (value='30')
+----------------------------------------------------------------------
+Traceback (most recent call last):
+  File "D:\Code\prompt\apex\tmp\acceptance-feedback-20261108\revised\loop\tests\test_parser.py", line 13, in test_invalid
+    with self.assertRaises(ValueError):
+         ~~~~~~~~~~~~~~~~~^^^^^^^^^^^^
+AssertionError: ValueError not raised
+
+======================================================================
+FAIL: test_invalid (test_parser.AcceptedContract.test_invalid) (value=30.0)
+----------------------------------------------------------------------
+Traceback (most recent call last):
+  File "D:\Code\prompt\apex\tmp\acceptance-feedback-20261108\revised\loop\tests\test_parser.py", line 13, in test_invalid
+    with self.assertRaises(ValueError):
+         ~~~~~~~~~~~~~~~~~^^^^^^^^^^^^
+AssertionError: ValueError not raised
+
+----------------------------------------------------------------------
+Ran 3 tests in 0.002s
+
+FAILED (failures=2)

@@ -7,11 +7,12 @@ Preserve an established documentation topology. Use this fallback only when no a
 | Artifact | Lifecycle | Create only when | Fallback path | Authoritative for |
 |---|---|---|---|---|
 | specification | durable | a contract or technical layer meets the specification boundary rule below | `docs/specs/<logical-path>.md` | accepted current normative contract, interfaces, invariants, and acceptance criteria |
+| acceptance record | maintained | acceptance results and valid feedback need a continuing owner | `docs/acceptance/<topic>.md` | current acceptance conclusion, checked scope, evidence references, and valid feedback |
 | decision record | durable | a material choice or proposal needs independent acceptance or durable rationale | `docs/design/YYYY-MM-DD-<topic>-design.md` | the choice, tradeoff, and rationale |
 | work plan | working | unfinished work must remain coordinated or resumable | `docs/plans/<topic>.md` | ordered execution and unresolved work |
 | handoff | transient | responsibility is actually transferring | `docs/handoffs/<topic>.md` | the current state of that transfer |
 
-Templates are under `assets/templates/`: [specification](../assets/templates/specification.md), [decision record](../assets/templates/decision-record.md), [work plan](../assets/templates/work-plan.md), and [handoff](../assets/templates/handoff.md). Copy only the applicable sections and remove unused placeholders.
+These are common fallback forms, not a complete list of useful project documents. Choose other forms by their actual responsibility and use, preserving suitable existing owners. Templates are under `assets/templates/`: [specification](../assets/templates/specification.md), [decision record](../assets/templates/decision-record.md), [work plan](../assets/templates/work-plan.md), and [handoff](../assets/templates/handoff.md). Copy only the applicable sections and remove unused placeholders.
 
 ## Task inputs
 
@@ -44,7 +45,7 @@ Compare documents as they exist in the same repository state when deciding which
 
 A task input proposing changed behavior may likewise differ from the current contract. Treat an authorized target's difference as work to coordinate, rather than as conflicting current specifications; supplying reference material alone does not authorize changing the contract.
 
-Use an explicit user or repository canonical designation first. Otherwise use the artifact that owns the information: a specification for its contract, a decision record for the choice and rationale, a work plan for unfinished execution, or a handoff for the current transfer.
+Use an explicit user or repository canonical designation first. Otherwise use the artifact that owns the information: a specification for its contract, an acceptance owner for current results and feedback, a decision record for the choice and rationale, a work plan for unfinished execution, or a handoff for the current transfer.
 
 If two documents of the same type claim to define the same information, prefer one explicitly marked canonical or current, then one linked by current project documents. Prefer a current specification, work plan, or handoff, or an active decision, over draft, proposed, superseded, or historical material. Recency alone does not establish authority. If documents that still appear current and canonical conflict, resolve the inconsistency with their named owner or ask the user rather than choosing by date.
 
@@ -56,7 +57,7 @@ For a retained decision record, set `Status` to `superseded`. Record its direct 
 
 ## Keep references sparse
 
-Link to direct authority, dependencies, or the existing work and evidence supporting the current conformance conclusion; do not repeat transitive links. An overall specification links to technical specifications that own its detailed semantics. A specification may link to decisions that independently own material rationale; those decisions do not link back to the specification. A work plan may link to the minimum set of primary specifications and task inputs it directly uses; it does not link back to a handoff. A handoff links only to its current work plan or, when no plan exists, the primary canonical artifact. Omit a nonexistent primary artifact rather than creating one for the link. An index links to canonical artifacts, which do not link back.
+Link to direct authority, dependencies, or the existing work and evidence supporting the current conformance conclusion; do not repeat transitive links. An overall specification links to technical specifications that own its detailed semantics. A specification may link to decisions that independently own material rationale; those decisions do not link back to the specification. A specification links to its maintained acceptance owner when one exists; that owner references the governing contract and the issue, work or evidence it directly uses. A work plan may link to the primary specifications, acceptance owner and task inputs it directly uses; it does not link back to a handoff. A handoff links only to its current work plan or, when no plan exists, the primary canonical artifact. Omit a nonexistent primary artifact rather than creating one for the link. An index links to canonical artifacts, which do not link back.
 
 Do not add back-links merely to make links reciprocal. A decision's direct successor link is optional and belongs only where navigation is explicitly needed.
 
@@ -64,11 +65,11 @@ Do not add back-links merely to make links reciprocal. A decision's direct succe
 
 When multiple artifacts describe one subject:
 
-1. Identify the smallest set of stable contracts and material decisions.
-2. Select the canonical specification or specification layers for each contract.
-3. Consolidate duplicate content into its owning layer while preserving useful technical detail.
+1. Identify distinct current information responsibilities and their consumers.
+2. Select their canonical owners, including useful specification layers and continuing acceptance owners.
+3. Consolidate duplicate content into its owner while preserving useful technical detail.
 4. Keep separate decision records only for independently durable rationale.
-5. Merge unfinished execution into the minimum number of current work plans.
+5. Combine unfinished execution only when it shares a work goal and lifecycle.
 6. Remove generated data, runtime events, and experiment logs from project documents after confirming their existing owning systems; do not initiate an external move without authority.
 7. Repair direct current references.
 8. Retire artifacts that no longer own distinct useful information under the procedure below.

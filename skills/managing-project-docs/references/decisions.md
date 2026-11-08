@@ -4,7 +4,7 @@
 
 Create a separate decision record only when a choice or its rationale needs to be accepted, maintained, or referenced independently. Otherwise keep the rationale in the specification or work plan that needs it.
 
-Keep a local unresolved question in working context, the current plan, or a draft specification's `Open decisions`; do not present it as part of the accepted current contract. Link a separate proposal from the open item when the proposal meets the decision-record criteria above. When the decision becomes active, update the specification and remove the open item; when rejected, retain the open item only if the question remains unresolved.
+Keep a local unresolved question with the current artifact that owns it, using working context when no maintained owner is needed; do not present it as part of the accepted current contract. Link a separate proposal from the open item when the proposal meets the decision-record criteria above. When the decision becomes active, update the specification and remove the open item; when rejected, retain the open item only if the question remains unresolved.
 
 A proposed decision is a candidate, not an authoritative current constraint. Treat it as active only after the repository's normal acceptance process accepts it; editing the document alone does not make it authoritative.
 

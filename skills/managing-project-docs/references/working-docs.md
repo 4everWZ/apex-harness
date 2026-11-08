@@ -14,7 +14,7 @@ Use a work plan to coordinate the unfinished transition from the current contrac
 
 When work uses input requirements, keep detailed implementation tracking, clarifications, and approved deviations in working context or the current plan. In a plan, reference the minimum relevant inputs and map tasks to existing requirement IDs or source sections only when needed to avoid omissions. Use direct references instead of transcribing inputs into another requirements document.
 
-Treat the plan's stated Goal as its lifecycle boundary. An open task or blocker keeps the plan current only while it belongs to that Goal. Follow-on work outside that Goal does not prevent retirement. Create or extend another plan only when the follow-on work independently meets the work-plan criteria.
+Treat the plan's stated Goal as its lifecycle boundary. An open task or blocker keeps the plan current only while it belongs to that Goal. Follow-on work or feedback outside that Goal does not prevent retirement; keep it with its appropriate acceptance or task owner. Create or extend another plan only when the follow-on work independently meets the work-plan criteria.
 
 ## Retire working documents
 
@@ -25,7 +25,7 @@ Retire a work plan when:
 - its scope is superseded or consolidated into another canonical plan or specification; or
 - the initiative or a required dependency is closed and the plan is no longer resumable.
 
-Before retiring a plan, leave the current conformance conclusion in its specification and move any still-needed constraints, blockers or cancellation reason to their appropriate owner. For delivery, replace the retiring work link with the acceptance evidence supporting the conclusion; for cancellation or abandonment, preserve the actual remaining implementation and verification gaps. Open verification within the plan's Goal keeps it current unless the work is explicitly closed, superseded, abandoned or cancelled.
+Before retiring a plan, synchronize the continuing acceptance owner when one exists and leave the current conformance conclusion in its specification. Move any still-needed constraints, blockers or cancellation reason to their appropriate owner. For delivery, replace the retiring work link with the maintained acceptance owner or evidence supporting the conclusion; for cancellation or abandonment, preserve the actual remaining implementation and verification gaps. Open verification within the plan's Goal keeps it current unless the work is explicitly closed, superseded, abandoned or cancelled.
 
 When a retirement condition is met, apply the topology retirement procedure, including its recovery rule. Do not repeat its fact-transfer, link-repair, evidence, or retention checklist here. Delete the plan by default once those conditions are satisfied; retain it only for a concrete audit, consumer, recovery, or repository-convention reason. Do not add a retired status, archive directory, or retirement document.
 
