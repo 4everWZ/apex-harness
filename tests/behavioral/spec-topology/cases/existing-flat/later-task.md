@@ -1,0 +1,1 @@
+接下来 transport 与 storage 两个领域将分别由不同维护者查阅，请把现有规格按这两个逻辑领域整理到 specs 内的子目录，并更新项目中受影响的当前引用。HTTP intake 和 queue delivery 属于 transport，snapshot write 和 snapshot recovery 属于 storage。保持契约完整，不改变接受内容或未决选择；不需要保留旧路径，也没有审计或历史消费方。本轮不写代码、不执行应用、不提交。

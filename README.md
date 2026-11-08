@@ -37,11 +37,13 @@ For a feature with a material design choice, draft the proposed contract before 
 
 ## Default paths
 
-- specifications: `docs/specs/<topic>.md`
+- specifications: `docs/specs/<logical-path>.md`
 - decision records: `docs/design/YYYY-MM-DD-<topic>-design.md`
 - work plans: `docs/plans/<topic>.md`
 - handoffs: `docs/handoffs/<topic>.md`
-- retained superseded specifications: `docs/specs/legacy/<topic>-NN.md`
+- retained superseded specifications: `docs/specs/legacy/<logical-path>-NN.md`
+
+Specification paths may be flat or grouped into business, subsystem, or technical subdirectories. Grouping supports navigation without requiring a document for each directory or mirroring every specification layer; keep existing canonical paths unless reorganizing them is part of the task. Retained predecessors preserve the same relative grouping under `legacy/`.
 
 ## Validation
 

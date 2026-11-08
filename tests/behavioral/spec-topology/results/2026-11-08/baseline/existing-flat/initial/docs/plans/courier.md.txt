@@ -1,0 +1,13 @@
+# Courier implementation
+
+Goal: implement and verify the accepted [intake](../specs/http-intake.md), [delivery](../specs/queue-delivery.md), [writing](../specs/snapshot-write.md) and [recovery](../specs/snapshot-recovery.md) contracts over multiple sessions. No implementation evidence is available.
+
+Next: agree on the unspecified encoding, implement transport and storage, then verify the contracts together. Keep encoding proposed until accepted.
+
+Delivery preparation:
+
+1. Implement the accepted five-attempt limit, counting the initial attempt. Preserve the existing ordering, tenant isolation, success handling and restart semantics.
+2. Verify that failures one through four leave the job eligible for its next attempt, the fifth failure marks it failed, and no sixth attempt occurs. Verify that success becomes terminal without further delivery.
+3. Verify ordering and tenant isolation, then restart after the second failed attempt and confirm that the count is preserved and only three attempts remain. Verify restoration of sequence and terminal states with the snapshot contracts.
+
+These delivery implementation and acceptance tasks remain open; this preparation does not establish implementation conformance.

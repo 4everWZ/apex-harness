@@ -1,0 +1,21 @@
+# Policy update
+
+Goal: implement and verify the accepted session and export changes across the next two sessions. No implementation or verification of the new requirements has occurred. Contract details belong to the linked [access](../specs/access/policy.md) and [export](../specs/export/policy.md) owners.
+
+## Session 1: implementation and focused checks
+
+- Implement the access idle deadline and export page-limit changes against their current specifications, preserving all other accepted semantics, including the accepted Unicode ID amendment.
+- Check access just before, exactly at, and after the idle deadline; successful requests refresh the deadline, rejected requests do not, and revocation takes precedence without performing the operation.
+- Check export with zero rows, exactly the page limit, and more than one page; verify exclusive cursor continuation without repeats and tenant scoping.
+- Record actual results in the existing evidence system and update remaining tasks here. Implementation and these focused checks remain pending.
+
+## Session 2: complete verification and delivery assessment
+
+- Resume any incomplete implementation or failed checks from session 1.
+- Complete access regression coverage for case-sensitive IDs, exact Unicode code-point preservation, and distinct composed/decomposed forms, alongside the deadline, refresh, rejection and revocation cases.
+- Complete export acceptance coverage for UTF-8 JSON Lines, Unicode, final LF per event, zero-byte empty pages, page limits and continuation, tenant isolation, invalid/malformed cursors returning INVALID_CURSOR without partial events, and exclusion of credentials and session tokens.
+- Assess conformance to both specifications from the recorded evidence. Keep failures, missing checks and their next actions in this plan; retire it only after delivery and verification are established.
+
+## Review dependencies
+
+The predecessor access contract is retained for review party A until A completes the old-client review; the predecessor export contract is retained for review party B until B completes the old export-tool review. Their retention conditions are recorded with the retained artifacts. Remove each when its own condition is met.

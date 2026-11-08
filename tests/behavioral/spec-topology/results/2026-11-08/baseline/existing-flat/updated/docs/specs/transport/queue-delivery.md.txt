@@ -1,0 +1,5 @@
+# Queue delivery
+
+Deliver jobs in increasing enqueue sequence within each tenant. A failed delivery may be attempted at most 5 times including the first attempt; after the fifth failure mark the job failed. A success becomes terminal and must not be redelivered. Retries do not move other tenants' jobs into this tenant's queue. Restart preserves sequence, attempt count and terminal state.
+
+Acceptance: ordering, five failures (the fourth failure permits the fifth attempt; the fifth failure is terminal and permits no sixth attempt), success, tenant isolation and recovery after the second failed attempt.

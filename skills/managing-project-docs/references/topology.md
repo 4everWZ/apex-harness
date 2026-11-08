@@ -6,7 +6,7 @@ Preserve an established documentation topology. Use this fallback only when no a
 
 | Artifact | Lifecycle | Create only when | Fallback path | Authoritative for |
 |---|---|---|---|---|
-| specification | durable | a contract or technical layer meets the specification boundary rule below | `docs/specs/<topic>.md` | accepted current normative contract, interfaces, invariants, and acceptance criteria |
+| specification | durable | a contract or technical layer meets the specification boundary rule below | `docs/specs/<logical-path>.md` | accepted current normative contract, interfaces, invariants, and acceptance criteria |
 | decision record | durable | a material choice or proposal needs independent acceptance or durable rationale | `docs/design/YYYY-MM-DD-<topic>-design.md` | the choice, tradeoff, and rationale |
 | work plan | working | unfinished work must remain coordinated or resumable | `docs/plans/<topic>.md` | ordered execution and unresolved work |
 | handoff | transient | responsibility is actually transferring | `docs/handoffs/<topic>.md` | the current state of that transfer |
@@ -35,6 +35,8 @@ Update an existing canonical artifact at its current path. Use stable lowercase 
 ## Choose specification boundaries
 
 Use the contract and document-layer boundaries in the specification lifecycle.
+
+Group related specifications by stable business domain, subsystem, or technical subject when this makes navigation clearer. `<logical-path>` may be a filename or include those subdirectories, for example `retrieval/features`; simple sets can remain flat. Directory groups and specification layers need not match one-to-one, and a directory does not itself need an overview, index, or separate lifecycle. Do not group by task, date, or development stage.
 
 ## Resolve content conflicts
 

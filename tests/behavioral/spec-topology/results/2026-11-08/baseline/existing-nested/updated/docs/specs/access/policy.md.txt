@@ -1,0 +1,7 @@
+# Access policy
+
+The accepted session lifetime is 15 minutes since the last successful authenticated request. At the expiry instant and later, reject the request as SESSION_EXPIRED without performing its operation. Reject a revoked session as SESSION_REVOKED regardless of idle time. Rejected requests do not extend the session. IDs are case-sensitive.
+
+Acceptance covers the exact expiry boundary, successful refresh, rejected requests and revocation precedence. Current behavior is required, not an assertion about implementation conformance.
+
+Accepted amendment: preserve user IDs as the exact supplied Unicode code-point sequence; do not normalize them. Composed and decomposed forms are distinct IDs. This amendment is already accepted even though not yet recorded in Git.

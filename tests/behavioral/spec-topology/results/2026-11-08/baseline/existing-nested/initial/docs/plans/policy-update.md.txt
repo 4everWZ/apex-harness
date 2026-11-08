@@ -1,0 +1,20 @@
+# Policy update
+
+Goal: implement and verify the accepted session and export changes across the next two sessions. No implementation or verification of the new requirements has occurred. Contract details belong to the linked [access](../specs/access/policy.md) and [export](../specs/export/policy.md) owners.
+
+## Session 1: access
+
+- Implement the accepted idle lifetime and preserve all other access semantics, including the accepted Unicode amendment.
+- Verify requests immediately before, exactly at and after expiry; successful authenticated refresh; rejected requests not extending lifetime; revocation precedence and no operation on rejection.
+- Verify case-sensitive IDs and distinct composed/decomposed Unicode code-point sequences without normalization.
+- Record the results in the existing evidence system. Keep any failures and unresolved conformance checks in this plan for resumption.
+
+## Session 2: export and delivery assessment
+
+- Implement the accepted page limit while preserving export format, cursor and security semantics.
+- Verify Unicode UTF-8 JSON Lines and final LF; zero-byte empty pages; exactly the page limit and continuation across a larger result set without repeats; exclusive tenant-scoped cursors; malformed cursors returning INVALID_CURSOR without partial events; credential and session-token exclusion.
+- Record results in the existing evidence system and assess both specifications against the implementation and available evidence. Close this plan only after delivery and conformance are credibly established; otherwise retain the specific unresolved work.
+
+## Predecessor retention
+
+The actual access predecessor is retained for reviewer A until the old-client review completes; the actual export predecessor is retained for reviewer B until the old-export-tool review completes. Their retention conditions are recorded in their legacy documents. Delete each when its own condition is met; neither review is currently known to be complete. These reviews do not establish implementation conformance.

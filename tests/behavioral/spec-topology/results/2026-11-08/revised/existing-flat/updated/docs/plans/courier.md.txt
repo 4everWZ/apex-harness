@@ -1,0 +1,12 @@
+# Courier implementation
+
+Goal: implement and verify the accepted [intake](../specs/transport/http-intake.md), [delivery](../specs/transport/queue-delivery.md), [writing](../specs/storage/snapshot-write.md) and [recovery](../specs/storage/snapshot-recovery.md) contracts over multiple sessions.
+
+No implementation evidence is available. The accepted delivery limit is now five attempts including the first; implementation and conformance remain unverified.
+
+Next work:
+
+1. Agree on the unspecified snapshot encoding. Keep encoding proposed until accepted, then synchronize its specification before implementation.
+2. Implement transport and storage against their owning contracts. Implement delivery using the accepted attempt limit, exhaustion condition and persisted attempt count.
+3. Verify each contract's acceptance criteria together. For delivery, cover the third- and fourth-failure retry boundaries, fifth-failure exhaustion, absence of a sixth attempt, terminal success and recovery after the second and fourth failed attempts. Verify ordering, tenant isolation and snapshot retry/replay behavior alongside the intake and snapshot acceptance cases.
+

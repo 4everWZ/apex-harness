@@ -1,0 +1,33 @@
+# Relay 公共任务 API v1
+
+本规格拥有 API v1 的 R01–R12。以下是已接受的目标行为，不表示已实现。
+
+## 租户与创建
+
+- **R01：** 调用者只能读取和创建自己 tenant 的任务。跨 tenant 查询与不存在任务统一返回 404，不泄露任务存在性。
+- **R02：** 创建必须提供 job_type 和 JSON payload。job_type 必须是租户允许的已注册类型；未知类型返回 422，不创建任务。
+- **R03：** 创建必须携带 1–128 个 ASCII 字符的 Idempotency-Key；缺失或格式不合法返回 400，不产生任务。
+- **R04：** 幂等范围为 tenant + key。首次创建后 24 小时内，同 key、同规范化请求的重放返回同一 job_id 和原创建响应，不重复创建。不同 tenant 可独立使用相同 key。
+- **R05：** 上述范围内，同 key、不同请求返回 409。按解析后的 JSON 结构比较规范化请求，忽略对象键顺序、保留数组顺序；整数 1 与浮点 1.0 是相同数字。
+
+## 状态与取消
+
+- **R06：** 状态为 queued、running、succeeded、failed、cancelled。后三者为终态，不允许回到非终态。
+- **R07：** 首次创建为 queued；领取成功才进入 running；成功结果进入 succeeded，不可重试失败进入 failed。
+- **R08：** 取消 queued 任务立即进入 cancelled。取消 running 任务只登记取消请求，worker 确认后才能进入 cancelled，不得虚报工作已停止。
+- **R09：** 取消请求与成功结果并发时，以服务端先成功提交的终态转换为准；后到结果不得改写终态。重复取消是幂等的。登记 running 任务的取消请求本身不表示已完成终态转换。
+
+## 查询与列表
+
+- **R10：** 获取任务返回 job_id、job_type、state、created_at、updated_at、cancel_requested。终态失败另有 error_code。不得返回 worker stack 或 credentials。
+- **R11：** 列表按 created_at 降序排列，同一时间按 job_id 升序。使用不透明 cursor；page_size 范围为 1–100。无效游标返回 400；列表不得混入其他 tenant 数据。
+
+## 验收
+
+| 要求 | 必须覆盖的场景 |
+|---|---|
+| R01–R03 | 两个 tenant 的创建与读取；跨 tenant 与不存在任务均为 404；未知类型为 422 且无任务；key 缺失、空、超长、非 ASCII 均为 400 且无任务，长度 1、128 边界有效。 |
+| R04–R05 | 同租户同 key 并发相同创建仅产生一个任务、返回同 job_id 和原响应；不同请求并发冲突为 409；不同 tenant 同 key 独立；24 小时窗口边界；对象键顺序、数组顺序和 1/1.0 的比较语义。 |
+| R06–R09 | 初始 queued、领取后 running、成功及不可重试失败；queued 取消立即终止、running 取消仅标记至 worker 确认；重复取消；成功与取消终态提交的两种竞争顺序；终态不能被后到请求改写。 |
+| R10–R11 | 返回字段及敏感信息检查；失败 error_code；排序同时间平局、连续分页、page_size 1/100 与越界、非法 cursor；所有页租户隔离。 |
+| R12 | 幂等与终态行为必须用并发请求验收；单次 happy-path 示例不构成完整验收。 |

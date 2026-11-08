@@ -1,0 +1,8 @@
+Retention reason: Review party B still uses this predecessor accepted export contract for the old export-tool review.
+Remove when: B completes the old export-tool review.
+
+# Export policy
+
+The accepted export limit is 100 rows per page. Events are UTF-8 JSON Lines with a final LF per event; an empty page is zero bytes. The cursor is exclusive of the last exported sequence and tenant-scoped. An invalid cursor returns INVALID_CURSOR without returning partial events. Never export credentials or session tokens.
+
+Acceptance covers Unicode, zero rows, exactly the page limit, continuation without repeats, tenant isolation, malformed cursors and sensitive-field exclusion.

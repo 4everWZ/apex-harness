@@ -1,0 +1,33 @@
+# Relay Worker protocol v1
+
+本规格拥有 worker protocol v1 的 R13–R22，供服务器实现者及两个外部 worker 提供方共同使用。
+
+## 领取与租约
+
+- **R13：** 领取返回 job_id、attempt_id、lease_token、lease_expires_at、job_type、payload。每次重新领取必须改变 attempt_id。
+- **R14：** 默认 lease 为 60 秒，worker 每 20 秒发送心跳。成功心跳以服务端当前时间为起点延长 60 秒。lease_expires_at 时刻及之后即失效。
+- **R15：** 心跳和结果都必须携带 attempt_id、lease_token。不匹配或已过期返回 STALE_LEASE，不更新任务状态或结果。
+- **R16：** lease 过期的非终态任务重新排队；旧 worker 的迟到成功不得覆盖新 attempt 的状态。次数上限按 R18 处理。
+
+## 结果、重试与取消
+
+- **R17：** 同一有效 attempt 的相同结果重复提交返回原确认；不同结果返回 RESULT_CONFLICT。确认丢失后重试不能再次执行终态转换。
+- **R18：** 至多领取 3 次，首次领取计入次数。第三次 lease 过期或可重试失败后进入 failed，error_code 为 ATTEMPTS_EXHAUSTED，不再派发。
+- **R19：** 可重试失败不直接发布终态；仍有次数则返回 queued。不可重试失败立即进入 failed。
+- **R20：** worker 收到 cancel_requested 后应停止工作并确认取消，确认必须使用当前有效 lease。无法证明旧 attempt 已停止，不表示该 attempt 仍有权提交结果。
+- **R21：** 领取结果包含 protocol_version=1。服务器拒绝不支持的协议版本，返回 UNSUPPORTED_PROTOCOL，且不改变任务。
+
+## 独立兼容性验收
+
+**R22：** 外部提供方必须使用独立 conformance suite 验收，不能只测试服务器自带 worker。
+
+| 要求 | conformance suite 必须覆盖 |
+|---|---|
+| R13–R14 | 领取字段；重新领取 attempt_id 改变；默认 60 秒；20 秒心跳及从服务端当前时间续期；到期之前与恰好到期边界。 |
+| R15–R16 | attempt_id 或 token 错误、过期心跳/结果均为 STALE_LEASE 且不改状态或结果；过期重新排队；新 attempt 已领取后的旧 attempt 迟到成功不生效。 |
+| R17 | 有效 attempt 的相同结果重放返回原确认；不同结果返回 RESULT_CONFLICT；模拟确认丢失后重试，确认终态转换只发生一次。 |
+| R18–R19 | 第 1、2 次过期和可重试失败可重新排队；第 3 次分别进入 ATTEMPTS_EXHAUSTED；次数不因重放重复消耗；不可重试失败立即终止且不再派发。 |
+| R20 | 当前有效 lease 确认取消；过期或被替代的 attempt 无权确认或提交；无法确认旧执行停止时仍保持 lease 权限边界。 |
+| R21 | 返回 protocol_version=1；不支持版本返回 UNSUPPORTED_PROTOCOL 且无任务变更。 |
+
+套件需让两个外部提供方分别验证其实现。协议验收不能替代产品层的跨边界一致性验收。

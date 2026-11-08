@@ -40,7 +40,7 @@ A rejected draft has no legacy lifecycle.
 
 ## Supersede or retire
 
-Resolve a retained specification's legacy path with the topology path precedence, using `docs/specs/legacy/<topic>-NN.md` as its fallback in place of the topology table's step 4. Use the next unused generation, beginning with `01`.
+Resolve a retained specification's legacy path with the topology path precedence, using `docs/specs/legacy/<logical-path>-NN.md` as its fallback in place of the topology table's step 4. Preserve the specification's relative grouping under `docs/specs/`: for example, `access/policy.md` becomes `legacy/access/policy-01.md`. Use the next unused generation, beginning with `01`.
 
 Deletion is the default after supersession. Retain a predecessor only when the topology retention rule applies. Before placing it under `legacy/`, record `Retention reason` and `Remove when`; add `Superseded by` only when navigation is required by the user, an audit requirement, or repository convention. Do not assign a legacy generation merely to preserve a complete sequence.
 
