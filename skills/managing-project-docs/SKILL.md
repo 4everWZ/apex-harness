@@ -1,13 +1,13 @@
 ---
 name: managing-project-docs
-description: Maintains project specifications, decision records, work plans, and handoffs by ownership and lifecycle. Use when defining or changing a maintained project contract, establishing its missing documentation owner, or creating, reorganizing, consolidating, superseding, or retiring these documents. Does not define execution risk or verification policy.
+description: Maintains project specifications, decision records, work plans, and handoffs by ownership and lifecycle. Use when defining or changing a maintained project contract, establishing its missing documentation owner, or creating, updating, reorganizing, consolidating, superseding, or retiring these documents. Does not define execution risk or verification policy.
 ---
 
 # Managing Project Docs
 
 Keep documentation small and useful: give information a clear owner, avoid duplicates, and keep task history and run logs out of project documents. Determine ownership and lifecycle before choosing a file; reuse an existing artifact only when it owns that information.
 
-The specification states the accepted current contract. Implementation is the actual system state; evidence supports whether it conforms. Inputs supply requested targets or constraints. A work plan is optional and tracks the unfinished transition, not the current contract. Do not add documents, status fields, approvals, or reports just to demonstrate that this workflow was followed.
+The specification states the accepted current contract and briefly reports its current implementation and verification conclusion. Implementation is the actual system state; evidence supports whether it conforms. Inputs supply requested targets or constraints. A work plan is optional and tracks the unfinished transition, not the current contract. Do not add documents, status fields, approvals, or reports just to demonstrate that this workflow was followed.
 
 Follow explicit user instructions and established repository conventions first. Use this skill's default locations, linking, and lifecycle rules only when the repository has no convention for the case. When the user asks to review or consolidate the existing documentation structure, make the requested change without silently overriding unrelated conventions.
 
@@ -29,7 +29,7 @@ Use this order:
 3. Update or extend the existing canonical owner for that role, including a maintained section of another document when repository conventions assign it that role.
 4. Create a separate file only when it owns a distinct scope of information that needs to be maintained or used separately. For specifications, this may be a technical layer of the same contract; follow the specification lifecycle.
 
-When work defines or changes durable behavior, interfaces, invariants, or acceptance, read the [specification lifecycle](references/specifications.md) before choosing its owner, including when the project currently has only a plan. A work plan's existence does not satisfy specification ownership.
+When work defines or changes durable behavior, interfaces, invariants, or acceptance, or updates their implementation or verification conclusion, read the [specification lifecycle](references/specifications.md) before choosing its owner, including when the project currently has only a plan. A work plan's existence does not satisfy specification ownership.
 
 The existence of a template, implementation unit, algorithm, development stage, experiment, review, date, or task is not by itself a reason to create a file. Create a work plan only for work that must remain coordinated or resumable, and a handoff only for an actual transfer of responsibility.
 

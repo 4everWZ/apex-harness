@@ -25,7 +25,7 @@ Repository conventions take precedence over these fallback shapes and paths.
 
 The specification states the accepted current contract. Implementation is the actual system state; evidence supports whether it conforms. Inputs supply requested targets or constraints, and an optional plan coordinates the transition. Contract acceptance does not by itself establish implementation conformance, and implementation drift does not redefine the contract.
 
-The absence of a plan does not establish complete implementation. For an important unimplemented or unverified gap, a specification references its existing status owner or acceptance evidence; when none exists, it may carry a brief gap notice distinct from the contract. Update or remove that notice as the state changes rather than accumulating progress history.
+Alongside the contract, a specification retains a brief current implementation and verification conclusion, including explicit completion or remaining gaps. It links to existing work or acceptance evidence while detailed tracking stays with its owner. The agent implementing or verifying a change updates the affected conclusion and references before finishing; replace outdated state rather than accumulating history. Existing valid evidence and verification of affected changes can support the updated conclusion.
 
 A contract may use an overall specification and subordinate technical specifications without separate releases or lifecycles. Each layer owns distinct content; necessary technical semantics remain explicit.
 
@@ -35,7 +35,7 @@ Task inputs, including traditional requirements specifications, define or constr
 
 ## Example
 
-For a feature with a material design choice, draft the proposed contract before implementation when it can be defined, and synchronize it into the current specification when accepted. Add a decision record only when its rationale remains independently useful, a work plan only when execution must remain coordinated or resumable, and a handoff only for an actual transfer. Keep plans focused on remaining work rather than task history; retain a plan with unverified delivery work. At closure, move still-current facts to their owners and retire working or transient records under their lifecycle rules. Confirm still-needed content is recoverable before replacing it or relying on Git history.
+For a feature with a material design choice, draft the proposed contract before implementation when it can be defined, and synchronize it into the current specification when accepted. Add a decision record only when its rationale remains independently useful, a work plan only when execution must remain coordinated or resumable, and a handoff only for an actual transfer. Keep plans focused on remaining work rather than task history; retain a plan with unverified delivery work. Before retiring a plan, leave the current conclusion in its specification and replace delivered work links with acceptance evidence; cancellation preserves actual gaps without withdrawing the accepted contract. Move other still-current facts to their owners and retire working or transient records under their lifecycle rules. Confirm still-needed content is recoverable before replacing it or relying on Git history.
 
 ## Default paths
 
@@ -44,7 +44,7 @@ For a feature with a material design choice, draft the proposed contract before 
 - work plans: `docs/plans/<topic>.md`
 - handoffs: `docs/handoffs/<topic>.md`
 
-Specification paths may be flat or grouped into business, subsystem, or technical subdirectories. Grouping supports navigation without requiring a document for each directory or mirroring every specification layer; keep existing canonical paths unless reorganizing them is part of the task. Update accepted contracts in place; Git owns historical versions, while specifications carry the current contract and any necessary gap notice.
+Specification paths may be flat or grouped into business, subsystem, or technical subdirectories. Grouping supports navigation without requiring a document for each directory or mirroring every specification layer; keep existing canonical paths unless reorganizing them is part of the task. Update accepted contracts in place; Git owns historical versions, while specifications carry the current contract and current conformance conclusion.
 
 ## Validation
 

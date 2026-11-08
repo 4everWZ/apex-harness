@@ -56,7 +56,7 @@ For a retained decision record, set `Status` to `superseded`. Record its direct 
 
 ## Keep references sparse
 
-Link only to direct authority, dependency, or the owner of a material conformance gap; do not repeat transitive links. An overall specification links to technical specifications that own its detailed semantics. A specification may link to decisions that independently own material rationale; those decisions do not link back to the specification. A work plan may link to the minimum set of primary specifications and task inputs it directly uses; it does not link back to a handoff. A handoff links only to its current work plan or, when no plan exists, the primary canonical artifact. Omit a nonexistent primary artifact rather than creating one for the link. An index links to canonical artifacts, which do not link back.
+Link to direct authority, dependencies, or the existing work and evidence supporting the current conformance conclusion; do not repeat transitive links. An overall specification links to technical specifications that own its detailed semantics. A specification may link to decisions that independently own material rationale; those decisions do not link back to the specification. A work plan may link to the minimum set of primary specifications and task inputs it directly uses; it does not link back to a handoff. A handoff links only to its current work plan or, when no plan exists, the primary canonical artifact. Omit a nonexistent primary artifact rather than creating one for the link. An index links to canonical artifacts, which do not link back.
 
 Do not add back-links merely to make links reciprocal. A decision's direct successor link is optional and belongs only where navigation is explicitly needed.
 

@@ -25,7 +25,7 @@ Retire a work plan when:
 - its scope is superseded or consolidated into another canonical plan or specification; or
 - the initiative or a required dependency is closed and the plan is no longer resumable.
 
-Code being written is not by itself delivery. If the changed claim remains unverified, do not retire the plan as delivered. Explicit supersession, abandonment, or cancellation remains possible only after transferring any still-current constraint, blocker, cancellation reason, or unverified claim that future work still depends on to the appropriate owner.
+Before retiring a plan, leave the current conformance conclusion in its specification and move any still-needed constraints, blockers or cancellation reason to their appropriate owner. For delivery, replace the retiring work link with the acceptance evidence supporting the conclusion; for cancellation or abandonment, preserve the actual remaining implementation and verification gaps. Open verification within the plan's Goal keeps it current unless the work is explicitly closed, superseded, abandoned or cancelled.
 
 When a retirement condition is met, apply the topology retirement procedure, including its recovery rule. Do not repeat its fact-transfer, link-repair, evidence, or retention checklist here. Delete the plan by default once those conditions are satisfied; retain it only for a concrete audit, consumer, recovery, or repository-convention reason. Do not add a retired status, archive directory, or retirement document.
 

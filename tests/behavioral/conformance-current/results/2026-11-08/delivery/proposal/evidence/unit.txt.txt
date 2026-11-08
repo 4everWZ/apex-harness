@@ -1,0 +1,10 @@
+test_auto_variants_are_rejected (test_auto.AutoContract.test_auto_variants_are_rejected) ... ok
+test_exact_auto_returns_integer_default (test_auto.AutoContract.test_exact_auto_returns_integer_default) ... ok
+test_bounds (test_parser.AcceptedContract.test_bounds) ... ok
+test_default (test_parser.AcceptedContract.test_default) ... ok
+test_invalid (test_parser.AcceptedContract.test_invalid) ... ok
+
+----------------------------------------------------------------------
+Ran 5 tests in 0.001s
+
+OK

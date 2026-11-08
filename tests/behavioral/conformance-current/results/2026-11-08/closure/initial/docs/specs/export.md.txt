@@ -1,0 +1,6 @@
+# Export contract
+导出为 UTF-8 JSON Lines，每行一个完整事件并以 LF 结束，空导出为零字节。每租户按 sequence 升序，恢复后不得丢已提交事件或重复 event_id。禁止包含 credentials。验收应覆盖 Unicode、空批次、顺序、恢复、重复及敏感字段。
+
+当前团队确认实现只处理 ASCII 非空批次；Unicode、空导出、恢复与敏感字段检查均未完成。现有 [smoke](../../evidence/smoke.txt) 仅验证旧实现的一个 ASCII 非空样本，未覆盖本契约的完整验收，不能据此声称交付；顺序与重复的验收也没有现有证据支持。
+
+客户已取消 export-upgrade，且不会恢复该计划。上述接受要求仍有效，实现与验证缺口仍然存在；未来是否实施尚未决定，当前不安排后续开发。

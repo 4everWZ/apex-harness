@@ -1,0 +1,1 @@
+Accepted local-host latency requirement has not been measured yet.
