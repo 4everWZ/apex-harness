@@ -46,19 +46,19 @@ A task input proposing changed behavior may likewise differ from the current con
 
 Use an explicit user or repository canonical designation first. Otherwise use the artifact that owns the information: a specification for its contract, a decision record for the choice and rationale, a work plan for unfinished execution, or a handoff for the current transfer.
 
-If two documents of the same type claim to define the same information, prefer one explicitly marked canonical or current, then one linked by current project documents. Prefer a current specification, work plan, or handoff, or an active decision, over draft, proposed, superseded, or legacy material. Recency alone does not establish authority. If documents that still appear current and canonical conflict, resolve the inconsistency with their named owner or ask the user rather than choosing by date.
+If two documents of the same type claim to define the same information, prefer one explicitly marked canonical or current, then one linked by current project documents. Prefer a current specification, work plan, or handoff, or an active decision, over draft, proposed, superseded, or historical material. Recency alone does not establish authority. If documents that still appear current and canonical conflict, resolve the inconsistency with their named owner or ask the user rather than choosing by date.
 
 ## Preserve identity
 
 After a canonical identity or location changes, no current reference may point to the retired identity, and only the resolved canonical artifact may remain current.
 
-For a retained decision record, set `Status` to `superseded`. For a retained specification, record `Retention reason` and `Remove when`. Record a direct `Superseded by` link only when the user, an audit requirement, or a repository convention needs navigation; otherwise Git history is sufficient. Lineage alone does not require retention or a reciprocal link from the current artifact.
+For a retained decision record, set `Status` to `superseded`. Record its direct `Superseded by` link only when the user, an audit requirement, or a repository convention needs navigation; otherwise Git history is sufficient. Decision lineage alone does not require retention or a reciprocal link from the current record.
 
 ## Keep references sparse
 
-Link only to direct authority or dependency; do not repeat transitive links. An overall specification links to technical specifications that own its detailed semantics. A specification may link to decisions that independently own material rationale; those decisions do not link back to the specification. A work plan may link to the minimum set of primary specifications and task inputs it directly uses; it does not link back to a handoff. A handoff links only to its current work plan or, when no plan exists, the primary canonical artifact. Omit a nonexistent primary artifact rather than creating one for the link. An index links to canonical artifacts, which do not link back.
+Link only to direct authority, dependency, or the owner of a material conformance gap; do not repeat transitive links. An overall specification links to technical specifications that own its detailed semantics. A specification may link to decisions that independently own material rationale; those decisions do not link back to the specification. A work plan may link to the minimum set of primary specifications and task inputs it directly uses; it does not link back to a handoff. A handoff links only to its current work plan or, when no plan exists, the primary canonical artifact. Omit a nonexistent primary artifact rather than creating one for the link. An index links to canonical artifacts, which do not link back.
 
-Do not add reciprocal links. A direct successor link is optional and belongs only where navigation is explicitly needed.
+Do not add back-links merely to make links reciprocal. A decision's direct successor link is optional and belongs only where navigation is explicitly needed.
 
 ## Consolidate an over-split set
 
@@ -87,7 +87,7 @@ Before deleting any project artifact:
 4. Retain the artifact only for an established audit, current consumer, recovery, or repository-convention reason. Historical chronology alone does not justify keeping the file.
 5. Otherwise delete it.
 
-A superseded status does not itself require retention. If a retained predecessor is removed, any retained lineage bypasses it and current links resolve to the successor.
+A superseded status does not itself require retention. If a retained decision predecessor is removed, any retained lineage bypasses it and current links resolve to the successor.
 
 ## Optional document index
 

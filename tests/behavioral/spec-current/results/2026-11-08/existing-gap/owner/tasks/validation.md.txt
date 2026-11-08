@@ -1,0 +1,8 @@
+# LimitParser validation work
+This file owns current validation state for the [accepted specification](../docs/specs/limit-parser.md).
+
+The current implementation calls `int(value)` for explicit inputs: 4, 121, True, "30", and 30.0 return 4, 121, 1, 30, and 30 respectively instead of raising ValueError. The default None and boundaries 5 and 120 pass the existing tests.
+
+The [current check](../evidence/current-check.txt) records 3 tests with 5 failing invalid-input subcases and exit code 1. Inputs and constraints outside this suite are not verified by that record. The [older smoke check](../evidence/old-smoke.txt) only checked a default on an older state and does not establish current full acceptance.
+
+Remaining: reject out-of-range integers, bool, string and float; then run the existing acceptance tests against the implementation. There is no passing current evidence for the complete contract. Do not relax the accepted specification to match the implementation.

@@ -1,0 +1,1 @@
+请核对 LimitParser 的接受规格和当前实现，必要时运行本地已有测试，并让后续读者能看懂文档中的重要事实。当前没有后续开发安排，也没有项目任务系统；本轮只维护文档，不修改实现或测试，不为未来开发安排任务。已有验证记录写在 evidence/current-check.txt，复用它记录本轮测试结果。测试使用给定项目环境的 Python 执行 python -m unittest discover -s tests，不安装依赖。

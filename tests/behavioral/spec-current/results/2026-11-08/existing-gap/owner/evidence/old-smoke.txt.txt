@@ -1,0 +1,1 @@
+Older smoke check: default value None returned 30. Range and type rejection were not checked; this is not current full acceptance evidence.
